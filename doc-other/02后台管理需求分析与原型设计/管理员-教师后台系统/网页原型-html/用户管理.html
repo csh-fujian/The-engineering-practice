@@ -1,0 +1,1305 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>用户管理</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
+    <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
+    <link href="data/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="files/用户管理/styles.css" type="text/css" rel="stylesheet"/>
+    <script src="resources/scripts/jquery-1.7.1.min.js"></script>
+    <script src="resources/scripts/jquery-ui-1.8.10.custom.min.js"></script>
+    <script src="resources/scripts/prototypePre.js"></script>
+    <script src="data/document.js"></script>
+    <script src="resources/scripts/prototypePost.js"></script>
+    <script src="files/用户管理/data.js"></script>
+    <script type="text/javascript">
+      $axure.utils.getTransparentGifPath = function() { return 'resources/images/transparent.gif'; };
+      $axure.utils.getOtherPath = function() { return 'resources/Other.html'; };
+      $axure.utils.getReloadPath = function() { return 'resources/reload.html'; };
+    </script>
+  </head>
+  <body>
+    <div id="base" class="">
+
+      <!-- 添加角色 (动态面板) -->
+      <div id="u55" class="ax_default" data-label="添加角色">
+        <div id="u55_state0" class="panel_state" data-label="State1" style="">
+          <div id="u55_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u56" class="ax_default box_1">
+              <div id="u56_div" class=""></div>
+            </div>
+
+            <!-- Unnamed (列表框) -->
+            <div id="u57" class="ax_default list_box">
+              <select id="u57_input" size="2">
+                <option value="老师">老师</option>
+                <option value="助教">助教</option>
+                <option value="学生">学生</option>
+                <option value="管理员">管理员</option>
+              </select>
+            </div>
+
+            <!-- Unnamed (文本框) -->
+            <div id="u58" class="ax_default text_field">
+              <input id="u58_input" type="text" value="角色列表"/>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u59" class="ax_default primary_button">
+              <div id="u59_div" class=""></div>
+              <div id="u59_text" class="text ">
+                <p><span>添加</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u60" class="ax_default primary_button">
+              <div id="u60_div" class=""></div>
+              <div id="u60_text" class="text ">
+                <p><span>取消</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 添加/修改角色选项 (动态面板) -->
+      <div id="u61" class="ax_default" data-label="添加/修改角色选项">
+        <div id="u61_state0" class="panel_state" data-label="State1" style="">
+          <div id="u61_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u62" class="ax_default box_1">
+              <div id="u62_div" class=""></div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u63" class="ax_default primary_button">
+              <div id="u63_div" class=""></div>
+              <div id="u63_text" class="text ">
+                <p><span>添加角色</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u64" class="ax_default primary_button">
+              <div id="u64_div" class=""></div>
+              <div id="u64_text" class="text ">
+                <p><span>修改角色</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u65" class="ax_default label">
+              <div id="u65_div" class=""></div>
+              <div id="u65_text" class="text ">
+                <p><span>请选择</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 删除角色 (动态面板) -->
+      <div id="u66" class="ax_default ax_default_hidden" data-label="删除角色" style="display:none; visibility: hidden">
+        <div id="u66_state0" class="panel_state" data-label="State1" style="">
+          <div id="u66_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u67" class="ax_default box_1">
+              <div id="u67_div" class=""></div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u68" class="ax_default label">
+              <div id="u68_div" class=""></div>
+              <div id="u68_text" class="text ">
+                <p><span>确定删除该角色吗？</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u69" class="ax_default button">
+              <div id="u69_div" class=""></div>
+              <div id="u69_text" class="text ">
+                <p><span>删除</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u70" class="ax_default button">
+              <div id="u70_div" class=""></div>
+              <div id="u70_text" class="text ">
+                <p><span>取消</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 设置权限 (动态面板) -->
+      <div id="u71" class="ax_default ax_default_hidden" data-label="设置权限" style="display:none; visibility: hidden">
+        <div id="u71_state0" class="panel_state" data-label="State1" style="">
+          <div id="u71_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u72" class="ax_default box_1">
+              <div id="u72_div" class=""></div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u73" class="ax_default label">
+              <div id="u73_div" class=""></div>
+              <div id="u73_text" class="text ">
+                <p><span>设置该角色为</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u74" class="ax_default label">
+              <div id="u74_div" class=""></div>
+              <div id="u74_text" class="text ">
+                <p><span>老师</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u75" class="ax_default line">
+              <img id="u75_img" class="img " src="images/用户管理/u75.png"/>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u76" class="ax_default label">
+              <div id="u76_div" class=""></div>
+              <div id="u76_text" class="text ">
+                <p><span>助教</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u77" class="ax_default line">
+              <img id="u77_img" class="img " src="images/用户管理/u75.png"/>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u78" class="ax_default label">
+              <div id="u78_div" class=""></div>
+              <div id="u78_text" class="text ">
+                <p><span>学生</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u79" class="ax_default label">
+              <div id="u79_div" class=""></div>
+              <div id="u79_text" class="text ">
+                <p><span>管理员</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u80" class="ax_default line">
+              <img id="u80_img" class="img " src="images/用户管理/u75.png"/>
+            </div>
+
+            <!-- Unnamed (水平线) -->
+            <div id="u81" class="ax_default line">
+              <img id="u81_img" class="img " src="images/用户管理/u75.png"/>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u82" class="ax_default primary_button">
+              <div id="u82_div" class=""></div>
+              <div id="u82_text" class="text ">
+                <p><span>取消</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 增加用户弹出框 (动态面板) -->
+      <div id="u83" class="ax_default ax_default_hidden" data-label="增加用户弹出框" style="display:none; visibility: hidden">
+        <div id="u83_state0" class="panel_state" data-label="State1" style="">
+          <div id="u83_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u84" class="ax_default box_1">
+              <div id="u84_div" class=""></div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u85" class="ax_default box_1">
+              <div id="u85_div" class=""></div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u86" class="ax_default box_2">
+              <div id="u86_div" class=""></div>
+              <div id="u86_text" class="text ">
+                <p><span>新增用户</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (组 合) -->
+            <div id="u87" class="ax_default" data-left="528" data-top="166" data-width="439" data-height="47">
+
+              <!-- Unnamed (文本框) -->
+              <div id="u88" class="ax_default text_field">
+                <input id="u88_input" type="text" value="请输入姓名"/>
+              </div>
+
+              <!-- Unnamed (矩形) -->
+              <div id="u89" class="ax_default label">
+                <div id="u89_div" class=""></div>
+                <div id="u89_text" class="text ">
+                  <p><span style="color:#FF0000;">*</span><span>&nbsp; 姓名</span></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u90" class="ax_default button">
+              <div id="u90_div" class=""></div>
+              <div id="u90_text" class="text ">
+                <p><span>保存</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (组 合) -->
+            <div id="u91" class="ax_default" data-left="507" data-top="486" data-width="461" data-height="49">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u92" class="ax_default label">
+                <div id="u92_div" class=""></div>
+                <div id="u92_text" class="text ">
+                  <p><span style="color:#FF0000;">*</span><span>&nbsp; 学/工号</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (文本框) -->
+              <div id="u93" class="ax_default text_field">
+                <input id="u93_input" type="text" value="请输入学/工号"/>
+              </div>
+            </div>
+
+            <!-- Unnamed (组 合) -->
+            <div id="u94" class="ax_default" data-left="526" data-top="621" data-width="442" data-height="52">
+
+              <!-- Unnamed (下拉列表框) -->
+              <div id="u95" class="ax_default droplist">
+                <select id="u95_input">
+                  <option selected value="教师">教师</option>
+                  <option value="助教">助教</option>
+                  <option value="学生">学生</option>
+                </select>
+              </div>
+
+              <!-- Unnamed (矩形) -->
+              <div id="u96" class="ax_default label">
+                <div id="u96_div" class=""></div>
+                <div id="u96_text" class="text ">
+                  <p><span style="color:#FF0000;">*</span><span>&nbsp; 身份</span></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (组 合) -->
+            <div id="u97" class="ax_default" data-left="499" data-top="293" data-width="470" data-height="43">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u98" class="ax_default label">
+                <div id="u98_div" class=""></div>
+                <div id="u98_text" class="text ">
+                  <p><span style="color:#FF0000;">*</span><span>&nbsp; 所属地区</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (下拉列表框) -->
+              <div id="u99" class="ax_default droplist">
+                <select id="u99_input">
+                  <option selected value="福建省">福建省</option>
+                  <option value="河北省">河北省</option>
+                  <option value="山西省">山西省</option>
+                  <option value="辽宁省">辽宁省</option>
+                  <option value="吉林省">吉林省</option>
+                  <option value="黑龙江省">黑龙江省</option>
+                  <option value="江苏省">江苏省</option>
+                  <option value="浙江省">浙江省</option>
+                  <option value="安徽省">安徽省</option>
+                  <option value="福建省">福建省</option>
+                  <option value="江西省">江西省</option>
+                  <option value="山东省">山东省</option>
+                  <option value="河南省">河南省</option>
+                  <option value="湖北省">湖北省</option>
+                  <option value="湖南省">湖南省</option>
+                  <option value="广东省">广东省</option>
+                  <option value="海南省">海南省</option>
+                  <option value="四川省">四川省</option>
+                  <option value="贵州省">贵州省</option>
+                  <option value="云南省">云南省</option>
+                  <option value="陕西省">陕西省</option>
+                  <option value="甘肃省">甘肃省</option>
+                  <option value="青海省">青海省</option>
+                  <option value="内蒙古自治区">内蒙古自治区</option>
+                  <option value="广西壮族自治区">广西壮族自治区</option>
+                  <option value="西藏自治区">西藏自治区</option>
+                  <option value="宁夏回族自治区">宁夏回族自治区</option>
+                  <option value="新疆维吾尔自治区">新疆维吾尔自治区</option>
+                  <option value="上海市">上海市</option>
+                  <option value="北京市">北京市</option>
+                  <option value="天津市">天津市</option>
+                  <option value="重庆市">重庆市</option>
+                  <option value="台湾省">台湾省</option>
+                  <option value="香港特别行政区">香港特别行政区</option>
+                  <option value="澳门特别行政区">澳门特别行政区</option>
+                </select>
+              </div>
+
+              <!-- Unnamed (下拉列表框) -->
+              <div id="u100" class="ax_default droplist">
+                <select id="u100_input">
+                  <option value="福州市">福州市</option>
+                  <option value="厦门市">厦门市</option>
+                  <option value="泉州市">泉州市</option>
+                  <option value="龙岩市">龙岩市</option>
+                  <option value="宁德市">宁德市</option>
+                  <option value="三明市">三明市</option>
+                  <option value="漳州市">漳州市</option>
+                  <option value="南平市">南平市</option>
+                  <option value="莆田市">莆田市</option>
+                </select>
+              </div>
+
+              <!-- Unnamed (矩形) -->
+              <div id="u101" class="ax_default label">
+                <div id="u101_div" class=""></div>
+                <div id="u101_text" class="text ">
+                  <p><span>-</span></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (组 合) -->
+            <div id="u102" class="ax_default" data-left="499" data-top="354" data-width="470" data-height="49">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u103" class="ax_default label">
+                <div id="u103_div" class=""></div>
+                <div id="u103_text" class="text ">
+                  <p><span style="color:#FF0000;">*</span><span>&nbsp; 所属学校</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (下拉列表框) -->
+              <div id="u104" class="ax_default droplist">
+                <select id="u104_input">
+                  <option value="福州大学">福州大学</option>
+                  <option value="厦门大学">厦门大学</option>
+                  <option value="华侨大学">华侨大学</option>
+                  <option value="集美大学">集美大学</option>
+                  <option value="福建师范大学">福建师范大学</option>
+                  <option value="福建医科大学">福建医科大学</option>
+                  <option value="福建农林大学">福建农林大学</option>
+                  <option value="福建工程学院">福建工程学院</option>
+                  <option value="福建中医药大学">福建中医药大学</option>
+                  <option value="厦门理工学院">厦门理工学院</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Unnamed (组 合) -->
+            <div id="u105" class="ax_default" data-left="499" data-top="421" data-width="469" data-height="47">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u106" class="ax_default label">
+                <div id="u106_div" class=""></div>
+                <div id="u106_text" class="text ">
+                  <p><span style="color:#FF0000;">*</span><span>&nbsp; 所属院系</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (下拉列表框) -->
+              <div id="u107" class="ax_default droplist">
+                <select id="u107_input">
+                  <option value="数学与计算机科学学院">数学与计算机科学学院</option>
+                  <option value="法学院">法学院</option>
+                  <option value="马克思学院">马克思学院</option>
+                  <option value="厦门工艺美术学院">厦门工艺美术学院</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Unnamed (组 合) -->
+            <div id="u108" class="ax_default" data-left="507" data-top="554" data-width="461" data-height="49">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u109" class="ax_default label">
+                <div id="u109_div" class=""></div>
+                <div id="u109_text" class="text ">
+                  <p><span style="color:#FF0000;">*</span><span>&nbsp; 手机号</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (文本框) -->
+              <div id="u110" class="ax_default text_field">
+                <input id="u110_input" type="text" value="请输入手机号"/>
+              </div>
+            </div>
+
+            <!-- Unnamed (组 合) -->
+            <div id="u111" class="ax_default" data-left="527" data-top="231" data-width="226" data-height="43">
+
+              <!-- Unnamed (矩形) -->
+              <div id="u112" class="ax_default label">
+                <div id="u112_div" class=""></div>
+                <div id="u112_text" class="text ">
+                  <p><span style="color:#FF0000;">*</span><span>&nbsp; 性别</span></p>
+                </div>
+              </div>
+
+              <!-- Unnamed (下拉列表框) -->
+              <div id="u113" class="ax_default droplist">
+                <select id="u113_input">
+                  <option value="男">男</option>
+                  <option value="女">女</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u114" class="ax_default button">
+              <div id="u114_div" class=""></div>
+              <div id="u114_text" class="text ">
+                <p><span>关闭</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u115" class="ax_default box_2">
+        <div id="u115_div" class=""></div>
+      </div>
+
+      <!-- Unnamed (左侧菜单) -->
+
+      <!-- Unnamed (矩形) -->
+      <div id="u117" class="ax_default box_2">
+        <div id="u117_div" class=""></div>
+      </div>
+
+      <!-- 顶部菜单 (动态面板) -->
+      <div id="u118" class="ax_default" data-label="顶部菜单">
+        <div id="u118_state0" class="panel_state" data-label="框架" style="">
+          <div id="u118_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u119" class="ax_default box_1">
+              <div id="u119_div" class=""></div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u120" class="ax_default box_1">
+              <div id="u120_div" class=""></div>
+            </div>
+
+            <!-- 功能区域 (动态面板) -->
+            <div id="u121" class="ax_default" data-label="功能区域">
+              <div id="u121_state0" class="panel_state" data-label="State1" style="">
+                <div id="u121_state0_content" class="panel_state_content">
+
+                  <!-- Unnamed (矩形) -->
+                  <div id="u122" class="ax_default box_1">
+                    <div id="u122_div" class=""></div>
+                    <div id="u122_text" class="text ">
+                      <p style="font-size:20px;"><span style="font-family:'FontAwesome';font-weight:400;font-style:normal;"></span><span style="font-family:'微软雅黑';font-weight:400;font-size:14px;">&nbsp; 退出登录</span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u123" class="ax_default box_2">
+              <div id="u123_div" class=""></div>
+              <div id="u123_text" class="text ">
+                <p><span>签到系统</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u124" class="ax_default label">
+              <div id="u124_div" class=""></div>
+              <div id="u124_text" class="text ">
+                <p><span>您好，池芝标</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 对话框 (动态面板) -->
+      <div id="u125" class="ax_default ax_default_hidden" data-label="对话框" style="display:none; visibility: hidden">
+        <div id="u125_state0" class="panel_state" data-label="退出确认" style="">
+          <div id="u125_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u126" class="ax_default box_1">
+              <div id="u126_div" class=""></div>
+              <div id="u126_text" class="text ">
+                <p></p><p></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u127" class="ax_default box_1">
+              <div id="u127_div" class=""></div>
+              <div id="u127_text" class="text ">
+                <p><span><br></span></p><p><span>确定要退出登录吗？</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (组 合) -->
+            <div id="u128" class="ax_default" data-left="256" data-top="181" data-width="180" data-height="35">
+
+              <!-- Unnamed (组 合) -->
+              <div id="u129" class="ax_default" data-left="256" data-top="181" data-width="180" data-height="35">
+
+                <!-- Unnamed (矩形) -->
+                <div id="u130" class="ax_default box_1">
+                  <div id="u130_div" class=""></div>
+                  <div id="u130_text" class="text ">
+                    <p><span>取消</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u131" class="ax_default box_1">
+                  <div id="u131_div" class=""></div>
+                  <div id="u131_text" class="text ">
+                    <p><span>确定</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u132" class="ax_default box_1">
+              <div id="u132_div" class=""></div>
+              <div id="u132_text" class="text ">
+                <p><span>退出确认</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u133" class="ax_default box_1">
+              <img id="u133_img" class="img " src="images/系统首页/u18.png"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 事务管理 (动态面板) -->
+      <div id="u134" class="ax_default" data-label="事务管理">
+        <div id="u134_state0" class="panel_state" data-label="展开" style="">
+          <div id="u134_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u135" class="ax_default box_1">
+              <div id="u135_div" class=""></div>
+              <div id="u135_text" class="text ">
+                <p><span style="font-family:'FontAwesome';"> </span><span style="font-family:'微软雅黑';">事务管理</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u136" class="ax_default box_1 selected" selectiongroup="u116二级菜单">
+              <div id="u136_div" class="selected"></div>
+              <div id="u136_text" class="text ">
+                <p><span>课程管理</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u137" class="ax_default _文本段落">
+              <div id="u137_div" class=""></div>
+              <div id="u137_text" class="text ">
+                <p><span></span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u138" class="ax_default box_1 selected" selectiongroup="u116二级菜单">
+              <div id="u138_div" class="selected"></div>
+              <div id="u138_text" class="text ">
+                <p><span>教师和学生账户管理</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u139" class="ax_default box_1 selected" selectiongroup="u116二级菜单">
+              <div id="u139_div" class="selected"></div>
+              <div id="u139_text" class="text ">
+                <p><span>签到详情</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u140" class="ax_default box_1 selected" selectiongroup="u116二级菜单">
+              <div id="u140_div" class="selected"></div>
+              <div id="u140_text" class="text ">
+                <p><span>学校管理</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="u134_state1" class="panel_state" data-label="收起" style="visibility: hidden;">
+          <div id="u134_state1_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u141" class="ax_default box_1">
+              <div id="u141_div" class=""></div>
+              <div id="u141_text" class="text ">
+                <p><span style="font-family:'FontAwesome';font-weight:400;font-style:normal;"> </span><span style="font-family:'微软雅黑';font-weight:400;">事务管理</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u142" class="ax_default _文本段落">
+              <div id="u142_div" class=""></div>
+              <div id="u142_text" class="text ">
+                <p><span></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 权限管理 (动态面板) -->
+      <div id="u143" class="ax_default" data-label="权限管理">
+        <div id="u143_state0" class="panel_state" data-label="展开" style="">
+          <div id="u143_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u144" class="ax_default box_1">
+              <div id="u144_div" class=""></div>
+              <div id="u144_text" class="text ">
+                <p><span> 权限管理</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u145" class="ax_default box_1 selected" selectiongroup="u116二级菜单">
+              <div id="u145_div" class="selected"></div>
+              <div id="u145_text" class="text ">
+                <p><span>角色管理</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u146" class="ax_default box_1" selectiongroup="u116二级菜单">
+              <div id="u146_div" class=""></div>
+              <div id="u146_text" class="text ">
+                <p><span>权限设置</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u147" class="ax_default _文本段落">
+              <div id="u147_div" class=""></div>
+              <div id="u147_text" class="text ">
+                <p><span></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="u143_state1" class="panel_state" data-label="收起" style="visibility: hidden;">
+          <div id="u143_state1_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u148" class="ax_default box_1">
+              <div id="u148_div" class=""></div>
+              <div id="u148_text" class="text ">
+                <p><span>权限管理</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u149" class="ax_default _文本段落">
+              <div id="u149_div" class=""></div>
+              <div id="u149_text" class="text ">
+                <p><span></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 系统首页 (动态面板) -->
+      <div id="u150" class="ax_default" data-label="系统首页">
+        <div id="u150_state0" class="panel_state" data-label="展开" style="">
+          <div id="u150_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u151" class="ax_default box_1">
+              <div id="u151_div" class=""></div>
+              <div id="u151_text" class="text ">
+                <p><span style="font-family:'FontAwesome';font-weight:400;font-style:normal;"> </span><span style="font-family:'微软雅黑';font-weight:400;">系统首页</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u152" class="ax_default _文本段落">
+              <div id="u152_div" class=""></div>
+              <div id="u152_text" class="text ">
+                <p><span>&gt;</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 对话框 (动态面板) -->
+      <div id="u153" class="ax_default ax_default_hidden" data-label="对话框" style="display:none; visibility: hidden">
+        <div id="u153_state0" class="panel_state" data-label="退出确认" style="">
+          <div id="u153_state0_content" class="panel_state_content">
+
+            <!-- Unnamed (矩形) -->
+            <div id="u154" class="ax_default box_1">
+              <div id="u154_div" class=""></div>
+              <div id="u154_text" class="text ">
+                <p></p><p></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u155" class="ax_default box_1">
+              <div id="u155_div" class=""></div>
+              <div id="u155_text" class="text ">
+                <p><span><br></span></p><p><span>确定要退出登录吗？</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (组 合) -->
+            <div id="u156" class="ax_default" data-left="256" data-top="181" data-width="180" data-height="35">
+
+              <!-- Unnamed (组 合) -->
+              <div id="u157" class="ax_default" data-left="256" data-top="181" data-width="180" data-height="35">
+
+                <!-- Unnamed (矩形) -->
+                <div id="u158" class="ax_default box_1">
+                  <div id="u158_div" class=""></div>
+                  <div id="u158_text" class="text ">
+                    <p><span>取消</span></p>
+                  </div>
+                </div>
+
+                <!-- Unnamed (矩形) -->
+                <div id="u159" class="ax_default box_1">
+                  <div id="u159_div" class=""></div>
+                  <div id="u159_text" class="text ">
+                    <p><span>确定</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Unnamed (矩形) -->
+            <div id="u160" class="ax_default box_1">
+              <div id="u160_div" class=""></div>
+              <div id="u160_text" class="text ">
+                <p><span>退出确认</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (形状) -->
+            <div id="u161" class="ax_default box_1">
+              <img id="u161_img" class="img " src="images/系统首页/u18.png"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u162" class="ax_default box_2">
+        <div id="u162_div" class=""></div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u163" class="ax_default box_2">
+        <div id="u163_div" class=""></div>
+        <div id="u163_text" class="text ">
+          <p><span>用户管理</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u164" class="ax_default box_2">
+        <div id="u164_div" class=""></div>
+      </div>
+
+      <!-- Unnamed (底部版权) -->
+
+      <!-- footer (组 合) -->
+      <div id="u166" class="ax_default" data-label="footer" data-left="0" data-top="0" data-width="1170" data-height="70">
+
+        <!-- Unnamed (矩形) -->
+        <div id="u167" class="ax_default box_1">
+          <img id="u167_img" class="img " src="images/系统首页/u52.png"/>
+          <div id="u167_text" class="text ">
+            <p><span>Copyright © 郑孝勇小组, All Rights Reserved.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u168" class="ax_default button">
+        <div id="u168_div" class=""></div>
+        <div id="u168_text" class="text ">
+          <p><span>查询</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u169" class="ax_default button">
+        <div id="u169_div" class=""></div>
+        <div id="u169_text" class="text ">
+          <p><span>上一页</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u170" class="ax_default button">
+        <div id="u170_div" class=""></div>
+        <div id="u170_text" class="text ">
+          <p><span>下一页</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u171" class="ax_default label">
+        <div id="u171_div" class=""></div>
+        <div id="u171_text" class="text ">
+          <p><span>每页20条数据，当前第1页，共1页，共1条数据</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (组 合) -->
+      <div id="u172" class="ax_default" data-left="233" data-top="185" data-width="252" data-height="50">
+
+        <!-- Unnamed (下拉列表框) -->
+        <div id="u173" class="ax_default droplist">
+          <select id="u173_input">
+            <option selected value="全部人员">全部人员</option>
+            <option value="老师">老师</option>
+            <option value="助教">助教</option>
+            <option value="学生">学生</option>
+            <option value="管理员">管理员</option>
+          </select>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u174" class="ax_default label">
+          <div id="u174_div" class=""></div>
+          <div id="u174_text" class="text ">
+            <p><span>角色：</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (矩形) -->
+        <div id="u175" class="ax_default label">
+          <div id="u175_div" class=""></div>
+          <div id="u175_text" class="text ">
+            <p><span>学/工号：</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (组 合) -->
+      <div id="u176" class="ax_default" data-left="916" data-top="185" data-width="287" data-height="45">
+
+        <!-- Unnamed (矩形) -->
+        <div id="u177" class="ax_default label">
+          <div id="u177_div" class=""></div>
+          <div id="u177_text" class="text ">
+            <p><span>所属学院：</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (下拉列表框) -->
+        <div id="u178" class="ax_default droplist">
+          <select id="u178_input">
+            <option selected value="数学与计算机科学学院">数学与计算机科学学院</option>
+            <option value="法学院">法学院</option>
+            <option value="马克思学院">马克思学院</option>
+            <option value="厦门工艺美术学院">厦门工艺美术学院</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u179" class="ax_default button">
+        <div id="u179_div" class=""></div>
+        <div id="u179_text" class="text ">
+          <p><span>+ 新增用户</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (组 合) -->
+      <div id="u180" class="ax_default" data-left="656" data-top="185" data-width="242" data-height="49">
+
+        <!-- Unnamed (矩形) -->
+        <div id="u181" class="ax_default label">
+          <div id="u181_div" class=""></div>
+          <div id="u181_text" class="text ">
+            <p><span>所在学校:</span></p>
+          </div>
+        </div>
+
+        <!-- Unnamed (下拉列表框) -->
+        <div id="u182" class="ax_default droplist">
+          <select id="u182_input">
+            <option value="福州大学">福州大学</option>
+            <option value="厦门大学">厦门大学</option>
+            <option value="华侨大学">华侨大学</option>
+            <option value="集美大学">集美大学</option>
+            <option value="福建师范大学">福建师范大学</option>
+            <option value="福建医科大学">福建医科大学</option>
+            <option value="福建农林大学">福建农林大学</option>
+            <option value="福建工程学院">福建工程学院</option>
+            <option value="福建中医药大学">福建中医药大学</option>
+            <option value="厦门理工学院">厦门理工学院</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Unnamed (组 合) -->
+      <div id="u183" class="ax_default" data-left="479" data-top="185" data-width="159" data-height="38">
+
+        <!-- 学工号文本框 (文本框) -->
+        <div id="u184" class="ax_default text_field" data-label="学工号文本框">
+          <input id="u184_input" type="text" value="请输入学/工号"/>
+        </div>
+      </div>
+
+      <!-- Unnamed (菜单) -->
+      <div id="u185" class="ax_default">
+        <img id="u185_menu" class="img " src="images/用户管理/u185_menu.png" alt="u185_menu"/>
+
+        <!-- Unnamed (表格) -->
+        <div id="u186" class="ax_default">
+
+          <!-- Unnamed (Menu Item) -->
+          <div id="u187" class="ax_default menu_item">
+            <img id="u187_img" class="img " src="images/用户管理/u187.png"/>
+          </div>
+
+          <!-- Unnamed (Menu Item) -->
+          <div id="u188" class="ax_default menu_item">
+            <img id="u188_img" class="img " src="images/用户管理/u188.png"/>
+            <div id="u188_text" class="text ">
+              <p><span>学/工号</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Menu Item) -->
+          <div id="u189" class="ax_default menu_item">
+            <img id="u189_img" class="img " src="images/用户管理/u188.png"/>
+            <div id="u189_text" class="text ">
+              <p><span>姓名</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Menu Item) -->
+          <div id="u190" class="ax_default menu_item">
+            <img id="u190_img" class="img " src="images/用户管理/u190.png"/>
+            <div id="u190_text" class="text ">
+              <p><span>性别</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Menu Item) -->
+          <div id="u191" class="ax_default menu_item">
+            <img id="u191_img" class="img " src="images/用户管理/u191.png"/>
+            <div id="u191_text" class="text ">
+              <p><span>角色</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Menu Item) -->
+          <div id="u192" class="ax_default menu_item">
+            <img id="u192_img" class="img " src="images/用户管理/u188.png"/>
+            <div id="u192_text" class="text ">
+              <p><span>电话</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Menu Item) -->
+          <div id="u193" class="ax_default menu_item">
+            <img id="u193_img" class="img " src="images/用户管理/u193.png"/>
+            <div id="u193_text" class="text ">
+              <p><span>所在学校</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Menu Item) -->
+          <div id="u194" class="ax_default menu_item">
+            <img id="u194_img" class="img " src="images/用户管理/u194.png"/>
+            <div id="u194_text" class="text ">
+              <p><span>所属学院</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Menu Item) -->
+          <div id="u195" class="ax_default menu_item">
+            <img id="u195_img" class="img " src="images/用户管理/u195.png"/>
+            <div id="u195_text" class="text ">
+              <p><span>创建时间</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (Menu Item) -->
+          <div id="u196" class="ax_default menu_item">
+            <img id="u196_img" class="img " src="images/用户管理/u196.png"/>
+            <div id="u196_text" class="text ">
+              <p><span>操作</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 全选复选框 (复选框) -->
+      <div id="u197" class="ax_default checkbox" data-label="全选复选框">
+        <label for="u197_input" style="position: absolute; left: 0px;">
+          <div id="u197_text" class="text ">
+            <p><span>全选</span></p>
+          </div>
+        </label>
+        <input id="u197_input" type="checkbox" value="checkbox"/>
+      </div>
+
+      <!-- Unnamed (中继器) -->
+      <div id="u198" class="ax_default">
+        <script id="u198_script" type="axure-repeater-template">
+
+          <!-- Unnamed (表格) -->
+          <div id="u199" class="ax_default u199">
+
+            <!-- Unnamed (单元格) -->
+            <div id="u200" class="ax_default table_cell u200">
+              <img id="u200_img" class="img u200_img" src="images/用户管理/u200.png"/>
+            </div>
+
+            <!-- 学、工号 (单元格) -->
+            <div id="u201" class="ax_default table_cell u201" data-label="学、工号">
+              <img id="u201_img" class="img u201_img" src="images/用户管理/学、工号_u201.png"/>
+            </div>
+
+            <!-- 姓名 (单元格) -->
+            <div id="u202" class="ax_default table_cell u202" data-label="姓名">
+              <img id="u202_img" class="img u202_img" src="images/用户管理/学、工号_u201.png"/>
+            </div>
+
+            <!-- 性别 (单元格) -->
+            <div id="u203" class="ax_default table_cell u203" data-label="性别">
+              <img id="u203_img" class="img u203_img" src="images/用户管理/性别_u203.png"/>
+            </div>
+
+            <!-- 身份 (单元格) -->
+            <div id="u204" class="ax_default table_cell u204" data-label="身份">
+              <img id="u204_img" class="img u204_img" src="images/用户管理/身份_u204.png"/>
+            </div>
+
+            <!-- 电话 (单元格) -->
+            <div id="u205" class="ax_default table_cell u205" data-label="电话">
+              <img id="u205_img" class="img u205_img" src="images/用户管理/学、工号_u201.png"/>
+            </div>
+
+            <!-- 所在学校 (单元格) -->
+            <div id="u206" class="ax_default table_cell u206" data-label="所在学校">
+              <img id="u206_img" class="img u206_img" src="images/用户管理/所在学校_u206.png"/>
+            </div>
+
+            <!-- 所在院校 (单元格) -->
+            <div id="u207" class="ax_default table_cell u207" data-label="所在院校">
+              <img id="u207_img" class="img u207_img" src="images/用户管理/所在院校_u207.png"/>
+            </div>
+
+            <!-- 创建时间 (单元格) -->
+            <div id="u208" class="ax_default table_cell u208" data-label="创建时间">
+              <img id="u208_img" class="img u208_img" src="images/用户管理/创建时间_u208.png"/>
+            </div>
+
+            <!-- Unnamed (单元格) -->
+            <div id="u209" class="ax_default table_cell u209">
+              <img id="u209_img" class="img u209_img" src="images/用户管理/u209.png"/>
+            </div>
+          </div>
+
+          <!-- 行内复选框 (复选框) -->
+          <div id="u210" class="ax_default checkbox u210" data-label="行内复选框">
+            <label for="u210_input" style="position: absolute; left: 0px;">
+              <div id="u210_text" class="text u210_text">
+                <p><span>选中</span></p>
+              </div>
+            </label>
+            <input id="u210_input" type="checkbox" value="checkbox" class="u210_input"/>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u211" class="ax_default button u211">
+            <div id="u211_div" class="u211_div"></div>
+            <div id="u211_text" class="text u211_text">
+              <p><span>删除</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u212" class="ax_default button u212">
+            <div id="u212_div" class="u212_div"></div>
+            <div id="u212_text" class="text u212_text">
+              <p><span>修改信息</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u213" class="ax_default button u213">
+            <div id="u213_div" class="u213_div"></div>
+            <div id="u213_text" class="text u213_text">
+              <p><span>权限设置</span></p>
+            </div>
+          </div>
+        </script>
+        <div id="u198-1" class="preeval" style="width: 1090px; height: 72px;">
+
+          <!-- Unnamed (表格) -->
+          <div id="u199-1" class="ax_default u199" style="visibility: inherit">
+
+            <!-- Unnamed (单元格) -->
+            <div id="u200-1" class="ax_default table_cell u200" style="width: 60px; height: 72px; left: 0px; top: 0px;visibility: inherit">
+              <img id="u200-1_img" class="img u200_img" src="images/用户管理/u200.png"/>
+            </div>
+
+            <!-- 学、工号 (单元格) -->
+            <div id="u201-1" class="ax_default table_cell u201" data-label="学、工号" style="width: 100px; height: 72px; left: 60px; top: 0px;visibility: inherit">
+              <img id="u201-1_img" class="img u201_img" src="images/用户管理/学、工号_u201.png"/>
+              <div id="u201-1_text" class="text u201_text" style="position: absolute;left: 2px;top: 28px;width: 96px;visibility: inherit">
+                <p><span>190327000</span></p>
+              </div>
+            </div>
+
+            <!-- 姓名 (单元格) -->
+            <div id="u202-1" class="ax_default table_cell u202" data-label="姓名" style="width: 100px; height: 72px; left: 160px; top: 0px;visibility: inherit">
+              <img id="u202-1_img" class="img u202_img" src="images/用户管理/学、工号_u201.png"/>
+              <div id="u202-1_text" class="text u202_text" style="position: absolute;left: 2px;top: 28px;width: 96px;visibility: inherit">
+                <p><span>池芝标</span></p>
+              </div>
+            </div>
+
+            <!-- 性别 (单元格) -->
+            <div id="u203-1" class="ax_default table_cell u203" data-label="性别" style="width: 65px; height: 72px; left: 260px; top: 0px;visibility: inherit">
+              <img id="u203-1_img" class="img u203_img" src="images/用户管理/性别_u203.png"/>
+              <div id="u203-1_text" class="text u203_text" style="position: absolute;left: 2px;top: 28px;width: 61px;visibility: inherit">
+                <p><span>男</span></p>
+              </div>
+            </div>
+
+            <!-- 身份 (单元格) -->
+            <div id="u204-1" class="ax_default table_cell u204" data-label="身份" style="width: 80px; height: 72px; left: 325px; top: 0px;visibility: inherit">
+              <img id="u204-1_img" class="img u204_img" src="images/用户管理/身份_u204.png"/>
+              <div id="u204-1_text" class="text u204_text" style="position: absolute;left: 2px;top: 28px;width: 76px;visibility: inherit">
+                <p><span>老师</span></p>
+              </div>
+            </div>
+
+            <!-- 电话 (单元格) -->
+            <div id="u205-1" class="ax_default table_cell u205" data-label="电话" style="width: 100px; height: 72px; left: 405px; top: 0px;visibility: inherit">
+              <img id="u205-1_img" class="img u205_img" src="images/用户管理/学、工号_u201.png"/>
+              <div id="u205-1_text" class="text u205_text" style="position: absolute;left: 2px;top: 28px;width: 96px;visibility: inherit">
+                <p><span>10086</span></p>
+              </div>
+            </div>
+
+            <!-- 所在学校 (单元格) -->
+            <div id="u206-1" class="ax_default table_cell u206" data-label="所在学校" style="width: 120px; height: 72px; left: 505px; top: 0px;visibility: inherit">
+              <img id="u206-1_img" class="img u206_img" src="images/用户管理/所在学校_u206.png"/>
+              <div id="u206-1_text" class="text u206_text" style="position: absolute;left: 2px;top: 28px;width: 116px;visibility: inherit">
+                <p><span>福州大学</span></p>
+              </div>
+            </div>
+
+            <!-- 所在院校 (单元格) -->
+            <div id="u207-1" class="ax_default table_cell u207" data-label="所在院校" style="width: 135px; height: 72px; left: 625px; top: 0px;visibility: inherit">
+              <img id="u207-1_img" class="img u207_img" src="images/用户管理/所在院校_u207.png"/>
+              <div id="u207-1_text" class="text u207_text" style="position: absolute;left: 2px;top: 28px;width: 131px;visibility: inherit">
+                <p><span>数学与计算机科学学院</span></p>
+              </div>
+            </div>
+
+            <!-- 创建时间 (单元格) -->
+            <div id="u208-1" class="ax_default table_cell u208" data-label="创建时间" style="width: 110px; height: 72px; left: 760px; top: 0px;visibility: inherit">
+              <img id="u208-1_img" class="img u208_img" src="images/用户管理/创建时间_u208.png"/>
+              <div id="u208-1_text" class="text u208_text" style="position: absolute;left: 2px;top: 28px;width: 106px;visibility: inherit">
+                <p><span>Wed Mar 04 2020</span></p>
+              </div>
+            </div>
+
+            <!-- Unnamed (单元格) -->
+            <div id="u209-1" class="ax_default table_cell u209" style="width: 220px; height: 72px; left: 870px; top: 0px;visibility: inherit">
+              <img id="u209-1_img" class="img u209_img" src="images/用户管理/u209.png"/>
+            </div>
+          </div>
+
+          <!-- 行内复选框 (复选框) -->
+          <div id="u210-1" class="ax_default checkbox u210" data-label="行内复选框" style="visibility: inherit">
+            <label for="u210-1_input" style="position: absolute; left: 0px;">
+              <div id="u210-1_text" class="text u210_text" style="position: absolute;left: 16px;top: 0px;width: 82px;visibility: inherit">
+                <p><span>选中</span></p>
+              </div>
+            </label>
+            <input id="u210-1_input" type="checkbox" value="checkbox" class="u210_input"/>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u211-1" class="ax_default button u211" style="width: 61px; height: 28px; left: 1023px; top: 23px;visibility: inherit">
+            <div id="u211-1_div" class="u211_div" style="width: 61px; height: 28px;visibility: inherit"></div>
+            <div id="u211-1_text" class="text u211_text" style="position: absolute;left: 2px;top: 6px;width: 57px;visibility: inherit">
+              <p><span>删除</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u212-1" class="ax_default button u212" style="width: 61px; height: 28px; left: 955px; top: 23px;visibility: inherit">
+            <div id="u212-1_div" class="u212_div" style="width: 61px; height: 28px;visibility: inherit"></div>
+            <div id="u212-1_text" class="text u212_text" style="position: absolute;left: 2px;top: 6px;width: 57px;visibility: inherit">
+              <p><span>修改信息</span></p>
+            </div>
+          </div>
+
+          <!-- Unnamed (矩形) -->
+          <div id="u213-1" class="ax_default button u213" style="width: 61px; height: 28px; left: 886px; top: 23px;visibility: inherit">
+            <div id="u213-1_div" class="u213_div" style="width: 61px; height: 28px;visibility: inherit"></div>
+            <div id="u213-1_text" class="text u213_text" style="position: absolute;left: 2px;top: 6px;width: 57px;visibility: inherit">
+              <p><span>权限设置</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unnamed (矩形) -->
+      <div id="u214" class="ax_default button">
+        <div id="u214_div" class=""></div>
+        <div id="u214_text" class="text ">
+          <p><span>- 选中删除</span></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
