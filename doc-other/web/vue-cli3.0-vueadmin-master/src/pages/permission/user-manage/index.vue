@@ -3,8 +3,8 @@
     <div class="search-bar">
       <el-form :inline="true" :model="searchData" class="fl">
         <el-input style="display: none;"></el-input>
-        <el-form-item label="登录名称">
-          <el-input v-model="searchData.loginName" placeholder="登录名称" @keyup.enter.native="onSearch()"></el-input>
+        <el-form-item label="班课id">
+          <el-input v-model="searchData.loginName" placeholder="班课id" @keyup.enter.native="onSearch()"></el-input>
         </el-form-item>
       </el-form>
       <div class="fl">
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div  class="tools-bar">
-      <el-button type="success" icon="el-icon-plus" size="small" @click="dialogVisible = true;dialogTitle='新增用户'">新增用户</el-button>
+      <el-button type="success" icon="el-icon-plus" size="small" @click="dialogVisible = true;dialogTitle='新增班课'">新增班课</el-button>
     </div>
     <div>
       <el-table
@@ -47,40 +47,29 @@
         </el-table-column>
         <el-table-column
           prop="loginName"
-          label="登录名"
+          label="班课id"
           min-width="120">
         </el-table-column>
         <el-table-column
           prop="name"
-          label="真实姓名"
+          label="任课老师"
           min-width="120">
         </el-table-column>
         <el-table-column
           prop="mobile"
-          label="联系电话"
+          label="注册时间"
           width="130">
         </el-table-column>
         <el-table-column
           prop="roleList"
           :formatter="roleFormatter"
           min-width="210"
-          label="权限">
+          label="所属学校">
         </el-table-column>
         <el-table-column
           prop="address"
           min-width="200"
-          label="联系地址">
-        </el-table-column>
-        <el-table-column
-          prop="email"
-          label="电子邮箱"
-          width="250">
-        </el-table-column>
-        <el-table-column
-          prop="lastLoginTime"
-          label="最后登录时间"
-          :formatter="toDateTime"
-          width="180">
+          label="所属学院">
         </el-table-column>
         <el-table-column
           label="操作"
@@ -92,12 +81,12 @@
       type="text"
       size="small"
       @click="handleEdit(scope.$index, scope.row)"
-    >编辑</el-button>
+    >查看详情</el-button>
     <el-button
       type="text"
       size="small"
       @click="handleResetPwd(scope.$index, scope.row)"
-    >重置密码</el-button>
+    >删除</el-button>
   </div>
 </template>
         </el-table-column>
@@ -129,8 +118,8 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="真实姓名" prop="name">
-              <el-input v-model="dataForm.name" placeholder="真实姓名"></el-input>
+        <el-form-item label="任课老师" prop="name">
+              <el-input v-model="dataForm.name" placeholder="任课老师"></el-input>
             </el-form-item>
             <el-form-item label="联系电话" prop="mobile">
               <el-input v-model="dataForm.mobile" placeholder="联系电话"></el-input>
@@ -192,13 +181,13 @@ export default {
                 name: [
                     {
                         required: true,
-                        message: '真实姓名不能为空',
+                        message: '任课老师不能为空',
                         trigger: 'blur'
                     },
                     {
                         min: 1,
                         max: 20,
-                        message: '真实姓名长度在 1 到 20 个字符',
+                        message: '任课老师长度在 1 到 20 个字符',
                         trigger: 'blur'
                     }
                 ],

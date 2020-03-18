@@ -24,7 +24,7 @@ const dynamicRoutes = [
         component: Order,
         name: 'order-manage',
         meta: {
-            name: '订单管理',
+            name: '按钮管理',
             icon: 'example'
         },
         children: [
@@ -33,48 +33,48 @@ const dynamicRoutes = [
                 name: 'order-list',
                 component: OrderList,
                 meta: {
-                    name: '订单列表',
+                    name: '按钮管理',
                     icon: 'table'
                 }
-            },
-            {
-                path: 'product',
-                name: 'product-manage',
-                component: ProductManage,
-                meta: {
-                    name: '生产管理',
-                    icon: 'user'
-                },
-                children: [
-                    {
-                        path: 'list',
-                        name: 'product-list',
-                        component: ProductionList,
-                        meta: {
-                            name: '生产列表',
-                            icon: 'table'
-                        }
-                    },
-                    {
-                        path: 'review',
-                        name: 'review-manage',
-                        component: ReviewManage,
-                        meta: {
-                            name: '审核管理',
-                            icon: 'eye'
-                        }
-                    }
-                ]
-            },
-            {
-                path: 'returnGoods',
-                name: 'return-goods',
-                component: ReturnGoods,
-                meta: {
-                    name: '退货管理',
-                    icon: 'nested'
-                }
             }
+            // {
+            //             //     path: 'product',
+            //             //     name: 'product-manage',
+            //             //     component: ProductManage,
+            //             //     meta: {
+            //             //         name: '生产管理',
+            //             //         icon: 'user'
+            //             //     },
+            //             //     children: [
+            //             //         {
+            //             //             path: 'list',
+            //             //             name: 'product-list',
+            //             //             component: ProductionList,
+            //             //             meta: {
+            //             //                 name: '生产列表',
+            //             //                 icon: 'table'
+            //             //             }
+            //             //         },
+            //             //         {
+            //             //             path: 'review',
+            //             //             name: 'review-manage',
+            //             //             component: ReviewManage,
+            //             //             meta: {
+            //             //                 name: '审核管理',
+            //             //                 icon: 'eye'
+            //             //             }
+            //             //         }
+            //             //     ]
+            //             // },
+            //             // {
+            //             //     path: 'returnGoods',
+            //             //     name: 'return-goods',
+            //             //     component: ReturnGoods,
+            //             //     meta: {
+            //             //         name: '退货管理',
+            //             //         icon: 'nested'
+            //             //     }
+            //             // }
         ]
     },
     {
@@ -82,7 +82,7 @@ const dynamicRoutes = [
         component: Goods,
         name: 'goods',
         meta: {
-            name: '产品管理',
+            name: '查看权限管理',
             icon: 'user'
         },
         children: [
@@ -91,19 +91,106 @@ const dynamicRoutes = [
                 name: 'goods-list',
                 component: GoodsList,
                 meta: {
-                    name: '产品列表',
+                    name: '查看权限管理',
                     icon: 'table'
                 }
-            },
+            }
+            // {
+            //     path: 'classify',
+            //     name: 'goods-classify',
+            //     component: GoodsClassify,
+            //     meta: {
+            //         name: '产品分类',
+            //         icon: 'tree'
+            //     }
+            // }
+        ]
+    },
+    {
+        path: '/goods',
+        component: Goods,
+        name: 'goods',
+        meta: {
+            name: '用户管理',
+            icon: 'user'
+        },
+        children: [
             {
-                path: 'classify',
-                name: 'goods-classify',
-                component: GoodsClassify,
+                path: 'list',
+                name: 'order-list',
+                component: OrderList,
                 meta: {
-                    name: '产品分类',
-                    icon: 'tree'
+                    name: '用户管理',
+                    icon: 'table'
                 }
             }
+            // {
+            //     path: 'classify',
+            //     name: 'goods-classify',
+            //     component: GoodsClassify,
+            //     meta: {
+            //         name: '产品分类',
+            //         icon: 'tree'
+            //     }
+            // }
+        ]
+    },
+    {
+        path: '/goods',
+        component: Goods,
+        name: 'goods',
+        meta: {
+            name: '角色管理',
+            icon: 'user'
+        },
+        children: [
+            {
+                path: 'list',
+                name: 'order-list',
+                component: OrderList,
+                meta: {
+                    name: '角色管理',
+                    icon: 'table'
+                }
+            }
+            // {
+            //     path: 'classify',
+            //     name: 'goods-classify',
+            //     component: GoodsClassify,
+            //     meta: {
+            //         name: '产品分类',
+            //         icon: 'tree'
+            //     }
+            // }
+        ]
+    },
+    {
+        path: '/goods',
+        component: Goods,
+        name: 'goods',
+        meta: {
+            name: '菜单管理',
+            icon: 'user'
+        },
+        children: [
+            {
+                path: 'list',
+                name: 'order-list',
+                component: OrderList,
+                meta: {
+                    name: '菜单管理',
+                    icon: 'table'
+                }
+            }
+            // {
+            //     path: 'classify',
+            //     name: 'goods-classify',
+            //     component: GoodsClassify,
+            //     meta: {
+            //         name: '产品分类',
+            //         icon: 'tree'
+            //     }
+            // }
         ]
     },
     {
@@ -111,7 +198,7 @@ const dynamicRoutes = [
         component: Permission,
         name: 'permission',
         meta: {
-            name: '权限管理',
+            name: '班课管理',
             icon: 'table'
         },
         children: [
@@ -120,7 +207,7 @@ const dynamicRoutes = [
                 name: 'user-manage',
                 component: UserManage,
                 meta: {
-                    name: '用户管理',
+                    name: '查看班课列表',
                     icon: 'table'
                 }
             },
@@ -129,7 +216,7 @@ const dynamicRoutes = [
                 name: 'role-manage',
                 component: RoleManage,
                 meta: {
-                    name: '角色管理',
+                    name: '班课学生管理',
                     icon: 'eye'
                 }
             },
@@ -138,8 +225,17 @@ const dynamicRoutes = [
                 name: 'menu-manage',
                 component: MenuManage,
                 meta: {
-                    name: '菜单管理',
+                    name: '作业管理',
                     icon: 'tree'
+                }
+            },
+            {
+                path: 'list',
+                name: 'order-list',
+                component: OrderList,
+                meta: {
+                    name: '签到管理',
+                    icon: 'table'
                 }
             }
         ]
