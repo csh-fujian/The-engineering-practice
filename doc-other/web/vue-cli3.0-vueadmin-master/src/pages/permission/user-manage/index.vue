@@ -76,19 +76,19 @@
           fixed="right"
           width="170">
           <template slot-scope="scope">
-  <div>
-    <el-button
-      type="text"
-      size="small"
-      @click="handleEdit(scope.$index, scope.row)"
-    >查看详情</el-button>
-    <el-button
-      type="text"
-      size="small"
-      @click="handleResetPwd(scope.$index, scope.row)"
-    >删除</el-button>
-  </div>
-</template>
+          <div>
+            <el-button
+              type="text"
+              size="small"
+              @click="handleEdit(scope.$index, scope.row)"
+            >查看详情</el-button>
+            <el-button
+              type="text"
+              size="small"
+              @click="handleResetPwd(scope.$index, scope.row)"
+            >删除</el-button>
+          </div>
+          </template>
         </el-table-column>
       </el-table>
       <div class="pagination-bar">
