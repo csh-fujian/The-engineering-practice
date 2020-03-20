@@ -95,7 +95,7 @@ const dynamicRoutes = [
                     icon: 'table'
                 }
             }
-            // {11
+            // {1
             //     path: 'classify',
             //     name: 'goods-classify',
             //     component: GoodsClassify,
