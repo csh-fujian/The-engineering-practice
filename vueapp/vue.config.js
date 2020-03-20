@@ -1,4 +1,16 @@
+const path = require("path");
+const myTheme = path.resolve(__dirname, "src/assets/css/theme/var.less");
+
 module.exports = {
+  css: {
+    loaderOptions: {
+      less: {
+        modifyVars: {
+          hack: `true; @import "${myTheme}";`
+        }
+      },
+    }
+  },
   configureWebpack: {
     resolve: {
       //别名的配置
@@ -11,5 +23,5 @@ module.exports = {
         'common': '@/common'
       }
     }
-  }
+  },
 }
