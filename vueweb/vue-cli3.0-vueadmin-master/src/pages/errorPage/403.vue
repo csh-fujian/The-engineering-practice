@@ -102,25 +102,25 @@ export default {
                     opacity: 0;
                 }
             }
-          @keyframes cloudMid {
-            0% {
-              top: 10px;
-              left: 420px;
-              opacity: 0;
-            }
-            20% {
-              top: 40px;
-              left: 360px;
+            @keyframes cloudMid {
+                0% {
+                    top: 10px;
+                    left: 420px;
+                    opacity: 0;
+                }
+                20% {
+                    top: 40px;
+                    left: 360px;
                     opacity: 1;
                 }
-            70% {
-              top: 130px;
-              left: 180px;
-              opacity: 1;
-            }
-            100% {
-              top: 160px;
-              left: 120px;
+                70% {
+                    top: 130px;
+                    left: 180px;
+                    opacity: 1;
+                }
+                100% {
+                    top: 160px;
+                    left: 120px;
                     opacity: 0;
                 }
             }
