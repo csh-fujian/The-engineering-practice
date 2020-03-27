@@ -1,8 +1,8 @@
-import {TEST} from './mutation-types'
+import {PHONE} from './mutation-types'
 
 export default {
   // 输数量加1
-  [TEST](state, payload) {
-    console.log('test测试');
+  [PHONE](state, payload) {
+    state.phone = payload
   },
 }

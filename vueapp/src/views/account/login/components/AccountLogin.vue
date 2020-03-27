@@ -1,0 +1,72 @@
+<template>
+  <div>
+    <div class="margin-top-large">
+      <van-icon name="manager" class="iconCss" size="20px"/> <label class="spanLabel">账号</label><br>
+      <van-field
+              class="fieldCss"
+              v-model="userName"
+              placeholder="请输入用户名"
+              size="large"
+              @click="fieldItemClick('userName')"
+      />
+    </div>
+
+    <div class="margin-top-small">
+      <van-icon  name="lock" class="iconCss" size="20px"/> <span class="spanLabel">密码</span><br>
+      <van-field
+              class="fieldCss"
+              v-model="passWord"
+              placeholder="请输入密码"
+              size="large"
+              @click="fieldItemClick('passWord')"
+      />
+    </div>
+
+    <label class="forgetCss">忘记密码</label>
+    <van-button type="primary" block class="margin-top-normal" @click="btnClick">登录</van-button>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: "AccountLogin",
+    data() {
+      return {
+        userName: '',
+        passWord: '',
+      }
+    },
+    methods: {
+      fieldItemClick(tag) {
+      },
+      btnClick() {
+
+      }
+    }
+  }
+</script>
+
+<style scoped>
+
+  .iconCss {
+    vertical-align: middle;
+  }
+  .spanLabel {
+    font-size: 16px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .fieldCss {
+    border-bottom : 0.5px outset var(--theme-color);
+  }
+
+  .forgetCss {
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+
+
+</style>

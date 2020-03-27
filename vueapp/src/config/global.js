@@ -1,0 +1,1 @@
+export const Copyright="@Copyright 2020-2021"
