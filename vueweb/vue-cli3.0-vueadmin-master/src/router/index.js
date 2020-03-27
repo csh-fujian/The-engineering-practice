@@ -6,7 +6,8 @@ import NotFound from '@/pages/errorPage/404'
 import Forbidden from '@/pages/errorPage/403'
 import Layout from '@/pages/layout/index'
 import Home from '@/pages/home/index'
-
+import forgetPassword from '@/pages/login/forgetPassword'
+import resetPassword from '@/pages/login/resetPassword'
 Vue.use(Router)
 
 /* 初始路由 */
@@ -15,6 +16,14 @@ export default new Router({
         {
             path: '/login',
             component: Login
+        },
+        {
+            path:'/forgetPassword',
+            component: forgetPassword
+        },
+        {
+            path:'/resetPassword',
+            component: resetPassword
         }
     ]
 })

@@ -13,17 +13,22 @@
                     <svg-icon icon-class="password"></svg-icon>
                 </span>
                 <el-input name="password" :type="pwdType" @keyup.enter.native="login" v-model="loginForm.password" autoComplete="on"
-                placeholder="password"></el-input>
-                <span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
-            </el-form-item>
-            <el-form-item>
-                <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="login">
-                Sign in
-                </el-button>
-            </el-form-item>
-            <div class="tips">用户为admin的时候，能够看到所有的权限列表，其余账号只能看到部分</div>
-        </el-form>
-    </div>
+                                     placeholder="password"></el-input>
+<span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
+</el-form-item>
+<el-form-item>
+   <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="forget">
+    忘记密码
+    </el-button>
+    </el-form-item>
+<el-form-item>
+  <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="login">
+  登录
+  </el-button>
+</el-form-item>
+<div class="tips">用户为admin的时候，能够看到所有的权限列表，其余账号只能看到部分</div>
+</el-form>
+</div>
 </template>
 
 <script>
@@ -79,6 +84,16 @@ export default {
                 let token = data.token
                 this.$store.commit('LOGIN_IN', token)
                 this.$router.replace('/')
+            } catch (e) {
+                console.log(e)
+            }
+        },
+        async forget() {
+            try {
+                let data = await login(this.loginForm)
+                let token = data.token
+                this.$store.commit('LOGIN_IN', token)
+                this.$router.replace('/forgetPassword')
             } catch (e) {
                 console.log(e)
             }
