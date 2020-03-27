@@ -21,7 +21,10 @@
                 Sign in
                 </el-button>
             </el-form-item>
-            <div class="tips">用户为admin的时候，能够看到所有的权限列表，其余账号只能看到部分</div>
+            <el-button type="primary" style="width:100%;" :loading="loading" @click="forgetPassword">
+              Forget Password
+            </el-button>
+            <div class="tips"><br/>用户为admin的时候，能够看到所有的权限列表，其余账号只能看到部分</div>
         </el-form>
     </div>
 </template>
@@ -78,7 +81,17 @@ export default {
                 let data = await login(this.loginForm)
                 let token = data.token
                 this.$store.commit('LOGIN_IN', token)
-                this.$router.replace('/')
+                this.$router.replace('/home')
+            } catch (e) {
+                console.log(e)
+            }
+        },
+        async forgetPassword() {
+            try {
+                let data = await login(this.loginForm)
+                let token = data.token
+                this.$store.commit('LOGIN_IN', token)
+                this.$router.replace('/forgetPassword')
             } catch (e) {
                 console.log(e)
             }

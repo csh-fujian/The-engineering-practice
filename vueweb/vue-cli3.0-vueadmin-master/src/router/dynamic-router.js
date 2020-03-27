@@ -37,44 +37,6 @@ const dynamicRoutes = [
                     icon: 'table'
                 }
             }
-            // {
-            //             //     path: 'product',
-            //             //     name: 'product-manage',
-            //             //     component: ProductManage,
-            //             //     meta: {
-            //             //         name: '生产管理',
-            //             //         icon: 'user'
-            //             //     },
-            //             //     children: [
-            //             //         {
-            //             //             path: 'list',
-            //             //             name: 'product-list',
-            //             //             component: ProductionList,
-            //             //             meta: {
-            //             //                 name: '生产列表',
-            //             //                 icon: 'table'
-            //             //             }
-            //             //         },
-            //             //         {
-            //             //             path: 'review',
-            //             //             name: 'review-manage',
-            //             //             component: ReviewManage,
-            //             //             meta: {
-            //             //                 name: '审核管理',
-            //             //                 icon: 'eye'
-            //             //             }
-            //             //         }
-            //             //     ]
-            //             // },
-            //             // {
-            //             //     path: 'returnGoods',
-            //             //     name: 'return-goods',
-            //             //     component: ReturnGoods,
-            //             //     meta: {
-            //             //         name: '退货管理',
-            //             //         icon: 'nested'
-            //             //     }
-            //             // }
         ]
     },
     {
@@ -95,15 +57,7 @@ const dynamicRoutes = [
                     icon: 'table'
                 }
             }
-            // {
-            //     path: 'classify',
-            //     name: 'goods-classify',
-            //     component: GoodsClassify,
-            //     meta: {
-            //         name: '产品分类',
-            //         icon: 'tree'
-            //     }
-            // }
+
         ]
     },
     {
@@ -135,6 +89,7 @@ const dynamicRoutes = [
             // }
         ]
     },
+
     {
         path: '/goods',
         component: Goods,
