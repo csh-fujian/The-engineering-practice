@@ -7,7 +7,7 @@ module.exports = {
       less: {
         modifyVars: {
           hack: `true; @import "${myTheme}";`
-        },
+        }
       },
     }
   },
@@ -20,9 +20,7 @@ module.exports = {
         'components': '@/components',
         'network': '@/network',
         'views': '@/views',
-        'common': '@/common',
-        'config': '@/config',
-        'mock': '@/mock'
+        'common': '@/common'
       }
     }
   },

@@ -8,8 +8,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    test: 'test',
-    phone: '',
+    test: 'store测试数据',
   },
   mutations,
   actions,

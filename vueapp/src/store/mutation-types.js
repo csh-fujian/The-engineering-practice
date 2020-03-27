@@ -1,3 +1,1 @@
-const PHONE = 'phone'
-const TEST = 'test'
-export {TEST, PHONE}
+export const TEST = 'test'
