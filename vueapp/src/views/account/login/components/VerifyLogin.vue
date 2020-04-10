@@ -44,7 +44,7 @@
         else
           console.log('true')
         this.$store.commit('phone', this.phone)
-        this.$router.push('/login/checkcode/'+this.phone)
+        this.$router.push('/components/checkcode/'+this.phone)
       },
     }
   }

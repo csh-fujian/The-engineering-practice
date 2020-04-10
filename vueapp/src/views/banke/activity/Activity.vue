@@ -17,17 +17,21 @@
             {{item.title}}({{item.count}})
           </div>
         </template>
-        <work-activity v-show="index===1" />
+
+        <!-- 作业任务-->
+        <work-activity v-show="index===1" :tasks="tasks" :note="note"/>
+
       </van-tab>
     </van-tabs>
 
     <md-banke-tab-bar activeValue="activity"/>
+
   </div>
 </template>
 
 <script>
   import { Toast } from 'vant';
-  import {tabs} from "mock/banke/activity/data";
+  import {tabs, note, tasks} from "mock/banke/oneclass/data.js";
   import MdBankeTabBar from "components/banke-tabbar/MdBankeTabBar";
   import WorkActivity from "./components/WorkActivity";
 
@@ -36,8 +40,13 @@
     data() {
       return {
         activeTab: 1,
-        tabs: tabs
+        tabs: tabs,
+        note: note,
+        tasks: tasks
       }
+    },
+    created() {
+      // console.log(this.tasks);
     },
     components: {
       MdBankeTabBar,

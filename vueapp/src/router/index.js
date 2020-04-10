@@ -4,8 +4,6 @@ import Login from "../views/account/login/Login";
 
 
 
-
-
 // 懒加载
 
 
@@ -15,8 +13,10 @@ const BankeDetail =() => import('views/banke/detail/Detail.vue')
 const BankeMember =() => import('views/banke/member/Member.vue')
 const BankeMessage =() => import('views/banke/message/Message.vue')
 const BankeResource =() => import('views/banke/resource/Resource.vue')
+const AddClass = () => import("../views/banke/home/components/AddClass")
+const AddClassDetail = () => import("../views/banke/home/components/AddClassDetail")
 
-const CheckCode = () => import('../views/account/login/CheckCode')
+const CheckCode = () => import('../components/check-code/CheckCode')
 const SearchHome = () => import('views/search/home/SearchHome')
 
 
@@ -28,6 +28,10 @@ const UserPolicy = () => import("../views/mine/user-policy/UserPolicy")
 const AccountManage = ()=> import("views/mine/account-manage/AccountManage")
 const AccountManageNav = ()=> import( "../views/mine/account-manage/components/AccountManageNav")
 const IdentityCheck = ()=> import( "../views/mine/account-manage/components/IdentityCheck")
+const ModifyPassword = () => import("../views/mine/account-manage/components/ModifyPassword")
+const AssociatePhone = () => import("../views/mine/account-manage/components/AssociatePhone")
+const AssociateMail = () => import("../views/mine/account-manage/components/AssociateMail")
+const Set = () => import("../views/mine/setting/Set")
 
 
 
@@ -43,7 +47,7 @@ const routes = [
     component: Login
   },
   {
-    path: '/login/checkcode/:phone',
+    path: '/components/checkcode/:phone/',
     component: CheckCode
   },
   {
@@ -51,7 +55,7 @@ const routes = [
     component: BankeHome,
   },
   {
-    path: '/banke/:classId/activity',
+    path: '/banke/:classId/oneclass',
     component: BankeActivity
   },
   {
@@ -69,6 +73,14 @@ const routes = [
   {
     path: '/banke/:classId/resource',
     component: BankeResource
+  },
+  {
+    path: '/banke/add-class',
+    component: AddClass
+  },
+  {
+    path: '/banke/add-class/:classId/',
+    component: AddClassDetail
   },
   {
     path: '/search',
@@ -91,8 +103,20 @@ const routes = [
         component: AccountManageNav
       },
       {
-        path: '/mine/account-manage/identity-check',
+        path: '/mine/account-manage/identity-check/:type/',
         component: IdentityCheck
+      },
+      {
+        path: '/mine/account-manage/identity-check/modify-password/password',
+        component: ModifyPassword
+      },
+      {
+        path: '/mine/account-manage/modify-phone',
+        component: AssociatePhone
+      },
+      {
+        path: '/mine/account-manage/modify-email',
+        component: AssociateMail
       }
     ]
   },
@@ -112,6 +136,10 @@ const routes = [
   {
     path: '/mine/user-policy',
     component: UserPolicy
+  },
+  {
+    path: '/mine/setting',
+    component: Set
   }
 ]
 

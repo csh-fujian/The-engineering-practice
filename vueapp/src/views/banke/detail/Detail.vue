@@ -7,8 +7,8 @@
                  @click-left="onClickLeft" >
     </van-nav-bar>
 
-    <detail-top class="top-css" />
-    <deatil-content />
+    <detail-top class="top-css" :data="dataTop" />
+    <deatil-content :data="dataContent"/>
     <detail-bottom />
     <md-banke-tab-bar activeValue="detail"/>
   </div>
@@ -20,8 +20,21 @@
   import DeatilContent from "./components/DeatilContent";
   import DetailBottom from "./components/DetailBottom";
 
+  import {detail} from "mock/banke/oneclass/data";
+
   export default {
     name: "Detail",
+    data() {
+      return {
+        data: detail,
+        dataTop: {},
+        dataContent: {}
+      }
+    },
+    created() {
+      this.dataTop = this.data.dataTop
+      this.dataContent = this.data.dataContent
+    },
     components: {
       MdBankeTabBar,
       DetailTop,

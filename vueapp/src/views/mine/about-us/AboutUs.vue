@@ -12,6 +12,7 @@
       <h1>云班课</h1>
       <span class="margin-top-max text-small font-gray">Ver 5.15</span>
     </div>
+
     <Footer />
   </div>
 </template>

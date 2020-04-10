@@ -1,14 +1,12 @@
 <template>
   <div>
     <van-cell-group>
-      <ClassItem>
+      <ClassItem v-for="item in data" :imgSrc="item.profilePhoto">
         <div slot="title-content">
-          <span class="custom-title bold">工程实践</span><br>
-          <span class="text-small">池sh</span>
-          <span class="text-small font-gray margin-left-small">2019工程实训</span><br>
+          <span class="custom-title bold">{{item.bankeName}}</span><br>
+          <span class="text-small">{{item.teacher}}</span>
+          <span class="text-small font-gray margin-left-small">{{item.description}}</span><br>
         </div>
-
-
         <div slot="icon">
           <div class="flex">
             <div class="flex1">
@@ -36,6 +34,17 @@
       return {
 
       }
+    },
+    props: {
+      data: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
+    },
+    created() {
+      console.log(this.data,'111111111');
     },
     components: {
       ClassItem

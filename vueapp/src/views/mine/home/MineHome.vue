@@ -24,7 +24,7 @@
     <van-cell title="用户协议" is-link value="ISSA" @click.native="userClick"/>
     <van-cell title="隐私政策" is-link @click.native="privacyClick"/>
     <van-cell title="关于我们" is-link @click.native="aboutClick"/>
-    <van-cell title="设置" is-link  />
+    <van-cell title="设置" is-link @click.native="setClick" />
     <md-tab-bar activeValue="mine" />
   </div>
 </template>
@@ -54,6 +54,9 @@
       },
       userClick() {
         this.$router.push('/mine/user-policy')
+      },
+      setClick() {
+        this.$router.push('/mine/setting')
       }
     }
   }

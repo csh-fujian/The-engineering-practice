@@ -4,7 +4,7 @@
       <!-- 使用 title 插槽来自定义标题 -->
       <template #icon>
         <div>
-          <img src="~assets/image/banke/home/class.png" alt="" class="item-img">
+          <van-image :src="imgSrc" alt="" class="item-img" />
         </div>
       </template>
       <template #title>
@@ -26,13 +26,24 @@
 
 <script>
   export default {
-    name: "ClassItem"
+    name: "ClassItem",
+    data() {
+      return {
+        test: 'assets/image/banke/home/class.png'
+      }
+    },
+    props: {
+      imgSrc: {
+        type: String,
+        default: "require('assets/image/banke/home/class.png')"
+      }
+    }
   }
 </script>
 
 <style scoped>
   .item {
-    height: 90px;
+    height: 92px;
   }
   .item-img {
     margin-top: 6px;

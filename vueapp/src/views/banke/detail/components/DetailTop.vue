@@ -6,10 +6,10 @@
       </van-col>
       <van-col span="18" class="message-css">
         <div class="message-css">
-          <span>2019工程实践</span><br>
-          <span class="text-normal">工程实践</span><br>
-          <span class="text-small">池ch</span><br>
-          <span class="text-small">2019-2020-2 学校课表班课</span><br>
+          <span>{{data.description}}</span><br>
+          <span class="text-normal">{{data.className}}</span><br>
+          <span class="text-small">{{data.teacher}}</span><br>
+          <span class="text-small font-gray">{{data.time}}</span><br>
         </div>
       </van-col>
     </van-row>
@@ -20,7 +20,12 @@
 
 <script>
   export default {
-    name: "DetailTop"
+    name: "DetailTop",
+    props: {
+      data: {
+        type: Object,
+      }
+    }
   }
 </script>
 

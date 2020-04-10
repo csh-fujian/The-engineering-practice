@@ -64,7 +64,8 @@
         this.value = (this.value + key).slice(0, this.keySize);
         if (this.value.length == this.keySize && true)
         {
-          this.$router.replace('/home')
+          this.value = ''
+          this.$router.replace('/banke')
         }
       },
       onDelete() {

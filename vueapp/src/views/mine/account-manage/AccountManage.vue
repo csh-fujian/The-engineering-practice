@@ -1,14 +1,7 @@
 <template>
   <div>
-    <van-nav-bar title="账号安全"
-                 left-arrow
-                 @click-left="onClickLeft" >
-    </van-nav-bar>
-
 
     <router-view />
-
-
     <Footer />
   </div>
 </template>

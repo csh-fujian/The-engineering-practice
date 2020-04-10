@@ -15,11 +15,20 @@
 
 <script>
   import MdBankeTabBar from "components/banke-tabbar/MdBankeTabBar";
+
   export default {
     name: "Message",
     components: {
       MdBankeTabBar
     },
+    methods: {
+      onClickLeft() {
+        this.$router.back()
+      },
+      onClickRight() {
+        this.$toast('私聊功能暂未开启');
+      }
+    }
   }
 </script>
 

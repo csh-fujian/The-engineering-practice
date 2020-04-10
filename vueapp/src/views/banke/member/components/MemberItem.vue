@@ -11,13 +11,13 @@
       <template #title>
         <div class="title">
           <div class="left-css left">
-            <span class="text-normal">池升恒</span><br>
-            <span class="text-small font-gray">190327022</span>
+            <span class="text-normal">{{memberItem.name}}</span><br>
+            <span class="text-small font-gray">{{memberItem.studentId}}</span>
           </div>
           <div class="right">
-            <span class="text-small font-gray">云教材学习 0%</span><br>
-            <span class="text-big text-green">32  </span>
-            <span class="text-small text-green">经验值</span>
+            <span class="text-small font-gray">云教材学习 {{memberItem.cloudBookStudy}}%</span><br>
+            <span class="text-big text-green">{{memberItem.experience}}  </span> <span class="text-small text-green">经验值</span>
+
           </div>
         </div>
       </template>
@@ -33,7 +33,17 @@
 
 <script>
   export default {
-    name: "MemberItem"
+    name: "MemberItem",
+    data() {
+      return {
+
+      }
+    },
+    props: {
+      memberItem: {
+        type: Object
+      }
+    }
   }
 </script>
 

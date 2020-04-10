@@ -10,8 +10,8 @@
     </van-sticky>
 
     <div class="margin-top-normal text-center text-white">
-      <span class="text-max">第 4 名</span><br>
-      <span class="text-small">当前获得28经验值</span>
+      <span class="text-max">第 {{member.rank}} 名</span><br>
+      <span class="text-small">当前获得{{member.experience}}经验值</span>
     </div>
 
     <div class="border-radius shadow card flex">
@@ -26,13 +26,17 @@
         <span class="text-small">参与签到</span>
       </div>
     </div>
+
     <van-sticky :offset-top="36">
       <div class="content margin-top-small border-bottom container-title">
         <span class="text-small left">成员总数</span>
-        <span class="text-small font-gray right">155 人</span>
+        <span class="text-small font-gray right">{{member.number}} 人</span>
       </div>
     </van-sticky>
-    <member-list  v-for="index in 50"/>
+
+    <van-cell-group>
+      <member-item  v-for="item in member.members" :memberItem="item" />
+    </van-cell-group>
 
     <md-banke-tab-bar activeValue="member"/>
   </div>
@@ -41,11 +45,21 @@
 <script>
   import MdBankeTabBar from "components/banke-tabbar/MdBankeTabBar";
   import MemberList from "./components/MemberList";
+  import MemberItem from "./components/MemberItem";
+
+  import {member} from "mock/banke/oneclass/data.js"
+
   export default {
     name: "Member",
+    data() {
+      return {
+        member: member
+      }
+    },
     components: {
       MdBankeTabBar,
-      MemberList
+      MemberList,
+      MemberItem
     },
     methods: {
       onClickLeft()

@@ -35,7 +35,7 @@
             this.$router.replace('/banke/123/message')
             break
           case 'activity':
-            this.$router.replace('/banke/123/activity')
+            this.$router.replace('/banke/123/oneclass')
             break
           case'member':
             this.$router.replace('/banke/123/member')
