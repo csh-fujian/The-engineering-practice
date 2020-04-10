@@ -8,10 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan
 @MapperScan("com.whch.presentCloud.mapper")
-public class NewspickerApplication {
+public class presentCloudApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NewspickerApplication.class, args);
+        SpringApplication.run(presentCloudApplication.class, args);
     }
 
 }
