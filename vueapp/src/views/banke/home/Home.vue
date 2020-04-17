@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+
     <van-action-sheet v-model="plusShow"
                       :actions="actions"
                       @select="onSelect"
@@ -11,6 +12,7 @@
         <van-icon name="plus" @click.native="plusItemClick"/>
       </template>
     </van-nav-bar>
+
 
     <van-search
             v-model="value"
@@ -24,7 +26,11 @@
     </van-search>
 
 
-    <student-class @click.native="classItemClick" :data="home.studentClassList"/>
+
+    <teacher-class v-if="isTeacher" :data="home.teacherClassList"  />
+    <student-class v-else :data="home.studentClassList"  />
+
+
 
     <md-tab-bar activeValue="banke" />
   </div>
@@ -32,6 +38,7 @@
 
 <script>
 import StudentClass from "./components/StudentClass";
+import TeacherClass from "./components/TeacherClass";
 import MdTabBar from "components/tabbar/MdTabBar";
 import {home} from 'mock/banke/home.js'
 
@@ -45,16 +52,27 @@ export default {
       actions: [
         { name: '班课号加入班课' },
         { name: '二维码加入班课' },
-      ]
+      ],
+      isTeacher: true
     }
   },
   created() {
+    // 初始化根据用户不同身份显示不同内容
+    this.isTeacher = this.$store.getters.getStatus === 'teacher'
+    if (this.isTeacher) {
+      this.initTeacher()
+    }
   },
   components: {
     StudentClass,
+    TeacherClass,
     MdTabBar
   },
   methods: {
+    initTeacher() {
+      this.actions = [{name: '创建班课'}]
+    },
+    // 添加班课按钮事件 ----
     onCancel() {
       this.plusShow = false;
     },
@@ -69,12 +87,12 @@ export default {
       if (item.name === '班课号加入班课') {
         this.$router.push('/banke/add-class')
       }
+      if (item.name === '创建班课') {
+        this.$router.push('/banke/create')
+      }
       this.plusShow = false;
     },
-    classItemClick() {
-      console.log('test');
-      this.$router.push('/banke/123/oneclass')
-    },
+    // 添加班课按钮事件 ---- end
     onClickRight() {
       Toast('按钮');
     },

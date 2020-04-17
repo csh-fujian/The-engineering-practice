@@ -1,11 +1,14 @@
 <template>
   <div>
     <van-cell-group>
-      <ClassItem>
+      <ClassItem v-for="item in data"
+                 :imgSrc="item.profilePhoto"
+                 :key="item"
+                 @click.native="classItemClick(item.classId)">
         <div slot="title-content">
-          <span class="custom-title bold">工程实践</span><br>
-          <span class="text-small">池sh</span>
-          <span class="text-small font-gray margin-left-small">2019工程实训</span><br>
+          <span class="custom-title bold">{{item.bankeName}}</span><br>
+          <span class="text-small">{{item.semester}}</span>
+          <span class="text-small font-gray margin-left-small">{{item.description}}</span><br>
         </div>
 
         <div slot="icon">
@@ -30,14 +33,28 @@
 <script>
   import ClassItem from "./ClassItem";
   export default {
-    name: "studentClass",
+    name: "teacherClass",
     data() {
       return {
 
       }
     },
+    props: {
+      data: {
+        type: Array,
+        default() {
+          return []
+        }
+      }
+    },
     components: {
       ClassItem
+    },
+    methods: {
+      // 进入一个班课
+      classItemClick(classId) {
+        this.$router.push('/banke/'+classId+'/oneclass')
+      },
     }
   }
 </script>

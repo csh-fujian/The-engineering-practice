@@ -1,7 +1,10 @@
 <template>
   <div>
     <van-cell-group>
-      <ClassItem v-for="item in data" :imgSrc="item.profilePhoto">
+      <ClassItem v-for="item in data"
+                 :key="item"
+                 :imgSrc="item.profilePhoto"
+                 @click.native="classItemClick(item.classId)">
         <div slot="title-content">
           <span class="custom-title bold">{{item.bankeName}}</span><br>
           <span class="text-small">{{item.teacher}}</span>
@@ -48,6 +51,12 @@
     },
     components: {
       ClassItem
+    },
+    methods: {
+      // 进入一个班课
+      classItemClick(classId) {
+        this.$router.push('/banke/'+classId+'/oneclass')
+      },
     }
   }
 </script>

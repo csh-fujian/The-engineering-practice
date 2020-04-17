@@ -2,6 +2,7 @@
 
 :root {
   --theme-color: #ee0a24;
+  --theme-color-low: #ee2f04;
   --danger: #FF1E25;
   --green: #38EE1F;
   --blue: #01BBDD;
@@ -16,6 +17,7 @@
 
     /*字体设置*/
   --font-color-gray: #999;
+  --font-text-minimum: 6px;
   --font-size-small: 13px;
   --font-size-normal: 15px;
   --font-size-big: 18px;
@@ -35,6 +37,9 @@
 .background-white {
   background-color: #fff;
 }
+.background-theme {
+  background-color: var(--theme-color);
+}
 
 .text-line-large {
   line-height: 1.5;
@@ -43,6 +48,10 @@
 .text-small {
   font-size: var(--font-size-small);
 }
+.text-minimum {
+  font-size: var(--font-text-minimum);
+}
+
 .text-normal {
   font-size: var(--font-size-normal);
 }

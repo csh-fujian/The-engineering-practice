@@ -17,7 +17,16 @@ import { RadioGroup, Radio } from 'vant';
 import { DatetimePicker } from 'vant';
 
 import { ActionSheet } from 'vant';
+import {Popup, Picker} from 'vant';
+import {Dialog} from 'vant';
+import { Overlay } from 'vant';
+import { SwipeCell } from 'vant';
 
+Vue.use(SwipeCell);
+Vue.use(Overlay);
+Vue.use(Dialog);
+Vue.use(Picker);
+Vue.use(Popup);
 Vue.use(ActionSheet);
 Vue.use(DatetimePicker);
 Vue.use(Radio);

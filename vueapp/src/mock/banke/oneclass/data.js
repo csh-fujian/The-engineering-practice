@@ -75,6 +75,62 @@ const member = {
   rank: 4,
   experience: 40,
   number: 3,
+  option: [
+    {
+      imageUrl: require('assets/image/banke/home/class.png'),
+      title: '发签签到',
+    },
+    {
+      imageUrl: require('assets/image/banke/home/class.png'),
+      title: '心意卡片',
+    },
+    {
+      imageUrl: require('assets/image/banke/home/class.png'),
+      title: '小组方案',
+    },
+    {
+      imageUrl: require('assets/image/banke/home/class.png'),
+      title: '挂科预警',
+    }
+  ],
+  launchSignInOption: [
+    {
+      imageUrl: require('assets/image/banke/home/class.png'),
+      title: '一键签到',
+    },
+    {
+      imageUrl: require('assets/image/banke/home/class.png'),
+      title: '手势签到',
+    },
+    {
+      imageUrl: require('assets/image/banke/home/class.png'),
+      title: '手工登记',
+    },
+  ],
+  launchHistory: [
+    {
+      signDate: '2020-0414',
+      signWeek: '星期二',
+      signTime: '15:03',
+      signType: '一键签到',
+      statistic: '20人/25人'
+    },
+    {
+      signDate: '2020-0414',
+      signWeek: '星期二',
+      signTime: '15:03',
+      signType: '一键签到',
+      statistic: '20人/25人'
+    },
+    {
+      signDate: '2020-0414',
+      signWeek: '星期二',
+      signTime: '15:03',
+      signType: '一键签到',
+      statistic: '20人/25人'
+    }
+  ],
+
   members: [
     {
       profilePhoto: 'xx',

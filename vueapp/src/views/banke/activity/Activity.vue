@@ -11,7 +11,7 @@
     </van-nav-bar>
 
     <van-tabs v-model="activeTab" animated>
-      <van-tab v-for="(item,index) in tabs">
+      <van-tab v-for="(item,index) in tabs" :key="index">
         <template #title>
           <div>
             {{item.title}}({{item.count}})
@@ -42,11 +42,13 @@
         activeTab: 1,
         tabs: tabs,
         note: note,
-        tasks: tasks
+        tasks: tasks,
+        isTeacher: false,
       }
     },
     created() {
       // console.log(this.tasks);
+      this.isTeacher = this.$store.getters.getStatus === 'teacher'
     },
     components: {
       MdBankeTabBar,

@@ -6,7 +6,10 @@ const profile = {
   school: 'xx大学',
   department: '计算机学院',
   role: '学生',
-  studentId: '190327xxx'
+  studentId: '190327xxx',
+  experience: 20
 }
+
+
 
 export {profile}

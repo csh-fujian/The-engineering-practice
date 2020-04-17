@@ -10,6 +10,9 @@ export default new Vuex.Store({
   state: {
     test: 'test',
     phone: '',
+    token: {
+      status: 'teacher'
+    }
   },
   mutations,
   actions,

@@ -105,11 +105,8 @@
 </script>
 
 <style scoped>
-  .field {
-    padding: 0;
-    height: 20px;
-  }
   .input-css {
+    width: 100%;
     text-align:right;
     border: none;
   }

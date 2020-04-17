@@ -3,18 +3,20 @@ import VueRouter from 'vue-router'
 import Login from "../views/account/login/Login";
 
 
-
 // 懒加载
-
-
 const BankeHome =() => import('../views/banke/home/Home.vue')
 const BankeActivity =() => import('views/banke/activity/Activity.vue')
+const CreateWork =() => import('views/banke/activity/components/CreateWork')
 const BankeDetail =() => import('views/banke/detail/Detail.vue')
+const EditClassInfo =() => import('views/banke/detail/components/EditClassInfo')
 const BankeMember =() => import('views/banke/member/Member.vue')
+const LaunchSignIn =() => import('views/banke/member/components/LaunchSignIn')
+
 const BankeMessage =() => import('views/banke/message/Message.vue')
 const BankeResource =() => import('views/banke/resource/Resource.vue')
 const AddClass = () => import("../views/banke/home/components/AddClass")
 const AddClassDetail = () => import("../views/banke/home/components/AddClassDetail")
+const TeacherCreateClass =() => import('../views/banke/home/components/TeacherCreateClass')
 
 const CheckCode = () => import('../components/check-code/CheckCode')
 const SearchHome = () => import('views/search/home/SearchHome')
@@ -55,16 +57,32 @@ const routes = [
     component: BankeHome,
   },
   {
+    path: '/banke/create',
+    component: TeacherCreateClass
+  },
+  {
     path: '/banke/:classId/oneclass',
     component: BankeActivity
   },
   {
-    path: '/banke/:classId/detail',
+    path: '/banke/:classId/oneclass/createWork',
+    component: CreateWork
+  },
+  {
+    path: '/banke/:classId/detail/',
     component: BankeDetail
+  },
+  {
+    path: '/banke/:classId/detail/edit',
+    component: EditClassInfo
   },
   {
     path: '/banke/:classId/member',
     component: BankeMember
+  },
+  {
+    path: '/banke/:classId/member/launch-sign',
+    component: LaunchSignIn
   },
   {
     path: '/banke/:classId/message',
