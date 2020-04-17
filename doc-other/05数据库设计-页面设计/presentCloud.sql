@@ -1,12 +1,14 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/4/10 11:14:20                           */
+/* Created on:     2020/4/11 9:25:16                            */
 /*==============================================================*/
 
 
 drop table if exists Admin;
 
 drop table if exists CheckInHistory;
+
+drop table if exists ClassCourseMember;
 
 drop table if exists ClassLesson;
 
@@ -55,6 +57,21 @@ create table CheckInHistory
    State                int,
    Name                 varchar(20),
    primary key (Id)
+);
+
+/*==============================================================*/
+/* Table: ClassCourseMember                                     */
+/*==============================================================*/
+create table ClassCourseMember
+(
+   ClassId              int not null,
+   StudentName          varchar(20),
+   StudentId            varchar(10),
+   ClassName            varchar(16),
+   TeacherName          varchar(16),
+   TeacherId            int,
+   Experience           int,
+   primary key (ClassId)
 );
 
 /*==============================================================*/
