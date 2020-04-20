@@ -10,60 +10,60 @@
               style="width:130px;height:10px"
               placeholder="输入名字搜索"/>
     </div>
-  <el-table
-          :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-          style="width: 100%">
-    <el-table-column
-            label="学号"
-            prop="StudentId">
-    </el-table-column>
-    <el-table-column
-            label="姓名"
-            prop="name">
-    </el-table-column>
-    <el-table-column
-            label="性别"
-            prop="sex">
-    </el-table-column>
-    <el-table-column
-            label="身份"
-            prop="identity">
-    </el-table-column>
-    <el-table-column
-            label="电话"
-            prop="phoneNumber">
-    </el-table-column>
-    <el-table-column
-            label="所在学校"
-            prop="School">
-    </el-table-column>
-    <el-table-column
-            label="所在学院"
-            prop="College">
-    </el-table-column>
-    <el-table-column
-            label="创建时间"
-            prop="creatTime">
-    </el-table-column>
-    <el-table-column
-            align="right">
-      <template slot="header" slot-scope="scope">
-      </template>
-      <template slot-scope="scope">
-        <el-button
-                size="mini"
-                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-        <el-button
-                size="mini"
-                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-        <el-button
-                size="mini"
-                @click="handleDelete(scope.$index, scope.row)">权限设置</el-button>
-      </template>
+    <el-table
+            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+            style="width: 100%">
+      <el-table-column
+              label="学号"
+              prop="StudentId">
+      </el-table-column>
+      <el-table-column
+              label="姓名"
+              prop="name">
+      </el-table-column>
+      <el-table-column
+              label="性别"
+              prop="sex">
+      </el-table-column>
+      <el-table-column
+              label="身份"
+              prop="identity">
+      </el-table-column>
+      <el-table-column
+              label="电话"
+              prop="phoneNumber">
+      </el-table-column>
+      <el-table-column
+              label="所在学校"
+              prop="School">
+      </el-table-column>
+      <el-table-column
+              label="所在学院"
+              prop="College">
+      </el-table-column>
+      <el-table-column
+              label="创建时间"
+              prop="creatTime">
+      </el-table-column>
+      <el-table-column
+              align="right">
+        <template slot="header" slot-scope="scope">
+        </template>
+        <template slot-scope="scope">
+          <el-button
+                  size="mini"
+                  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button
+                  size="mini"
+                  @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button
+                  size="mini"
+                  @click="handleDelete(scope.$index, scope.row)">权限设置</el-button>
+        </template>
 
-    </el-table-column>
+      </el-table-column>
 
-  </el-table>
+    </el-table>
   </el-card>
 </template>
 

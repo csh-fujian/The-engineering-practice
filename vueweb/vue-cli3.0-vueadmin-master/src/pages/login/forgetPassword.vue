@@ -25,7 +25,6 @@
           下一步
         </el-button>
       </el-form-item>
-
     </el-form>
   </div>
 </template>
@@ -40,7 +39,7 @@
                 } else {
                     callback()
                 }
-            } 
+            }
             const validatePass = (rule, value, callback) => {
                 if (value.length < 5) {
                     callback(new Error('密码不能小于5位'))

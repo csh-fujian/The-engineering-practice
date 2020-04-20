@@ -432,10 +432,10 @@ export default {
                 if (valid) {
                     if (!permissions) {
                         this.$message({
-                            showClose: true,
-                            message: '请选择权限',
-                            type: 'warning'
-                        })
+                        showClose: true,
+                        message: '请选择权限',
+                        type: 'warning'
+                    })
                         return
                     }
                     var formData = new URLSearchParams()
