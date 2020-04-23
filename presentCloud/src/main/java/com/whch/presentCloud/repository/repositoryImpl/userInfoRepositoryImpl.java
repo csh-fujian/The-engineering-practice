@@ -15,9 +15,9 @@ public class userInfoRepositoryImpl implements userInfoRepository {
     private userInfoMapper userInfoM;
 
     @Override
-    public userInfo get(String Number, String password) {
+    public userInfo get(String name) {
 
-        return userInfoM.findOne(Number, password);
+        return userInfoM.findOne(name);
     }
 
     @Override
@@ -43,4 +43,8 @@ public class userInfoRepositoryImpl implements userInfoRepository {
         return userInfoM.deleteByPrimaryKey(UserInfo.getId());
     }
 
+    @Override
+    public Integer login(userInfo user){
+        return userInfoM.login(user);
+    }
 }

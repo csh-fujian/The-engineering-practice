@@ -23,8 +23,11 @@ public interface userInfoMapper {
 
     int updateByPrimaryKey(userInfo record);
 
-    @Select("select * from userinfo where Number = #{number} and password = #{password}")
-	userInfo findOne(@Param("number") String number, @Param("password") String password);
+    @Select("select * from userinfo where name = #{name}")
+	userInfo findOne(@Param("name") String name);
+
+    @Select("select u.id from userinfo u where u.name = #{name} and u.password = #{password}")
+    Integer login(userInfo user);
 
     @Select("select * from userinfo")
     List<userInfo> getAll();

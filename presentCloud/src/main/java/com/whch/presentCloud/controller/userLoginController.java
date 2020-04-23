@@ -1,46 +1,40 @@
 package com.whch.presentCloud.controller;
 
 
+import com.whch.presentCloud.entity.LoginResult;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.service.IService.IUserLoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class userLoginController {
 
     @Autowired
     private IUserLoginService userloginservice;
 
-    @RequestMapping("/login")
-    public String login(){
-        return "login";
+
+
+    @PostMapping(value = "/regist")
+    public LoginResult regist(userInfo user){
+        return userloginservice.regist(user);
     }
-
-   
-    //测试
-    @RequestMapping("/userLogin")
-    @ResponseBody
-    public String userLogin(@RequestParam("number")String number,@RequestParam("password")String password,HttpServletRequest request){
-//       System.out.println(tel+password);
-        if(number == "" || password == ""){
-            request.setAttribute("msg","账号密码不能为空");
-            return "账号密码不能为空";
-        }
-
-        userInfo User=userloginservice.getUserInfo(number, password);
-        
-
-        return User.getName(); }
+    /**
+     * 登录
+     * @param user 参数封装
+     * @return LoginResult
+     */
+    @PostMapping(value = "/login")
+    public LoginResult login(userInfo user){
+        return userloginservice.login(user);
+    }
 
     /**
      * 退出登录

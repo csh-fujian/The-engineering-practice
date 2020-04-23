@@ -9,13 +9,8 @@
         <module name="newspicker" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8">
       <module name="newspicker" target="1.8" />
     </bytecodeTargetLevel>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="newspicker" options="-parameters" />
-    </option>
   </component>
 </project>

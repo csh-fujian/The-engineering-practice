@@ -5,9 +5,9 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
+  resources:
+    static-locations: classpath:/templates #访问静态页面
 
-  mvc:
-    static-path-pattern: /**
   # resources:
   #   static-locations: classpath:/static/
   # thymeleaf:
@@ -18,4 +18,7 @@ spring:
 mybatis:
   mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
   type-aliases-package: com.whch.presentCloud.entity
+
+server:
+  port: 8080
 

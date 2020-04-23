@@ -1,10 +1,12 @@
 package com.whch.presentCloud.service.IService;
 
+import com.whch.presentCloud.entity.LoginResult;
 import com.whch.presentCloud.entity.userInfo;
 
 
 
 
 public interface IUserLoginService {
-    public userInfo getUserInfo(String number, String password);
+    public LoginResult regist(userInfo user);
+    public LoginResult login(userInfo user);
 }
