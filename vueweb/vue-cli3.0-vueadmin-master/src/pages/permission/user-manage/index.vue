@@ -65,26 +65,7 @@
               style="width: 100%"
       >
         <el-table-column type="index" width="60"> </el-table-column>
-        <!-- <el-table-column
-            prop="status"
-            label="停用/启用"
-            align="center"
-            min-width="100"
-        >
-            <template slot-scope="scope"> -->
-        <!-- <el-tag v-if="scope.row.status=='1'" color="#13CE66">启用</el-tag>
-<el-tag v-if="scope.row.status=='0'" color="#FF4949">停用</el-tag> -->
-        <!-- <el-switch
-            v-model="scope.row.status"
-            :active-value="1"
-            :inactive-value="0"
-            active-text=""
-            inactive-text=""
-            @change="handleStatus(scope.row)"
-        >
-        </el-switch>
-    </template>
-</el-table-column> -->
+
         <el-table-column
                 prop="loginName"
                 label="班课id"
@@ -218,32 +199,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <!--
 
-                        <el-form-item label="真实姓名" prop="name">
-                            <el-input
-                                v-model="dataForm.name"
-                                placeholder="真实姓名"
-                            ></el-input>
-                        </el-form-item>
-                        <el-form-item label="联系电话" prop="mobile">
-                            <el-input
-                                v-model="dataForm.mobile"
-                                placeholder="联系电话"
-                            ></el-input>
-                        </el-form-item>
-                        <el-form-item label="联系地址" prop="address">
-                            <el-input
-                                v-model="dataForm.address"
-                                placeholder="联系地址"
-                            ></el-input>
-                        </el-form-item>
-                        <el-form-item label="电子邮箱" prop="email">
-                            <el-input
-                                v-model="dataForm.email"
-                                placeholder="电子邮箱"
-                            ></el-input>
-                        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
