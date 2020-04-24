@@ -15,6 +15,6 @@ public interface IClassManageService {
 
 	List<Map> getCourse(String classId);
 
-	List<Map<String, Object>> getLesson(String classId, String username);
+	Map<String, Object> getLesson(String classId, String username);
 
 }

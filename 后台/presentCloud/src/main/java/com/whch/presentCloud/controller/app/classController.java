@@ -43,9 +43,9 @@ public class classController {
     }
 
     @RequestMapping("one-class")
-    public List<Map<String,Object>> getClassInfo(@RequestParam("classId")String classId,@RequestParam("username")String username)
+    public Map<String,Object> getClassInfo(@RequestParam("classId")String classId,@RequestParam("username")String username)
     {
-        List<Map<String,Object>> res = classManageService.getLesson(classId,username);
+        Map<String,Object> res = classManageService.getLesson(classId,username);
         return res;
     }
 

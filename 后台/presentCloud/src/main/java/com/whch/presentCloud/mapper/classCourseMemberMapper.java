@@ -26,4 +26,7 @@ public interface classCourseMemberMapper {
 
     @Select("select * from ClassCourseMember where StudentId = #{studentId} and ClassId = #{classId}")
 	classCourseMember getCourse(@Param("classId")String classId, @Param("studentId")String studentId);
+
+    @Select("select * from ClassCourseMember where CtudentId = #{classId}")
+	List<classCourseMember> getOneClassMembers(int classId);
 }

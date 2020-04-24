@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.whch.presentCloud.mapper.classCourseMemberMapper" >
   <resultMap id="BaseResultMap" type="com.whch.presentCloud.entity.classCourseMember" >
-    <id column="ClassId" property="classid" jdbcType="INTEGER" />
+    <result column="ClassId" property="classid" jdbcType="INTEGER" />
     <result column="StudentName" property="studentname" jdbcType="VARCHAR" />
     <result column="StudentId" property="studentid" jdbcType="VARCHAR" />
     <result column="ClassName" property="classname" jdbcType="VARCHAR" />
