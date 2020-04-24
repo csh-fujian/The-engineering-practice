@@ -43,6 +43,7 @@ export default {
     actions: {
         async FETCH_PERMISSION({ commit, state }) {
             let permissionList = await fetchPermission()
+            console.log(permissionList)
             commit('SET_AVATAR', permissionList.avatar)
             commit('SET_ACCOUNT', permissionList.name)
             let routes = recursionRouter(permissionList.data, dynamicRouter)

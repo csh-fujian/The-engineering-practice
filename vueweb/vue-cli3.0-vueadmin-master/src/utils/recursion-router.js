@@ -5,18 +5,28 @@
  * @return {Array} realRoutes 过滤后的路由
  */
 
+// export function recursionRouter(userRouter = [], allRouter = []) {
+//     var realRoutes = allRouter
+//         .filter(item => userRouter.includes(item.name))
+//         .map(item => ({
+//             ...item,
+//             children: item.children
+//                 ? recursionRouter(userRouter, item.children)
+//                 : null
+//         }))
+//     return realRoutes
+// }
 export function recursionRouter(userRouter = [], allRouter = []) {
     var realRoutes = allRouter
-        .filter(item => userRouter.includes(item.name))
-        .map(item => ({
-            ...item,
-            children: item.children
-                ? recursionRouter(userRouter, item.children)
-                : null
-        }))
+        // .filter(item => userRouter.includes(item.name))
+        // .map(item => ({
+        //     ...item,
+        //     children: item.children
+        //         ? recursionRouter(userRouter, item.children)
+        //         : null
+        // }))
     return realRoutes
 }
-
 /**
  *
  * @param {Array} routes 用户过滤后的路由
