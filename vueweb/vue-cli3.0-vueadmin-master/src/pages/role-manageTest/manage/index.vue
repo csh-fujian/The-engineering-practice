@@ -48,7 +48,7 @@
 
         <el-table-column
           prop="roleName"
-          label="角色""
+          label="角色"
           min-width="120">
         </el-table-column>   
 

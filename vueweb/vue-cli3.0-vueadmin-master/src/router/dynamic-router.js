@@ -20,6 +20,12 @@ const MenuManage = () => import('@/pages/permission/menu-manage')
 //用户管理
 const roleManageTest = () => import('@/pages/role-manageTest')
 const ManageTest = () => import('@/pages/role-manageTest/manage')
+//角色管理
+const roleManage = () => import('@/pages/user-manage')
+const roleManagetest = () => import('@/pages/user-manage/user-manage-test')
+//设计角色管理Test
+const designRolemanage = () => import('@/pages/Design-role-manage')
+const designRolemanage1 = () => import('@/pages/Design-role-manage/Design-role-manage1')
 /* 需要权限判断的路由 */
 const dynamicRoutes = [
     {
@@ -27,7 +33,7 @@ const dynamicRoutes = [
         component: Order,
         name: 'order-manage',
         meta: {
-            name: '按钮管理',
+            name: '数据字典',
             icon: 'example'
         },
         children: [
@@ -36,30 +42,40 @@ const dynamicRoutes = [
                 name: 'order-list',
                 component: OrderList,
                 meta: {
-                    name: '按钮管理',
+                    name: '字典类型管理',
+                    icon: 'table'
+                }
+            },
+            {
+                path:'ReturnGoods',
+                name:'return-goods',
+                component:ReturnGoods,
+                meta: {
+                    name: '字典数据管理',
                     icon: 'table'
                 }
             }
         ]
     },
-
     {
-        path: '/goods',
-        component: Goods,
-        name: 'goods',
+        path:'/designRolemanage',
+        component:designRolemanage,
+        name:'Design-role-manage',
         meta: {
-            name: '查看权限管理',
+            name: '角色管理',
             icon: 'user'
         },
         children: [
             {
-                path: 'list',
-                name: 'goods-list',
-                component: GoodsList,
+                path: 'designRolemanage1',
+                name: 'Design-role-manage1',
+                component: designRolemanage1,
                 meta: {
-                    name: '查看权限管理',
+                    name: '角色管理',
                     icon: 'table'
                 }
+            },
+            {
             }
         ]
     },
@@ -80,10 +96,32 @@ const dynamicRoutes = [
                     name: '菜单管理',
                     icon: 'table'
                 }
+            },
+            {
             }
-
         ]
     },
+    {
+        path: '/goods',
+        component: Goods,
+        name: 'goods',
+        meta: {
+            name: '查看权限管理',
+            icon: 'user'
+        },
+        children: [
+            {
+                path: 'list',
+                name: 'goods-list',
+                component: GoodsList,
+                meta: {
+                    name: '查看权限管理',
+                    icon: 'table'
+                }
+            }
+        ]
+    },
+
     {
         path: '/permission',
         component: Permission,
