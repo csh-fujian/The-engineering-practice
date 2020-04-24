@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.whch.presentCloud.mapper.userCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.whch.presentCloud.entity.userCheck" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="Fk_UserInfo_UserCheck_Id" property="fkUserinfoUsercheckId" jdbcType="INTEGER" />
+    <result column="Type" property="type" jdbcType="INTEGER" />
+    <result column="ThirdParty" property="thirdparty" jdbcType="INTEGER" />
+    <result column="Identifier" property="identifier" jdbcType="VARCHAR" />
+    <result column="PasswordToken" property="passwordtoken" jdbcType="VARCHAR" />
+    <result column="CreationDate" property="creationdate" jdbcType="TIMESTAMP" />
+    <result column="Creater" property="creater" jdbcType="INTEGER" />
+    <result column="ModificationDate" property="modificationdate" jdbcType="TIMESTAMP" />
+    <result column="Modifier" property="modifier" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, Fk_UserInfo_UserCheck_Id, Type, ThirdParty, Identifier, PasswordToken, CreationDate, 
+    Creater, ModificationDate, Modifier
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from usercheck
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from usercheck
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.whch.presentCloud.entity.userCheck" >
+    insert into usercheck (Id, Fk_UserInfo_UserCheck_Id, Type, 
+      ThirdParty, Identifier, PasswordToken, 
+      CreationDate, Creater, ModificationDate, 
+      Modifier)
+    values (#{id,jdbcType=INTEGER}, #{fkUserinfoUsercheckId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{thirdparty,jdbcType=INTEGER}, #{identifier,jdbcType=VARCHAR}, #{passwordtoken,jdbcType=VARCHAR}, 
+      #{creationdate,jdbcType=TIMESTAMP}, #{creater,jdbcType=INTEGER}, #{modificationdate,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.whch.presentCloud.entity.userCheck" >
+    insert into usercheck
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="fkUserinfoUsercheckId != null" >
+        Fk_UserInfo_UserCheck_Id,
+      </if>
+      <if test="type != null" >
+        Type,
+      </if>
+      <if test="thirdparty != null" >
+        ThirdParty,
+      </if>
+      <if test="identifier != null" >
+        Identifier,
+      </if>
+      <if test="passwordtoken != null" >
+        PasswordToken,
+      </if>
+      <if test="creationdate != null" >
+        CreationDate,
+      </if>
+      <if test="creater != null" >
+        Creater,
+      </if>
+      <if test="modificationdate != null" >
+        ModificationDate,
+      </if>
+      <if test="modifier != null" >
+        Modifier,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fkUserinfoUsercheckId != null" >
+        #{fkUserinfoUsercheckId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="thirdparty != null" >
+        #{thirdparty,jdbcType=INTEGER},
+      </if>
+      <if test="identifier != null" >
+        #{identifier,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordtoken != null" >
+        #{passwordtoken,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null" >
+        #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="modificationdate != null" >
+        #{modificationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        #{modifier,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.whch.presentCloud.entity.userCheck" >
+    update usercheck
+    <set >
+      <if test="fkUserinfoUsercheckId != null" >
+        Fk_UserInfo_UserCheck_Id = #{fkUserinfoUsercheckId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        Type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="thirdparty != null" >
+        ThirdParty = #{thirdparty,jdbcType=INTEGER},
+      </if>
+      <if test="identifier != null" >
+        Identifier = #{identifier,jdbcType=VARCHAR},
+      </if>
+      <if test="passwordtoken != null" >
+        PasswordToken = #{passwordtoken,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null" >
+        CreationDate = #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null" >
+        Creater = #{creater,jdbcType=INTEGER},
+      </if>
+      <if test="modificationdate != null" >
+        ModificationDate = #{modificationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null" >
+        Modifier = #{modifier,jdbcType=CHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.whch.presentCloud.entity.userCheck" >
+    update usercheck
+    set Fk_UserInfo_UserCheck_Id = #{fkUserinfoUsercheckId,jdbcType=INTEGER},
+      Type = #{type,jdbcType=INTEGER},
+      ThirdParty = #{thirdparty,jdbcType=INTEGER},
+      Identifier = #{identifier,jdbcType=VARCHAR},
+      PasswordToken = #{passwordtoken,jdbcType=VARCHAR},
+      CreationDate = #{creationdate,jdbcType=TIMESTAMP},
+      Creater = #{creater,jdbcType=INTEGER},
+      ModificationDate = #{modificationdate,jdbcType=TIMESTAMP},
+      Modifier = #{modifier,jdbcType=CHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
