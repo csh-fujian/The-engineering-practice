@@ -24,15 +24,15 @@
   
   ### 项目启动步骤
 1. 安装包（这里需要使用npm进行安装，如果用cnpm或者yarn会有热更新失效的问题）
-   npm install 
-2. 开发运行
-  npm run serve:randy
-3. 生产打包
-  npm run dll (仅需运行一次)
-  npm run build
-
- #### 项目分析
-  npm run analyze
+                    npm install 
+                 2. 开发运行
+                   npm run serve:randy
+                 3. 生产打包
+                   npm run dll (仅需运行一次)
+                   npm run build
+                 
+                  #### 项目分析
+                   npm run analyze
   
    #### 温馨提示
    在新增vue页面的时候，热更新可能会失效，重启一下项目

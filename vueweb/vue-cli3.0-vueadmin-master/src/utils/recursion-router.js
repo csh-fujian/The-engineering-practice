@@ -17,14 +17,15 @@
 //     return realRoutes
 // }
 export function recursionRouter(userRouter = [], allRouter = []) {
+    console.log(allRouter)
     var realRoutes = allRouter
-        // .filter(item => userRouter.includes(item.name))
-        // .map(item => ({
-        //     ...item,
-        //     children: item.children
-        //         ? recursionRouter(userRouter, item.children)
-        //         : null
-        // }))
+         .filter(item => userRouter.includes(item.name))
+         .map(item => ({
+             ...item,
+             children: item.children
+                 ? recursionRouter(userRouter, item.children)
+                 : null
+         }))
     return realRoutes
 }
 /**

@@ -13,7 +13,7 @@
       </div>
     </div>
     <div  class="tools-bar">
-      <el-button  type="success" icon="el-icon-plus" size="small" @click="dialogFormVisible = true;">新增角色</el-button>
+      <el-button  type="success" icon="el-icon-plus" size="small" @click="dialogFormVisible = true">新增角色</el-button>
     </div>
     <div>
       <el-table

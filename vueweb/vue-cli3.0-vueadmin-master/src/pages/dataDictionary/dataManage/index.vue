@@ -66,7 +66,7 @@
         },
         methods: {
             handleEdit(index, row) {
-                this.$router.replace('/order/ReturnGoods')
+                this.$router.replace('/Datadictionary/Typemanage')
             },
             handleDelete(index, row) {
                 console.log(index, row);

@@ -1,7 +1,7 @@
 <template  lang="html">
   <el-card class="box-card">
     <div class="fl">
-      <el-button type="success" icon="el-icon-plus" @click="addUser">新增角色</el-button>
+      <el-button type="success" icon="el-icon-plus" @click="dialogVisible = true">新增角色</el-button>
     </div>
     <el-table
             :data="tableData"
@@ -35,6 +35,32 @@
         </template>
       </el-table-column >
     </el-table>
+    <el-pagination
+            small
+            layout="prev, pager, next"
+            :page-size="pageSize"
+            :total="total"
+            @current-change="page"
+    >
+    </el-pagination>
+    <el-dialog
+            title="新增角色"
+            :visible.sync="dialogVisible"
+            width="30%"
+            :before-close="handleClose">
+      <el-form :model="tableData" >
+        <el-form-item label="序号" label-width="120px">
+          <el-input v-model="tableData.date" ></el-input>
+        </el-form-item>
+        <el-form-item label="角色" label-width="120px">
+          <el-input v-model="tableData.name" ></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="doAdd()">确 定</el-button>
+   </span>
+    </el-dialog>
   </el-card>
 </template>
 
@@ -42,6 +68,8 @@
     export default {
         data() {
             return {
+                pageSize:'3',
+                total:'100',
                 tableData: [{
                     date: '01',
                     name: '王小虎',
@@ -54,10 +82,14 @@
                 }, {
                     date: '04',
                     name: '王小虎',
-                }]
+                }],
+                dialogVisible: false
             }
         },
         methods: {
+            doAdd() {
+                this.dialogVisible = false
+            },
             handleEdit(index, row) {
                 console.log(index, row);
             },
@@ -65,8 +97,49 @@
                 console.log(index, row);
             },
             addUser(index, row) {
-                console.log(index, row);
             },
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(_ => {
+                        done();
+                    })
+                    .catch(_ => {});
+            },
+            page(currentPage){
+                switch(currentPage){
+                    case 1:
+                        this.tableData = [
+                            {
+                                date:'1',
+                                name:'解忧杂货店'
+                            },{
+                                date:'2',
+                                name:'追风筝的人'
+                            },{
+                                date:'3',
+                                name:'人间失格'
+                            }
+                            ];
+                        break;
+                    case 2:
+                        this.tableData = [
+                            {
+                                date:'4',
+                                name:'白夜行'
+                            },{
+                                date:'5',
+                                name:'三国演义'
+                            },{
+                                date:'6',
+                                name:'罗贯中'
+                            }
+                            ];
+                        break;
+                }
+            }
+        },
+        created() {
+
         }
     }
 </script>
