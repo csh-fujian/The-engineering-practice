@@ -11,13 +11,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class userInfoRepositoryImpl implements userInfoRepository {
+
     @Autowired
     private userInfoMapper userInfoM;
 
     @Override
     public userInfo get(userInfo user) {
 
-        return userInfoM.findOne(user);
+        return userInfoM.findOne(user.getName(), user.getPassword());
     }
 
     @Override
@@ -49,7 +50,18 @@ public class userInfoRepositoryImpl implements userInfoRepository {
         return userInfoM.getUser(phone);
     }
 
+    @Override
+    public userInfo get(Integer id, String nickname) {
+
+        return userInfoM.getUser1(id,nickname);
+    }
+
     public Integer login(userInfo user){
-        return userInfoM.login(user);
+        return userInfoM.findOne(user.getName(), user.getPassword()).getId();
+    }
+
+    @Override
+    public List<userInfo> multiquery(Integer id, String role, String school, String department) {
+        return userInfoM.multiquery(id, role, school, department);
     }
 }

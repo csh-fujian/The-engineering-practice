@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.whch.presentCloud.entity.dictionaryType;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 public interface dictionaryTypeMapper {
@@ -21,4 +23,7 @@ public interface dictionaryTypeMapper {
 
     @Select("select * from dictionarytype")
 	List<dictionaryType> getAll();
+
+    @Delete("delete * from directorydata d where d.typed = #{typed} union delete * from dictionarytype de where de.typed = #{typed}")
+    int delete(@Param("typed") String typed);
 }

@@ -238,6 +238,11 @@
       Image = #{image,jdbcType=LONGVARBINARY}
     where Id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="findByPaging" resultMap="BaseResultMap" parameterType="com.whch.presentCloud.entity.userInfo">
+    select
+    <include refid="Base_Column_List"/>
+    from userinfo
+  </select>
   <update id="updateByPrimaryKey" parameterType="com.whch.presentCloud.entity.userInfo" >
     update userinfo
     set Number = #{number,jdbcType=VARCHAR},
@@ -257,4 +262,13 @@
       Modifier = #{modifier,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}
   </update>
+  <select  id="multiquery" resultMap="BaseResultMap" parameterType="com.whch.presentCloud.entity.userInfo">
+    select * from userinfo
+    <where>
+      <if test="id!=null"> Id like  #{id} </if>
+      <if test="role!=null"> and Role like #{role}</if>
+      <if test="School!=null"> and School like #{school}</if>
+      <if test="Department!=null"> and Department like #{department}</if>
+    </where>
+  </select>
 </mapper>

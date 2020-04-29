@@ -1,48 +1,37 @@
-package com.whch.presentCloud.controller.app;
+package com.whch.presentCloud.controller.web;
 
 import com.whch.presentCloud.entity.classCourseMember;
-import com.whch.presentCloud.entity.classLesson;
 import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.service.IService.IClassManageService;
 import com.whch.presentCloud.service.IService.IUserLoginService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
-
-@Controller
-public class userLoginController {
+@RestController
+@RequestMapping("webinitialization")
+public class WebUserLoginController {
 
     @Autowired
     private IUserLoginService userloginservice;
     @Autowired
     private IClassManageService classManageService;
 
-    @RequestMapping("/loginbyphone")
-    public Map<String,Object> login(@RequestParam("phone") String phone) {
-        Map res = userloginservice.IsExistUser(phone);
-        return res;
-    }
-
    
     //测试
-    @RequestMapping("/login")
+    @RequestMapping("login")
     @ResponseBody
     public result userLogin(@RequestParam("username")String number,@RequestParam("password")String password){
 //       System.out.println(tel+password);
-        HashMap lessonInfo = new HashMap<>();
+
         result r = new result();
         if(number == "" || password == ""){
             r.setInfo("帐号密码不能为空");
@@ -50,6 +39,7 @@ public class userLoginController {
             return r;
         }
 
+        //获取该用户的角色
         int flag =userloginservice.IsExistUser(number, password);
         
         if(flag == 1)
@@ -57,12 +47,13 @@ public class userLoginController {
             List<classCourseMember> lessons = classManageService.getLessons(number);
             List studentClassList = new ArrayList<>();
             for (classCourseMember lesson : lessons) {
-               
+                HashMap lessonInfo = new HashMap<>();
                 lessonInfo.put("bankeName", lesson.getClassname());
                 lessonInfo.put("teacher", lesson.getTeachername());
                 lessonInfo.put("description", lesson.getClassname());
                 lessonInfo.put("profilePhoto", "");
-            } 
+                studentClassList.add(lessonInfo);
+            }
             r.setState("true");
             r.setRole("学生");
             r.setResult(studentClassList);
@@ -82,7 +73,7 @@ public class userLoginController {
      * @param request
      * @return
      */
-    @RequestMapping("/userLoginOut")
+    @RequestMapping("loginOut")
     public String userLoginOutController(HttpServletRequest request){
         request.getSession().removeAttribute("session_user");
         return "login";
@@ -91,20 +82,36 @@ public class userLoginController {
     /**
      * 注册
      */
-    @RequestMapping("/register")
-    public String register(@RequestParam("Name")String Name,@RequestParam("status")String role,
-    @RequestParam("studentId")String studentId,@RequestParam("phone")String phone,@RequestParam("passWord")String passWord,
-    @RequestParam("school")String school,@RequestParam("department")String department)
+    @PostMapping("register")
+    public result register(userInfo user)
     {
-        userInfo user = new userInfo(studentId,passWord,Name,school,department,role,phone);
-        int flag = userloginservice.addUser(user);
-
-        if(flag == 1)
-        {
-            return "true";
-        }
-        return "false";
+        return userloginservice.regist(user);
     }
 
-    
+
+    /**
+     * 忘记密码，通过手机号查询该用户
+     * @param user
+     * @return
+     */
+    @GetMapping("foget")
+    public userInfo forgetpassword(userInfo user)
+    {
+        return userloginservice.findbyphone(user.getPhone());
+    }
+
+
+    /**
+     * 重置密码
+     * @param user
+     * @param password
+     * @return
+     */
+    @RequestMapping("setpassword")
+    public int setpassword(userInfo user, String password)
+    {
+        System.out.println(user.getPassword());
+        return userloginservice.setpw(user, password);
+    }
+
 }

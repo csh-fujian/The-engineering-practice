@@ -7,11 +7,12 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './styles/index.scss'
 
-import axios from './config/httpConfig'
+// import axios from './config/httpConfig'
 import * as globalFilter from './filters/filters'
 import '@/icons'
-
-Vue.prototype.$http = axios
+import axios from 'axios'
+Vue.prototype.$axios = axios
+// Vue.prototype.$http = axios
 
 for (var key in globalFilter) {
     Vue.filter(key, globalFilter[key])

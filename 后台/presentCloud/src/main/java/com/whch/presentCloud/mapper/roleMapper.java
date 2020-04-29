@@ -2,6 +2,7 @@ package com.whch.presentCloud.mapper;
 
 import java.util.List;
 
+import com.github.pagehelper.Page;
 import com.whch.presentCloud.entity.role;
 
 import org.apache.ibatis.annotations.Param;
@@ -25,4 +26,6 @@ public interface roleMapper {
 
     @Select("select * from role")
 	List<role> getAll();
+
+    Page<role> findByPaging();
 }

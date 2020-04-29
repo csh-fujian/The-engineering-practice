@@ -21,6 +21,7 @@ public interface classCourseMemberMapper {
 
     int updateByPrimaryKey(classCourseMember record);
 
+    //找出一个学生的所有课程
     @Select("select * from ClassCourseMember where StudentId = #{studentId}")
 	List<classCourseMember> get(@Param("studentId") String number);
 
@@ -28,5 +29,5 @@ public interface classCourseMemberMapper {
 	classCourseMember getCourse(@Param("classId")String classId, @Param("studentId")String studentId);
 
     @Select("select * from ClassCourseMember where CtudentId = #{classId}")
-	List<classCourseMember> getOneClassMembers(int classId);
+	List<classCourseMember> getOneClassMembers(@Param("classId")int classId);
 }

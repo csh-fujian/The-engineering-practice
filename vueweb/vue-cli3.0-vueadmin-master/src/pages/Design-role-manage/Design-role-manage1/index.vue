@@ -10,7 +10,7 @@
               label="序号"
               width="180">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+          <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -50,7 +50,7 @@
             :before-close="handleClose">
       <el-form :model="tableData" >
         <el-form-item label="序号" label-width="120px">
-          <el-input v-model="tableData.date" ></el-input>
+          <el-input v-model="tableData.id" ></el-input>
         </el-form-item>
         <el-form-item label="角色" label-width="120px">
           <el-input v-model="tableData.name" ></el-input>
@@ -64,82 +64,54 @@
   </el-card>
 </template>
 
-<script>
-    export default {
-        data() {
-            return {
-                pageSize:'3',
-                total:'100',
-                tableData: [{
-                    date: '01',
-                    name: '王小虎',
-                }, {
-                    date: '02',
-                    name: '王小虎',
-                }, {
-                    date: '03',
-                    name: '王小虎',
-                }, {
-                    date: '04',
-                    name: '王小虎',
-                }],
-                dialogVisible: false
-            }
-        },
-        methods: {
-            doAdd() {
-                this.dialogVisible = false
-            },
-            handleEdit(index, row) {
-                console.log(index, row);
-            },
-            addDelete(index, row) {
-                console.log(index, row);
-            },
-            addUser(index, row) {
-            },
-            handleClose(done) {
-                this.$confirm('确认关闭？')
-                    .then(_ => {
-                        done();
-                    })
-                    .catch(_ => {});
-            },
-            page(currentPage){
-                switch(currentPage){
-                    case 1:
-                        this.tableData = [
-                            {
-                                date:'1',
-                                name:'解忧杂货店'
-                            },{
-                                date:'2',
-                                name:'追风筝的人'
-                            },{
-                                date:'3',
-                                name:'人间失格'
-                            }
-                            ];
-                        break;
-                    case 2:
-                        this.tableData = [
-                            {
-                                date:'4',
-                                name:'白夜行'
-                            },{
-                                date:'5',
-                                name:'三国演义'
-                            },{
-                                date:'6',
-                                name:'罗贯中'
-                            }
-                            ];
-                        break;
-                }
-            }
-        },
-        created() {
-
+<script >
+export default {
+    data() {
+        return {
+            pageSize: '3',
+            total: '100',
+            tableData: [{
+                Id: '01',
+                name: '王小虎'
+            }, {
+                Id: '02',
+                name: '王小虎'
+            }, {
+                Id: '03',
+                name: '王小虎'
+            }, {
+                date: '04',
+                name: '王小虎'
+            }],
+            dialogVisible: false
         }
+    },
+    methods: {
+        doAdd() {
+            this.dialogVisible = false
+        },
+        handleEdit(index, row) {
+            console.log(index, row)
+        },
+        addDelete(index, row) {
+            console.log(index, row)
+        },
+        addUser(index, row) {
+        },
+        handleClose(done) {
+            this.$confirm('确认关闭？')
+                .then(_ => {
+                    done()
+                })
+                .catch(_ => {})
+        }
+    },
+    created() {
+        const _this = this
+        this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
+             _this.tableData = resp.data
+            // alert(321)
+        })
     }
+}
 </script>

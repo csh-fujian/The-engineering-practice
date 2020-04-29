@@ -65,59 +65,62 @@
   </el-card>
 </template>
 <script>
-    export default {
-        data() {
-            return {
-                tableData: [{
-                    StudentId: '190327064',
-                    name: '王小虎',
-                    sex: '男',
-                    identity:'教师',
-                    phoneNumber:'1335855555',
-                    School:'福州大学',
-                    College:'数学与计算机科学',
-                    creatTime:'2020-04-20'
-                }, {
-                    StudentId: '190327064',
-                    name: '王小虎',
-                    sex: '男',
-                    identity:'教师',
-                    phoneNumber:'1335855555',
-                    School:'福州大学',
-                    College:'数学与计算机科学',
-                    creatTime:'2020-04-20'
-                }, {
-                    StudentId: '190327064',
-                    name: '王小虎',
-                    sex: '男',
-                    identity:'教师',
-                    phoneNumber:'1335855555',
-                    School:'福州大学',
-                    College:'数学与计算机科学',
-                    creatTime:'2020-04-20'
-                }, {
-                    StudentId: '190327064',
-                    name: '王小虎',
-                    sex: '男',
-                    identity:'教师',
-                    phoneNumber:'1335855555',
-                    School:'福州大学',
-                    College:'数学与计算机科学',
-                    creatTime:'2020-04-20'
-                }],
-                search: ''
-            }
+export default {
+    data() {
+        return {
+            tableData: [{
+                StudentId: '190327064',
+                name: '王小虎',
+                sex: '男',
+                identity: '教师',
+                phoneNumber: '1335855555',
+                School: '福州大学',
+                College: '数学与计算机科学',
+                creatTime: '2020-04-20'
+            }, {
+                StudentId: '190327064',
+                name: '王小虎',
+                sex: '男',
+                identity: '教师',
+                phoneNumber: '1335855555',
+                School: '福州大学',
+                College: '数学与计算机科学',
+                creatTime: '2020-04-20'
+            }, {
+                StudentId: '190327064',
+                name: '王小虎',
+                sex: '男',
+                identity: '教师',
+                phoneNumber: '1335855555',
+                School: '福州大学',
+                College: '数学与计算机科学',
+                creatTime: '2020-04-20'
+            }, {
+                StudentId: '190327064',
+                name: '王小虎',
+                sex: '男',
+                identity: '教师',
+                phoneNumber: '1335855555',
+                School: '福州大学',
+                College: '数学与计算机科学',
+                creatTime: '2020-04-20'
+            }],
+            search: ''
+        }
+    },
+    methods: {
+        handleEdit(index, row) {
+            console.log(index, row)
         },
-        methods: {
-            handleEdit(index, row) {
-                console.log(index, row);
-            },
-            handleDelete(index, row) {
-                console.log(index, row);
-            },
-            addDelete(index, row) {
-                console.log(index, row);
-            }
+        handleDelete(index, row) {
+            console.log(index, row)
         },
+        addDelete(index, row) {
+            console.log(index, row)
+        }
+    },
+    created() {
+
     }
+}
 </script>

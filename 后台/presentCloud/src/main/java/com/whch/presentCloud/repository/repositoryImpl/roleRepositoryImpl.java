@@ -2,12 +2,14 @@ package com.whch.presentCloud.repository.repositoryImpl;
 
 import java.util.List;
 
+import com.github.pagehelper.Page;
 import com.whch.presentCloud.entity.role;
 import com.whch.presentCloud.mapper.roleMapper;
 import com.whch.presentCloud.repository.IRepository.roleRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 @Repository
 public class roleRepositoryImpl implements roleRepository {
     @Autowired

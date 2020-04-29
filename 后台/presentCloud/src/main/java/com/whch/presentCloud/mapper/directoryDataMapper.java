@@ -4,7 +4,10 @@ import java.util.List;
 
 import com.whch.presentCloud.entity.directoryData;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface directoryDataMapper {
     int deleteByPrimaryKey(Integer id);
@@ -21,4 +24,25 @@ public interface directoryDataMapper {
 
     @Select("select * from directorydata")
 	List<directoryData> getAll();
+
+    @Select("select d.valued from directorydata d where d.keyd = #{keyd}")
+    String findbykey(@Param("keyd") String keyd);
+
+    @Select("select d.valued from directorydata d where d.typed = #{typed} and defaultvalued = 1")
+    String finddefault(@Param("typed") String typed);
+
+    @Delete("delete * from directorydata d where d.keyd = #{keyd}")
+    int deletebykey(@Param("keyd") String keyd);
+
+    @Select("select * from directorydata d where d.typed = #{typed}")
+    List<directoryData> findbytype(@Param("typed") String typed);
+
+    @Update("update userinfo u set u.sex = #{valued} where u.sex = #{record} union update directorydata d set d.keyd = #{keyd}, d.valued = #{valued} where d.valued = #{record}")
+    int updatebyvalue1(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
+
+    @Update("update role r set r.name = #{valued} where r.name = #{record} union update directorydata d set d.keyd = #{keyd}, d.valued = #{valued} where d.valued = #{record}")
+    int updatebyvalue2(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
+
+    @Update("update directorydata d set d.keyd = #{keyd}, d.valued = #{valued} where d.valued = #{record}")
+    int updatebyvalue0(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
 }
