@@ -1,34 +1,129 @@
 <template>
     <div class="login-container">
-        <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
-            <h3 class="title">后台管理系统</h3>
-            <el-form-item prop="username">
-                <span class="svg-container svg-container_login">
-                    <svg-icon icon-class="user" />
-                </span>
-                <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username" />
-            </el-form-item>
-            <el-form-item prop="password">
-                <span class="svg-container">
-                    <svg-icon icon-class="password"></svg-icon>
-                </span>
-                <el-input name="password" :type="pwdType" @keyup.enter.native="login" v-model="loginForm.password" autoComplete="on"
-                                     placeholder="password"></el-input>
-<span class="show-pwd" @click="showPwd"><svg-icon icon-class="eye" /></span>
-</el-form-item>
-<el-form-item>
-   <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="forget">
-    忘记密码
-    </el-button>
-    </el-form-item>
-<el-form-item>
-  <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="login">
-  登录
-  </el-button>
-</el-form-item>
-<div class="tips">用户为admin的时候，能够看到所有的权限列表，其余账号只能看到部分</div>
-</el-form>
-</div>
+        <h3 class="title">到课云用户登录</h3>
+        <el-button type="text" class="choseButton" @click="changeToM">账号登录</el-button>
+        <el-button type="text" class="choseButton" @click="changeToZ">手机登录</el-button>
+        
+        <!-- <template> -->
+            <el-form
+                class="login-form"
+                autoComplete="on"
+                :model="loginForm"
+                :rules="loginRules"
+                ref="loginForm"
+                label-position="left"
+                v-if="loginType"
+            >
+                <el-form-item prop="username">
+                    <span class="svg-container svg-container_login">
+                        <svg-icon icon-class="user" />
+                    </span>
+                    <el-input
+                        name="username"
+                        type="text"
+                        v-model="loginForm.username"
+                        autoComplete="on"
+                        placeholder="请输入用户名"
+                    />
+                </el-form-item>
+                <el-form-item prop="password">
+                    <span class="svg-container">
+                        <svg-icon icon-class="password"></svg-icon>
+                    </span>
+                    <el-input
+                        name="password"
+                        :type="pwdType"
+                        @keyup.enter.native="login"
+                        v-model="loginForm.password"
+                        autoComplete="on"
+                        placeholder="请输入密码"
+                    ></el-input>
+                    <span class="show-pwd" @click="showPwd"
+                        ><svg-icon icon-class="eye"
+                    /></span>
+                </el-form-item>
+                <el-form-item>
+                    <el-button
+                        type="primary"
+                        style="width:100%;"
+                        :loading="loading"
+                        @click.native.prevent="login"
+                    >
+                        登 录
+                    </el-button>
+                </el-form-item>
+            <el-button type="text" class="pageButton" @click="changeToM">立即注册</el-button>
+            <el-button type="text" class="pageButton" @click="forgetPassword">忘记密码</el-button>
+
+            </el-form>
+
+
+
+ 
+            <el-form
+                class="login-form"
+                autoComplete="on"
+                :model="loginForm"
+                :rules="loginRules"
+                ref="loginForm"
+                label-position="left"
+                v-else>
+                <el-form-item prop="Mobile Number">
+                    <span class="svg-container svg-container_login">
+                        <svg-icon icon-class="user" />
+                    </span>
+                    <el-input
+                        name="username"
+                        type="text"
+                        v-model="loginForm.username"
+                        autoComplete="on"
+                        placeholder="请输入手机号"
+                    />
+                </el-form-item>
+
+                <el-form-item prop="password">
+                    <span class="svg-container">
+                        <svg-icon icon-class="password"></svg-icon>
+                    </span>
+                    <el-input
+                        name="password"
+                        :type="pwdType"
+                        @keyup.enter.native="login"
+                        v-model="loginForm.password"
+                        autoComplete="on"
+                        placeholder="请输入验证码"
+                        style="width:60%;"
+                    ></el-input>
+
+                    <el-button
+                        type="primary"
+                        style="width:30%;"
+                        :loading="loading"
+                        @click.native.prevent="login"
+                    >
+                        获取验证码
+                    </el-button>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button
+                        type="primary"
+                        style="width:100%;"
+                        :loading="loading"
+                        @click.native.prevent="login"
+                    >
+                        登 录
+                    </el-button>
+                </el-form-item>
+
+            <el-button type="text" class="pageButton" @click="changeToM">立即注册</el-button>
+            <el-button type="text" class="pageButton" @click="forgetPassword">忘记密码</el-button>
+            </el-form>
+        
+        <!-- </template> -->
+        
+        
+    </div>
 </template>
 
 <script>
@@ -50,9 +145,10 @@ export default {
             }
         }
         return {
+            loginType: true,
             loginForm: {
-                username: 'admin',
-                password: '123456'
+                username: '',
+                password: ''
             },
             loginRules: {
                 username: [
@@ -71,6 +167,19 @@ export default {
         }
     },
     methods: {
+        changeToM() {
+            // 第一种方式
+            //this.loginType = (this.loginType === "email") ? 'phone' : 'email';
+            this.loginType = true
+        },
+        changeToZ() {
+            // 第一种方式
+            //this.loginType = (this.loginType === "email") ? 'phone' : 'email';
+            this.loginType = false
+        },
+        forgetPassword() {
+            this.$router.push('/forgetPassword')
+        },
         showPwd() {
             if (this.pwdType === 'password') {
                 this.pwdType = ''
@@ -87,17 +196,8 @@ export default {
             } catch (e) {
                 console.log(e)
             }
-        },
-        async forget() {
-            try {
-                let data = await login(this.loginForm)
-                let token = data.token
-                this.$store.commit('LOGIN_IN', token)
-                this.$router.replace('/forgetPassword')
-            } catch (e) {
-                console.log(e)
-            }
         }
+        
     }
 }
 </script>
@@ -144,13 +244,14 @@ $light_gray: #eee;
     height: 100%;
     width: 100%;
     background-color: $bg;
+    text-align: center;
     .login-form {
         position: absolute;
         left: 0;
         right: 0;
         width: 520px;
         padding: 35px 35px 15px 35px;
-        margin: 120px auto;
+        margin: 0px auto;
     }
     .tips {
         font-size: 14px;
@@ -173,10 +274,10 @@ $light_gray: #eee;
         }
     }
     .title {
-        font-size: 26px;
+        font-size: 30px;
         font-weight: 400;
         color: $light_gray;
-        margin: 0px auto 40px auto;
+        margin: 100px auto 45px auto;
         text-align: center;
         font-weight: bold;
     }
@@ -189,9 +290,23 @@ $light_gray: #eee;
         cursor: pointer;
         user-select: none;
     }
-    .fontcontainer{
-        color:#889aa4;
-        padding-left:10px;
+    .fontcontainer {
+        color: #889aa4;
+        padding-left: 10px;
+    }
+    .choseButton {
+        color: #fff;
+        text-align: center;
+        display: inline-block;
+        font-size: 18px;
+        font-weight: bold;
+
+    }
+    .pageButton{
+        // top: 150px;
+        color: #fff;
+        padding-left: 20px;
+        float:right;
     }
 }
 </style>

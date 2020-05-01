@@ -2,25 +2,24 @@
   <div class="login-container">
     <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
       <h3 class="title">忘记密码</h3>
-
       <el-form-item prop="username">
                 <span class="svg-container svg-container_login">
-                    <i class="el-icon-phone"></i>
+                    <svg-icon icon-class="phone" />
                 </span>
-        <el-input name="username" type="text"  v-model="loginForm.username" autoComplete="on" placeholder="请输入手机号" />
+        <el-input name="username" type="text"  autoComplete="on" placeholder="请输入手机号" />
       </el-form-item>
-
       <el-form-item prop="password">
-        <span class="svg-container svg-container_login">
-                    <i class="el-icon-edit"></i>
+                <span class="svg-container">
+                    <svg-icon icon-class="check"></svg-icon>
                 </span>
-        <el-input name="password" type="pwdType"  v-model="loginForm.password" style="width:60%;"  @keyup.enter.native="login"  autoComplete="on" placeholder="请输入验证码 "
+        <el-input name="password" :type="pwdType" @keyup.enter.native="login"  autoComplete="on" placeholder="请输入验证码"
         ></el-input>
-        <el-button type="primary" style="width:30%;" :loading="loading" >
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" style="width:100%;" :loading="loading" >
           获取验证码
         </el-button>
       </el-form-item>
-
       <el-form-item>
         <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="nextstep">
           下一步
@@ -50,8 +49,8 @@
             }
             return {
                 loginForm: {
-                    username: '',
-                    password: ''
+                    username: 'admin',
+                    password: '123456'
                 },
                 loginRules: {
                     username: [
