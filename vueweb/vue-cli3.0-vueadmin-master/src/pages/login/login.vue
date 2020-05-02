@@ -52,7 +52,7 @@
                         登 录
                     </el-button>
                 </el-form-item>
-            <el-button type="text" class="pageButton" @click="changeToM">立即注册</el-button>
+            <el-button type="text" class="pageButton" @click="registerPage">立即注册</el-button>
             <el-button type="text" class="pageButton" @click="forgetPassword">忘记密码</el-button>
 
             </el-form>
@@ -116,7 +116,7 @@
                     </el-button>
                 </el-form-item>
 
-            <el-button type="text" class="pageButton" @click="changeToM">立即注册</el-button>
+            <el-button type="text" class="pageButton" @click="registerPage">立即注册</el-button>
             <el-button type="text" class="pageButton" @click="forgetPassword">忘记密码</el-button>
             </el-form>
         
@@ -179,6 +179,9 @@ export default {
         },
         forgetPassword() {
             this.$router.push('/forgetPassword')
+        },
+        registerPage() {
+            this.$router.push('/registerPage')
         },
         showPwd() {
             if (this.pwdType === 'password') {
