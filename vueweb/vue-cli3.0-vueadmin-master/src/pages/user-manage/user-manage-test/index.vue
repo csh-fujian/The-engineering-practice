@@ -1,9 +1,7 @@
 <template>
   <el-card class="box-card">
     <div style="display: block;font-size:10px;">
-      <el-button
-              type="success" icon="el-icon-plus"
-              @click="addEdit(scope.$index, scope.row)">添加成员</el-button>
+        <el-button type="success" icon="el-icon-plus" @click="dialogVisible = true">新增用户</el-button>
       <el-input
               v-model="search"
               icon="el-icon-plus"
@@ -62,12 +60,34 @@
         </template>
       </el-table-column>
     </el-table>
+      <el-dialog
+          title="新增用户"
+          :visible.sync="dialogVisible"
+          width="30%"
+          :before-close="handleClose">
+          <el-form :model="tableData" >
+              <el-form-item label="学号" label-width="120px">
+                  <el-input v-model="tableData.StudentId" ></el-input>
+              </el-form-item>
+              <el-form-item label="姓名" label-width="120px">
+                  <el-input v-model="tableData.name" ></el-input>
+              </el-form-item>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="doAdd(scope.$index, scope.row)">确 定</el-button>
+   </span>
+      </el-dialog>
+
   </el-card>
+
 </template>
 <script>
 export default {
     data() {
         return {
+            dialogVisible: false,
+            dialogVisible2: false,
             tableData: [{
                 StudentId: '190327064',
                 name: '王小虎',
@@ -110,6 +130,8 @@ export default {
     },
     methods: {
         handleEdit(index, row) {
+            alert(this.tableData.StudentId)
+            this.dialogVisible2 = true
             console.log(index, row)
         },
         handleDelete(index, row) {
@@ -117,10 +139,21 @@ export default {
         },
         addDelete(index, row) {
             console.log(index, row)
+        },
+        doAdd(index,row) {
+            this.dialogVisible = false
+        },
+        handle(){
+
         }
     },
     created() {
-
+        const _this = this
+        this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
+            _this.tableData = resp.data
+            // alert(321)
+            //这个url要改下
+        })
     }
 }
 </script>

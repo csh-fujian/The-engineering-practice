@@ -23,7 +23,6 @@
         </template>
       </el-table-column>
       <el-table-column label="操作">
-
         <template slot-scope="scope">
           <el-button
                   size="mini"
@@ -46,20 +45,20 @@
     <el-dialog
             title="新增角色"
             :visible.sync="dialogVisible"
-            width="30%"
+            width="60%"
             :before-close="handleClose">
-      <el-form :model="tableData" >
-        <el-form-item label="序号" label-width="120px">
-          <el-input v-model="tableData.id" ></el-input>
-        </el-form-item>
-        <el-form-item label="角色" label-width="120px">
-          <el-input v-model="tableData.name" ></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="doAdd()">确 定</el-button>
-   </span>
+        <el-form ref="addform" :model="form" label-width="80px">
+            <el-form-item label="序号">
+                <el-input v-model="addform.Id"></el-input>
+            </el-form-item>
+            <el-form-item label="角色">
+                <el-input v-model="addform.name"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" @click="onSubmit()">确定</el-button>
+                <el-button>取消</el-button>
+            </el-form-item>
+        </el-form>
     </el-dialog>
   </el-card>
 </template>
@@ -70,6 +69,10 @@ export default {
         return {
             pageSize: '3',
             total: '100',
+            addform: {
+                Id: '',
+                name: '',
+            },
             tableData: [{
                 Id: '01',
                 name: '王小虎'
@@ -88,13 +91,26 @@ export default {
     },
     methods: {
         doAdd() {
+             alert(this.addData.name)
+            console.log(this.addData)
             this.dialogVisible = false
         },
-        handleEdit(index, row) {
-            console.log(index, row)
+        onSubmit() {
+           console.log(this.addform)
+            this.dialogVisible = false
+            const _this = this
+            this.$axios.post('http://localhost:8080/webrole/addrole',this.addform).then(function(resp) {
+                console.log(resp)
+            })
+            // this.addform.Id = ''
+            // this.addform.name = ''
         },
-        addDelete(index, row) {
-            console.log(index, row)
+        handleEdit(index, row) {
+            // console.log(index, row)
+        },
+        handleDelete(index, row) {
+            // console.log(index, row)
+            alert(index)
         },
         addUser(index, row) {
         },
