@@ -24,6 +24,7 @@ public interface dictionaryTypeMapper {
     @Select("select * from dictionarytype")
 	List<dictionaryType> getAll();
 
-    @Delete("delete * from directorydata d where d.typed = #{typed} union delete * from dictionarytype de where de.typed = #{typed}")
+    @Delete("DELETE t1,t2 FROM directorydata t1 LEFT JOIN dictionarytype t2 ON t1.typed = t2.typed where t1.typed = #{typed}")
     int delete(@Param("typed") String typed);
+
 }

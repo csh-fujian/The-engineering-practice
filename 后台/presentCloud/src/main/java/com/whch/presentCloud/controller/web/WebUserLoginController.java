@@ -83,7 +83,7 @@ public class WebUserLoginController {
      * 注册
      */
     @PostMapping("register")
-    public result register(userInfo user)
+    public result register(@RequestBody userInfo user)
     {
         return userloginservice.regist(user);
     }
@@ -95,7 +95,7 @@ public class WebUserLoginController {
      * @return
      */
     @GetMapping("foget")
-    public userInfo forgetpassword(userInfo user)
+    public userInfo forgetpassword(@RequestBody userInfo user)
     {
         return userloginservice.findbyphone(user.getPhone());
     }
@@ -108,7 +108,7 @@ public class WebUserLoginController {
      * @return
      */
     @RequestMapping("setpassword")
-    public int setpassword(userInfo user, String password)
+    public int setpassword(@RequestBody userInfo user,@RequestParam("password") String password)
     {
         System.out.println(user.getPassword());
         return userloginservice.setpw(user, password);

@@ -5,9 +5,9 @@ import java.util.Date;
 public class dictionaryType {
     private Integer id;
 
-    private String typed;
-
     private String type;
+
+    private String typed;
 
     private String description;
 

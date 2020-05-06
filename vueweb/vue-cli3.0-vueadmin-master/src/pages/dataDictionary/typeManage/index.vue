@@ -19,11 +19,11 @@
       </el-table-column>
       <el-table-column
               label="参数名称"
-              prop="typed">
+              prop="type">
       </el-table-column>
       <el-table-column
               label="编码"
-              prop="type">
+              prop="typed">
       </el-table-column>
       <el-table-column
               label="描述"
@@ -53,10 +53,10 @@
                   <el-input v-model="dict.id"></el-input>
               </el-form-item>
               <el-form-item label="参数名称">
-                  <el-input v-model="dict.typed"></el-input>
+                  <el-input v-model="dict.type"></el-input>
               </el-form-item>
               <el-form-item label="编码">
-                  <el-input v-model="dict.type"></el-input>
+                  <el-input v-model="dict.typed"></el-input>
               </el-form-item>
               <el-form-item label="描述">
                   <el-input v-model="dict.description"></el-input>
@@ -89,7 +89,7 @@
                     description:'',
                 }, {
                     id:2,
-                    typed:'身份',
+                    typed:'身份1',
                     type:'identity',
                     description:'',
                 }, ],
@@ -103,7 +103,7 @@
             handleDelete(index, row) {
                 this.dict = row
                 console.log(this.dict)
-                 this.$axios.post('http://localhost:8080/webrole/deleterole',this.dict).then(function(resp) {
+                 this.$axios.post('http://localhost:8080/webdictionary/deletetype',this.dict).then(function(resp) {
                      console.log(resp)
                  })
             },
@@ -113,14 +113,16 @@
                 const _this = this
                  this.$axios.post('http://localhost:8080/webdictionary/addtype',this.dict).then(function(resp) {
                      console.log(resp)
+                     alert(111)
                  })
             }
         },
         created() {
             const _this = this
-            this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
+
+            this.$axios.get('http://localhost:8080/webdictionary/findtype').then(function(resp) {
                 _this.tableData = resp.data
-                // alert(321)
+
             })
         }
     }

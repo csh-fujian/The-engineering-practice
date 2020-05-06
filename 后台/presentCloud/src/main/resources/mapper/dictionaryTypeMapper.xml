@@ -40,10 +40,10 @@
       <if test="id != null" >
         Id,
       </if>
-      <if test="typed != null" >
-        TypeD,
-      </if>
       <if test="type != null" >
+        Type,
+      </if>
+      <if test="typed != null" >
         TypeD,
       </if>
       <if test="description != null" >
@@ -59,18 +59,18 @@
         ModificationDate,
       </if>
       <if test="modifier != null" >
-        Modifier,
+        modifier,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="typed != null" >
-        #{TypeD,jdbcType=VARCHAR},
-      </if>
       <if test="type != null" >
-        #{TypeD,jdbcType=VARCHAR},
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="typed != null" >
+        #{typed,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},

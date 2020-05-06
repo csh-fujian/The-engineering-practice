@@ -22,7 +22,7 @@ public class WebUserController {
      * @return
      */
     @PostMapping("adduser")
-    public int addUser(userInfo user)
+    public int addUser(@RequestBody userInfo user)
     {
         return usermanage.addUser(user);
     }
@@ -32,8 +32,8 @@ public class WebUserController {
      * @param user
      * @return
      */
-    @DeleteMapping("deleteuser")
-    public int deleterole(userInfo user)
+    @RequestMapping("deleteuser")
+    public int deleterole(@RequestBody userInfo user)
     {
         return usermanage.delete(user);
     }

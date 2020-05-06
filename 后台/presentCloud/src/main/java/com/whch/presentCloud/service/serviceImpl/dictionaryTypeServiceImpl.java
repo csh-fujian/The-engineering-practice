@@ -6,6 +6,8 @@ import com.whch.presentCloud.service.IService.IDictionaryTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class dictionaryTypeServiceImpl implements IDictionaryTypeService {
 
@@ -20,5 +22,10 @@ public class dictionaryTypeServiceImpl implements IDictionaryTypeService {
     @Override
     public int delete(dictionaryType dictionary) {
         return dicT.delete(dictionary);
+    }
+
+    @Override
+    public List<dictionaryType> findAll() {
+        return dicT.getAll();
     }
 }

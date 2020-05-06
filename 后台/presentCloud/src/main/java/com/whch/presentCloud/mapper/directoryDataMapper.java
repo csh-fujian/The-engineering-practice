@@ -31,7 +31,7 @@ public interface directoryDataMapper {
     @Select("select d.valued from directorydata d where d.typed = #{typed} and defaultvalued = 1")
     String finddefault(@Param("typed") String typed);
 
-    @Delete("delete * from directorydata d where d.keyd = #{keyd}")
+    @Delete("delete d from directorydata d where d.keyd = #{keyd}")
     int deletebykey(@Param("keyd") String keyd);
 
     @Select("select * from directorydata d where d.typed = #{typed}")

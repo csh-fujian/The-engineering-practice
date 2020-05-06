@@ -20,43 +20,46 @@ public class WebDictionaryController {
     private IDictionaryDataService dicdata;
 
     @PostMapping("addtype")
-    public int addtype(dictionaryType dict)
+    public int addtype(@RequestBody dictionaryType dict)
     {
         return dictype.addtype(dict);
     }
 
-    @DeleteMapping("deletetype")
-    public int deletetype(dictionaryType dict)
+    @RequestMapping("deletetype")
+    public int deletetype(@RequestBody dictionaryType dict)
     {
         return dictype.delete(dict);
     }
 
-    @RequestMapping("finddata")
-    public List<directoryData> finddata(directoryData dicd)
+    @GetMapping("findtype")
+    public List<dictionaryType> findtype() { return dictype.findAll(); }
+
+    @GetMapping("finddata")
+    public List<directoryData> finddata(@RequestBody directoryData dicd)
     {
         return dicdata.findbytype(dicd);
     }
 
     @PostMapping("adddata")
-    public int adddata(directoryData dicd)
+    public int adddata(@RequestBody directoryData dicd)
     {
         return dicdata.adddata(dicd);
     }
 
-    @DeleteMapping("deletedata")
-    public int delete(directoryData dicd)
+    @RequestMapping("deletedata")
+    public int delete(@RequestBody directoryData dicd)
     {
         return dicdata.deletebykey(dicd);
     }
 
     @RequestMapping("updatedata")
-    public int updatedata(directoryData dicd, directoryData record)
+    public int updatedata(@RequestBody directoryData dicd,@RequestBody directoryData record)
     {
         return dicdata.findbyvalue(dicd, record);
     }
 
     @GetMapping("getdefault")
-    public String getdefault(directoryData dicd)
+    public String getdefault(@RequestBody directoryData dicd)
     {
         return dicdata.finddefault(dicd);
     }
