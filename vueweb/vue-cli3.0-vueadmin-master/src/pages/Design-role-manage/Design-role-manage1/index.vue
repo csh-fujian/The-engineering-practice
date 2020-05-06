@@ -90,6 +90,8 @@ export default {
         }
     },
     methods: {
+        //完成：新增 删除
+        //未完成：跳转的时候要带对象过去
         doAdd() {
              alert(this.addData.name)
             console.log(this.addData)
@@ -106,6 +108,8 @@ export default {
             // this.addform.name = ''
         },
         handleEdit(index, row) {
+            //这边要传数据  还没写
+            this.$router.replace('/Menumanage/Menu')
             // console.log(index, row)
         },
         handleDelete(index, row) {

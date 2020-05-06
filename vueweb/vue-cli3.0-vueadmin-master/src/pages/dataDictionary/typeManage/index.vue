@@ -3,7 +3,7 @@
     <div style="display: block;font-size:10px;">
       <el-button
               type="success" icon="el-icon-plus"
-              @click="addEdit(scope.$index, scope.row)">添加数据</el-button>
+              @click="dialogVisible = true">添加类型</el-button>
       <el-input
               v-model="search"
               icon="el-icon-plus"
@@ -11,27 +11,23 @@
               placeholder="输入关键字搜索"/>
     </div>
     <el-table
-            :data="tableData.filter(data => !search || data.keyWord.toLowerCase().includes(search.toLowerCase()))"
+            :data="tableData.filter(data => !search || data.type.toLowerCase().includes(search.toLowerCase()))"
             style="width: 100%">
       <el-table-column
               label="序号"
-              prop="num">
+              prop="id">
       </el-table-column>
       <el-table-column
-              label="类型"
+              label="参数名称"
+              prop="typed">
+      </el-table-column>
+      <el-table-column
+              label="编码"
               prop="type">
       </el-table-column>
       <el-table-column
-              label="关键词"
-              prop="keyWord">
-      </el-table-column>
-      <el-table-column
-              label="值"
-              prop="value">
-      </el-table-column>
-      <el-table-column
-              label="是否为默认值"
-              prop="Default">
+              label="描述"
+              prop="description">
       </el-table-column>
       <el-table-column
               align="right">
@@ -44,42 +40,88 @@
           <el-button
                   size="mini"
                   @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-
         </template>
       </el-table-column>
     </el-table>
-
+      <el-dialog
+          title="添加类型"
+          :visible.sync="dialogVisible"
+          width="60%"
+          :before-close="handleClose">
+          <el-form ref="ro" :model="dict" label-width="80px">
+              <el-form-item label="序号">
+                  <el-input v-model="dict.id"></el-input>
+              </el-form-item>
+              <el-form-item label="参数名称">
+                  <el-input v-model="dict.typed"></el-input>
+              </el-form-item>
+              <el-form-item label="编码">
+                  <el-input v-model="dict.type"></el-input>
+              </el-form-item>
+              <el-form-item label="描述">
+                  <el-input v-model="dict.description"></el-input>
+              </el-form-item>
+              <el-form-item>
+                  <el-button>取消</el-button>
+                  <el-button type="primary" @click="onSubmit()">确定</el-button>
+              </el-form-item>
+          </el-form>
+      </el-dialog>
   </el-card>
 </template>
 <script>
     export default {
+        //完成：搜搜、添加类型、删除、
+        //未完成：跳转要带对象
         data() {
             return {
+                dialogVisible:false,
+                dict: {
+                    id: 1,
+                    typed: '',
+                    type:'',
+                    description:''
+                },
                 tableData: [{
-                    num:'1',
-                    type:'性别',
-                    keyWord:'male',
-                    value:'男',
-                    Default:'null'
+                    id:1,
+                    typed:'性别',
+                    type:'sexy',
+                    description:'',
                 }, {
-                    num:'2',
-                    type:'性别',
-                    keyWord:'female',
-                    value:'女',
-                    Default:'null'
+                    id:2,
+                    typed:'身份',
+                    type:'identity',
+                    description:'',
                 }, ],
                 search: '',
-
             }
         },
         methods: {
             handleEdit(index, row) {
-
+                this.$router.replace('/Datadictionary/Datamanage')
             },
             handleDelete(index, row) {
-                console.log(index, row);
+                this.dict = row
+                console.log(this.dict)
+                 this.$axios.post('http://localhost:8080/webrole/deleterole',this.dict).then(function(resp) {
+                     console.log(resp)
+                 })
             },
-
+            onSubmit(){
+                console.log(this.dict)
+                this.dialogVisible = false
+                const _this = this
+                 this.$axios.post('http://localhost:8080/webdictionary/addtype',this.dict).then(function(resp) {
+                     console.log(resp)
+                 })
+            }
         },
+        created() {
+            const _this = this
+            this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
+                _this.tableData = resp.data
+                // alert(321)
+            })
+        }
     }
 </script>
