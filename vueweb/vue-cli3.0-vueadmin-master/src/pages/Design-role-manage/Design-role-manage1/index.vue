@@ -47,12 +47,12 @@
             :visible.sync="dialogVisible"
             width="60%"
             :before-close="handleClose">
-        <el-form ref="addform" :model="form" label-width="80px">
+        <el-form ref="ro" :model="form" label-width="80px">
             <el-form-item label="序号">
-                <el-input v-model="addform.Id"></el-input>
+                <el-input v-model="ro.id"></el-input>
             </el-form-item>
             <el-form-item label="角色">
-                <el-input v-model="addform.name"></el-input>
+                <el-input v-model="ro.name"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit()">确定</el-button>
@@ -69,21 +69,21 @@ export default {
         return {
             pageSize: '3',
             total: '100',
-            addform: {
-                Id: '',
+            ro: {
+                id: 1,
                 name: '',
             },
             tableData: [{
-                Id: '01',
+                id: 1,
                 name: '王小虎'
             }, {
-                Id: '02',
+                id: 2,
                 name: '王小虎'
             }, {
-                Id: '03',
+                id: 3,
                 name: '王小虎'
             }, {
-                date: '04',
+                id: 4,
                 name: '王小虎'
             }],
             dialogVisible: false
@@ -96,10 +96,10 @@ export default {
             this.dialogVisible = false
         },
         onSubmit() {
-           console.log(this.addform)
+           console.log(this.ro)
             this.dialogVisible = false
             const _this = this
-            this.$axios.post('http://localhost:8080/webrole/addrole',this.addform).then(function(resp) {
+            this.$axios.post('http://localhost:8080/webrole/addrole',this.ro).then(function(resp) {
                 console.log(resp)
             })
             // this.addform.Id = ''
@@ -109,8 +109,11 @@ export default {
             // console.log(index, row)
         },
         handleDelete(index, row) {
-            // console.log(index, row)
-            alert(index)
+            this.ro = row
+            console.log(this.ro)
+            this.$axios.post('http://localhost:8080/webrole/deleterole',this.ro).then(function(resp) {
+                console.log(resp)
+            })
         },
         addUser(index, row) {
         },
