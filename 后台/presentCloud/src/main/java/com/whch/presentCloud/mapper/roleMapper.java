@@ -5,6 +5,7 @@ import java.util.List;
 import com.github.pagehelper.Page;
 import com.whch.presentCloud.entity.role;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -26,6 +27,9 @@ public interface roleMapper {
 
     @Select("select * from role")
 	List<role> getAll();
+
+    @Delete("delete from role where name = #{name}")
+    int deletebyname(@Param("name") String name);
 
     Page<role> findByPaging();
 }

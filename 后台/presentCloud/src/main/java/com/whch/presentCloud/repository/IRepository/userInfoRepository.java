@@ -12,6 +12,6 @@ public interface userInfoRepository {
     public int delete(userInfo UserInfo);
 	public userInfo get(String phone);
     public userInfo get(Integer id, String nickname);
-    public Integer login(userInfo user);
+    public userInfo login(String nickname, String password);
     public List<userInfo> multiquery(Integer id, String role, String school, String department);
 }

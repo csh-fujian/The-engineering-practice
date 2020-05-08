@@ -29,8 +29,8 @@ public interface userInfoMapper {
 
     List<userInfo> multiquery(Integer id, String role, String school, String department);
 
-    @Select("select * from userinfo u where u.name = #{name} and u.password = #{password}")
-	userInfo findOne(@Param("name")String name, @Param("password")String password);
+    @Select("select * from userinfo u where u.nickname = #{nickname} and u.password = #{password}")
+	userInfo findOne(@Param("name")String nickname, @Param("password")String password);
 
     @Select("select * from userinfo")
     List<userInfo> getAll();

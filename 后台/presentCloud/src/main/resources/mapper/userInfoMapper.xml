@@ -8,7 +8,7 @@
     <result column="Name" property="name" jdbcType="VARCHAR" />
     <result column="NickName" property="nickname" jdbcType="VARCHAR" />
     <result column="Birthday" property="birthday" jdbcType="TIMESTAMP" />
-    <result column="Sex" property="sex" jdbcType="INTEGER" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
     <result column="School" property="school" jdbcType="VARCHAR" />
     <result column="Department" property="department" jdbcType="VARCHAR" />
     <result column="Role" property="role" jdbcType="VARCHAR" />
@@ -50,7 +50,7 @@
       Modifier, Image)
     values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, 
-      #{sex,jdbcType=INTEGER}, #{school,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR},
       #{role,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{master,jdbcType=VARCHAR}, 
       #{creationdate,jdbcType=TIMESTAMP}, #{modificationdate,jdbcType=TIMESTAMP}, #{creator,jdbcType=INTEGER}, 
       #{modifier,jdbcType=INTEGER}, #{image,jdbcType=LONGVARBINARY})
@@ -130,7 +130,7 @@
         #{birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="sex != null" >
-        #{sex,jdbcType=INTEGER},
+        #{sex,jdbcType=VARCHAR},
       </if>
       <if test="school != null" >
         #{school,jdbcType=VARCHAR},
@@ -183,7 +183,7 @@
         Birthday = #{birthday,jdbcType=TIMESTAMP},
       </if>
       <if test="sex != null" >
-        Sex = #{sex,jdbcType=INTEGER},
+        Sex = #{sex,jdbcType=VARCHAR},
       </if>
       <if test="school != null" >
         School = #{school,jdbcType=VARCHAR},
@@ -225,7 +225,7 @@
       Name = #{name,jdbcType=VARCHAR},
       NickName = #{nickname,jdbcType=VARCHAR},
       Birthday = #{birthday,jdbcType=TIMESTAMP},
-      Sex = #{sex,jdbcType=INTEGER},
+      Sex = #{sex,jdbcType=VARCHAR},
       School = #{school,jdbcType=VARCHAR},
       Department = #{department,jdbcType=VARCHAR},
       Role = #{role,jdbcType=VARCHAR},
@@ -250,7 +250,7 @@
       Name = #{name,jdbcType=VARCHAR},
       NickName = #{nickname,jdbcType=VARCHAR},
       Birthday = #{birthday,jdbcType=TIMESTAMP},
-      Sex = #{sex,jdbcType=INTEGER},
+      Sex = #{sex,jdbcType=VARCHAR},
       School = #{school,jdbcType=VARCHAR},
       Department = #{department,jdbcType=VARCHAR},
       Role = #{role,jdbcType=VARCHAR},

@@ -41,7 +41,7 @@ public class roleRepositoryImpl implements roleRepository {
     @Override
     public int delete(role ro) {
         // TODO Auto-generated method stub
-        return roleM.deleteByPrimaryKey(ro.getId());
+        return roleM.deletebyname(ro.getName());
     }
 
 }

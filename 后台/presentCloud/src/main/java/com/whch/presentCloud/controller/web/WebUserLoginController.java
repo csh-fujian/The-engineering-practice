@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,54 +30,39 @@ public class WebUserLoginController {
     //测试
     @RequestMapping("login")
     @ResponseBody
-    public result userLogin(@RequestParam("username")String number,@RequestParam("password")String password){
+    public result userLogin(@RequestParam("username")String nickname,@RequestParam("password")String password, HttpSession session){
 //       System.out.println(tel+password);
 
         result r = new result();
-        if(number == "" || password == ""){
-            r.setInfo("帐号密码不能为空");
+        if(nickname == "" || password == ""){
+            r.setInfo("用户名或密码不能为空");
             r.setState("false");
             return r;
         }
 
-        //获取该用户的角色
-        int flag =userloginservice.IsExistUser(number, password);
-        
-        if(flag == 1)
-        {
-            List<classCourseMember> lessons = classManageService.getLessons(number);
-            List studentClassList = new ArrayList<>();
-            for (classCourseMember lesson : lessons) {
-                HashMap lessonInfo = new HashMap<>();
-                lessonInfo.put("bankeName", lesson.getClassname());
-                lessonInfo.put("teacher", lesson.getTeachername());
-                lessonInfo.put("description", lesson.getClassname());
-                lessonInfo.put("profilePhoto", "");
-                studentClassList.add(lessonInfo);
-            }
-            r.setState("true");
-            r.setRole("学生");
-            r.setResult(studentClassList);
-            return r;
-        } else if(flag == 2){
+        userInfo user = userloginservice.login(nickname, password);
 
+        if(user == null) {
+            session.removeAttribute("loginUser");
+            r.setInfo("用户名或密码不能为空");
+            r.setState("false");
+            return r;
         }
-        
-        r.setState("false");
-        r.setInfo("帐号或用户名错误");
+
+        session.setAttribute("loginUser", user);
+        r.setState("true");
         return r;
-        
     }
 
     /**
-     * 退出登录
-     * @param request
+     *
+     * @param session
      * @return
      */
     @RequestMapping("loginOut")
-    public String userLoginOutController(HttpServletRequest request){
-        request.getSession().removeAttribute("session_user");
-        return "login";
+    public String userLoginOutController(HttpSession session){
+        session.removeAttribute("user");
+        return "1";
     }
 
     /**
@@ -91,26 +77,37 @@ public class WebUserLoginController {
 
     /**
      * 忘记密码，通过手机号查询该用户
-     * @param user
+     * @param phone
      * @return
      */
     @GetMapping("foget")
-    public userInfo forgetpassword(@RequestBody userInfo user)
+    public result forgetpassword(@RequestParam("phone") String phone, HttpSession session)
     {
-        return userloginservice.findbyphone(user.getPhone());
+        result r = new result();
+        userInfo user = userloginservice.findbyphone(phone);
+        if(user == null) {
+            session.removeAttribute("fogetUser");
+            r.setInfo("该用户不存在");
+            r.setState("false");
+            return r;
+        }
+
+        session.setAttribute("fogetUser", user);
+        r.setState("true");
+        return r;
     }
 
 
     /**
      * 重置密码
-     * @param user
      * @param password
      * @return
      */
     @RequestMapping("setpassword")
-    public int setpassword(@RequestBody userInfo user,@RequestParam("password") String password)
+    public int setpassword(@RequestParam("password") String password, HttpSession session)
     {
-        System.out.println(user.getPassword());
+        userInfo user = (userInfo) session.getAttribute("forgetUser");
+        session.removeAttribute("fogetUser");
         return userloginservice.setpw(user, password);
     }
 

@@ -22,6 +22,7 @@ public interface signinMapper {
 
     @Select("select * from signin UserId = #{userId} and ClassId = #{classId}")
 	signin findOne(@Param("userId") Integer userId,@Param("classId") Integer classId);
+
     @Select("select * from signin UserId = #{userId}")
 	List<signin> find(@Param("userId") Integer userId);
 }

@@ -37,11 +37,17 @@ public interface directoryDataMapper {
     @Select("select * from directorydata d where d.typed = #{typed}")
     List<directoryData> findbytype(@Param("typed") String typed);
 
-    @Update("update userinfo u set u.sex = #{valued} where u.sex = #{record} union update directorydata d set d.keyd = #{keyd}, d.valued = #{valued} where d.valued = #{record}")
-    int updatebyvalue1(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
+    @Update("update userinfo u set u.sex = #{valued} where u.sex = #{record}")
+    int updatebyvalue11(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
 
-    @Update("update role r set r.name = #{valued} where r.name = #{record} union update directorydata d set d.keyd = #{keyd}, d.valued = #{valued} where d.valued = #{record}")
-    int updatebyvalue2(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
+    @Update("update directorydata d set d.keyd = #{keyd}, d.valued = #{valued} where d.valued = #{record}")
+    int updatebyvalue12(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
+
+    @Update("update role r set r.name = #{valued} where r.name = #{record}")
+    int updatebyvalue21(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
+
+    @Update("update directorydata d set d.keyd = #{keyd}, d.valued = #{valued} where d.valued = #{record}")
+    int updatebyvalue22(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
 
     @Update("update directorydata d set d.keyd = #{keyd}, d.valued = #{valued} where d.valued = #{record}")
     int updatebyvalue0(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);

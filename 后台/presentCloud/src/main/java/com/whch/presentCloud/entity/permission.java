@@ -2,7 +2,7 @@ package com.whch.presentCloud.entity;
 
 import java.util.Date;
 
-public class menu {
+public class permission {
     private Integer id;
 
     private Integer superiormenunumber;
@@ -22,16 +22,6 @@ public class menu {
     private Date modificationdate;
 
     private String modifier;
-
-    private String state;
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
 
     public Integer getId() {
         return id;

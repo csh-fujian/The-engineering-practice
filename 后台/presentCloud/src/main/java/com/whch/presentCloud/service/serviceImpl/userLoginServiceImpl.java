@@ -91,11 +91,11 @@ public class userLoginServiceImpl implements IUserLoginService {
             userInfo existUser = userInfoRepo.get(user.getId(),user.getNickname());
             if(existUser != null){
                 //如果用户名或学/工号已存在
-                Registresult.setState("用户名或学/工号已存在");
+                Registresult.setInfo("用户名或学/工号已存在");
             }else{
                 userInfoRepo.add(user);
                 //System.out.println(user.getId());
-                Registresult.setState("注册成功");
+                Registresult.setInfo("注册成功");
                 Registresult.setRole(user.getRole());
             }
         } catch (Exception e) {
@@ -109,5 +109,10 @@ public class userLoginServiceImpl implements IUserLoginService {
     public int setpw(userInfo user, String password) {
         user.setPassword(password);
         return userInfoRepo.update(user);
+    }
+
+    @Override
+    public userInfo login(String nickname, String password) {
+        return userInfoRepo.login(nickname, password);
     }
 }
