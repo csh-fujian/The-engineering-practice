@@ -30,7 +30,7 @@ public class WebUserLoginController {
     //测试
     @RequestMapping("login")
     @ResponseBody
-    public result userLogin(@RequestParam("username")String nickname,@RequestParam("password")String password, HttpSession session){
+    public result userLogin(@RequestParam("username")String nickname, @RequestParam("password")String password, HttpSession session){
 //       System.out.println(tel+password);
 
         result r = new result();

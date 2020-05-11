@@ -13,6 +13,8 @@ public interface IUserManageService {
 
     public int delete(userInfo user);
 
+    public int updatebyid(userInfo user);
+
     public Page<userInfo> findByPaging(Integer pageNum, Integer pageSize);
 
     public List<userInfo> multiquery(Integer id, String role, String school, String department);
