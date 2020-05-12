@@ -125,7 +125,7 @@
               </el-form-item>
               <el-form-item>
                   <el-button type="primary" @click="edit()">确定</el-button>
-                  <el-button>取消</el-button>
+                  <el-button @click="dialogVisible = false">取消</el-button>
               </el-form-item>
           </el-form>
       </el-dialog>
@@ -210,7 +210,9 @@ export default {
         edit(){
             console.log(this.user)
             this.dialogVisible2 = false
+            this.$axios.put('http://localhost:8080/webuser/updateuser',this.user).then(function(resp) {
 
+            })
         },
         handleDelete(index, row) {
             this.user = row
