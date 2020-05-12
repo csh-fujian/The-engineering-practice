@@ -36,6 +36,11 @@ public class userManageServiceImpl implements IUserManageService{
     }
 
     @Override
+    public int updatebyid(userInfo user) {
+        return userRepo.update(user);
+    }
+
+    @Override
     public Page<userInfo> findByPaging(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
         Page<userInfo> userList = userMapper.findByPaging();

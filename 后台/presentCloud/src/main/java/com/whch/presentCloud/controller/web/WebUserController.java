@@ -49,6 +49,16 @@ public class WebUserController {
     }
 
     /**
+     * 修改某一用户的信息
+     * @param user
+     * @return
+     */
+    @RequestMapping("updateuser")
+    public int updateuser(userInfo user){
+        return usermanage.updatebyid(user);
+    }
+
+    /**
      * 用户管理的分页功能
      * @param pageNum
      * @param pageSize
