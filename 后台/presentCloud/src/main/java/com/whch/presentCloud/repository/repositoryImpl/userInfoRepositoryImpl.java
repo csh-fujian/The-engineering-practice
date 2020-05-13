@@ -34,14 +34,14 @@ public class userInfoRepositoryImpl implements userInfoRepository {
     }
 
     @Override
-    public int update(userInfo UserInfo, Integer id) {
+    public int update(userInfo UserInfo, String number) {
        
-        return userInfoM.updateByPrimaryKeySelective(UserInfo, id);
+        return userInfoM.updateByPrimaryKeySelective(UserInfo, number);
     }
 
     @Override
     public int delete(userInfo UserInfo) {
-        return userInfoM.deleteByPrimaryKey(UserInfo.getId());
+        return userInfoM.deleteuser(UserInfo.getNumber());
     }
 
     @Override
@@ -51,9 +51,9 @@ public class userInfoRepositoryImpl implements userInfoRepository {
     }
 
     @Override
-    public userInfo get(Integer id, String nickname) {
+    public userInfo get(String number, String nickname) {
 
-        return userInfoM.getUser1(id,nickname);
+        return userInfoM.getUser1(number,nickname);
     }
 
     public userInfo login(String nickname, String password){
@@ -61,7 +61,7 @@ public class userInfoRepositoryImpl implements userInfoRepository {
     }
 
     @Override
-    public List<userInfo> multiquery(Integer id, String role, String school, String department) {
-        return userInfoM.multiquery(id, role, school, department);
+    public List<userInfo> multiquery(String number, String role, String school, String department) {
+        return userInfoM.multiquery(number, role, school, department);
     }
 }

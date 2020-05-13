@@ -54,8 +54,8 @@ public class WebUserController {
      * @return
      */
     @PutMapping("updateuser")
-    public int updateuser(@RequestBody userInfo user, @RequestParam Integer id){
-        return usermanage.updatebyid(user, id);
+    public int updateuser(@RequestBody userInfo user, @RequestParam String number){
+        return usermanage.updatebyid(user, number);
     }
 
     /**
@@ -71,8 +71,8 @@ public class WebUserController {
     }
 
     @GetMapping("multiquery")
-    public List<userInfo> multiquery(@RequestParam Integer id, @RequestParam String role, @RequestParam String school, @RequestParam String department)
+    public List<userInfo> multiquery(@RequestParam String number, @RequestParam String role, @RequestParam String school, @RequestParam String department)
     {
-        return usermanage.multiquery(id, role, school, department);
+        return usermanage.multiquery(number, role, school, department);
     }
 }

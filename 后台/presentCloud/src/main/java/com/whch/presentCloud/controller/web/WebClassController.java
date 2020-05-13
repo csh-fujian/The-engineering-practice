@@ -47,7 +47,7 @@ public class WebClassController {
     @RequestMapping("one-class")
     public Map<String,Object> getClassInfo(@RequestParam("classId")String classId,@RequestParam("username")String username)
     {
-        Map<String,Object> res = classManageService.getLesson(classId,username);
+        Map<String,Object> res = classManageService.getLesson(classId, username);
         return res;
     }
 

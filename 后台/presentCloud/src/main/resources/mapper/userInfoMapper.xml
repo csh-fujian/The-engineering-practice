@@ -219,7 +219,7 @@
         Image = #{record.image,jdbcType=LONGVARBINARY},
       </if>
     </set>
-    where Id = #{oldid,jdbcType=INTEGER}
+    where Number = #{oldnumber,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.whch.presentCloud.entity.userInfo" >
     update userinfo
@@ -268,7 +268,7 @@
   <select  id="multiquery" resultMap="BaseResultMap" parameterType="com.whch.presentCloud.entity.userInfo">
     select * from userinfo
     <where>
-      <if test="id!=null"> Id like  #{id} </if>
+      <if test="number!=null"> Number like #{number} </if>
       <if test="role!=null"> and Role like #{role}</if>
       <if test="School!=null"> and School like #{school}</if>
       <if test="Department!=null"> and Department like #{department}</if>
