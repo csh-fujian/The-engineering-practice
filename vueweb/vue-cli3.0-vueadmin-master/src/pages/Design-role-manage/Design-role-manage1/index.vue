@@ -69,13 +69,14 @@ export default {
         return {
             pageSize: '3',
             total: '100',
+            rolename:"",
             ro: {
                 id: 1,
                 name: '',
             },
             tableData: [{
                 id: 1,
-                name: '王小虎'
+                name: '教师'
             }, {
                 id: 2,
                 name: '王小虎'
@@ -109,7 +110,13 @@ export default {
         },
         handleEdit(index, row) {
             //这边要传数据  还没写
-            this.$router.replace('/Menumanage/Menu')
+            this.rolename = row.name
+            this.$router.replace({
+                path:'/Perminssioninformanage/Perminssionlist',
+                query:{
+                    rolename:row.name
+                }
+            })
             // console.log(index, row)
         },
         handleDelete(index, row) {

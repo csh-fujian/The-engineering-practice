@@ -1,73 +1,163 @@
 <template>
     <div>
-        <el-tag
-            :key="tag"
-            v-for="tag in dynamicTags"
-            closable
-            :disable-transitions="false"
-            @close="handleClose(tag)">
-            {{tag}}
-        </el-tag>
-        <el-input
-            class="input-new-tag"
-            v-if="inputVisible"
-            v-model="inputValue"
-            ref="saveTagInput"
-            size="small"
-            @keyup.enter.native="handleInputConfirm"
-            @blur="handleInputConfirm"
-        >
-        </el-input>
-    <el-button v-else  size="small" @click="showInput">添加新按钮</el-button>
+        <ul>
+            <el-checkbox-group v-model="selected" >
+                <ul>
+                    <li  v-for="(item1,index1) in datatable">
+                        <el-checkbox :label="item1.name" :key="item1"><strong >{{item1.name}}</strong></el-checkbox>
+                        <ul>
+                            <el-checkbox-group v-model="selected" >
+                                <ul>
+                                    <li  v-for="(item2,index2) in datatable[index1].sub">
+                                        <el-checkbox  style="display:inline;margin: 0px 0px 10px 23px" :label="item2.name" :key="item2">{{item2.name}}</el-checkbox>
+                                        <el-checkbox-group v-model="selected" >
+                                            <ul>
+                                                <li  v-for="(item3,index3) in datatable[index1].sub[index2].sub">
+                                                    <el-checkbox  style="display:inline;margin: 0px 0px 10px 43px" :label="item3.name" :key="item3">{{item3.name}}</el-checkbox>
+                                                    <el-checkbox-group v-model="selected" >
+                                                        <ul>
+                                                            <li  v-for="(item4,index4) in datatable[index1].sub[index2].sub[index3].sub">
+                                                                <el-checkbox  style="display:inline;margin: 0px 0px 10px 63px" :label="item4.name" :key="item4" disabled>
+                                                                    {{item4.name}}
+                                                                </el-checkbox>
+                                                            </li>
+                                                        </ul>
+                                                    </el-checkbox-group>
+                                                </li>
+                                            </ul>
+                                        </el-checkbox-group>
+                                    </li>
+                                </ul>
+                            </el-checkbox-group>
+                        </ul>
+                        <el-divider></el-divider>
+                    </li>
+                </ul>
+            </el-checkbox-group>
+        </ul>
+        <el-button type="primary" @click="consent()">确定</el-button>
     </div>
 </template>
-<style>
-    .el-tag + .el-tag {
-        margin-left: 10px;
-    }
-    .button-new-tag {
-        margin-left: 10px;
-        height: 32px;
-        line-height: 30px;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-    .input-new-tag {
-        width: 90px;
-        margin-left: 10px;
-        vertical-align: bottom;
-    }
-</style>
+
 
 <script>
     export default {
         data() {
             return {
-                dynamicTags: ['标签一', '标签二', '标签三'],
-                inputVisible: false,
-                inputValue: ''
+                selected: [],
+                datatable: [{
+                    name: '班课频道',
+                    state: 'checked',
+                    layer: 1,
+                    sub: [
+                        {
+                            name: '班课管理',
+                            state: 'checked',
+                            layer: 2,
+                            sub: [
+                                {
+                                    name: '创建班课',
+                                    state: 'unchecked',
+                                    layer: 3,
+                                    sub: [
+                                        {
+                                            name: '确定按钮',
+                                            state: 'checked',
+                                            layer: 4,
+                                            sub: null
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: '班课列表排序',
+                                    state: 'checked',
+                                    layer: 3,
+                                    sub: null
+                                },
+                                {
+                                    name: '查看班课',
+                                    state: 'checked',
+                                    layer: 3,
+                                    sub: null
+                                },
+                                {
+                                    name: '查看班课',
+                                    state: 'checked',
+                                    layer: 3,
+                                    sub: null
+                                }
+                            ]
+                        },
+                        {
+                            name: '加入班级',
+                            state: 'unchecked',
+                            layer: 2,
+                            sub: [
+                                {
+                                    name: '添加班级',
+                                    state: 'checked',
+                                    layer: 3,
+                                    sub: null
+                                }
+                            ]
+                        }
+                    ]
+                },
+                    {
+                        name: '发现',
+                        state: 'checked',
+                        layer: 1,
+                        sub: [
+                            {
+                                name: '发现内容',
+                                state: 'checked',
+                                layer: 2,
+                                sub: null
+                            }
+                        ]
+                    },
+                    {
+                        name: '我的频道',
+                        state: 'checked',
+                        layer: 1,
+                        sub: [
+                            {
+                                name: '创建班课',
+                                state: 'unchecked',
+                                layer: 2,
+                                sub: null
+                            },
+                            {
+                                name: '333',
+                                state: 'checked',
+                                layer: 2,
+                                sub: null
+                            },
+                            {
+                                name: '222',
+                                state: 'checked',
+                                layer: 2,
+                                sub: null
+
+                            },
+                            {
+                                name: '111',
+                                state: 'checked',
+                                layer: 2,
+                                sub: null
+                            }
+                        ]
+                    }
+                ]
             };
         },
         methods: {
-            handleClose(tag) {
-                this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-            },
+            consent(){
 
-            showInput() {
-                this.inputVisible = true;
-                this.$nextTick(_ => {
-                    this.$refs.saveTagInput.$refs.input.focus();
-                });
-            },
-
-            handleInputConfirm() {
-                let inputValue = this.inputValue;
-                if (inputValue) {
-                    this.dynamicTags.push(inputValue);
-                }
-                this.inputVisible = false;
-                this.inputValue = '';
             }
+        },
+        created() {
+            // alert(this.$route.query.rolename)
         }
     }
 </script>

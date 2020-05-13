@@ -26,7 +26,7 @@
         <el-button type="primary" @click="dialogVisible2 = true">添加页面</el-button>
         <el-button type="primary" @click="dialogVisible3 = true">添加按钮</el-button>
         <el-button type="primary" @click="handdelete()">勾选删除</el-button>
-    <el-dialog
+         <el-dialog
         title="添加菜单"
         :visible.sync="dialogVisible1"
         width="60%"
@@ -225,10 +225,6 @@ export default {
         }
     },
     methods: {
-        courseManage(value) {
-        },
-        courseDetail(value) {
-        },
         handdelete() {
             this.$axios.Delete('http://localhost:8080/webmenu/deletemenu'.this.selected).then(res => {})
         },
@@ -270,7 +266,6 @@ export default {
 
     },
     created() {
-        const _this = this
         this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
             this.datatable = res.data
             for (let i = 0; i < this.datatable.length; ++i) {
