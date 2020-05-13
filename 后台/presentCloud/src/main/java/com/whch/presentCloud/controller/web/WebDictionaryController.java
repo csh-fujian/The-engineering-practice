@@ -25,7 +25,7 @@ public class WebDictionaryController {
         return dictype.addtype(dict);
     }
 
-    @RequestMapping("deletetype")
+    @DeleteMapping("deletetype")
     public int deletetype(@RequestBody dictionaryType dict)
     {
         return dictype.delete(dict);
@@ -46,13 +46,13 @@ public class WebDictionaryController {
         return dicdata.adddata(dicd);
     }
 
-    @RequestMapping("deletedata")
+    @DeleteMapping("deletedata")
     public int delete(@RequestBody directoryData dicd)
     {
         return dicdata.deletebykey(dicd);
     }
 
-    @RequestMapping("updatedata")
+    @PutMapping("updatedata")
     public int updatedata(@RequestBody directoryData dicd,@RequestBody directoryData record)
     {
         return dicdata.findbyvalue(dicd, record);

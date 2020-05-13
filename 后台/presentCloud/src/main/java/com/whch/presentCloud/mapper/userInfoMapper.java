@@ -19,7 +19,7 @@ public interface userInfoMapper {
 
     userInfo selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(userInfo record);
+    int updateByPrimaryKeySelective(@Param("record") userInfo record, @Param("oldid") Integer id);
 
     int updateByPrimaryKeyWithBLOBs(userInfo record);
 

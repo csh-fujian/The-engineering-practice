@@ -36,8 +36,8 @@ public class userManageServiceImpl implements IUserManageService{
     }
 
     @Override
-    public int updatebyid(userInfo user) {
-        return userRepo.update(user);
+    public int updatebyid(userInfo user, Integer id) {
+        return userRepo.update(user, id);
     }
 
     @Override

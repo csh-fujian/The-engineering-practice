@@ -164,59 +164,62 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.whch.presentCloud.entity.userInfo" >
+  <update id="updateByPrimaryKeySelective">
     update userinfo
     <set >
-      <if test="number != null" >
-        Number = #{number,jdbcType=VARCHAR},
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
+      <if test="record.number != null" >
+        Number = #{record.number,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        Name = #{name,jdbcType=VARCHAR},
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null" >
-        NickName = #{nickname,jdbcType=VARCHAR},
+      <if test="record.name != null" >
+        Name = #{record.nam,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null" >
-        Birthday = #{birthday,jdbcType=TIMESTAMP},
+      <if test="record.nickname != null" >
+        NickName = #{record.nickname,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null" >
-        Sex = #{sex,jdbcType=VARCHAR},
+      <if test="record.birthday != null" >
+        Birthday = #{record.birthday,jdbcType=TIMESTAMP},
       </if>
-      <if test="school != null" >
-        School = #{school,jdbcType=VARCHAR},
+      <if test="record.sex != null" >
+        Sex = #{record.sex,jdbcType=VARCHAR},
       </if>
-      <if test="department != null" >
-        Department = #{department,jdbcType=VARCHAR},
+      <if test="record.school != null" >
+        School = #{record.school,jdbcType=VARCHAR},
       </if>
-      <if test="role != null" >
-        Role = #{role,jdbcType=VARCHAR},
+      <if test="record.department != null" >
+        Department = #{record.department,jdbcType=VARCHAR},
       </if>
-      <if test="phone != null" >
-        Phone = #{phone,jdbcType=VARCHAR},
+      <if test="record.role != null" >
+        Role = #{record.role,jdbcType=VARCHAR},
       </if>
-      <if test="master != null" >
-        Master = #{master,jdbcType=VARCHAR},
+      <if test="record.phone != null" >
+        Phone = #{record.phone,jdbcType=VARCHAR},
       </if>
-      <if test="creationdate != null" >
-        CreationDate = #{creationdate,jdbcType=TIMESTAMP},
+      <if test="record.master != null" >
+        Master = #{record.master,jdbcType=VARCHAR},
       </if>
-      <if test="modificationdate != null" >
-        ModificationDate = #{modificationdate,jdbcType=TIMESTAMP},
+      <if test="record.creationdate != null" >
+        CreationDate = #{record.creationdate,jdbcType=TIMESTAMP},
       </if>
-      <if test="creator != null" >
-        Creator = #{creator,jdbcType=INTEGER},
+      <if test="record.modificationdate != null" >
+        ModificationDate = #{record.modificationdate,jdbcType=TIMESTAMP},
       </if>
-      <if test="modifier != null" >
-        Modifier = #{modifier,jdbcType=INTEGER},
+      <if test="record.creator != null" >
+        Creator = #{record.creato,jdbcType=INTEGER},
       </if>
-      <if test="image != null" >
-        Image = #{image,jdbcType=LONGVARBINARY},
+      <if test="record.modifier != null" >
+        Modifier = #{record.modifier,jdbcType=INTEGER},
+      </if>
+      <if test="record.image != null" >
+        Image = #{record.image,jdbcType=LONGVARBINARY},
       </if>
     </set>
-    where Id = #{id,jdbcType=INTEGER}
+    where Id = #{oldid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.whch.presentCloud.entity.userInfo" >
     update userinfo

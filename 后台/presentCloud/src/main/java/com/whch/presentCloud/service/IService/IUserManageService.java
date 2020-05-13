@@ -13,7 +13,7 @@ public interface IUserManageService {
 
     public int delete(userInfo user);
 
-    public int updatebyid(userInfo user);
+    public int updatebyid(userInfo user, Integer id);
 
     public Page<userInfo> findByPaging(Integer pageNum, Integer pageSize);
 

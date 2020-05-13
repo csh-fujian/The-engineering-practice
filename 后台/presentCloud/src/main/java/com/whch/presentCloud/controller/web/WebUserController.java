@@ -32,7 +32,7 @@ public class WebUserController {
      * @param user
      * @return
      */
-    @RequestMapping("deleteuser")
+    @DeleteMapping("deleteuser")
     public int deleterole(@RequestBody userInfo user)
     {
         return usermanage.delete(user);
@@ -53,9 +53,9 @@ public class WebUserController {
      * @param user
      * @return
      */
-    @RequestMapping("updateuser")
-    public int updateuser(userInfo user){
-        return usermanage.updatebyid(user);
+    @PutMapping("updateuser")
+    public int updateuser(@RequestBody userInfo user, @RequestParam Integer id){
+        return usermanage.updatebyid(user, id);
     }
 
     /**
