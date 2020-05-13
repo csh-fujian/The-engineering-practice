@@ -123,187 +123,179 @@
     </div>
 </template>
 <script>
-    export default {
-        data() {
-            return {
-                selected:[],
-                temp1:'',
-                temp2:0,
-                dialogVisible1:false,
-                dialogVisible2:false,
-                dialogVisible3:false,
-                submenus: [],
-                inputVisible: false,
-                inputValue: '',
-                menuname:"",
-                supermenu:"",
-                button:"",
-                buttons:[],
-                datatable:[{
-                    name: "班课频道",
-                    state: "checked",
-                    layer: 1,
-                    sub:[
+export default {
+    data() {
+        return {
+            selected: [],
+            temp1: '',
+            temp2: 0,
+            dialogVisible1: false,
+            dialogVisible2: false,
+            dialogVisible3: false,
+            submenus: [],
+            inputVisible: false,
+            inputValue: '',
+            menuname: '',
+            supermenu: '',
+            button: '',
+            buttons: [],
+            datatable: [{
+                name: '班课频道',
+                state: 'checked',
+                layer: 1,
+                sub: [
+                    {
+                        name: '班课管理',
+                        state: 'checked',
+                        layer: 2,
+                        sub: [
                             {
-                                name:"班课管理",
-                                state:"checked",
-                                layer:2,
-                                sub:[
-                                    {
-                                        name:"创建班课",
-                                        state:"unchecked",
-                                        layer:3,
-                                        sub:null
-                                    },
-                                    {
-                                        name:"班课列表排序",
-                                        state:"checked",
-                                        layer:3,
-                                        sub:null
-                                    },
-                                    {
-                                        name:"查看班课",
-                                        state:"checked",
-                                        layer:3,
-                                        sub:null
-                                    },
-                                    {
-                                        name:"查看班课",
-                                        state:"checked",
-                                        layer:3,
-                                        sub:null
-                                    },
-                                ]
+                                name: '创建班课',
+                                state: 'unchecked',
+                                layer: 3,
+                                sub: null
                             },
                             {
-                                name:"加入班级",
-                                state:"unchecked",
-                                layer:2,
-                                sub:null
+                                name: '班课列表排序',
+                                state: 'checked',
+                                layer: 3,
+                                sub: null
+                            },
+                            {
+                                name: '查看班课',
+                                state: 'checked',
+                                layer: 3,
+                                sub: null
+                            },
+                            {
+                                name: '查看班课',
+                                state: 'checked',
+                                layer: 3,
+                                sub: null
                             }
                         ]
                     },
                     {
-                        name:"发现",
-                        state:"checked",
-                        layer:1,
-                        sub:null
-                    },
-                    {
-                        name:"我的频道",
-                        state:"checked",
-                        layer:1,
-                        sub:[
-                            {
-                                name:"创建班课",
-                                state:"unchecked",
-                                layer:3,
-                                sub:null
-                            },
-                            {
-                                name:"333",
-                                state:"checked",
-                                layer:3,
-                                sub:null
-                            },
-                            {
-                                name:"222",
-                                state:"checked",
-                                layer:3,
-                                sub:null
-                            },
-                            {
-                                name:"111",
-                                state:"checked",
-                                layer:3,
-                                sub:null
-                            },
-                        ]
+                        name: '加入班级',
+                        state: 'unchecked',
+                        layer: 2,
+                        sub: null
                     }
                 ]
-            };
-        },
-        methods: {
-            courseManage(value) {
             },
-            courseDetail(value){
+            {
+                name: '发现',
+                state: 'checked',
+                layer: 1,
+                sub: null
             },
-            handdelete(){
-                this.$axios.Delete('http://localhost:8080/webmenu/deletemenu'.this.selected).then(res=>{})
-            },
-            addmenu(){
-                this.dialogVisible1 = false;
-                this.$axios.Post('http://localhost:8080/webmenu/addmenu'.this.menuname,this.submenus).then(res=>{})
-            },
-            addpage(){
-                this.dialogVisible2 = false;
-                this.buttons = this.submenus
-                this.$axios.Post('http://localhost:8080/webmenu/addpage'.this.menuname,this.supermenu,this.buttons).then(res=>{})
-            },
-            addbutton(){
-                this.dialogVisible3 = false
-                this.$axios.Post('http://localhost:8080/webmenu/addbutton'.this.button,this.supermenu).then(res=>{})
-            },
-            handleClose(tag) {
-                this.submenus.splice(this.submenus.indexOf(tag), 1);
-            },
-            handleClose1(){
-                this.dialogVisible1 = false;
-            },
+            {
+                name: '我的频道',
+                state: 'checked',
+                layer: 1,
+                sub: [
+                    {
+                        name: '创建班课',
+                        state: 'unchecked',
+                        layer: 3,
+                        sub: null
+                    },
+                    {
+                        name: '333',
+                        state: 'checked',
+                        layer: 3,
+                        sub: null
+                    },
+                    {
+                        name: '222',
+                        state: 'checked',
+                        layer: 3,
+                        sub: null
 
-            showInput() {
-                this.inputVisible = true;
-                this.$nextTick(_ => {
-                    this.$refs.saveTagInput.$refs.input.focus();
-                });
-            },
-
-            handleInputConfirm() {
-                let inputValue = this.inputValue;
-                if (inputValue) {
-                    this.submenus.push(inputValue);
-                }
-                this.inputVisible = false;
-                this.inputValue = '';
+                    },
+                    {
+                        name: '111',
+                        state: 'checked',
+                        layer: 3,
+                        sub: null
+                    }
+                ]
             }
-
-        },
-        created() {
-            const _this = this
-             this.$axios.get('http://localhost:8080/webmenu/findAll').then(res=>{
-                 this.datatable = res.data
-                     for(let i=0;i<this.datatable.length;++i){
-                         if(this.datatable[i].state=="checked"){
-                             this.selected.push(this.datatable[i].name)
-                         }
-                         if(this.datatable[i].sub==null)
-                             continue
-                         for(let j=0;j<this.datatable[i].sub.length;++j)
-                         {
-
-                             if(this.datatable[i].sub[j].state=="checked") {
-                                 this.selected.push(this.datatable[i].sub[j].name)
-                             }
-                             if(this.datatable[i].sub[j].sub==null)
-                                 continue
-                             for(var k=0;k<this.datatable[i].sub[j].sub.length;++k)
-                             {
-                                 if(this.datatable[i].sub[j].sub[k].state=="checked") {
-                                     this.selected.push(this.datatable[i].sub[j].sub[k].name)
-                                 }
-                                 if(this.datatable[i].sub[j].sub[k].sub==null)
-                                     continue
-                             }
-                         }
-                     }
-             }
-
-             )
-
-
-
+            ]
         }
-    };
+    },
+    methods: {
+        courseManage(value) {
+        },
+        courseDetail(value) {
+        },
+        handdelete() {
+            this.$axios.Delete('http://localhost:8080/webmenu/deletemenu'.this.selected).then(res => {})
+        },
+        addmenu() {
+            this.dialogVisible1 = false
+            this.$axios.Post('http://localhost:8080/webmenu/addmenu'.this.menuname, this.submenus).then(res => {})
+        },
+        addpage() {
+            this.dialogVisible2 = false
+            this.buttons = this.submenus
+            this.$axios.Post('http://localhost:8080/webmenu/addpage'.this.menuname, this.supermenu, this.buttons).then(res => {})
+        },
+        addbutton() {
+            this.dialogVisible3 = false
+            this.$axios.Post('http://localhost:8080/webmenu/addbutton'.this.button, this.supermenu).then(res => {})
+        },
+        handleClose(tag) {
+            this.submenus.splice(this.submenus.indexOf(tag), 1)
+        },
+        handleClose1() {
+            this.dialogVisible1 = false
+        },
+
+        showInput() {
+            this.inputVisible = true
+            this.$nextTick(_ => {
+                this.$refs.saveTagInput.$refs.input.focus()
+            })
+        },
+
+        handleInputConfirm() {
+            let inputValue = this.inputValue
+            if (inputValue) {
+                this.submenus.push(inputValue)
+            }
+            this.inputVisible = false
+            this.inputValue = ''
+        }
+
+    },
+    created() {
+        const _this = this
+        this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
+            this.datatable = res.data
+            for (let i = 0; i < this.datatable.length; ++i) {
+                if (this.datatable[i].state == 'checked') {
+                    this.selected.push(this.datatable[i].name)
+                }
+                if (this.datatable[i].sub == null) { continue }
+                for (let j = 0; j < this.datatable[i].sub.length; ++j) {
+                    if (this.datatable[i].sub[j].state == 'checked') {
+                        this.selected.push(this.datatable[i].sub[j].name)
+                    }
+                    if (this.datatable[i].sub[j].sub == null) { continue }
+                    for (var k = 0; k < this.datatable[i].sub[j].sub.length; ++k) {
+                        if (this.datatable[i].sub[j].sub[k].state == 'checked') {
+                            this.selected.push(this.datatable[i].sub[j].sub[k].name)
+                        }
+                        if (this.datatable[i].sub[j].sub[k].sub == null) { continue }
+                    }
+                }
+            }
+        }
+
+        )
+    }
+}
 </script>
 <style>
     .el-tag + .el-tag {
