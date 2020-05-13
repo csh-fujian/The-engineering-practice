@@ -34,9 +34,9 @@ public class userInfoRepositoryImpl implements userInfoRepository {
     }
 
     @Override
-    public int update(userInfo UserInfo) {
+    public int update(userInfo UserInfo, Integer id) {
        
-        return userInfoM.updateByPrimaryKeySelective(UserInfo);
+        return userInfoM.updateByPrimaryKeySelective(UserInfo, id);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class WebUserRoleController {
      * @param ro
      * @return
      */
-    @RequestMapping("deleterole")
+    @DeleteMapping("deleterole")
     public int deleterole(@RequestBody role ro)
     {
         return roleManageService.delete(ro);

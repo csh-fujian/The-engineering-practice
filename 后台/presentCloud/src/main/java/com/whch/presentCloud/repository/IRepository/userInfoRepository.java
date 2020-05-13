@@ -8,7 +8,7 @@ public interface userInfoRepository {
     public userInfo get(userInfo UserInfo);
     public List<userInfo> getAll();
     public int add(userInfo UserInfo);
-    public int update(userInfo UserInfo);
+    public int update(userInfo UserInfo, Integer id);
     public int delete(userInfo UserInfo);
 	public userInfo get(String phone);
     public userInfo get(Integer id, String nickname);

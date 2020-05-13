@@ -108,7 +108,7 @@ public class userLoginServiceImpl implements IUserLoginService {
     @Override
     public int setpw(userInfo user, String password) {
         user.setPassword(password);
-        return userInfoRepo.update(user);
+        return userInfoRepo.update(user, user.getId());
     }
 
     @Override
