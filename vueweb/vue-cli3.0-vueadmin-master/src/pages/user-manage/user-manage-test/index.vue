@@ -13,7 +13,7 @@
             style="width: 100%">
       <el-table-column
               label="学号"
-              prop="id">
+              prop="number">
       </el-table-column>
       <el-table-column
               label="姓名"
@@ -67,7 +67,7 @@
           :before-close="handleClose">
           <el-form ref="ro" :model="user" label-width="80px">
               <el-form-item label="学号">
-                  <el-input v-model="user.id"></el-input>
+                  <el-input v-model="user.number"></el-input>
               </el-form-item>
               <el-form-item label="姓名">
                   <el-input v-model="user.name"></el-input>
@@ -106,7 +106,7 @@
           :before-close="handleClose">
           <el-form ref="ro" :model="user" label-width="80px">
               <el-form-item label="学号">
-                  <el-input v-model="user.id"></el-input>
+                  <el-input v-model="user.number"></el-input>
               </el-form-item>
               <el-form-item label="姓名">
                   <el-input v-model="user.name"></el-input>
@@ -141,7 +141,7 @@ export default {
             dialogVisible: false,
             dialogVisible2: false,
             user: {
-                id: 190327064,
+                number: 190327064,
                 name: '王小虎',
                 sex: '男',
                 identity: '教师',
@@ -151,7 +151,7 @@ export default {
                 creatTime: '2020-04-20'
             },
             tableData: [{
-                id: 190327064111,
+                number: 190327064111,
                 name: '王小虎',
                 sex: '男',
                 role: '教师',
@@ -197,7 +197,7 @@ export default {
     },
     methods: {
         handleEdit(index, row) {
-            alert(row.id)
+            alert(row.number)
             this.user = row
             this.dialogVisible2 = true
             console.log(index, row)
