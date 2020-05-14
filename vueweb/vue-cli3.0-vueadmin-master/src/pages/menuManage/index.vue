@@ -9,9 +9,9 @@
                             <el-checkbox-group v-model="selected" >
                                 <ul>
                                     <li  v-for="(item2,index2) in datatable[index1].sub">
-                                        <el-checkbox   :label="item2.name" :key="item2">{{item2.name}}</el-checkbox>
+                                        <el-checkbox  style="display:inline;margin: 0px 0px 10px 23px" :label="item2.name" :key="item2">{{item2.name}}</el-checkbox>
                                         <el-checkbox-group v-model="selected" >
-                                              <el-checkbox style="display:inline;margin: 0px 0px 10px 23px" v-for="item3 in datatable[index1].sub[index2].sub" :label="item3.name" :key="item3">{{item3.name}}</el-checkbox>
+                                              <el-checkbox style="display:inline;margin: 0px 0px 10px 43px" v-for="item3 in datatable[index1].sub[index2].sub" :label="item3.name" :key="item3">{{item3.name}}</el-checkbox>
                                         </el-checkbox-group>
                                     </li>
                                 </ul>
@@ -227,6 +227,7 @@ export default {
     methods: {
         handdelete() {
             this.$axios.Delete('http://localhost:8080/webmenu/deletemenu'.this.selected).then(res => {})
+
         },
         addmenu() {
             this.dialogVisible1 = false
@@ -263,7 +264,6 @@ export default {
             this.inputVisible = false
             this.inputValue = ''
         }
-
     },
     created() {
         this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {

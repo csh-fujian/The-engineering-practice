@@ -1,14 +1,14 @@
 <template  lang="html">
   <el-card class="box-card">
     <div class="fl">
-      <el-button type="success" icon="el-icon-plus" @click="dialogVisible = true">新增角色</el-button>
+      <el-button type="success" icon="el-icon-plus" @click="doAdd()">新增角色</el-button>
     </div>
     <el-table
             :data="tableData"
             style="width: 100%">
       <el-table-column
               label="序号"
-              width="180">
+              width="180" >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </template>
@@ -34,14 +34,6 @@
         </template>
       </el-table-column >
     </el-table>
-    <el-pagination
-            small
-            layout="prev, pager, next"
-            :page-size="pageSize"
-            :total="total"
-            @current-change="page"
-    >
-    </el-pagination>
     <el-dialog
             title="新增角色"
             :visible.sync="dialogVisible"
@@ -49,14 +41,14 @@
             :before-close="handleClose">
         <el-form ref="ro" :model="form" label-width="80px">
             <el-form-item label="序号">
-                <el-input v-model="ro.id"></el-input>
+                <el-input v-model="ro.id" disabled></el-input>
             </el-form-item>
             <el-form-item label="角色">
                 <el-input v-model="ro.name"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="onSubmit()">确定</el-button>
-                <el-button>取消</el-button>
+                <el-button type="primary" @click="cancel()">取消</el-button>
             </el-form-item>
         </el-form>
     </el-dialog>
@@ -69,10 +61,10 @@ export default {
         return {
             pageSize: '3',
             total: '100',
-            rolename:"",
+            rolename: '',
             ro: {
                 id: 1,
-                name: '',
+                name: ''
             },
             tableData: [{
                 id: 1,
@@ -91,30 +83,26 @@ export default {
         }
     },
     methods: {
-        //完成：新增 删除
-        //未完成：跳转的时候要带对象过去
         doAdd() {
-             alert(this.addData.name)
-            console.log(this.addData)
-            this.dialogVisible = false
+            this.dialogVisible = true
+            this.ro = []
+            this.ro.id = this.tableData.length+1
         },
         onSubmit() {
-           console.log(this.ro)
             this.dialogVisible = false
-            const _this = this
-            this.$axios.post('http://localhost:8080/webrole/addrole',this.ro).then(function(resp) {
+            this.$axios.post('http://localhost:8080/webrole/addrole', this.ro).then(function(resp) {
                 console.log(resp)
             })
             // this.addform.Id = ''
             // this.addform.name = ''
         },
         handleEdit(index, row) {
-            //这边要传数据  还没写
+            // 这边要传数据  还没写
             this.rolename = row.name
             this.$router.replace({
-                path:'/Perminssioninformanage/Perminssionlist',
-                query:{
-                    rolename:row.name
+                path: '/Perminssioninformanage/Perminssionlist',
+                query: {
+                    rolename: row.name
                 }
             })
             // console.log(index, row)
@@ -122,7 +110,7 @@ export default {
         handleDelete(index, row) {
             this.ro = row
             console.log(this.ro)
-            this.$axios.post('http://localhost:8080/webrole/deleterole',this.ro).then(function(resp) {
+            this.$axios.post('http://localhost:8080/webrole/deleterole', this.ro).then(function(resp) {
                 console.log(resp)
             })
         },
@@ -134,12 +122,15 @@ export default {
                     done()
                 })
                 .catch(_ => {})
+        },
+        cancel() {
+            this.dialogVisible = false
         }
     },
     created() {
         const _this = this
         this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
-             _this.tableData = resp.data
+            _this.tableData = resp.data
             // alert(321)
         })
     }
