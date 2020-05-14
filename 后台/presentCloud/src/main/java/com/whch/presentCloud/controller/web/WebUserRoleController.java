@@ -44,7 +44,14 @@ public class WebUserRoleController {
     @GetMapping("findrole")
     public List<role> findrole()
     {
-        return roleManageService.getAllRole();
+        List<role> roles = roleManageService.getAllRole();
+        int i = 0;
+        for(role r : roles)
+        {
+            i++;
+            r.setId(i);
+        }
+        return roles;
     }
 
     /**
