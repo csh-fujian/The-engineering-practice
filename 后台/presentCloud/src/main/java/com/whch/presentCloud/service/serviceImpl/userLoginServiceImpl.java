@@ -88,13 +88,13 @@ public class userLoginServiceImpl implements IUserLoginService {
         Registresult.setState("false");
         Registresult.setRole(null);
         try {
-            userInfo existUser = userInfoRepo.get(user.getId(),user.getNickname());
+            userInfo existUser = userInfoRepo.get(user.getNumber(),user.getNickname());
             if(existUser != null){
                 //如果用户名或学/工号已存在
                 Registresult.setInfo("用户名或学/工号已存在");
             }else{
                 userInfoRepo.add(user);
-                //System.out.println(user.getId());
+                //System.out.println(user.getNumber());
                 Registresult.setInfo("注册成功");
                 Registresult.setRole(user.getRole());
             }
@@ -108,7 +108,7 @@ public class userLoginServiceImpl implements IUserLoginService {
     @Override
     public int setpw(userInfo user, String password) {
         user.setPassword(password);
-        return userInfoRepo.update(user, user.getId());
+        return userInfoRepo.update(user, user.getNumber());
     }
 
     @Override

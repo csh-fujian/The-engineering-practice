@@ -13,9 +13,9 @@ public interface IUserManageService {
 
     public int delete(userInfo user);
 
-    public int updatebyid(userInfo user, Integer id);
+    public int updatebyid(userInfo user, String number);
 
     public Page<userInfo> findByPaging(Integer pageNum, Integer pageSize);
 
-    public List<userInfo> multiquery(Integer id, String role, String school, String department);
+    public List<userInfo> multiquery(String number, String role, String school, String department);
 }

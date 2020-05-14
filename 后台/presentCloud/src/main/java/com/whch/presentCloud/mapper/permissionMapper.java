@@ -33,7 +33,7 @@ public interface permissionMapper {
     int findmenuid(@Param("superiormenunumber") Integer superiormenunumber, @Param("menuname")  String menuname);
 
     @Delete("delete from permission where menuname = #{menuname}")
-    int deletemenu(String menuname);
+    int deletemenu(@Param("menuname") String menuname);
 
     @Insert("insert into rolemenu(role, menu) values (#{role}, #{menu})")
     int addpermisson(@Param("role") String role, @Param("menu") String menu);

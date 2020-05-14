@@ -29,5 +29,5 @@ public interface menuMapper {
     int findmenuid(@Param("superiormenunumber") Integer superiormenunumber, @Param("menuname")  String menuname);
 
     @Delete("delete from menu where menuname = #{menuname}")
-    int deletemenu(String menuname);
+    int deletemenu(@Param("menuname") String menuname);
 }

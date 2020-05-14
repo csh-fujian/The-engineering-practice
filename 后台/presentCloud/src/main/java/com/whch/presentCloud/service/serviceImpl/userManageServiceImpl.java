@@ -36,8 +36,8 @@ public class userManageServiceImpl implements IUserManageService{
     }
 
     @Override
-    public int updatebyid(userInfo user, Integer id) {
-        return userRepo.update(user, id);
+    public int updatebyid(userInfo user, String number) {
+        return userRepo.update(user, number);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class userManageServiceImpl implements IUserManageService{
     }
 
     @Override
-    public List<userInfo> multiquery(Integer id, String role, String school, String department) {
-        return userRepo.multiquery(id, role, school, department);
+    public List<userInfo> multiquery(String number, String role, String school, String department) {
+        return userRepo.multiquery(number, role, school, department);
     }
 }
