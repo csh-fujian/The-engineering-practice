@@ -1,70 +1,99 @@
-<el-tag
-    :key="tag"
-    v-for="tag in dynamicTags"
-    closable
-    :disable-transitions="false"
-    @close="handleClose(tag)">
-    {{tag}}
-</el-tag>
-<el-input
-    class="input-new-tag"
-    v-if="inputVisible"
-    v-model="inputValue"
-    ref="saveTagInput"
-    size="small"
-    @keyup.enter.native="handleInputConfirm"
-    @blur="handleInputConfirm"
->
-</el-input>
-<el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+<template  lang="html">
+    <el-card class="box-card">
+        <el-table
+            :data="tableData"
+            style="width: 100%">
+            <el-table-column
+                label="序号"
+                width="180">
+                <template slot-scope="scope">
+                    <span style="margin-left: 10px">{{ scope.row.id }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="变量"
+                width="180">
+                <template slot-scope="scope">
+                    <div slot="reference" class="name-wrapper">
+                        <el-tag size="medium">{{ scope.row.name }}</el-tag>
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="值"
+                width="180">
+                <template slot-scope="scope">
+                    <div slot="reference" class="name-wrapper">
+                        <el-tag size="medium">{{ scope.row.value }}</el-tag>
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+                </template>
+            </el-table-column >
+        </el-table>
+        <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="30%"
+            :before-close="handleClose">
+            <el-form ref="ro" :model="tableData" label-width="80px">
+                <el-form-item label="变量">
+                    <el-input v-model="ro.name"></el-input>
+                </el-form-item>
+                <el-form-item label="值">
+                    <el-input v-model="ro.value"></el-input>
+                </el-form-item>
+            </el-form>
+            <el-button type="primary" @click="edit()">确 定</el-button>
+            <el-button @click="dialogVisible = false">取 消</el-button>
+        </el-dialog>
+    </el-card>
+</template>
 
-<style>
-    .el-tag + .el-tag {
-        margin-left: 10px;
-    }
-    .button-new-tag {
-        margin-left: 10px;
-        height: 32px;
-        line-height: 30px;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-    .input-new-tag {
-        width: 90px;
-        margin-left: 10px;
-        vertical-align: bottom;
-    }
-</style>
-
-<script>
-    export default {
-        data() {
-            return {
-                dynamicTags: ['标签一', '标签二', '标签三'],
-                inputVisible: false,
-                inputValue: ''
-            };
-        },
-        methods: {
-            handleClose(tag) {
-                this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+<script >
+export default {
+    data() {
+        return {
+            dialogVisible: false,
+            ro: {
+                id: 1,
+                name: '',
+                value:''
             },
-
-            showInput() {
-                this.inputVisible = true;
-                this.$nextTick(_ => {
-                    this.$refs.saveTagInput.$refs.input.focus();
-                });
-            },
-
-            handleInputConfirm() {
-                let inputValue = this.inputValue;
-                if (inputValue) {
-                    this.dynamicTags.push(inputValue);
-                }
-                this.inputVisible = false;
-                this.inputValue = '';
-            }
+            tableData: [{
+                id: 1,
+                name: '距离',
+                value:'20米'
+            }, {
+                id: 2,
+                name: '经验值',
+                value:'30'
+            }, {
+                id: 3,
+                name: '人数',
+                value:'100'
+            }]
         }
+    },
+    methods: {
+        handleEdit(index, row) {
+            this.dialogVisible = true
+            this.ro = row
+        },
+        edit() {
+            this.dialogVisible = false
+        }
+    },
+    created() {
+        const _this = this
+        this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
+            _this.tableData = resp.data
+        })
     }
+}
 </script>

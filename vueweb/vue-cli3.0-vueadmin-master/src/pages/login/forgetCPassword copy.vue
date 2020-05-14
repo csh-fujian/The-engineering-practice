@@ -79,7 +79,7 @@
             async nextstep() {
                 try {
                     let data = await login(this.loginForm)
-                    let token = data.token
+                let token = data.token
                     this.$store.commit('LOGIN_IN', token)
                     this.$router.replace('/resetPassword')
                 } catch (e) {
