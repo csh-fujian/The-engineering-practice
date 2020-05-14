@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <div style="display: block;font-size:10px;">
-        <el-button type="success" icon="el-icon-plus" @click="adduser()">新增用户</el-button>
+        <el-button type="success" icon="el-icon-plus" @click="dialogVisible = true">新增用户</el-button>
       <el-input
               v-model="search"
               icon="el-icon-plus"
@@ -54,6 +54,9 @@
           <el-button
                   size="mini"
                   @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button
+                  size="mini"
+                  @click="handleDelete(scope.$index, scope.row)">权限设置</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -131,14 +134,21 @@
 </template>
 <script>
 export default {
-    // 完成：新增用户、搜索、删除
-    // 未完成：编辑、权限设置
+    //完成：新增用户、搜索、删除
+    //未完成：编辑、权限设置
     data() {
         return {
             dialogVisible: false,
             dialogVisible2: false,
             user: {
-
+                number: 190327064,
+                name: '王小虎',
+                sex: '男',
+                identity: '教师',
+                role: '1335855555',
+                school: '福州大学',
+                College: '数学与计算机科学',
+                creatTime: '2020-04-20'
             },
             tableData: [{
                 number: 190327064111,
@@ -160,75 +170,72 @@ export default {
                     label: '数学与计算机科学学院'
                 }, {
                     value: '经济与管理学院',
-                    label: '经济与管理学院'
+                    label: '经济与管理学院',
                 }]
             }, {
                 value: '福建师范大学',
                 label: '福建师范大学',
                 children: [{
                     value: '软件学院',
-                    label: '软件学院'
+                    label: '软件学院',
                 }, {
                     value: '音乐学院',
-                    label: '音乐学院'
+                    label: '音乐学院',
                 }]
             }, {
                 value: '厦门大学',
                 label: '厦门大学',
                 children: [{
                     value: '国际关系学院',
-                    label: '国际关系学院'
+                    label: '国际关系学院',
                 }, {
                     value: '管理学院',
-                    label: '管理学院'
+                    label: '管理学院',
                 }]
             }]
         }
     },
     methods: {
         handleEdit(index, row) {
+            alert(row.number)
             this.user = row
             this.dialogVisible2 = true
             console.log(index, row)
         },
-        adduser() {
-            this.dialogVisible = true
-            this.user = []
-        },
         handleChange(value) {
-            console.log(value)
-            this.user.school = value[0]
-            this.user.College = value[1]
+            console.log(value);
+            this.user.school=value[0]
+            this.user.College=value[1]
         },
-        edit() {
+        edit(){
             console.log(this.user)
             this.dialogVisible2 = false
-            this.$axios.put('http://localhost:8080/webuser/updateuser', this.user).then(function(resp) {
+            this.$axios.put('http://localhost:8080/webuser/updateuser',this.user).then(function(resp) {
 
             })
         },
         handleDelete(index, row) {
             this.user = row
             console.log(this.user)
-            this.$axios.post('http://localhost:8080/webuser/deleteuser', this.user).then(function(resp) {
+            this.$axios.post('http://localhost:8080/webuser/deleteuser',this.user).then(function(resp) {
                 console.log(resp)
             })
         },
         addDelete(index, row) {
             console.log(index, row)
         },
-        doAdd(index, row) {
+        doAdd(index,row) {
             this.dialogVisible = false
         },
-        onSubmit() {
+        onSubmit(){
             console.log(this.user)
             this.dialogVisible = false
-            const _this = this
-            this.$axios.post('http://localhost:8080/webuser/adduser', this.user).then(function(resp) {
-            })
-            this.user = []
+             const _this = this
+             this.$axios.post('http://localhost:8080/webuser/adduser',this.user).then(function(resp) {
+                 console.log(resp)
+             })
         },
-        handle() {
+        handle(){
 
         }
     },
@@ -237,7 +244,7 @@ export default {
         this.$axios.get('http://localhost:8080/webuser/finduser').then(function(resp) {
             _this.tableData = resp.data
             // alert(321)
-            // 这个url要改下
+            //这个url要改下
         })
     }
 }

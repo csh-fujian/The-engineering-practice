@@ -70,65 +70,60 @@
   </el-card>
 </template>
 <script>
-export default {
-    // 完成：搜搜、添加类型、删除、
-    // 未完成：跳转要带对象
-    data() {
-        return {
-            dialogVisible: false,
-            dicd: '',
-            dict: {
-                id: 1,
-                typed: '',
-                type: '',
-                description: ''
+    export default {
+        //完成：搜搜、添加类型、删除、
+        //未完成：跳转要带对象
+        data() {
+            return {
+                dialogVisible:false,
+                dict: {
+                    id: 1,
+                    typed: '',
+                    type:'',
+                    description:''
+                },
+                tableData: [{
+                    id:1,
+                    typed:'性别',
+                    type:'sexy',
+                    description:'',
+                }, {
+                    id:2,
+                    typed:'身份1',
+                    type:'identity',
+                    description:'',
+                }, ],
+                search: '',
+            }
+        },
+        methods: {
+            handleEdit(index, row) {
+                this.$router.replace('/Datadictionary/Datamanage')
             },
-            tableData: [{
-                id: 1,
-                typed: '性别',
-                type: 'sexy',
-                description: ''
-            }, {
-                id: 2,
-                typed: '身份1',
-                type: 'identity',
-                description: ''
-            } ],
-            search: ''
-        }
-    },
-    methods: {
-        handleEdit(index, row) {
-            this.$router.replace({
-                path: '/Datadictionary/Datamanage',
-                query: {
-                    dicd: row.typed
-                }
-            })
+            handleDelete(index, row) {
+                this.dict = row
+                console.log(this.dict)
+                 this.$axios.post('http://localhost:8080/webdictionary/deletetype',this.dict).then(function(resp) {
+                     console.log(resp)
+                 })
+            },
+            onSubmit(){
+                console.log(this.dict)
+                this.dialogVisible = false
+                const _this = this
+                 this.$axios.post('http://localhost:8080/webdictionary/addtype',this.dict).then(function(resp) {
+                     console.log(resp)
+                     alert(111)
+                 })
+            }
         },
-        handleDelete(index, row) {
-            this.dict = row
-            console.log(this.dict)
-            this.$axios.post('http://localhost:8080/webdictionary/deletetype', this.dict).then(function(resp) {
-                console.log(resp)
-            })
-        },
-        onSubmit() {
-            console.log(this.dict)
-            this.dialogVisible = false
+        created() {
             const _this = this
-            this.$axios.post('http://localhost:8080/webdictionary/addtype', this.dict).then(function(resp) {
-                console.log(resp)
-                alert(111)
+
+            this.$axios.get('http://localhost:8080/webdictionary/findtype').then(function(resp) {
+                _this.tableData = resp.data
+
             })
         }
-    },
-    created() {
-        const _this = this
-
-        this.$axios.get('http://localhost:8080/webdictionary/findtype').then(function(resp) {
-            _this.tableData = resp.data
-        })
     }
-}
 </script>
