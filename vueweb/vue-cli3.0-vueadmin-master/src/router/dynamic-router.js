@@ -35,15 +35,6 @@ const dynamicRoutes = [
         },
         children: [
             {
-                path: 'Datamanage',
-                name: 'dataManage',
-                component: Datamanage,
-                meta: {
-                    name: '数据管理',
-                    icon: 'table'
-                }
-            },
-            {
                 path: 'Typemanage',
                 name: 'typeManage',
                 component: Typemanage,
@@ -52,6 +43,15 @@ const dynamicRoutes = [
                     icon: 'table'
                 }
             },
+            {
+                path: 'Datamanage',
+                name: 'dataManage',
+                component: Datamanage,
+                meta: {
+                    name: '数据管理',
+                    icon: 'table'
+                }
+            }
         ]
     },
     {
@@ -120,7 +120,7 @@ const dynamicRoutes = [
         component:Buttonmanagement,
         name:'Buttonmanagement',
         meta: {
-            name: '按钮管理',
+            name: '参数设置',
             icon: 'user'
         },
         children: [
@@ -129,7 +129,7 @@ const dynamicRoutes = [
                 name: 'Buttonmanage',
                 component: Buttonmanage,
                 meta: {
-                    name: '按钮管理',
+                    name: '参数设置',
                     icon: 'table'
                 }
             },
