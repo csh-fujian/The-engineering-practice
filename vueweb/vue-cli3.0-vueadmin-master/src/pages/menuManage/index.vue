@@ -226,21 +226,25 @@ export default {
     },
     methods: {
         handdelete() {
-            this.$axios.Delete('http://localhost:8080/webmenu/deletemenu'.this.selected).then(res => {})
+            this.$axios.Delete('http://localhost:8080/webmenu/deletemenu',this.selected).then(res => {})
 
         },
         addmenu() {
             this.dialogVisible1 = false
-            this.$axios.Post('http://localhost:8080/webmenu/addmenu'.this.menuname, this.submenus).then(res => {})
+            console.log(this.menuname)
+            console.log(this.submenus)
+            this.$axios.post('http://localhost:8080/webmenu/addmenu', this.menuname, this.submenus).then(res => {
+                alert(1)
+            })
         },
         addpage() {
             this.dialogVisible2 = false
             this.buttons = this.submenus
-            this.$axios.Post('http://localhost:8080/webmenu/addpage'.this.menuname, this.supermenu, this.buttons).then(res => {})
+            this.$axios.post('http://localhost:8080/webmenu/addpage',this.menuname, this.supermenu, this.buttons).then(res => {})
         },
         addbutton() {
             this.dialogVisible3 = false
-            this.$axios.Post('http://localhost:8080/webmenu/addbutton'.this.button, this.supermenu).then(res => {})
+            this.$axios.post('http://localhost:8080/webmenu/addbutton',this.button, this.supermenu).then(res => {})
         },
         handleClose(tag) {
             this.submenus.splice(this.submenus.indexOf(tag), 1)

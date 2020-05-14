@@ -39,7 +39,7 @@ public class WebMenuController {
         return menuS.addbutton(button, supermenu);
     }
 
-    @DeleteMapping("deletemenu")
+    @RequestMapping("deletemenu")
     public int deletemenu(@RequestParam(value = "menus[]") List<String> menus)
     {
         return menuS.deletemenu(menus);

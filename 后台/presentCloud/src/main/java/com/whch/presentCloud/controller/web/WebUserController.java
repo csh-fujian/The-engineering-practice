@@ -18,13 +18,13 @@ public class WebUserController {
 
     /**
      * 添加用户
-     * @param user
+     * @param userinfo
      * @return
      */
     @PostMapping("adduser")
-    public int addUser(@RequestBody userInfo user)
+    public int addUser(@RequestBody userInfo userinfo)
     {
-        return usermanage.addUser(user);
+        return usermanage.addUser(userinfo);
     }
 
     /**
@@ -32,7 +32,7 @@ public class WebUserController {
      * @param user
      * @return
      */
-    @DeleteMapping("deleteuser")
+    @RequestMapping("deleteuser")
     public int deleterole(@RequestBody userInfo user)
     {
         return usermanage.delete(user);
@@ -53,7 +53,7 @@ public class WebUserController {
      * @param user
      * @return
      */
-    @PutMapping("updateuser")
+    @RequestMapping("updateuser")
     public int updateuser(@RequestBody userInfo user, @RequestParam String number){
         return usermanage.updatebyid(user, number);
     }

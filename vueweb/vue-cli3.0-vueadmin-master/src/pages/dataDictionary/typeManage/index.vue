@@ -76,9 +76,16 @@ export default {
     data() {
         return {
             dialogVisible: false,
-            dicd: '',
+            deleteDict: {
+                typed: ''
+            },
             dict: {
                 id: 1,
+                typed: '',
+                type: '',
+                description: ''
+            },
+            diction: {
                 typed: '',
                 type: '',
                 description: ''
@@ -109,16 +116,19 @@ export default {
         handleDelete(index, row) {
             this.dict = row
             console.log(this.dict)
-            this.$axios.post('http://localhost:8080/webdictionary/deletetype', this.dict).then(function(resp) {
+            this.deleteDict.typed = this.dict.typed
+            this.$axios.post('http://localhost:8080/webdictionary/deletetype', this.deleteDict).then(function(resp) {
                 console.log(resp)
+                alert(1)
             })
         },
         onSubmit() {
             console.log(this.dict)
             this.dialogVisible = false
-            const _this = this
-            this.$axios.post('http://localhost:8080/webdictionary/addtype', this.dict).then(function(resp) {
-                console.log(resp)
+            this.diction.description = this.dict.description
+            this.diction.type = this.dict.type
+            this.diction.typed = this.dict.typed
+            this.$axios.post('http://localhost:8080/webdictionary/addtype', this.diction).then(function(resp) {
                 alert(111)
             })
         }

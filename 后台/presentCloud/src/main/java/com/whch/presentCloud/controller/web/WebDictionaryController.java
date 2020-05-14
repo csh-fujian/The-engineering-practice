@@ -20,24 +20,33 @@ public class WebDictionaryController {
     private IDictionaryDataService dicdata;
 
     @PostMapping("addtype")
-    public int addtype(@RequestBody dictionaryType dict)
+    public int addtype(@RequestBody dictionaryType diction)
     {
-        return dictype.addtype(dict);
+        dictionaryType dic = diction;
+        System.out.println(dic.getTyped());
+        return dictype.addtype(diction);
     }
 
-    @DeleteMapping("deletetype")
-    public int deletetype(@RequestBody dictionaryType dict)
+    @RequestMapping("deletetype")
+    public int deletetype(@RequestBody dictionaryType deleteDict)
     {
-        return dictype.delete(dict);
+        return dictype.delete(deleteDict);
     }
 
     @GetMapping("findtype")
     public List<dictionaryType> findtype() { return dictype.findAll(); }
 
-    @GetMapping("finddata")
-    public List<directoryData> finddata(@RequestBody directoryData dicd)
+    @GetMapping("finddata/{typed}")
+    public List<directoryData> finddata(@PathVariable String typed)
     {
-        return dicdata.findbytype(dicd);
+        List<directoryData> directoryDatas = dicdata.findbytype(typed);
+        int i = 0;
+        for(directoryData d : directoryDatas)
+        {
+            i++;
+            d.setId(i);
+        }
+        return directoryDatas;
     }
 
     @PostMapping("adddata")
@@ -46,13 +55,13 @@ public class WebDictionaryController {
         return dicdata.adddata(dicd);
     }
 
-    @DeleteMapping("deletedata")
+    @RequestMapping("deletedata")
     public int delete(@RequestBody directoryData dicd)
     {
         return dicdata.deletebykey(dicd);
     }
 
-    @PutMapping("updatedata")
+    @RequestMapping("updatedata")
     public int updatedata(@RequestBody directoryData dicd,@RequestBody directoryData record)
     {
         return dicdata.findbyvalue(dicd, record);

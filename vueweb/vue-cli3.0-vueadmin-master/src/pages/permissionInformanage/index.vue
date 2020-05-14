@@ -39,125 +39,132 @@
     </div>
 </template>
 
-
 <script>
-    export default {
-        data() {
-            return {
-                selected: [],
-                datatable: [{
-                    name: '班课频道',
-                    state: 'checked',
-                    layer: 1,
-                    sub: [
-                        {
-                            name: '班课管理',
-                            state: 'checked',
-                            layer: 2,
-                            sub: [
-                                {
-                                    name: '创建班课',
-                                    state: 'unchecked',
-                                    layer: 3,
-                                    sub: [
-                                        {
-                                            name: '确定按钮',
-                                            state: 'checked',
-                                            layer: 4,
-                                            sub: null
-                                        }
-                                    ]
-                                },
-                                {
-                                    name: '班课列表排序',
-                                    state: 'checked',
-                                    layer: 3,
-                                    sub: null
-                                },
-                                {
-                                    name: '查看班课',
-                                    state: 'checked',
-                                    layer: 3,
-                                    sub: null
-                                },
-                                {
-                                    name: '查看班课',
-                                    state: 'checked',
-                                    layer: 3,
-                                    sub: null
-                                }
-                            ]
-                        },
-                        {
-                            name: '加入班级',
-                            state: 'unchecked',
-                            layer: 2,
-                            sub: [
-                                {
-                                    name: '添加班级',
-                                    state: 'checked',
-                                    layer: 3,
-                                    sub: null
-                                }
-                            ]
-                        }
-                    ]
-                },
+export default {
+    data() {
+        return {
+            selected: [],
+            rolename: '',
+            datatable: [{
+                name: '班课频道',
+                state: 'checked',
+                layer: 1,
+                sub: [
                     {
-                        name: '发现',
+                        name: '班课管理',
                         state: 'checked',
-                        layer: 1,
+                        layer: 2,
                         sub: [
                             {
-                                name: '发现内容',
+                                name: '创建班课',
+                                state: 'unchecked',
+                                layer: 3,
+                                sub: [
+                                    {
+                                        name: '确定按钮',
+                                        state: 'checked',
+                                        layer: 4,
+                                        sub: null
+                                    }
+                                ]
+                            },
+                            {
+                                name: '班课列表排序',
                                 state: 'checked',
-                                layer: 2,
+                                layer: 3,
+                                sub: null
+                            },
+                            {
+                                name: '查看班课',
+                                state: 'checked',
+                                layer: 3,
+                                sub: null
+                            },
+                            {
+                                name: '查看班课',
+                                state: 'checked',
+                                layer: 3,
                                 sub: null
                             }
                         ]
                     },
                     {
-                        name: '我的频道',
-                        state: 'checked',
-                        layer: 1,
+                        name: '加入班级',
+                        state: 'unchecked',
+                        layer: 2,
                         sub: [
                             {
-                                name: '创建班课',
-                                state: 'unchecked',
-                                layer: 2,
-                                sub: null
-                            },
-                            {
-                                name: '333',
+                                name: '添加班级',
                                 state: 'checked',
-                                layer: 2,
-                                sub: null
-                            },
-                            {
-                                name: '222',
-                                state: 'checked',
-                                layer: 2,
-                                sub: null
-
-                            },
-                            {
-                                name: '111',
-                                state: 'checked',
-                                layer: 2,
+                                layer: 3,
                                 sub: null
                             }
                         ]
                     }
                 ]
-            };
-        },
-        methods: {
-            consent(){
+            },
+            {
+                name: '发现',
+                state: 'checked',
+                layer: 1,
+                sub: [
+                    {
+                        name: '发现内容',
+                        state: 'checked',
+                        layer: 2,
+                        sub: null
+                    }
+                ]
+            },
+            {
+                name: '我的频道',
+                state: 'checked',
+                layer: 1,
+                sub: [
+                    {
+                        name: '创建班课',
+                        state: 'unchecked',
+                        layer: 2,
+                        sub: null
+                    },
+                    {
+                        name: '333',
+                        state: 'checked',
+                        layer: 2,
+                        sub: null
+                    },
+                    {
+                        name: '222',
+                        state: 'checked',
+                        layer: 2,
+                        sub: null
 
+                    },
+                    {
+                        name: '111',
+                        state: 'checked',
+                        layer: 2,
+                        sub: null
+                    }
+                ]
             }
-        },
-        created() {
-            // alert(this.$route.query.rolename)
+            ]
         }
+    },
+    methods: {
+        consent() {
+
+        }
+    },
+    created() {
+        const _this = this
+        this.rolename = this.$route.query.rolename
+        this.rolename = '教师'
+        this.$axios.get('http://localhost:8080/webpermission/findAll/'+ this.rolename).then(function(resp) {
+            _this.datatable = resp.data
+            console.log(_this.datatable)
+            alert(1)
+        })
     }
+}
 </script>

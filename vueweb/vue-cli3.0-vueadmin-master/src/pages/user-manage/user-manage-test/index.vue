@@ -29,19 +29,15 @@
       </el-table-column>
       <el-table-column
               label="电话"
-              prop="phoneNumber">
+              prop="phone">
       </el-table-column>
       <el-table-column
               label="所在学校"
-              prop="School">
+              prop="school">
       </el-table-column>
       <el-table-column
               label="所在学院"
-              prop="College">
-      </el-table-column>
-      <el-table-column
-              label="创建时间"
-              prop="creatTime">
+              prop="department">
       </el-table-column>
       <el-table-column
               align="right">
@@ -76,7 +72,7 @@
                   <el-input v-model="user.role"></el-input>
               </el-form-item>
               <el-form-item label="电话号码">
-                  <el-input v-model="user.phoneNumber"></el-input>
+                  <el-input v-model="user.phone"></el-input>
               </el-form-item>
               <el-form-item label="选择院校">
                   <div class="block">
@@ -85,10 +81,6 @@
                           :options="options"
                           @change="handleChange"></el-cascader>
                   </div>
-              </el-form-item>
-
-              <el-form-item label="创建时间">
-                  <el-input v-model="user.creatTime"></el-input>
               </el-form-item>
               <el-form-item>
                   <el-button type="primary" @click="onSubmit()">确定</el-button>
@@ -115,10 +107,7 @@
                   <el-input v-model="user.role"></el-input>
               </el-form-item>
               <el-form-item label="电话号码">
-                  <el-input v-model="user.phoneNumber"></el-input>
-              </el-form-item>
-              <el-form-item label="创建时间">
-                  <el-input v-model="user.creatTime"></el-input>
+                  <el-input v-model="user.phone"></el-input>
               </el-form-item>
               <el-form-item>
                   <el-button type="primary" @click="edit()">确定</el-button>
@@ -138,17 +127,31 @@ export default {
             dialogVisible: false,
             dialogVisible2: false,
             user: {
-
-            },
-            tableData: [{
-                number: 190327064111,
+                number: '190327064111',
                 name: '王小虎',
                 sex: '男',
                 role: '教师',
-                phoneNumber: '1335855555',
-                School: '福州大学',
-                College: '数学与计算机科学',
-                creatTime: '2020-04-20'
+                phone: '1335855555',
+                school: '福州大学',
+                department: '数学与计算机科学'
+            },
+            userinfo: {
+                number: '190327064111',
+                name: '王小虎',
+                sex: '男',
+                role: '教师',
+                phone: '1335855555',
+                school: '福州大学',
+                department: '数学与计算机科学'
+            },
+            tableData: [{
+                number: '190327064111',
+                name: '王小虎',
+                sex: '男',
+                role: '教师',
+                phone: '1335855555',
+                school: '福州大学',
+                department: '数学与计算机科学'
             }],
             search: '',
             value: [],
@@ -198,20 +201,21 @@ export default {
         handleChange(value) {
             console.log(value)
             this.user.school = value[0]
-            this.user.College = value[1]
+            this.user.department = value[1]
         },
         edit() {
             console.log(this.user)
             this.dialogVisible2 = false
-            this.$axios.put('http://localhost:8080/webuser/updateuser', this.user).then(function(resp) {
-
+            alert(this.user.name)
+            this.$axios.post('http://localhost:8080/webuser/updateuser/' + this.user.number, this.user).then(function(resp) {
             })
         },
         handleDelete(index, row) {
-            this.user = row
+            this.us
             console.log(this.user)
             this.$axios.post('http://localhost:8080/webuser/deleteuser', this.user).then(function(resp) {
                 console.log(resp)
+                alert(1)
             })
         },
         addDelete(index, row) {
@@ -221,12 +225,20 @@ export default {
             this.dialogVisible = false
         },
         onSubmit() {
-            console.log(this.user)
             this.dialogVisible = false
-            const _this = this
-            this.$axios.post('http://localhost:8080/webuser/adduser', this.user).then(function(resp) {
+            alert(this.user.length)
+            this.userinfo.number = this.user.number
+            this.userinfo.name = this.user.name
+            this.userinfo.sex = this.user.sex
+            this.userinfo.role = this.user.role
+            this.userinfo.phone = this.user.phone
+            this.userinfo.school = this.user.school
+            this.userinfo.department = this.user.department
+            this.$axios.post('http://localhost:8080/webuser/adduser', this.userinfo).then(function(resp) {
+                alert(1)
             })
-            this.user = []
+
+            // this.user = []
         },
         handle() {
 
@@ -236,6 +248,7 @@ export default {
         const _this = this
         this.$axios.get('http://localhost:8080/webuser/finduser').then(function(resp) {
             _this.tableData = resp.data
+            console.log(_this.tableData)
             // alert(321)
             // 这个url要改下
         })

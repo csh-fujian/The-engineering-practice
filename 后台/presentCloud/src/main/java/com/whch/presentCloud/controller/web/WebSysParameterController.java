@@ -20,7 +20,7 @@ public class WebSysParameterController {
         return syspara.findAll();
     }
 
-    @DeleteMapping("delete")
+    @RequestMapping("delete")
     public int delete(String name)
     {
         return syspara.delete(name);

@@ -109,33 +109,57 @@ export default {
         return {
             dialogVisible: false,
             dialogVisible1: false,
-            dicd: {},
-            adddata:{},
+            typed: '',
+            record: {
+                valued: ''
+            },
+            dicd: {
+                typed: '性别',
+                keyd: 'male',
+                valued: '男',
+                defaultvalued: 0
+            },
+            adddata: {
+                typed: '性别',
+                keyd: 'male',
+                valued: '男',
+                defaultvalued: 0
+            },
             tableData: [{
                 id: 1,
                 typed: '性别',
                 keyd: 'male',
                 valued: '男',
-                defaultvalued: 'true'
+                defaultvalued: 0
             }, {
                 id: 2,
                 typed: '性别',
                 keyd: 'female',
                 valued: '女',
-                defaultvalued: 'false'
+                defaultvalued: 0
             } ],
             search: ''
         }
     },
     methods: {
         handleEdit(index, row) {
+            this.record.valued = row.valued
             this.adddata = row
-            this.dialogVisible1= true
+            console.log(this.adddata)
+            this.dialogVisible1 = true
         },
-        edit(){
-            this.dicd = this.adddata
-            this.$axios.put('http://localhost:8080/webdictionary/updatedata', this.dicd).then(function(resp) {
+        edit() {
+            // this.dicd = this.adddata
+            console.log(this.adddata)
+            this.dicd.valued = this.adddata.valued
+            this.dicd.keyd = this.adddata.keyd
+            this.dicd.defaultvalued = this.adddata.defaultvalued
+            this.dicd.typed = this.adddata.typed
+            console.log(this.dicd)
+            this.$axios.put('http://localhost:8080/webdictionary/updatedata', this.dicd, this.record).then(function(resp) {
+                alert(99)
             })
+            this.dialogVisible1 = false
         },
         handleDelete(index, row) {
             this.dicd = row
@@ -149,17 +173,23 @@ export default {
         onSubmit() {
             this.dialogVisible = false
             // eslint-disable-next-line no-unused-vars
-            this.dicd = this.adddata
-            console.log(this.dicd )
+            this.dicd.typed = this.adddata.typed
+            this.dicd.defaultvalued = this.adddata.defaultvalued
+            this.dicd.keyd = this.adddata.keyd
+            this.dicd.valued = this.adddata.valued
+            console.log(this.dicd)
             this.$axios.post('http://localhost:8080/webdictionary/adddata', this.dicd).then(function(resp) {
                 console.log(resp)
+                alert(123)
             })
         }
     },
     created() {
-        this.dicd = this.$route.query.dicd
+        this.dicd.typed = this.$route.query.dicd
         const _this = this
-        this.$axios.get('http://localhost:8080/webdictionary/finddata', this.dicd).then(function(resp) {
+        this.typed = this.dicd.typed
+
+        this.$axios.get('http://localhost:8080/webdictionary/finddata/' + this.typed).then(function(resp) {
             _this.tableData = resp.data
         })
     }

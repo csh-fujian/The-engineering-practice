@@ -35,8 +35,8 @@ public class dictionaryDataServiceImpl implements IDictionaryDataService {
     }
 
     @Override
-    public List<directoryData> findbytype(directoryData dirtdata) {
-        return dictR.findbytype(dirtdata);
+    public List<directoryData> findbytype(String typed) {
+        return dictR.findbytype(typed);
     }
 
     @Override

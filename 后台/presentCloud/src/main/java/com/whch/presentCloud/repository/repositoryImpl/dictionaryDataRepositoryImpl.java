@@ -54,8 +54,8 @@ public class dictionaryDataRepositoryImpl implements dictionaryDataRepository {
     }
 
     @Override
-    public List<directoryData> findbytype(directoryData dicData) {
-        return dicM.findbytype(dicData.getTyped());
+    public List<directoryData> findbytype(String typed) {
+        return dicM.findbytype(typed);
     }
 
     @Override

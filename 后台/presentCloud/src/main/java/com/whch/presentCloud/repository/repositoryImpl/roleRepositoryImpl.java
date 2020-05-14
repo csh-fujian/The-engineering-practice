@@ -29,7 +29,7 @@ public class roleRepositoryImpl implements roleRepository {
     @Override
     public int add(role ro) {
         // TODO Auto-generated method stub
-        return roleM.insertSelective(ro);
+        return roleM.addrole(ro.getName());
     }
 
     @Override

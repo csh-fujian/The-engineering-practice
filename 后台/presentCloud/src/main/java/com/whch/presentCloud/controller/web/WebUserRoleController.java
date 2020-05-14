@@ -23,18 +23,22 @@ public class WebUserRoleController {
     @PostMapping("addrole")
     public int addrole(@RequestBody role ro)
     {
+        role roll = ro;
+        System.out.println(roll.getName());
         return roleManageService.addRole(ro);
     }
 
     /**
      * 删除角色
-     * @param ro
+     * @param rol
      * @return
      */
-    @DeleteMapping("deleterole")
-    public int deleterole(@RequestBody role ro)
+    @RequestMapping("deleterole")
+    public int deleterole(@RequestBody role rol)
     {
-        return roleManageService.delete(ro);
+        role roll = rol;
+        System.out.println(roll.getName());
+        return roleManageService.delete(rol);
     }
 
     /**

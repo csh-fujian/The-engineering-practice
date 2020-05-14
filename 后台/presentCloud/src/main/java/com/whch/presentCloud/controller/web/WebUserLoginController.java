@@ -103,7 +103,7 @@ public class WebUserLoginController {
      * @param password
      * @return
      */
-    @PutMapping("setpassword")
+    @RequestMapping("setpassword")
     public int setpassword(@RequestParam("password") String password, HttpSession session)
     {
         userInfo user = (userInfo) session.getAttribute("forgetUser");

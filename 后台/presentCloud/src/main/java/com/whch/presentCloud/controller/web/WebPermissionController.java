@@ -14,9 +14,10 @@ public class WebPermissionController {
     @Autowired
     private IPermissionService permS;
 
-    @GetMapping("findAll")
-    public List<container> findAll(@RequestParam String rolename)
+    @GetMapping("findAll/{rolename}")
+    public List<container> findAll(@PathVariable String rolename)
     {
+        System.out.println(rolename);
         return permS.findAll(rolename);
     }
 

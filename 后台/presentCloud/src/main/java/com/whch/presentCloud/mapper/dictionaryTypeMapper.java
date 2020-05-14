@@ -27,4 +27,7 @@ public interface dictionaryTypeMapper {
     @Delete("DELETE t1,t2 FROM directorydata t1 LEFT JOIN dictionarytype t2 ON t1.typed = t2.typed where t1.typed = #{typed}")
     int delete(@Param("typed") String typed);
 
+    @Delete("delete from dictionarytype where typed = #{typed}")
+    int delete1(@Param("typed") String typed);
+
 }
