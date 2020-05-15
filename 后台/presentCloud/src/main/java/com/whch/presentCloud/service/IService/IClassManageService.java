@@ -17,4 +17,8 @@ public interface IClassManageService {
 
 	Map<String, Object> getLesson(String classId, String username);
 
+	String getSignType(String classId);
+
+	boolean isSucced(String username, String classId, String ip, int i);
+
 }

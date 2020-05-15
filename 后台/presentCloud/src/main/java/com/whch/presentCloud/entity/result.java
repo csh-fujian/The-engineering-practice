@@ -11,7 +11,10 @@ public class result {
     private String info;
     private String state;
     private String role;
-
+    private HashMap<String,Object> map;
+    public result(){
+        this.map = new HashMap<>();
+    }
     public List<Map> getResult() {
         return result;
     }
@@ -42,6 +45,16 @@ public class result {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public HashMap<String, Object> getMap() {
+        return map;
+    }
+
+    public void setMap(String str,Object obj) {
+       
+        this.map.put(str, obj);
+       
     }
    
 
