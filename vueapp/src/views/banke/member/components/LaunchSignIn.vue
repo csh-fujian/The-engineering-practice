@@ -33,7 +33,10 @@
       </template>
     </van-swipe-cell>
 
-    <pwd v-model="showPwd" />
+    <pwd ref="pwd" :is-show="showPwd" :teacherOption="true">
+      <a style="position: absolute;left: 5px;top: 5px;color:#fff;font-size: 13px;display:block;" @click="resetPassword()">重置密码</a>
+      <a style="position: absolute;right: 5px;top: 5px;color:#fff;font-size: 13px;display:block;" @click="startPwd()">开始</a>
+    </pwd>
   </div>
 </template>
 
@@ -57,12 +60,17 @@
     components: {
       Pwd,
       MdNavBar
-
     },
     methods: {
+      startPwd() {
+        console.log(this.$refs.pwd.lastPoint);
+      },
+      resetPassword() {
+        this.$refs.pwd.reset()
+      },
       itemClick(index) {
         if (index == 1) {
-          this.showPwd = true
+          this.$router.push('/banke/'+this.$route.params.classId+'/member/launch-sign/pose')
         }
       }
     }

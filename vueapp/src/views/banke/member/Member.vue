@@ -18,7 +18,7 @@
     </div>
 
     <div class="border-radius shadow card flex">
-      <div class="flex1 text-center flexItem cardItem" v-for="(item,index) in member.option" @click="itemClick(index)">
+      <div class="flex1 text-center flexItem cardItem" v-for="(item,index) in option" @click="itemClick(index)">
         <van-image
                 round
                 width="46px"
@@ -79,9 +79,22 @@
         sortType: '切换为学号排序'
       }
     },
+    computed: {
+      option() {
+        if (this.$store.getters.getStatus === 'student')
+        {
+          return  this.member.option_student
+
+        }else {
+          return this.member.option
+        }
+        console.log(this.member.option_student);
+      }
+    },
     created() {
       this.isTeacher = this.$store.getters.getStatus === 'teacher'
     },
+
     components: {
       MdBankeTabBar,
       MemberList,
@@ -90,7 +103,10 @@
     methods: {
       itemClick(index) {
         if (index == 0) {
-          this.$router.push('/banke/'+this.$route.params.classId+'/member/launch-sign')
+          if (!this.isTeacher)
+            this.$router.push('/banke/'+this.$route.params.classId+'/member/sign-in')
+          else
+            this.$router.push('/banke/'+this.$route.params.classId+'/member/launch-sign')
         }
       },
       sortTypeClick() {
