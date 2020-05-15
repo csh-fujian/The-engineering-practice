@@ -1,275 +1,537 @@
-/*==============================================================*/
-/* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/4/11 9:25:16                            */
-/*==============================================================*/
+/*
+ Navicat Premium Data Transfer
 
+ Source Server         : mysql
+ Source Server Type    : MySQL
+ Source Server Version : 50562
+ Source Host           : localhost:3306
+ Source Schema         : presentcloud
 
-drop table if exists Admin;
+ Target Server Type    : MySQL
+ Target Server Version : 50562
+ File Encoding         : 65001
 
-drop table if exists CheckInHistory;
+ Date: 08/05/2020 21:45:00
+*/
 
-drop table if exists ClassCourseMember;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
-drop table if exists ClassLesson;
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin`  (
+  `Id` int(11) NOT NULL,
+  `Name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Account` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-drop table if exists DictionaryType;
+-- ----------------------------
+-- Table structure for checkinhistory
+-- ----------------------------
+DROP TABLE IF EXISTS `checkinhistory`;
+CREATE TABLE `checkinhistory`  (
+  `Id` int(11) NOT NULL,
+  `Start` datetime NULL DEFAULT NULL,
+  `Over` datetime NULL DEFAULT NULL,
+  `CheckInType` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Number` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `State` int(11) NULL DEFAULT NULL,
+  `Name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE,
+  CONSTRAINT `FK_Reference_3` FOREIGN KEY (`Id`) REFERENCES `userinfo` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-drop table if exists DirectoryData;
+-- ----------------------------
+-- Table structure for classcoursemember
+-- ----------------------------
+DROP TABLE IF EXISTS `classcoursemember`;
+CREATE TABLE `classcoursemember`  (
+  `ClassId` int(11) NOT NULL,
+  `StudentName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `StudentId` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ClassName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `TeacherName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `TeacherId` int(11) NULL DEFAULT NULL,
+  `Experience` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`ClassId`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-drop table if exists Experience;
+-- ----------------------------
+-- Table structure for classlesson
+-- ----------------------------
+DROP TABLE IF EXISTS `classlesson`;
+CREATE TABLE `classlesson`  (
+  `ClassId` int(11) NOT NULL,
+  `ClassName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `TeacherName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `TeacherId` int(11) NULL DEFAULT NULL,
+  `type` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Master` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `People_Count` int(11) NULL DEFAULT NULL,
+  `Location` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ClassTime` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `College` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`ClassId`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-drop table if exists Menu;
+-- ----------------------------
+-- Table structure for dictionarytype
+-- ----------------------------
+DROP TABLE IF EXISTS `dictionarytype`;
+CREATE TABLE `dictionarytype`  (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `TypeD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Description` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Creator` int(20) NULL DEFAULT NULL,
+  `CreatorDate` datetime NULL DEFAULT NULL,
+  `ModificationDate` datetime NULL DEFAULT NULL,
+  `Modifier` int(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-drop table if exists Role;
+-- ----------------------------
+-- Records of dictionarytype
+-- ----------------------------
+INSERT INTO `dictionarytype` VALUES (1, '性别', 'sexy', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `dictionarytype` VALUES (2, '身份', 'role', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `dictionarytype` VALUES (3, '学历', 'degree', NULL, NULL, NULL, NULL, NULL);
 
-drop table if exists SignIn;
+-- ----------------------------
+-- Table structure for directorydata
+-- ----------------------------
+DROP TABLE IF EXISTS `directorydata`;
+CREATE TABLE `directorydata`  (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `TypeD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `KeyD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ValueD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `DefaultValueD` int(1) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-drop table if exists Task;
+-- ----------------------------
+-- Records of directorydata
+-- ----------------------------
+INSERT INTO `directorydata` VALUES (1, 'sexy', 'male', '男', 1);
+INSERT INTO `directorydata` VALUES (2, 'sexy', 'female', '女', 0);
+INSERT INTO `directorydata` VALUES (3, 'role', 'teacher', '老师', 0);
+INSERT INTO `directorydata` VALUES (4, 'role', 'student', '学生', 1);
+INSERT INTO `directorydata` VALUES (5, 'role', 'assistant', '助教', 0);
+INSERT INTO `directorydata` VALUES (6, 'role', 'admin', '管理员', 0);
+INSERT INTO `directorydata` VALUES (7, 'degree', 'undergraduate', '本科', 1);
+INSERT INTO `directorydata` VALUES (8, 'degree', 'master', '硕士', 0);
+INSERT INTO `directorydata` VALUES (9, 'degree', 'doctor', '博士', 0);
+INSERT INTO `directorydata` VALUES (10, 'degree', 'college', '专科', 0);
+INSERT INTO `directorydata` VALUES (11, 'degree', 'belowhigh', '高中及以下', NULL);
 
-drop table if exists TaskMemory;
+-- ----------------------------
+-- Table structure for experience
+-- ----------------------------
+DROP TABLE IF EXISTS `experience`;
+CREATE TABLE `experience`  (
+  `StudentId` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `Name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ExperienceValue` int(10) NULL DEFAULT NULL,
+  `ClassId` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`StudentId`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-drop table if exists UserCheck;
+-- ----------------------------
+-- Table structure for menu
+-- ----------------------------
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE `menu`  (
+  `Id` int(100) NOT NULL AUTO_INCREMENT,
+  `SuperiorMenuNumber` int(100) NULL DEFAULT NULL,
+  `MenuName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ButtonEnglichlogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ButtonChineselogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `IsMenu` int(3) NULL DEFAULT NULL,
+  `Creator` int(10) NULL DEFAULT NULL,
+  `CreationDate` datetime NULL DEFAULT NULL,
+  `ModificationDate` datetime NULL DEFAULT NULL,
+  `Modifier` int(10) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-drop table if exists UserInfo;
+-- ----------------------------
+-- Records of menu
+-- ----------------------------
+INSERT INTO `menu` VALUES (1, 0, '班课频道', NULL, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (2, 1, '班课管理', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (3, 1, '加入班级', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (4, 2, '创建班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (5, 2, '班课搜索', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (6, 2, '班课列表排序', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (8, 3, '班课号加入班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (9, 3, '二维码加入班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (10, 1, '班课详情-添加活动', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (11, 10, '发布作业任务', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (12, 10, '查看活动库', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (13, 10, '头脑风暴', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (14, 1, '班课详情-成员', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (15, 14, '发起签到', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (16, 14, '心意卡片', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (17, 14, '小组方案', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (18, 14, '挂科预警', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (19, 14, '切换排序', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (20, 14, '成员列表', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (21, 14, '查看成员信息', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (22, 1, '班课详情-活动', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (23, 22, '活动列表', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (24, 1, '班课详情-消息', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (25, 1, '班课详情-详情', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (27, 25, '修改信息列表', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (28, 25, '结束班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (29, 25, '删除班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (30, 25, '编辑班课信息', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (31, 1, '班课详情-资源', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (32, 1, '班课信息', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (33, 32, '班课搜索', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (34, 32, '排序', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (35, 14, '签到', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (36, 25, '退出班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (37, 0, '发现', NULL, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (38, 37, '发现-首页', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (39, 38, '二维码加入班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (40, 37, '发现-课程圈', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (41, 37, '发现-社区', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (42, 0, '我的频道', NULL, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (43, 42, '我的频道-首页', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (44, 43, '个人信息', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (49, 42, '我的频道-设置', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (50, 49, '关联手机', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (51, 49, '关联邮箱', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (52, 49, '修改密码', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (53, 49, '查看用户协议', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (54, 49, '查看隐私政策', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (55, 49, '查看关于我们', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (56, 49, '缓存管理', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (57, 49, '检查更新', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (58, 49, '反馈、投诉与建议', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (59, 49, '隐私设计', NULL, NULL, 3, NULL, NULL, NULL, NULL);
 
-/*==============================================================*/
-/* Table: Admin                                                 */
-/*==============================================================*/
-create table Admin
-(
-   Id                   int not null,
-   Name                 varchar(10),
-   Account              varchar(10),
-   Password             varchar(20),
-   primary key (Id)
-);
+-- ----------------------------
+-- Table structure for permission
+-- ----------------------------
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE `permission`  (
+  `Id` int(100) NOT NULL AUTO_INCREMENT,
+  `SuperiorMenuNumber` int(100) NULL DEFAULT NULL,
+  `MenuName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ButtonEnglichlogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ButtonChineselogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `IsMenu` int(3) NULL DEFAULT NULL,
+  `Creator` int(10) NULL DEFAULT NULL,
+  `CreationDate` datetime NULL DEFAULT NULL,
+  `ModificationDate` datetime NULL DEFAULT NULL,
+  `Modifier` int(10) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-/*==============================================================*/
-/* Table: CheckInHistory                                        */
-/*==============================================================*/
-create table CheckInHistory
-(
-   Id                   int not null,
-   Start                datetime,
-   Over                 datetime,
-   CheckInType          varchar(20),
-   Number               varchar(10),
-   State                int,
-   Name                 varchar(20),
-   primary key (Id)
-);
+-- ----------------------------
+-- Records of permission
+-- ----------------------------
+INSERT INTO `permission` VALUES (1, 0, '班课频道', NULL, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (2, 1, '班课管理', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (3, 1, '加入班级', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (4, 2, '创建班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (5, 2, '班课搜索', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (6, 2, '班课列表排序', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (7, 2, '查看列表班课信息', NULL, NULL, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (8, 3, '班课号加入班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (9, 3, '二维码加入班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (10, 1, '班课详情-添加活动', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (11, 10, '发布作业任务', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (12, 10, '查看活动库', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (13, 10, '头脑风暴', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (14, 1, '班课详情-成员', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (15, 14, '发起签到', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (16, 14, '心意卡片', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (17, 14, '小组方案', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (18, 14, '挂科预警', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (19, 14, '切换排序', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (20, 14, '成员列表', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (21, 14, '查看成员信息', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (22, 1, '班课详情-活动', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (23, 22, '活动列表', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (24, 1, '班课详情-消息', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (25, 1, '班课详情-详情', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (26, 25, '信息列表', NULL, NULL, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (27, 25, '修改信息列表', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (28, 25, '结束班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (29, 25, '删除班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (30, 25, '编辑班课信息', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (31, 1, '班课详情-资源', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (32, 1, '班课信息', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (33, 32, '班课搜索', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (34, 32, '排序', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (35, 14, '签到', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (36, 25, '退出班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (37, 0, '发现', NULL, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (38, 37, '发现-首页', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (39, 38, '扫码加入班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (40, 37, '发现-课程圈', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (41, 37, '发现-社区', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (42, 0, '我的频道', NULL, NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (43, 42, '我的频道-首页', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (44, 43, '个人信息', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (45, 44, '经验值', NULL, NULL, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (46, 44, '魅力值', NULL, NULL, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (47, 44, '蓝豆', NULL, NULL, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (48, 44, '心意', NULL, NULL, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (49, 42, '我的频道-设置', NULL, NULL, 2, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (50, 49, '关联手机', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (51, 49, '关联邮箱', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (52, 49, '修改密码', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (53, 49, '查看用户协议', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (54, 49, '查看隐私政策', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (55, 49, '查看关于我们', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (56, 49, '缓存管理', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (57, 49, '检查更新', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (58, 49, '反馈、投诉与建议', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (59, 49, '隐私设计', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (60, 44, '查看经验值', NULL, NULL, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (61, 44, '查看签到数', NULL, NULL, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (62, 44, '查看解答数', NULL, NULL, 4, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (63, 44, '查看点赞数', NULL, NULL, 4, NULL, NULL, NULL, NULL);
 
-/*==============================================================*/
-/* Table: ClassCourseMember                                     */
-/*==============================================================*/
-create table ClassCourseMember
-(
-   ClassId              int not null,
-   StudentName          varchar(20),
-   StudentId            varchar(10),
-   ClassName            varchar(16),
-   TeacherName          varchar(16),
-   TeacherId            int,
-   Experience           int,
-   primary key (ClassId)
-);
+-- ----------------------------
+-- Table structure for role
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role`  (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MenuId` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-/*==============================================================*/
-/* Table: ClassLesson                                           */
-/*==============================================================*/
-create table ClassLesson
-(
-   ClassId              int not null,
-   ClassName            varchar(16),
-   TeacherName          varchar(16),
-   TeacherId            int,
-   type                 varchar(16),
-   Master               varchar(16),
-   People_Count         int,
-   Location             varchar(32),
-   ClassTime            varchar(16),
-   College              varchar(32),
-   primary key (ClassId)
-);
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES (1, '教师', NULL);
+INSERT INTO `role` VALUES (2, '学生', NULL);
+INSERT INTO `role` VALUES (3, '助教', NULL);
+INSERT INTO `role` VALUES (4, '管理员', NULL);
 
-/*==============================================================*/
-/* Table: DictionaryType                                        */
-/*==============================================================*/
-create table DictionaryType
-(
-   Id                   int not null auto_increment,
-   Sexy                 varchar(20),
-   Code                 int(20),
-   Description          varchar(20),
-   Identity             int(20),
-   Creator              int(20),
-   CreatorDate          datetime,
-   ModificationDate     datetime,
-   Modifier             int(20),
-   primary key (Id)
-);
+-- ----------------------------
+-- Table structure for rolemenu
+-- ----------------------------
+DROP TABLE IF EXISTS `rolemenu`;
+CREATE TABLE `rolemenu`  (
+  `id` int(20) NOT NULL,
+  `role` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `menu` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-/*==============================================================*/
-/* Table: DirectoryData                                         */
-/*==============================================================*/
-create table DirectoryData
-(
-   Id                   int not null auto_increment,
-   TypeD                varchar(20),
-   KeyD                 varchar(20),
-   ValueD               varchar(20),
-   DefaultValueD        int(1),
-   primary key (Id)
-);
+-- ----------------------------
+-- Records of rolemenu
+-- ----------------------------
+INSERT INTO `rolemenu` VALUES (1, '学生', '班课频道');
+INSERT INTO `rolemenu` VALUES (2, '学生', '加入班级');
+INSERT INTO `rolemenu` VALUES (3, '学生', '班课号加入班级');
+INSERT INTO `rolemenu` VALUES (4, '学生', '二维码加入班级');
+INSERT INTO `rolemenu` VALUES (5, '学生', '班课信息');
+INSERT INTO `rolemenu` VALUES (6, '学生', '班课搜索');
+INSERT INTO `rolemenu` VALUES (7, '学生', '排序');
+INSERT INTO `rolemenu` VALUES (8, '学生', '班课详情-成员');
+INSERT INTO `rolemenu` VALUES (9, '学生', '签到');
+INSERT INTO `rolemenu` VALUES (10, '学生', '心意卡片');
+INSERT INTO `rolemenu` VALUES (11, '学生', '小组方案');
+INSERT INTO `rolemenu` VALUES (12, '学生', '切换排序');
+INSERT INTO `rolemenu` VALUES (13, '学生', '成员列表');
+INSERT INTO `rolemenu` VALUES (14, '学生', '班课详情-活动');
+INSERT INTO `rolemenu` VALUES (15, '学生', '活动列表');
+INSERT INTO `rolemenu` VALUES (16, '学生', '班课详情-消息');
+INSERT INTO `rolemenu` VALUES (17, '学生', '班课详情-详情');
+INSERT INTO `rolemenu` VALUES (18, '学生', '信息列表');
+INSERT INTO `rolemenu` VALUES (19, '学生', '修改信息列表');
+INSERT INTO `rolemenu` VALUES (20, '学生', '退出班课');
+INSERT INTO `rolemenu` VALUES (21, '学生', '班课详情-资源');
+INSERT INTO `rolemenu` VALUES (22, '学生', '发现');
+INSERT INTO `rolemenu` VALUES (23, '学生', '发现-首页');
+INSERT INTO `rolemenu` VALUES (24, '学生', '二维码加入班课');
+INSERT INTO `rolemenu` VALUES (25, '学生', '发现-课程圈');
+INSERT INTO `rolemenu` VALUES (26, '学生', '发现-社区');
+INSERT INTO `rolemenu` VALUES (27, '学生', '我的频道');
+INSERT INTO `rolemenu` VALUES (28, '学生', '我的频道-首页');
+INSERT INTO `rolemenu` VALUES (29, '学生', '个人信息');
+INSERT INTO `rolemenu` VALUES (30, '学生', '查看经验值');
+INSERT INTO `rolemenu` VALUES (31, '学生', '查看签到数');
+INSERT INTO `rolemenu` VALUES (32, '学生', '查看解答数');
+INSERT INTO `rolemenu` VALUES (33, '学生', '查看点赞数');
+INSERT INTO `rolemenu` VALUES (34, '学生', '我的频道-设置');
+INSERT INTO `rolemenu` VALUES (35, '学生', '关联手机');
+INSERT INTO `rolemenu` VALUES (36, '学生', '关联邮箱');
+INSERT INTO `rolemenu` VALUES (37, '学生', '修改密码');
+INSERT INTO `rolemenu` VALUES (38, '学生', '查看用户协议');
+INSERT INTO `rolemenu` VALUES (39, '学生', '查看隐私政策');
+INSERT INTO `rolemenu` VALUES (40, '学生', '查看关于我们');
+INSERT INTO `rolemenu` VALUES (41, '学生', '缓存管理');
+INSERT INTO `rolemenu` VALUES (42, '学生', '检查更新');
+INSERT INTO `rolemenu` VALUES (43, '学生', '反馈、投诉与建议');
+INSERT INTO `rolemenu` VALUES (44, '学生', '隐私设计');
+INSERT INTO `rolemenu` VALUES (45, '学生', '发现-社区');
+INSERT INTO `rolemenu` VALUES (46, '教师', '班课频道');
+INSERT INTO `rolemenu` VALUES (47, '教师', '班课管理');
+INSERT INTO `rolemenu` VALUES (48, '教师', '创建班课');
+INSERT INTO `rolemenu` VALUES (49, '教师', '班课搜索');
+INSERT INTO `rolemenu` VALUES (50, '教师', '班课列表排序');
+INSERT INTO `rolemenu` VALUES (51, '教师', '查看列表班课信息');
+INSERT INTO `rolemenu` VALUES (52, '教师', '班课详情-添加活动');
+INSERT INTO `rolemenu` VALUES (53, '教师', '发布作业任务');
+INSERT INTO `rolemenu` VALUES (54, '教师', '查看活动库');
+INSERT INTO `rolemenu` VALUES (55, '教师', '头脑风暴');
+INSERT INTO `rolemenu` VALUES (56, '教师', '班课详情-成员');
+INSERT INTO `rolemenu` VALUES (57, '教师', '发起签到');
+INSERT INTO `rolemenu` VALUES (58, '教师', '心意卡片');
+INSERT INTO `rolemenu` VALUES (59, '教师', '小组方案');
+INSERT INTO `rolemenu` VALUES (60, '教师', '挂科预警');
+INSERT INTO `rolemenu` VALUES (61, '教师', '切换排序');
+INSERT INTO `rolemenu` VALUES (62, '教师', '成员列表');
+INSERT INTO `rolemenu` VALUES (63, '教师', '查看成员信息');
+INSERT INTO `rolemenu` VALUES (64, '教师', '班课详情-活动');
+INSERT INTO `rolemenu` VALUES (65, '教师', '活动列表');
+INSERT INTO `rolemenu` VALUES (66, '教师', '班课详情-消息');
+INSERT INTO `rolemenu` VALUES (67, '教师', '班课详情-详情');
+INSERT INTO `rolemenu` VALUES (68, '教师', '信息列表');
+INSERT INTO `rolemenu` VALUES (69, '教师', '修改信息列表');
+INSERT INTO `rolemenu` VALUES (70, '教师', '结束班课');
+INSERT INTO `rolemenu` VALUES (71, '教师', '删除班课');
+INSERT INTO `rolemenu` VALUES (72, '教师', '编辑班课信息');
+INSERT INTO `rolemenu` VALUES (73, '教师', '班课详情-资源');
+INSERT INTO `rolemenu` VALUES (74, '教师', '发现');
+INSERT INTO `rolemenu` VALUES (75, '教师', '发现-首页');
+INSERT INTO `rolemenu` VALUES (76, '教师', '扫码加入班课');
+INSERT INTO `rolemenu` VALUES (77, '教师', '发现-课程圈');
+INSERT INTO `rolemenu` VALUES (78, '教师', '发现-社区');
+INSERT INTO `rolemenu` VALUES (79, '教师', '我的频道');
+INSERT INTO `rolemenu` VALUES (80, '教师', '我的频道-首页');
+INSERT INTO `rolemenu` VALUES (81, '教师', '个人信息');
+INSERT INTO `rolemenu` VALUES (82, '教师', '经验值');
+INSERT INTO `rolemenu` VALUES (83, '教师', '魅力值');
+INSERT INTO `rolemenu` VALUES (84, '教师', '蓝豆');
+INSERT INTO `rolemenu` VALUES (85, '教师', '心意');
+INSERT INTO `rolemenu` VALUES (86, '教师', '我的频道-设置');
+INSERT INTO `rolemenu` VALUES (87, '教师', '关联手机');
+INSERT INTO `rolemenu` VALUES (88, '教师', '关联邮箱');
+INSERT INTO `rolemenu` VALUES (89, '教师', '修改密码');
+INSERT INTO `rolemenu` VALUES (90, '教师', '查看用户协议');
+INSERT INTO `rolemenu` VALUES (91, '教师', '查看隐私政策');
+INSERT INTO `rolemenu` VALUES (92, '教师', '查看关于我们');
+INSERT INTO `rolemenu` VALUES (93, '教师', '缓存管理');
+INSERT INTO `rolemenu` VALUES (94, '教师', '检查更新');
+INSERT INTO `rolemenu` VALUES (95, '教师', '反馈、投诉与建议');
+INSERT INTO `rolemenu` VALUES (96, '教师', '隐私设计');
 
-/*==============================================================*/
-/* Table: Experience                                            */
-/*==============================================================*/
-create table Experience
-(
-   StudentId            varchar(10) not null,
-   Name                 varchar(10),
-   ExperienceValue      integer(10),
-   ClassId              int,
-   primary key (StudentId)
-);
+-- ----------------------------
+-- Table structure for signin
+-- ----------------------------
+DROP TABLE IF EXISTS `signin`;
+CREATE TABLE `signin`  (
+  `Id` int(11) NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `SignInType` int(11) NULL DEFAULT NULL,
+  `EndTime` datetime NULL DEFAULT NULL,
+  `Publisher` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `ClassId` int(11) NULL DEFAULT NULL,
+  `StartTime` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE,
+  INDEX `FK_Reference_4`(`UserId`) USING BTREE,
+  CONSTRAINT `FK_Reference_4` FOREIGN KEY (`UserId`) REFERENCES `userinfo` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-/*==============================================================*/
-/* Table: Menu                                                  */
-/*==============================================================*/
-create table Menu
-(
-   Id                   integer not null,
-   SuperiorMenuNumber   integer(10) not null,
-   MenuName             varchar(15) not null,
-   ButtonEnglishlogo    varchar(15) not null,
-   ButtonChineselogo    varchar(15),
-   IsMenu               integer(1),
-   Creator              varchar(15),
-   CreationDate         datetime,
-   ModificationDate     datetime,
-   Modifier             varchar(15),
-   primary key (Id)
-);
+-- ----------------------------
+-- Table structure for task
+-- ----------------------------
+DROP TABLE IF EXISTS `task`;
+CREATE TABLE `task`  (
+  `Id` int(11) NOT NULL,
+  `UserId` int(11) NOT NULL,
+  `Grade` int(11) NULL DEFAULT NULL,
+  `Answer` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `GradePoint` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Task` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ClassId` int(11) NULL DEFAULT NULL,
+  `Team` int(11) NULL DEFAULT NULL,
+  `ScoringMethod` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `LastSubmitTime` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE,
+  INDEX `FK_Reference_5`(`UserId`) USING BTREE,
+  CONSTRAINT `FK_Reference_5` FOREIGN KEY (`UserId`) REFERENCES `userinfo` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-/*==============================================================*/
-/* Table: Role                                                  */
-/*==============================================================*/
-create table Role
-(
-   Id                   int not null,
-   Name                 varchar(10),
-   MenuId               int,
-   primary key (Id)
-);
+-- ----------------------------
+-- Table structure for taskmemory
+-- ----------------------------
+DROP TABLE IF EXISTS `taskmemory`;
+CREATE TABLE `taskmemory`  (
+  `Id` int(11) NOT NULL,
+  `StudentId` int(11) NOT NULL,
+  `IsParticipate` int(11) NULL DEFAULT NULL,
+  `Grade` int(11) NULL DEFAULT NULL,
+  `Anser` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `GradePoint` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Task` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ClassId` int(11) NULL DEFAULT NULL,
+  `Team` int(11) NULL DEFAULT NULL,
+  `ScoringMethod` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `LastSubmitTime` datetime NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE,
+  INDEX `FK_Reference_6`(`StudentId`) USING BTREE,
+  CONSTRAINT `FK_Reference_6` FOREIGN KEY (`StudentId`) REFERENCES `userinfo` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-/*==============================================================*/
-/* Table: SignIn                                                */
-/*==============================================================*/
-create table SignIn
-(
-   Id                   int not null,
-   UserId               int not null,
-   SignInType           int,
-   EndTime              datetime,
-   Publisher            varchar(15) not null,
-   ClassId              int,
-   StartTime            datetime,
-   primary key (Id)
-);
+-- ----------------------------
+-- Table structure for usercheck
+-- ----------------------------
+DROP TABLE IF EXISTS `usercheck`;
+CREATE TABLE `usercheck`  (
+  `Id` int(11) NOT NULL,
+  `Fk_UserInfo_UserCheck_Id` int(11) NULL DEFAULT NULL,
+  `Type` int(11) NULL DEFAULT NULL,
+  `ThirdParty` int(11) NULL DEFAULT NULL,
+  `Identifier` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `PasswordToken` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `CreationDate` datetime NULL DEFAULT NULL,
+  `Creater` int(11) NULL DEFAULT NULL,
+  `ModificationDate` datetime NULL DEFAULT NULL,
+  `Modifier` char(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE,
+  INDEX `FK_Reference_1`(`Fk_UserInfo_UserCheck_Id`) USING BTREE,
+  CONSTRAINT `FK_Reference_1` FOREIGN KEY (`Fk_UserInfo_UserCheck_Id`) REFERENCES `userinfo` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-/*==============================================================*/
-/* Table: Task                                                  */
-/*==============================================================*/
-create table Task
-(
-   Id                   int not null,
-   UserId               int not null,
-   Grade                int,
-   Answer               varchar(1000),
-   GradePoint           varchar(256),
-   Task                 varchar(1000),
-   ClassId              int,
-   Team                 int,
-   ScoringMethod        varchar(256),
-   LastSubmitTime       datetime,
-   primary key (Id)
-);
+-- ----------------------------
+-- Table structure for userinfo
+-- ----------------------------
+DROP TABLE IF EXISTS `userinfo`;
+CREATE TABLE `userinfo`  (
+  `Id` int(11) NOT NULL,
+  `Number` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `Name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Image` mediumblob NULL,
+  `NickName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Birthday` datetime NULL DEFAULT NULL,
+  `Sex` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `School` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Department` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Role` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Master` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `CreationDate` datetime NULL DEFAULT NULL,
+  `ModificationDate` datetime NULL DEFAULT NULL,
+  `Creator` int(11) NULL DEFAULT NULL,
+  `Modifier` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
-/*==============================================================*/
-/* Table: TaskMemory                                            */
-/*==============================================================*/
-create table TaskMemory
-(
-   Id                   int not null,
-   StudentId            int not null,
-   IsParticipate        int,
-   Grade                int,
-   Anser                varchar(1000),
-   GradePoint           varchar(256),
-   Task                 varchar(1000),
-   ClassId              int,
-   Team                 int,
-   ScoringMethod        varchar(256),
-   LastSubmitTime       datetime,
-   primary key (Id)
-);
-
-/*==============================================================*/
-/* Table: UserCheck                                             */
-/*==============================================================*/
-create table UserCheck
-(
-   Id                   int not null,
-   Fk_UserInfo_UserCheck_Id int,
-   Type                 int,
-   ThirdParty           int,
-   Identifier           varchar(20),
-   PasswordToken        varchar(20),
-   CreationDate         datetime,
-   Creater              int,
-   ModificationDate     datetime,
-   Modifier             char(10),
-   primary key (Id)
-);
-
-/*==============================================================*/
-/* Table: UserInfo                                              */
-/*==============================================================*/
-create table UserInfo
-(
-   Id                   int not null,
-   Number               varchar(10) not null,
-   password             varchar(20),
-   Name                 varchar(20),
-   Image                mediumblob,
-   NickName             varchar(20),
-   Birthday             datetime,
-   Sex                  int,
-   School               varchar(20),
-   Department           varchar(50),
-   Role                 varchar(20),
-   Phone                varchar(11),
-   Master               varchar(20),
-   CreationDate         datetime,
-   ModificationDate     datetime,
-   Creator              int,
-   Modifier             int,
-   primary key (Id)
-);
-
-alter table CheckInHistory add constraint FK_Reference_3 foreign key (Id)
-      references UserInfo (Id) on delete restrict on update restrict;
-
-alter table SignIn add constraint FK_Reference_4 foreign key (UserId)
-      references UserInfo (Id) on delete restrict on update restrict;
-
-alter table Task add constraint FK_Reference_5 foreign key (UserId)
-      references UserInfo (Id) on delete restrict on update restrict;
-
-alter table TaskMemory add constraint FK_Reference_6 foreign key (StudentId)
-      references UserInfo (Id) on delete restrict on update restrict;
-
-alter table UserCheck add constraint FK_Reference_1 foreign key (Fk_UserInfo_UserCheck_Id)
-      references UserInfo (Id) on delete restrict on update restrict;
-
+SET FOREIGN_KEY_CHECKS = 1;

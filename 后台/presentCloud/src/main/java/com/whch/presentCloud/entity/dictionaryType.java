@@ -5,13 +5,11 @@ import java.util.Date;
 public class dictionaryType {
     private Integer id;
 
-    private String sexy;
+    private String type;
 
-    private Integer code;
+    private String typed;
 
     private String description;
-
-    private Integer identity;
 
     private Integer creator;
 
@@ -29,20 +27,12 @@ public class dictionaryType {
         this.id = id;
     }
 
-    public String getSexy() {
-        return sexy;
+    public String getTyped() {
+        return typed;
     }
 
-    public void setSexy(String sexy) {
-        this.sexy = sexy == null ? null : sexy.trim();
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
+    public void setTyped(String typed) {
+        this.typed = typed == null ? null : typed.trim();
     }
 
     public String getDescription() {
@@ -53,12 +43,12 @@ public class dictionaryType {
         this.description = description == null ? null : description.trim();
     }
 
-    public Integer getIdentity() {
-        return identity;
+    public String getType() {
+        return type;
     }
 
-    public void setIdentity(Integer identity) {
-        this.identity = identity;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Integer getCreator() {

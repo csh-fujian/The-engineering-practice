@@ -15,7 +15,7 @@ public class userInfo {
 
     private Date birthday;
 
-    private Integer sex;
+    private String sex;
 
     private String school;
 
@@ -87,11 +87,11 @@ public class userInfo {
         this.birthday = birthday;
     }
 
-    public Integer getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(final Integer sex) {
+    public void setSex(final String sex) {
         this.sex = sex;
     }
 

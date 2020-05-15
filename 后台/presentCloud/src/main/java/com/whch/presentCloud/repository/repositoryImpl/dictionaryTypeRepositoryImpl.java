@@ -39,7 +39,9 @@ public class dictionaryTypeRepositoryImpl implements dictionaryTypeRepository {
     @Override
     public int delete(dictionaryType dictionaryT) {
         // TODO Auto-generated method stub
-        return dicM.deleteByPrimaryKey(dictionaryT.getId());
+        dicM.delete(dictionaryT.getTyped());
+        dicM.delete1(dictionaryT.getTyped());
+        return 1;
     }
 
 }

@@ -25,6 +25,11 @@
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{menuid,jdbcType=INTEGER}
       )
   </insert>
+  <select id="findByPaging" resultMap="BaseResultMap" parameterType="com.whch.presentCloud.entity.role">
+    select
+    <include refid="Base_Column_List"/>
+    from role
+  </select>
   <insert id="insertSelective" parameterType="com.whch.presentCloud.entity.role" >
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides="," >

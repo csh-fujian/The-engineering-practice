@@ -23,6 +23,16 @@ public class menu {
 
     private String modifier;
 
+    private String state;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public Integer getId() {
         return id;
     }

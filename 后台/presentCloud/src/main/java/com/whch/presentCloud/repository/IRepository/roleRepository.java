@@ -2,6 +2,7 @@ package com.whch.presentCloud.repository.IRepository;
 
 import java.util.List;
 
+import com.github.pagehelper.Page;
 import com.whch.presentCloud.entity.role;
 
 public interface roleRepository {

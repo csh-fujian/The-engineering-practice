@@ -38,6 +38,7 @@ public class classManageServiceImpl implements IClassManageService {
     @Autowired
     private signinRepository siginR;
 
+
     @Override
     public List<classCourseMember> getLessons(String number) {
 
@@ -47,11 +48,11 @@ public class classManageServiceImpl implements IClassManageService {
     @Override
     public String addCourse(String classId, String studentId) {
         // TODO Auto-generated method stub
+        // 课程成员
         classCourseMember course1 = new classCourseMember();
         course1.setClassid(Integer.parseInt(classId));
         course1.setStudentid(studentId);
         int flag = courseM.insertSelective(course1);
-        classLesson lesson = classLessonR.getLesson(Integer.parseInt(classId));
         if(flag == 0)
         {
             return "false";
@@ -101,6 +102,7 @@ public class classManageServiceImpl implements IClassManageService {
         detail.put("dataContent", dataContent);
         res.put("detail", detail);
 
+        //得到一个课程的每个学生的详细信息
         List<classCourseMember> list1 = courseM.getOneClassMembers(Integer.parseInt(classId));
         List<Map<String,Object>> members = new ArrayList<>();
         int members_count = 0;
@@ -115,6 +117,7 @@ public class classManageServiceImpl implements IClassManageService {
         }
         res.put("members", members);
 
+        //得到一个课程的每个学生的详细任务
         List<taskMemory> list2 = taskM.get(Integer.parseInt(username));
         List<Map<String,Object>> tasks = new ArrayList<>();
         int tasks_count_out_time = 0;

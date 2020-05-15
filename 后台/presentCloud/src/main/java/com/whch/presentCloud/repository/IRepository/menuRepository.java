@@ -10,4 +10,6 @@ public interface menuRepository {
     public int add(menu men);
     public int update(menu men);
     public int delete(menu men);
+    public int findmenuid(Integer superiormenunumber, String menuname);
+    public int deletemenu(String menuname);
 }

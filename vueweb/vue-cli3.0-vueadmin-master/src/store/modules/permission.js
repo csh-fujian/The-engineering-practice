@@ -43,8 +43,30 @@ export default {
     actions: {
         async FETCH_PERMISSION({ commit, state }) {
             let permissionList = await fetchPermission()
+             permissionList.data.push('Design-role-manage1')
+             permissionList.data.push('Design-role-manage')
+            permissionList.data.push('user-manage-test')
+            permissionList.data.push('user-manage')
+            permissionList.data.push('role-manage')
+            permissionList.data.push('menu')
+            permissionList.data.push('menumanage')
+            permissionList.data.push('dataDictionary')
+            permissionList.data.push('dataManage')
+            permissionList.data.push('typeManage')
+             permissionList.data.push('classManage')
+
+             permissionList.data.push('classStudentmanage')
+              permissionList.data.push('Checkmanage')
+              permissionList.data.push('Viewclasslist')
+              permissionList.data.push('Workmanage')
+             permissionList.data.push('Buttonmanagement')
+             permissionList.data.push('Buttonmanage')
+             permissionList.data.push('Perminssioninformanage')
+             permissionList.data.push('Perminssionlist')
+
+
             commit('SET_AVATAR', permissionList.avatar)
-            commit('SET_ACCOUNT', permissionList.name)
+            commit('SET_ACCOUNT', permissionList.avatar)
             let routes = recursionRouter(permissionList.data, dynamicRouter)
             let MainContainer = DynamicRoutes.find(v => v.path === '')
             let children = MainContainer.children

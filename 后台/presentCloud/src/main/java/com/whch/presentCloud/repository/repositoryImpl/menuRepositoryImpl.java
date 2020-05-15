@@ -42,4 +42,14 @@ public class menuRepositoryImpl implements menuRepository {
         return menuM.deleteByPrimaryKey(men.getId());
     }
 
+    @Override
+    public int findmenuid(Integer superiormenunumber, String menuname) {
+        return menuM.findmenuid(superiormenunumber, menuname);
+    }
+
+    @Override
+    public int deletemenu(String menuname) {
+        return menuM.deletemenu(menuname);
+    }
+
 }

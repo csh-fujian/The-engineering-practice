@@ -3,17 +3,16 @@
 <mapper namespace="com.whch.presentCloud.mapper.dictionaryTypeMapper" >
   <resultMap id="BaseResultMap" type="com.whch.presentCloud.entity.dictionaryType" >
     <id column="Id" property="id" jdbcType="INTEGER" />
-    <result column="Sexy" property="sexy" jdbcType="VARCHAR" />
-    <result column="Code" property="code" jdbcType="INTEGER" />
+    <result column="TypeD" property="typed" jdbcType="VARCHAR" />
+    <result column="Type" property="type" jdbcType="INTEGER" />
     <result column="Description" property="description" jdbcType="VARCHAR" />
-    <result column="Identity" property="identity" jdbcType="INTEGER" />
     <result column="Creator" property="creator" jdbcType="INTEGER" />
     <result column="CreatorDate" property="creatordate" jdbcType="TIMESTAMP" />
     <result column="ModificationDate" property="modificationdate" jdbcType="TIMESTAMP" />
     <result column="Modifier" property="modifier" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, Sexy, Code, Description, Identity, Creator, CreatorDate, ModificationDate, Modifier
+    Id, TypeD, Type, Description, Creator, CreatorDate, ModificationDate, Modifier
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -26,12 +25,12 @@
     where Id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.whch.presentCloud.entity.dictionaryType" >
-    insert into dictionarytype (Id, Sexy, Code, 
-      Description, Identity, Creator, 
+    insert into dictionarytype (Id, TypeD, Type,
+      Description, Creator,
       CreatorDate, ModificationDate, Modifier
       )
-    values (#{id,jdbcType=INTEGER}, #{sexy,jdbcType=VARCHAR}, #{code,jdbcType=INTEGER}, 
-      #{description,jdbcType=VARCHAR}, #{identity,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{TypeD,jdbcType=VARCHAR}, #{Type,jdbcType=VARCHAR},
+      #{description,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER},
       #{creatordate,jdbcType=TIMESTAMP}, #{modificationdate,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}
       )
   </insert>
@@ -41,17 +40,14 @@
       <if test="id != null" >
         Id,
       </if>
-      <if test="sexy != null" >
-        Sexy,
+      <if test="type != null" >
+        Type,
       </if>
-      <if test="code != null" >
-        Code,
+      <if test="typed != null" >
+        TypeD,
       </if>
       <if test="description != null" >
         Description,
-      </if>
-      <if test="identity != null" >
-        Identity,
       </if>
       <if test="creator != null" >
         Creator,
@@ -63,24 +59,21 @@
         ModificationDate,
       </if>
       <if test="modifier != null" >
-        Modifier,
+        modifier,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="sexy != null" >
-        #{sexy,jdbcType=VARCHAR},
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
       </if>
-      <if test="code != null" >
-        #{code,jdbcType=INTEGER},
+      <if test="typed != null" >
+        #{typed,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="identity != null" >
-        #{identity,jdbcType=INTEGER},
       </if>
       <if test="creator != null" >
         #{creator,jdbcType=INTEGER},
@@ -99,17 +92,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.whch.presentCloud.entity.dictionaryType" >
     update dictionarytype
     <set >
-      <if test="sexy != null" >
-        Sexy = #{sexy,jdbcType=VARCHAR},
+      <if test="typed != null" >
+        TypeD = #{typed,jdbcType=VARCHAR},
       </if>
       <if test="code != null" >
-        Code = #{code,jdbcType=INTEGER},
+        Type = #{type,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         Description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="identity != null" >
-        Identity = #{identity,jdbcType=INTEGER},
       </if>
       <if test="creator != null" >
         Creator = #{creator,jdbcType=INTEGER},
@@ -128,10 +118,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.whch.presentCloud.entity.dictionaryType" >
     update dictionarytype
-    set Sexy = #{sexy,jdbcType=VARCHAR},
-      Code = #{code,jdbcType=INTEGER},
+    set TypeD = #{typed,jdbcType=VARCHAR},
+      Type = #{type,jdbcType=VARCHAR},
       Description = #{description,jdbcType=VARCHAR},
-      Identity = #{identity,jdbcType=INTEGER},
       Creator = #{creator,jdbcType=INTEGER},
       CreatorDate = #{creatordate,jdbcType=TIMESTAMP},
       ModificationDate = #{modificationdate,jdbcType=TIMESTAMP},

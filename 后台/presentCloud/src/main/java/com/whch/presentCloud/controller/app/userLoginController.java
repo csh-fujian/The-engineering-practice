@@ -30,10 +30,10 @@ public class userLoginController {
     @Autowired
     private IClassManageService classManageService;
 
-    @RequestMapping("/login")
+    @RequestMapping("/loginbyphone")
     public Map<String,Object> login(@RequestParam("phone") String phone) {
         Map res = userloginservice.IsExistUser(phone);
-        return res; 
+        return res;
     }
 
    

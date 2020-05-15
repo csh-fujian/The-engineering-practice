@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 @Repository
 public class dictionaryDataRepositoryImpl implements dictionaryDataRepository {
+
     @Autowired
     private directoryDataMapper dicM;
     @Override
@@ -41,5 +42,45 @@ public class dictionaryDataRepositoryImpl implements dictionaryDataRepository {
         // TODO Auto-generated method stub
         return dicM.deleteByPrimaryKey(dicData.getId());
     }
+
+    @Override
+    public String findbykey(String keyd) {
+        return dicM.findbykey(keyd);
+    }
+
+    @Override
+    public int deletebykey(directoryData dicData) {
+        return dicM.deletebykey(dicData.getKeyd());
+    }
+
+    @Override
+    public List<directoryData> findbytype(String typed) {
+        return dicM.findbytype(typed);
+    }
+
+    @Override
+    public String finddefault(directoryData dicData) {
+        return dicM.finddefault(dicData.getTyped());
+    }
+
+    @Override
+    public int findbyvalue1(String valued, String keyd, String record) {
+        dicM.updatebyvalue11(valued, keyd, record);
+        dicM.updatebyvalue12(valued, keyd, record);
+        return 1;
+    }
+
+    @Override
+    public int findbyvalue2(String valued, String keyd, String record) {
+        dicM.updatebyvalue21(valued, keyd, record);
+        dicM.updatebyvalue22(valued, keyd, record);
+        return 1;
+    }
+
+    @Override
+    public int findbyvalue0(String valued, String keyd, String record) {
+        return dicM.updatebyvalue0(valued, keyd, record);
+    }
+
 
 }

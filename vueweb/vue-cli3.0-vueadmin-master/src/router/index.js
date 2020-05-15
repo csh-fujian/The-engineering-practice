@@ -7,7 +7,7 @@ import Forbidden from '@/pages/errorPage/403'
 import Layout from '@/pages/layout/index'
 import Home from '@/pages/home/index'
 import forgetPassword from '@/pages/login/forgetPassword'
-import resetPassword from '@/pages/login/resetPassword'
+import registerPage from '@/pages/login/registerPage'
 Vue.use(Router)
 
 /* 初始路由 */
@@ -15,15 +15,15 @@ export default new Router({
     routes: [
         {
             path: '/login',
-            component: Login
+            component: Login,
         },
         {
             path:'/forgetPassword',
             component: forgetPassword
         },
         {
-            path:'/resetPassword',
-            component: resetPassword
+            path:'/registerPage',
+            component: registerPage
         }
     ]
 })
