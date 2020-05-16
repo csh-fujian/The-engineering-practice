@@ -14,7 +14,7 @@ public interface dictionaryDataRepository {
     public int deletebykey(directoryData dicData);
     public List<directoryData> findbytype(String typed);
     public String finddefault(directoryData dicData);
-    public int findbyvalue1(String valued, String keyd, String record);
-    public int findbyvalue2(String valued, String keyd, String record);
+    public int findbyvalue1(String valued, String keyd, Integer defaultvalued, String record);
+    public int findbyvalue2(String valued, String keyd, Integer defaultvalued, String record);
     public int findbyvalue0(String valued, String keyd, String record);
 }

@@ -88,13 +88,7 @@ public class menuManageServiceImpl implements IMenuManageService {
     @Override
     public int addmenu(String menuname, List<String> menus) {
 
-        // 先将根菜单加入menu表，并取出其id
-        menu m = new menu();
-        m.setSuperiormenunumber(0);
-        m.setMenuname(menuname);
-        m.setIsmenu(1);
-        menuR.add(m);
-        Integer i = menuR.findmenuid(0, menuname);
+        int i = menuR.findmenuid(0, menuname);
         // 将二级菜单逐个加入menu表并将其父菜单设置为上面取出的id
         for (String submenu : menus){
             menu m1 = new menu();
@@ -104,13 +98,8 @@ public class menuManageServiceImpl implements IMenuManageService {
             menuR.add(m1);
         }
 
-        // 先将根菜单加入permission表，并取出其id
-        permission p = new permission();
-        p.setSuperiormenunumber(0);
-        p.setMenuname(menuname);
-        p.setIsmenu(1);
-        permR.add(p);
-        Integer j = permR.findmenuid(0, menuname);
+
+        int j = permR.findmenuid(0, menuname);
         // 将二级菜单逐个加入permission表并将其父菜单设置为上面取出的id
         for (String submenu : menus){
             permission p1 = new permission();
@@ -119,6 +108,25 @@ public class menuManageServiceImpl implements IMenuManageService {
             p1.setIsmenu(2);
             permR.add(p1);
         }
+        return 1;
+    }
+
+    @Override
+    public int addmenu1(String menuname) {
+
+        // 先将根菜单加入menu表
+        menu m = new menu();
+        m.setSuperiormenunumber(0);
+        m.setMenuname(menuname);
+        m.setIsmenu(1);
+        menuR.add(m);
+
+        // 先将根菜单加入permission表
+        permission p = new permission();
+        p.setSuperiormenunumber(0);
+        p.setMenuname(menuname);
+        p.setIsmenu(1);
+        permR.add(p);
         return 1;
     }
 
@@ -132,13 +140,8 @@ public class menuManageServiceImpl implements IMenuManageService {
     @Override
     public int addpage(String menuname, String supermenu, List<String> buttons) {
 
-        // 先将二级菜单加入menu表，并取出其id
-        menu m = new menu();
-        m.setSuperiormenunumber(menuR.findmenuid(0, supermenu)); // 设置其父菜单为supermenu的id
-        m.setMenuname(menuname);
-        m.setIsmenu(2);
-        menuR.add(m);
-        Integer i = menuR.findmenuid(m.getSuperiormenunumber(), menuname);
+        int x = menuR.findmenuid(0, supermenu);
+        int i = menuR.findmenuid(x, menuname);
         // 将按钮逐个加入menu表并将其父菜单设置为上面取出的id
         for (String subbutton : buttons){
             menu m1 = new menu();
@@ -148,13 +151,8 @@ public class menuManageServiceImpl implements IMenuManageService {
             menuR.add(m1);
         }
 
-        // 先将二级菜单加入permission表，并取出其id
-        permission p = new permission();
-        p.setSuperiormenunumber(permR.findmenuid(0, supermenu)); // 设置其父菜单为supermenu的id
-        p.setMenuname(menuname);
-        p.setIsmenu(2);
-        permR.add(p);
-        Integer j = permR.findmenuid(p.getSuperiormenunumber(), menuname);
+        int y = permR.findmenuid(0, supermenu);
+        int j = permR.findmenuid(y, menuname);
         // 将按钮逐个加入permission表并将其父菜单设置为上面取出的id
         for (String subbutton : buttons){
             permission p1 = new permission();
@@ -163,6 +161,26 @@ public class menuManageServiceImpl implements IMenuManageService {
             p1.setIsmenu(3);
             permR.add(p1);
         }
+        return 1;
+    }
+
+    @Override
+    public int addpage1(String menuname, String supermenu) {
+
+        // 先将二级菜单加入menu表
+        menu m = new menu();
+        m.setSuperiormenunumber(menuR.findmenuid(0, supermenu)); // 设置其父菜单为supermenu的id
+        m.setMenuname(menuname);
+        m.setIsmenu(2);
+        menuR.add(m);
+
+        // 先将二级菜单加入permission表
+        permission p = new permission();
+        p.setSuperiormenunumber(permR.findmenuid(0, supermenu)); // 设置其父菜单为supermenu的id
+        p.setMenuname(menuname);
+        p.setIsmenu(2);
+        permR.add(p);
+
         return 1;
     }
 
@@ -177,7 +195,7 @@ public class menuManageServiceImpl implements IMenuManageService {
 
         // 将按钮添加进menu表
         menu m = new menu();
-        Integer i = menuR.findmenuid(2, supermenu);
+        int i = menuR.findbyname(supermenu);
         m.setSuperiormenunumber(i);
         m.setMenuname(button);
         m.setIsmenu(3);
@@ -185,7 +203,7 @@ public class menuManageServiceImpl implements IMenuManageService {
 
         // 将按钮添加进permission表
         permission p = new permission();
-        Integer j = permR.findmenuid(2, supermenu);
+        int j = permR.findbyname(supermenu);
         p.setSuperiormenunumber(j);
         p.setMenuname(button);
         p.setIsmenu(3);

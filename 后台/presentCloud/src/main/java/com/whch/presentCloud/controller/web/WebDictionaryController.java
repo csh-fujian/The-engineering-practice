@@ -2,6 +2,7 @@ package com.whch.presentCloud.controller.web;
 
 import com.whch.presentCloud.entity.dictionaryType;
 import com.whch.presentCloud.entity.directoryData;
+import com.whch.presentCloud.entity.updatedata;
 import com.whch.presentCloud.service.IService.IDictionaryDataService;
 import com.whch.presentCloud.service.IService.IDictionaryTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,17 @@ public class WebDictionaryController {
     }
 
     @GetMapping("findtype")
-    public List<dictionaryType> findtype() { return dictype.findAll(); }
+    public List<dictionaryType> findtype()
+    {
+        List<dictionaryType> dict = dictype.findAll();
+        int i = 0;
+        for(dictionaryType d : dict)
+        {
+            i++;
+            d.setId(i);
+        }
+        return dict;
+    }
 
     @GetMapping("finddata/{typed}")
     public List<directoryData> finddata(@PathVariable String typed)
@@ -52,6 +63,8 @@ public class WebDictionaryController {
     @PostMapping("adddata")
     public int adddata(@RequestBody directoryData dicd)
     {
+        directoryData d = dicd;
+        System.out.println(d.getTyped());
         return dicdata.adddata(dicd);
     }
 
@@ -62,9 +75,11 @@ public class WebDictionaryController {
     }
 
     @RequestMapping("updatedata")
-    public int updatedata(@RequestBody directoryData dicd,@RequestBody directoryData record)
+    public int updatedata(@RequestBody updatedata Data)
     {
-        return dicdata.findbyvalue(dicd, record);
+        directoryData d = Data.getDicd();
+        System.out.println(d.getValued());
+        return dicdata.findbyvalue(Data.getDicd(), Data.getRecord());
     }
 
     @GetMapping("getdefault")

@@ -37,7 +37,7 @@
             </el-table-column >
         </el-table>
         <el-dialog
-            title="提示"
+            title="修改"
             :visible.sync="dialogVisible"
             width="30%"
             :before-close="handleClose">
@@ -50,50 +50,73 @@
                 </el-form-item>
             </el-form>
             <el-button type="primary" @click="edit()">确 定</el-button>
-            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button @click="edit()">取 消</el-button>
         </el-dialog>
     </el-card>
 </template>
 
 <script >
-export default {
-    data() {
-        return {
-            dialogVisible: false,
-            ro: {
-                id: 1,
-                name: '',
-                value:''
-            },
-            tableData: [{
-                id: 1,
-                name: '距离',
-                value:'20米'
-            }, {
-                id: 2,
-                name: '经验值',
-                value:'30'
-            }, {
-                id: 3,
-                name: '人数',
-                value:'100'
-            }]
-        }
-    },
-    methods: {
-        handleEdit(index, row) {
-            this.dialogVisible = true
-            this.ro = row
+    export default {
+        data() {
+            return {
+                dialogVisible: false,
+                ro: {
+                    id: 1,
+                    name: '',
+                    value: 1
+                },
+                editSys:{
+                    sysp:{
+                        name:'',
+                        value: 0
+                    },
+                    record:{
+                        name:'',
+                        value: 1
+                    }
+                },
+                tableData: [{
+                    id: 1,
+                    name: '距离',
+                    value:20
+                }, {
+                    id: 2,
+                    name: '经验值',
+                    value:30
+                }, {
+                    id: 3,
+                    name: '人数',
+                    value:100
+                }]
+            }
         },
-        edit() {
-            this.dialogVisible = false
+        methods: {
+            handleEdit(index, row) {
+                this.ro.name = row.name
+                this.ro.value = row.value
+                this.dialogVisible = true
+                this.editSys.record.name = row.name
+                this.editSys.record.value = row.value
+
+            },
+            edit() {
+                this.dialogVisible = false
+                this.editSys.sysp.name = this.ro.name
+                this.editSys.sysp.value = parseInt(this.ro.value)
+                const _this = this
+                this.$axios.post('http://localhost:8080/websysparameter/update', this.editSys).then(function(resp) {
+                    _this.$axios.get('http://localhost:8080/websysparameter/findAll').then(function(resp) {
+                        _this.tableData = resp.data
+                    })
+                })
+
+            }
+        },
+        created() {
+            const _this = this
+            this.$axios.get('http://localhost:8080/websysparameter/findAll').then(function(resp) {
+                _this.tableData = resp.data
+            })
         }
-    },
-    created() {
-        const _this = this
-        this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
-            _this.tableData = resp.data
-        })
     }
-}
 </script>

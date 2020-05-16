@@ -37,4 +37,7 @@ public interface permissionMapper {
 
     @Insert("insert into rolemenu(role, menu) values (#{role}, #{menu})")
     int addpermisson(@Param("role") String role, @Param("menu") String menu);
+
+    @Select("select id from permission where menuname = #{menuname}")
+    int findbyname(@Param("menuname") String menuname);
 }

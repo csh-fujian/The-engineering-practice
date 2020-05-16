@@ -1,5 +1,7 @@
 package com.whch.presentCloud.controller.web;
 
+import com.whch.presentCloud.entity.addbutton;
+import com.whch.presentCloud.entity.addpermission;
 import com.whch.presentCloud.entity.container;
 import com.whch.presentCloud.service.IService.IPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,8 @@ public class WebPermissionController {
     }
 
     @PostMapping("addpermission")
-    public int add(@RequestParam String role, @RequestParam(value = "menus[]") List<String> menus)
+    public int add(@RequestBody addpermission Permission)
     {
-        return permS.addpermission(role, menus);
+        return permS.addpermission(Permission.getRole(), Permission.getMenus());
     }
 }

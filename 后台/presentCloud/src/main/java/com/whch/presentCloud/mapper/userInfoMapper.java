@@ -19,7 +19,7 @@ public interface userInfoMapper {
 
     userInfo selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(@Param("record") userInfo record, @Param("oldnumber") String number);
+    int updateByPrimaryKeySelective(@Param("record") userInfo record, @Param("oldnumber") String oldnumber);
 
     int updateByPrimaryKeyWithBLOBs(userInfo record);
 
@@ -43,5 +43,4 @@ public interface userInfoMapper {
 
     @Delete("delete from userinfo where number = #{number}")
     int deleteuser(@Param("number") String number);
-
 }

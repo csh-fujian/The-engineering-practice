@@ -2,6 +2,7 @@ package com.whch.presentCloud.controller.web;
 
 import com.github.pagehelper.Page;
 import com.whch.presentCloud.entity.role;
+import com.whch.presentCloud.entity.updateuser;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.service.IService.IUserManageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,8 @@ public class WebUserController {
     @RequestMapping("deleteuser")
     public int deleterole(@RequestBody userInfo user)
     {
+        userInfo user1 = user;
+        System.out.println(user1.getNumber());
         return usermanage.delete(user);
     }
 
@@ -49,13 +52,13 @@ public class WebUserController {
     }
 
     /**
-     * 修改某一用户的信息
-     * @param user
+     * 修改用户信息
+     * @param editUser
      * @return
      */
     @RequestMapping("updateuser")
-    public int updateuser(@RequestBody userInfo user, @RequestParam String number){
-        return usermanage.updatebyid(user, number);
+    public int updateuser(@RequestBody updateuser editUser){
+        return usermanage.updatebyid(editUser.getUser(), editUser.getOldnumber());
     }
 
     /**

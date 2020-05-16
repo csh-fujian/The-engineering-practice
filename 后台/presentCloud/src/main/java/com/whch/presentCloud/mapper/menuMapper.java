@@ -25,9 +25,12 @@ public interface menuMapper {
     @Select("select * from menu")
 	List<menu> getAll();
 
-    @Select("select id from menu where SuperiorMenuNumber = #{superiormenunumber} and menuname = #{menuname}")
-    int findmenuid(@Param("superiormenunumber") Integer superiormenunumber, @Param("menuname")  String menuname);
+    @Select("select id from menu where superiormenunumber = #{superiormenunumber} and menuname = #{menuname}")
+    int findmenuid(@Param("superiormenunumber") Integer superiormenunumber, @Param("menuname") String menuname);
 
     @Delete("delete from menu where menuname = #{menuname}")
     int deletemenu(@Param("menuname") String menuname);
+
+    @Select("select id from menu where menuname = #{menuname}")
+    int findbyname(@Param("menuname") String menuname);
 }
