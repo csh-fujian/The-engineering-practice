@@ -78,7 +78,7 @@ const member = {
   option: [
     {
       imageUrl: require('assets/image/banke/home/class.png'),
-      title: '发签签到',
+      title: '发起签到',
     },
     {
       imageUrl: require('assets/image/banke/home/class.png'),
@@ -92,6 +92,20 @@ const member = {
       imageUrl: require('assets/image/banke/home/class.png'),
       title: '挂科预警',
     }
+  ],
+  option_student: [
+    {
+      imageUrl: require('assets/image/banke/home/class.png'),
+      title: '签到',
+    },
+    {
+      imageUrl: require('assets/image/banke/home/class.png'),
+      title: '心意卡片',
+    },
+    {
+      imageUrl: require('assets/image/banke/home/class.png'),
+      title: '小组方案',
+    },
   ],
   launchSignInOption: [
     {

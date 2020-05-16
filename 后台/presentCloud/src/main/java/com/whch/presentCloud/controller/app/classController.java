@@ -3,7 +3,9 @@ package com.whch.presentCloud.controller.app;
 import java.util.List;
 import java.util.Map;
 
+import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.service.IService.IClassManageService;
+import com.whch.presentCloud.utils.IPUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,10 +51,36 @@ public class classController {
         return res;
     }
 
+    /**
+     * 发起签到
+     * @param classId
+     * @return
+     */
     @RequestMapping("/participate")
-    public String participate(@RequestParam("username")String username)
+    public String participate(@RequestParam("classId")String classId)
     {
-        return "";
+        
+        return classManageService.getSignType(classId);
     }
-    
+
+    /**
+     * 一键签到
+     * @param username 学号
+     * @param ip
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/participate/1")
+    public Double[] getWeiDu(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("ip") String ip) throws Exception {
+        result res = new result();
+        Double dou[] = IPUtils.getLatitudes(ip);
+        if(classManageService.isSucced(username,classId,ip,1)){
+            res.setState("ok");
+            
+        }else{
+            res.setState("false");
+        }
+        res.setMap("jingWeiDu", dou);
+        return ;
+    }
 }

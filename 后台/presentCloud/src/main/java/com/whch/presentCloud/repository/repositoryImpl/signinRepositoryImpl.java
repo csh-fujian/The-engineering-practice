@@ -42,4 +42,10 @@ public class signinRepositoryImpl implements signinRepository {
         return siginM.deleteByPrimaryKey(sign.getId());
     }
 
+    @Override
+    public int get(String classId) {
+        // TODO Auto-generated method stub
+        return siginM.findByClassId(classId);
+    }
+
 }

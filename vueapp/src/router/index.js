@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Login from "../views/account/login/Login";
 
 
+
+
+
 // 懒加载
 const BankeHome =() => import('../views/banke/home/Home.vue')
 const BankeActivity =() => import('views/banke/activity/Activity.vue')
@@ -11,6 +14,10 @@ const BankeDetail =() => import('views/banke/detail/Detail.vue')
 const EditClassInfo =() => import('views/banke/detail/components/EditClassInfo')
 const BankeMember =() => import('views/banke/member/Member.vue')
 const LaunchSignIn =() => import('views/banke/member/components/LaunchSignIn')
+const LaunchSignPose  =() => import( "../views/banke/member/components/LaunchSignPose")
+
+const SignIn =() => import("../views/banke/member/components/SignIn")
+const SignInSuccess =() => import( "../views/banke/member/components/SignInSuccess")
 
 const BankeMessage =() => import('views/banke/message/Message.vue')
 const BankeResource =() => import('views/banke/resource/Resource.vue')
@@ -83,6 +90,18 @@ const routes = [
   {
     path: '/banke/:classId/member/launch-sign',
     component: LaunchSignIn
+  },
+  {
+    path: '/banke/:classId/member/launch-sign/pose',
+    component: LaunchSignPose
+  },
+  {
+    path: '/banke/:classId/member/sign-in',
+    component: SignIn
+  },
+  {
+    path: '/banke/:classId/member/sign-in/success',
+    component: SignInSuccess
   },
   {
     path: '/banke/:classId/message',
