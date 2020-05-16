@@ -1,4 +1,4 @@
-<template lang="html">
+<template >
   <el-card class="box-card">
     <!-- <div class="search-bar">
       <el-form :inline="true" :model="searchData" class="fl">

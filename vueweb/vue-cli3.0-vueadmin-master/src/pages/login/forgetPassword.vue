@@ -3,37 +3,32 @@
         <el-form
             class="login-form"
             autoComplete="on"
-            :model="loginForm"
-            :rules="loginRules"
-            ref="loginForm"
             label-position="left"
-            v-if = !isassert
+            v-if="!isassert"
         >
             <h3 class="title">忘记密码</h3>
 
-            <el-form-item prop="username">
+            <el-form-item prop="phoneNum">
                 <span class="svg-container svg-container_login">
                     <i class="el-icon-phone"></i>
                 </span>
                 <el-input
-                    name="username"
+                    name=""
                     type="text"
-                    v-model="loginForm.username"
+                    v-model="phoneNum"
                     autoComplete="on"
                     placeholder="请输入手机号"
                 />
             </el-form-item>
 
-            <el-form-item prop="password">
+            <el-form-item>
                 <span class="svg-container svg-container_login">
                     <i class="el-icon-edit"></i>
                 </span>
                 <el-input
-                    name="password"
-                    type="pwdType"
-                    v-model="loginForm.password"
+                    v-model="expe"
                     style="width:60%;"
-                    @keyup.enter.native="login"
+                    @keyup.enter.native="getExpe"
                     autoComplete="on"
                     placeholder="请输入验证码 "
                 ></el-input>
@@ -53,30 +48,16 @@
                 </el-button>
             </el-form-item>
         </el-form>
-
         <el-form
-            class="login-form"
+            ref="passwordForm"
+            class="passwordForm"
             autoComplete="on"
-            :model="loginForm"
-            :rules="loginRules"
-            ref="loginForm"
+            :model="passwordForm"
+            :rules="passRules"
             label-position="left"
             v-else
         >
             <h3 class="title">忘记密码</h3>
-
-            <el-form-item prop="username">
-                <span class="svg-container svg-container_login">
-                    <i class="el-icon-edit"></i>
-                </span>
-                <el-input
-                    name="username"
-                    type="password"
-                    v-model="loginForm.username"
-                    autoComplete="on"
-                    placeholder="请输入新密码"
-                />
-            </el-form-item>
 
             <el-form-item prop="password">
                 <span class="svg-container svg-container_login">
@@ -84,10 +65,20 @@
                 </span>
                 <el-input
                     name="password"
-                    type="password"
-                    v-model="loginForm.password"
+                    v-model="passwordForm.password"
+                    autoComplete="on"
+                    placeholder="请输入新密码"
+                />
+            </el-form-item>
+
+            <el-form-item prop="checkpass">
+                <span class="svg-container svg-container_login">
+                    <i class="el-icon-edit"></i>
+                </span>
+                <el-input
+                    name="checkpass"
+                    v-model="passwordForm.checkpass"
                     style="width:60%;"
-                    @keyup.enter.native="login"
                     autoComplete="on"
                     placeholder="请确认密码 "
                 ></el-input>
@@ -98,7 +89,7 @@
                     type="primary"
                     style="width:100%;"
                     :loading="loading"
-                    @click.native.prevent="backToLogin"
+                    @click.native.prevent="resetPassword"
                 >
                     重置密码
                 </el-button>
@@ -111,57 +102,53 @@
 import { login } from '@/api/permission'
 export default {
     data() {
-        const validateUsername = (rule, value, callback) => {
-            if (value.length < 5) {
-                callback(new Error('请输入正确的用户名'))
+        const validatePass = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入密码'))
             } else {
+                if (this.passwordForm.checkpass !== '') {
+                    this.$refs.passwordForm.validateField('checkpass')
+                }
                 callback()
             }
         }
-        const validatePass = (rule, value, callback) => {
-            if (value.length < 5) {
-                callback(new Error('密码不能小于5位'))
+        const validatePass2 = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请再次输入密码'))
+            } else if (value !== this.passwordForm.password) {
+                callback(new Error('两次输入密码不一致!'))
             } else {
                 callback()
             }
         }
         return {
-            isassert: false,
-            loginForm: {
-                username: '',
-                password: ''
-            },
-            loginRules: {
-                username: [
-                    {
-                        required: true,
-                        trigger: 'blur',
-                        validator: validateUsername
-                    }
-                ],
+            passRules: {
                 password: [
-                    { required: true, trigger: 'blur', validator: validatePass }
-                ]
+                    { required: true, validator: validatePass, trigger: 'blur' }
+                ],
+                checkpass: [{ validator: validatePass2, trigger: 'blur' }]
             },
-            loading: false,
-            pwdType: 'password'
+
+            expe: '',
+            phoneNum: '',
+            isassert: false,
+            passwordForm: {
+                password: '',
+                checkpass: ''
+            },
+
+            loading: false
         }
     },
     methods: {
         nextstep() {
             this.isassert = true
         },
-        showPwd() {
-            if (this.pwdType === 'password') {
-                this.pwdType = ''
-            } else {
-                this.pwdType = 'password'
-            }
-        },
-        backToLogin() {
-
-                this.$router.replace('/login')
-
+        resetPassword() {
+            console.log(this.phoneNum)
+            console.log(this.passwordForm.password)
+            console.log(this.passwordForm.checkpass)
+            this.$router.replace('/login')
         },
         async forgetPassword() {
             try {
@@ -219,6 +206,14 @@ $light_gray: #eee;
     height: 100%;
     width: 100%;
     background-color: $bg;
+    .passwordForm {
+        position: absolute;
+        left: 0;
+        right: 0;
+        width: 520px;
+        padding: 35px 35px 15px 35px;
+        margin: 120px auto;
+    }
     .login-form {
         position: absolute;
         left: 0;

@@ -5,22 +5,20 @@
             ref="registerForm"
             class="registerForm"
             :model="registerForm"
+            :rules="registerRules"
             label-width="80px"
         >
-            <el-form-item label="活动名称:">
+            <el-form-item label="姓名:" prop="name">
                 <el-input v-model="registerForm.name"></el-input>
             </el-form-item>
-            <el-form-item label="学号/工号:">
-                <el-input v-model="registerForm.name"></el-input>
+            <el-form-item label="工号:" prop="idNumber">
+                <el-input v-model="registerForm.idNumber"></el-input>
             </el-form-item>
-            <el-form-item label="手机号:">
-                <el-input v-model="registerForm.name"></el-input>
+            <el-form-item label="手机号:" prop="phoneNumber">
+                <el-input v-model="registerForm.phoneNumber"></el-input>
             </el-form-item>
             <el-form-item label="验证码:">
-                <el-input
-                    v-model="registerForm.name"
-                    style="width:58%;"
-                ></el-input
+                <el-input v-model="expe" style="width:58%;"></el-input
                 ><el-button
                     @click.prevent="removeDomain(domain)"
                     style="width:40%;clolr:"
@@ -29,22 +27,23 @@
             </el-form-item>
             <el-form-item label="密码:" prop="pass">
                 <el-input
-                    type="password"
-                    v-model="ruleForm.pass"
+                    name="pass"
+                    v-model="registerForm.pass"
                     autocomplete="off"
                 ></el-input>
             </el-form-item>
             <el-form-item label="确认密码:" prop="checkPass">
                 <el-input
-                    type="password"
-                    v-model="ruleForm.checkPass"
+                    name="checkPass"
+                    v-model="registerForm.checkPass"
+                    
                     autocomplete="off"
                 ></el-input>
             </el-form-item>
 
             <el-form-item>
-                <el-button type="primary" @click="submitForm"
-                    style="width:100%;">注册</el-button
+                <el-button type="primary" @click="register" style="width:100%;"
+                    >注册</el-button
                 >
             </el-form-item>
         </el-form>
@@ -54,84 +53,94 @@
 <script>
 export default {
     data() {
-        var checkAge = (rule, value, callback) => {
-            if (!value) {
-                return callback(new Error('年龄不能为空'))
-            }
-            setTimeout(() => {
-                if (!Number.isInteger(value)) {
-                    callback(new Error('请输入数字值'))
-                } else {
-                    if (value < 18) {
-                        callback(new Error('必须年满18岁'))
-                    } else {
-                        callback()
-                    }
-                }
-            }, 1000)
-        }
-        var validatePass = (rule, value, callback) => {
+        const validatePass = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入密码'))
             } else {
-                if (this.ruleForm.checkPass !== '') {
-                    this.$refs.ruleForm.validateField('checkPass')
+                if (this.registerForm.checkPass !== '') {
+                    this.$refs.registerForm.validateField('checkPass')
                 }
                 callback()
             }
         }
-        var validatePass2 = (rule, value, callback) => {
+        const validatePass2 = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请再次输入密码'))
-            } else if (value !== this.ruleForm.pass) {
+            } else if (value !== this.registerForm.pass) {
                 callback(new Error('两次输入密码不一致!'))
             } else {
                 callback()
             }
         }
+        const validatePhone = (rule, value, callback) => {
+            const reg = /^[1][3-9][0-9]{9}$/
+            if (value == '' || value == undefined || value == null) {
+                callback()
+            } else {
+                if (!reg.test(value) && value != '') {
+                    callback(new Error('请输入正确的电话号码'))
+                } else {
+                    callback()
+                }
+            }
+        }
         return {
-            ruleForm: {
-                pass: '',
-                checkPass: '',
-                age: ''
-            },
-            rules: {
-                pass: [{ validator: validatePass, trigger: 'blur' }],
-                checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-                age: [{ validator: checkAge, trigger: 'blur' }]
+            registerRules: {
+                pass: [
+                    { required: true, trigger: 'blur', validator: validatePass }
+                ],
+                checkPass: [
+                    {
+                        trigger: 'blur',
+                        validator: validatePass2
+                    }
+                ],
+                phoneNumber: [
+                    {
+                        required: true,
+                        trigger: 'blur',
+                        validator: validatePhone
+                    }
+                ],
+                name: [{ required: true, trigger: 'blur' }],
+                idNumber: [{ required: true, trigger: 'blur' }]
             },
 
+            expe: '',
             registerForm: {
                 name: '',
-                region: '',
-                date1: '',
-                date2: '',
-                delivery: false,
-                type: [],
-                resource: '',
-                desc: ''
+                idNumber: '',
+                phoneNumber: '',
+                pass: '',
+                checkPass: ''
             }
         }
     },
     methods: {
-        submitForm(){
-            this.$router.replace('/login')
-        },
+        // submitForm() {
+        //     this.$router.replace('/login')
+        // },
         onSubmit() {
             console.log('submit!')
         },
-        // submitForm(formName) {
-        //     this.$refs[formName].validate(valid => {
-        //         if (valid) {
-        //             alert('submit!')
-        //         } else {
-        //             console.log('error submit!!')
-        //             return false
-        //         }
-        //     })
-        // },
-        resetForm(formName) {
-            this.$refs[formName].resetFields()
+        async register() {
+            try {
+                // let data = await register(this.registerForm)
+                
+                var registerData = { userInfo: {} }
+                registerData.userInfo.name = this.registerForm.name
+                registerData.userInfo.idNumber = this.registerForm.idNumber
+                registerData.userInfo.phoneNumber = this.registerForm.phoneNumber
+                registerData.userInfo.passWord = this.registerForm.pass
+                this.$notify.info({
+                    title: '消息',
+                    message: '注册成功'
+                })
+                this.$router.replace('/login')
+                console.log(registerData)
+            } catch (e) {
+                console.log(e)
+            }
         }
     }
 }
