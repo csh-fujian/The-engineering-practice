@@ -116,11 +116,16 @@ export default {
         handleDelete(index, row) {
             this.dict = row
             console.log(this.dict)
+            const _this = this
             this.deleteDict.typed = this.dict.typed
             this.$axios.post('http://localhost:8080/webdictionary/deletetype', this.deleteDict).then(function(resp) {
                 console.log(resp)
-                alert(1)
+                _this.$axios.get('http://localhost:8080/webdictionary/findtype').then(function(resp) {
+                    _this.tableData = resp.data
+                })
             })
+
+
         },
         onSubmit() {
             console.log(this.dict)
@@ -128,14 +133,17 @@ export default {
             this.diction.description = this.dict.description
             this.diction.type = this.dict.type
             this.diction.typed = this.dict.typed
+            const _this = this
             this.$axios.post('http://localhost:8080/webdictionary/addtype', this.diction).then(function(resp) {
-                alert(111)
+                _this.$axios.get('http://localhost:8080/webdictionary/findtype').then(function(resp) {
+                    _this.tableData = resp.data
+                })
             })
+
         }
     },
     created() {
         const _this = this
-
         this.$axios.get('http://localhost:8080/webdictionary/findtype').then(function(resp) {
             _this.tableData = resp.data
         })
