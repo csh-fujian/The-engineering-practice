@@ -10,7 +10,7 @@
   --color-text: #666;
   --color-high-text: #ff5777;
   --color-tint: #ff8198;
-  --color-background: #fff;
+  --background-color: rgba(180, 180, 180, 0.49);
   --font-size: 14px;
   --line-height: 1.5;
   --nav-height: 44px;

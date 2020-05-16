@@ -14,11 +14,21 @@
       title: {
         type: String,
         default: '标题'
+      },
+      backto: {
+        type: Number,
+        default: -1
       }
+    },
+    created() {
+
     },
     methods: {
       onClickLeft() {
-        this.$router.back()
+        if (this.backto != -1)
+          this.$router.go(this.backto)
+        else
+          this.$router.back()
       }
     }
   }
