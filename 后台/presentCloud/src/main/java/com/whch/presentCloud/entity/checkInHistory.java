@@ -3,7 +3,7 @@ package com.whch.presentCloud.entity;
 import java.util.Date;
 
 public class checkInHistory {
-    private Integer id;
+    private Integer id;//classId
 
     private Date start;
 
@@ -11,7 +11,7 @@ public class checkInHistory {
 
     private String checkintype;
 
-    private String number;
+    private String number;//学号
 
     private Integer state;
 

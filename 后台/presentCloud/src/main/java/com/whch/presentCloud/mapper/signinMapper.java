@@ -20,9 +20,14 @@ public interface signinMapper {
 
     int updateByPrimaryKey(signin record);
 
-    @Select("select * from signin UserId = #{userId} and ClassId = #{classId}")
+    @Select("select * from signin where UserId = #{userId} and ClassId = #{classId}")
 	signin findOne(@Param("userId") Integer userId,@Param("classId") Integer classId);
 
-    @Select("select * from signin UserId = #{userId}")
+    @Select("select * from signin where UserId = #{userId}")
+
+
 	List<signin> find(@Param("userId") Integer userId);
+
+    @Select("select * from signin where ClassId = #{classId}")
+	int findByClassId(@Param("classId")String classId);
 }
