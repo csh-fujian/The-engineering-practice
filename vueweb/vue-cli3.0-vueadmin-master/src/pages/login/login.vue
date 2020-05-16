@@ -1,128 +1,135 @@
 <template>
     <div class="login-container">
         <h3 class="title">到课云用户登录</h3>
-        <el-button type="text" class="choseButton" @click="changeToM">账号登录</el-button>
-        <el-button type="text" class="choseButton" @click="changeToZ">手机登录</el-button>
-        
+        <el-button type="text" class="choseButton" @click="changeToM"
+            >账号登录</el-button
+        >
+        <el-button type="text" class="choseButton" @click="changeToZ"
+            >手机登录</el-button
+        >
+
         <!-- <template> -->
-            <el-form
-                class="login-form"
-                autoComplete="on"
-                :model="loginForm"
-                :rules="loginRules"
-                ref="loginForm"
-                label-position="left"
-                v-if="loginType"
+        <el-form
+            class="login-form"
+            autoComplete="on"
+            :model="loginForm"
+            :rules="loginRules"
+            ref="loginForm"
+            label-position="left"
+            v-if="loginType"
+        >
+            <el-form-item prop="username">
+                <span class="svg-container svg-container_login">
+                    <svg-icon icon-class="user" />
+                </span>
+                <el-input
+                    name="username"
+                    type="text"
+                    v-model="loginForm.username"
+                    autoComplete="on"
+                    placeholder="请输入用户名"
+                />
+            </el-form-item>
+            <el-form-item prop="password">
+                <span class="svg-container">
+                    <svg-icon icon-class="password"></svg-icon>
+                </span>
+                <el-input
+                    name="password"
+                    :type="pwdType"
+                    @keyup.enter.native="login"
+                    v-model="loginForm.password"
+                    autoComplete="on"
+                    placeholder="请输入密码"
+                ></el-input>
+                <span class="show-pwd" @click="showPwd"
+                    ><svg-icon icon-class="eye"
+                /></span>
+            </el-form-item>
+            <el-form-item>
+                <el-button
+                    type="primary"
+                    style="width:100%;"
+                    :loading="loading"
+                    @click.native.prevent="login"
+                >
+                    登 录
+                </el-button>
+            </el-form-item>
+            <el-button type="text" class="pageButton" @click="registerPage"
+                >立即注册</el-button
             >
-                <el-form-item prop="username">
-                    <span class="svg-container svg-container_login">
-                        <svg-icon icon-class="user" />
-                    </span>
-                    <el-input
-                        name="username"
-                        type="text"
-                        v-model="loginForm.username"
-                        autoComplete="on"
-                        placeholder="请输入用户名"
-                    />
-                </el-form-item>
-                <el-form-item prop="password">
-                    <span class="svg-container">
-                        <svg-icon icon-class="password"></svg-icon>
-                    </span>
-                    <el-input
-                        name="password"
-                        :type="pwdType"
-                        @keyup.enter.native="login"
-                        v-model="loginForm.password"
-                        autoComplete="on"
-                        placeholder="请输入密码"
-                    ></el-input>
-                    <span class="show-pwd" @click="showPwd"
-                        ><svg-icon icon-class="eye"
-                    /></span>
-                </el-form-item>
-                <el-form-item>
-                    <el-button
-                        type="primary"
-                        style="width:100%;"
-                        :loading="loading"
-                        @click.native.prevent="login"
-                    >
-                        登 录
-                    </el-button>
-                </el-form-item>
-            <el-button type="text" class="pageButton" @click="registerPage">立即注册</el-button>
-            <el-button type="text" class="pageButton" @click="forgetPassword">忘记密码</el-button>
+            <el-button type="text" class="pageButton" @click="forgetPassword"
+                >忘记密码</el-button
+            >
+        </el-form>
 
-            </el-form>
+        <el-form
+            class="login-form"
+            autoComplete="on"
+            :model="loginForm"
+            :rules="loginRules"
+            ref="loginForm"
+            label-position="left"
+            v-else
+        >
+            <el-form-item prop="Mobile Number">
+                <span class="svg-container svg-container_login">
+                    <svg-icon icon-class="user" />
+                </span>
+                <el-input
+                    name="username"
+                    type="text"
+                    v-model="loginForm.username"
+                    autoComplete="on"
+                    placeholder="请输入手机号"
+                />
+            </el-form-item>
 
+            <el-form-item prop="password">
+                <span class="svg-container">
+                    <svg-icon icon-class="password"></svg-icon>
+                </span>
+                <el-input
+                    name="password"
+                    :type="pwdType"
+                    @keyup.enter.native="login"
+                    v-model="loginForm.password"
+                    autoComplete="on"
+                    placeholder="请输入验证码"
+                    style="width:60%;"
+                ></el-input>
 
+                <el-button
+                    type="primary"
+                    style="width:30%;"
+                    :loading="loading"
+                    @click.native.prevent="login"
+                >
+                    获取验证码
+                </el-button>
+            </el-form-item>
 
- 
-            <el-form
-                class="login-form"
-                autoComplete="on"
-                :model="loginForm"
-                :rules="loginRules"
-                ref="loginForm"
-                label-position="left"
-                v-else>
-                <el-form-item prop="Mobile Number">
-                    <span class="svg-container svg-container_login">
-                        <svg-icon icon-class="user" />
-                    </span>
-                    <el-input
-                        name="username"
-                        type="text"
-                        v-model="loginForm.username"
-                        autoComplete="on"
-                        placeholder="请输入手机号"
-                    />
-                </el-form-item>
+            <el-form-item>
+                <el-button
+                    type="primary"
+                    style="width:100%;"
+                    :loading="loading"
+                    @click.native.prevent="login"
+                >
+                    登 录
+                </el-button>
+            </el-form-item>
 
-                <el-form-item prop="password">
-                    <span class="svg-container">
-                        <svg-icon icon-class="password"></svg-icon>
-                    </span>
-                    <el-input
-                        name="password"
-                        :type="pwdType"
-                        @keyup.enter.native="login"
-                        v-model="loginForm.password"
-                        autoComplete="on"
-                        placeholder="请输入验证码"
-                        style="width:60%;"
-                    ></el-input>
+            <el-button type="text" class="pageButton" @click="registerPage"
+                >立即注册</el-button
+            >
+            <el-button type="text" class="pageButton" @click="forgetPassword"
+                >忘记密码</el-button
+            >
+        </el-form>
 
-                    <el-button
-                        type="primary"
-                        style="width:30%;"
-                        :loading="loading"
-                        @click.native.prevent="login"
-                    >
-                        获取验证码
-                    </el-button>
-                </el-form-item>
-
-                <el-form-item>
-                    <el-button
-                        type="primary"
-                        style="width:100%;"
-                        :loading="loading"
-                        @click.native.prevent="login"
-                    >
-                        登 录
-                    </el-button>
-                </el-form-item>
-
-            <el-button type="text" class="pageButton" @click="registerPage">立即注册</el-button>
-            <el-button type="text" class="pageButton" @click="forgetPassword">忘记密码</el-button>
-            </el-form>
-        
         <!-- </template> -->
-        
-        
     </div>
 </template>
 
@@ -200,7 +207,6 @@ export default {
                 console.log(e)
             }
         }
-        
     }
 }
 </script>
@@ -303,13 +309,12 @@ $light_gray: #eee;
         display: inline-block;
         font-size: 18px;
         font-weight: bold;
-
     }
-    .pageButton{
+    .pageButton {
         // top: 150px;
         color: #fff;
         padding-left: 20px;
-        float:right;
+        float: right;
     }
 }
 </style>
