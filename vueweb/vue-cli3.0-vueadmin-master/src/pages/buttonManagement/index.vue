@@ -63,7 +63,7 @@
                 ro: {
                     id: 1,
                     name: '',
-                    value: 1
+                    value: '1'
                 },
                 editSys:{
                     sysp:{
@@ -78,15 +78,15 @@
                 tableData: [{
                     id: 1,
                     name: '距离',
-                    value:20
+                    value:'1'
                 }, {
                     id: 2,
                     name: '经验值',
-                    value:30
+                    value:'1'
                 }, {
                     id: 3,
                     name: '人数',
-                    value:100
+                    value:'1'
                 }]
             }
         },
@@ -104,9 +104,15 @@
                 this.editSys.sysp.name = this.ro.name
                 this.editSys.sysp.value = parseInt(this.ro.value)
                 const _this = this
+                console.log(this.editSys)
                 this.$axios.post('http://localhost:8080/websysparameter/update', this.editSys).then(function(resp) {
                     _this.$axios.get('http://localhost:8080/websysparameter/findAll').then(function(resp) {
                         _this.tableData = resp.data
+                        this.$alert('修改参数成功', '修改参数', {
+                            confirmButtonText: '确定',
+                            callback: action => {
+                            }
+                        })
                     })
                 })
 

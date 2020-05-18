@@ -106,6 +106,11 @@ export default {
                 console.log(_this.ro)
                 _this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
                     _this.tableData = resp.data
+                    this.$alert('新增角色成功', '新增角色', {
+                        confirmButtonText: '确定',
+                        callback: action => {
+                        }
+                    })
                     // alert(321)
                 })
             })
@@ -134,6 +139,11 @@ export default {
                 _this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
                     _this.tableData = resp.data
                     // alert(321)
+                    this.$alert('删除成功', '删除', {
+                        confirmButtonText: '确定',
+                        callback: action => {
+                        }
+                    })
                 })
             })
 
