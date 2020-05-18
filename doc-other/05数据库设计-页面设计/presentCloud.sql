@@ -11,7 +11,7 @@
  Target Server Version : 50562
  File Encoding         : 65001
 
- Date: 08/05/2020 21:45:00
+ Date: 16/05/2020 21:20:51
 */
 
 SET NAMES utf8mb4;
@@ -92,14 +92,13 @@ CREATE TABLE `dictionarytype`  (
   `ModificationDate` datetime NULL DEFAULT NULL,
   `Modifier` int(20) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of dictionarytype
 -- ----------------------------
-INSERT INTO `dictionarytype` VALUES (1, '性别', 'sexy', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `dictionarytype` VALUES (2, '身份', 'role', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `dictionarytype` VALUES (3, '学历', 'degree', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `dictionarytype` VALUES (20, '性别', 'sexy', NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for directorydata
@@ -112,22 +111,17 @@ CREATE TABLE `directorydata`  (
   `ValueD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DefaultValueD` int(1) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of directorydata
 -- ----------------------------
 INSERT INTO `directorydata` VALUES (1, 'sexy', 'male', '男', 1);
 INSERT INTO `directorydata` VALUES (2, 'sexy', 'female', '女', 0);
-INSERT INTO `directorydata` VALUES (3, 'role', 'teacher', '老师', 0);
+INSERT INTO `directorydata` VALUES (3, 'role', 'teacher', '教师', 0);
 INSERT INTO `directorydata` VALUES (4, 'role', 'student', '学生', 1);
 INSERT INTO `directorydata` VALUES (5, 'role', 'assistant', '助教', 0);
 INSERT INTO `directorydata` VALUES (6, 'role', 'admin', '管理员', 0);
-INSERT INTO `directorydata` VALUES (7, 'degree', 'undergraduate', '本科', 1);
-INSERT INTO `directorydata` VALUES (8, 'degree', 'master', '硕士', 0);
-INSERT INTO `directorydata` VALUES (9, 'degree', 'doctor', '博士', 0);
-INSERT INTO `directorydata` VALUES (10, 'degree', 'college', '专科', 0);
-INSERT INTO `directorydata` VALUES (11, 'degree', 'belowhigh', '高中及以下', NULL);
 
 -- ----------------------------
 -- Table structure for experience
@@ -157,7 +151,7 @@ CREATE TABLE `menu`  (
   `ModificationDate` datetime NULL DEFAULT NULL,
   `Modifier` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 118 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu
@@ -192,7 +186,7 @@ INSERT INTO `menu` VALUES (29, 25, '删除班课', NULL, NULL, 3, NULL, NULL, NU
 INSERT INTO `menu` VALUES (30, 25, '编辑班课信息', NULL, NULL, 3, NULL, NULL, NULL, NULL);
 INSERT INTO `menu` VALUES (31, 1, '班课详情-资源', NULL, NULL, 2, NULL, NULL, NULL, NULL);
 INSERT INTO `menu` VALUES (32, 1, '班课信息', NULL, NULL, 2, NULL, NULL, NULL, NULL);
-INSERT INTO `menu` VALUES (33, 32, '班课搜索', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `menu` VALUES (33, 32, '搜索班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
 INSERT INTO `menu` VALUES (34, 32, '排序', NULL, NULL, 3, NULL, NULL, NULL, NULL);
 INSERT INTO `menu` VALUES (35, 14, '签到', NULL, NULL, 3, NULL, NULL, NULL, NULL);
 INSERT INTO `menu` VALUES (36, 25, '退出班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
@@ -224,7 +218,7 @@ CREATE TABLE `permission`  (
   `Id` int(100) NOT NULL AUTO_INCREMENT,
   `SuperiorMenuNumber` int(100) NULL DEFAULT NULL,
   `MenuName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `ButtonEnglichlogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ButtonEnglishlogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `ButtonChineselogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `IsMenu` int(3) NULL DEFAULT NULL,
   `Creator` int(10) NULL DEFAULT NULL,
@@ -232,7 +226,7 @@ CREATE TABLE `permission`  (
   `ModificationDate` datetime NULL DEFAULT NULL,
   `Modifier` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 118 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of permission
@@ -269,7 +263,7 @@ INSERT INTO `permission` VALUES (29, 25, '删除班课', NULL, NULL, 3, NULL, NU
 INSERT INTO `permission` VALUES (30, 25, '编辑班课信息', NULL, NULL, 3, NULL, NULL, NULL, NULL);
 INSERT INTO `permission` VALUES (31, 1, '班课详情-资源', NULL, NULL, 2, NULL, NULL, NULL, NULL);
 INSERT INTO `permission` VALUES (32, 1, '班课信息', NULL, NULL, 2, NULL, NULL, NULL, NULL);
-INSERT INTO `permission` VALUES (33, 32, '班课搜索', NULL, NULL, 3, NULL, NULL, NULL, NULL);
+INSERT INTO `permission` VALUES (33, 32, '搜索班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
 INSERT INTO `permission` VALUES (34, 32, '排序', NULL, NULL, 3, NULL, NULL, NULL, NULL);
 INSERT INTO `permission` VALUES (35, 14, '签到', NULL, NULL, 3, NULL, NULL, NULL, NULL);
 INSERT INTO `permission` VALUES (36, 25, '退出班课', NULL, NULL, 3, NULL, NULL, NULL, NULL);
@@ -310,26 +304,26 @@ CREATE TABLE `role`  (
   `Name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `MenuId` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES (1, '教师', NULL);
-INSERT INTO `role` VALUES (2, '学生', NULL);
-INSERT INTO `role` VALUES (3, '助教', NULL);
-INSERT INTO `role` VALUES (4, '管理员', NULL);
+INSERT INTO `role` VALUES (18, '管理员', NULL);
+INSERT INTO `role` VALUES (19, '助教', NULL);
+INSERT INTO `role` VALUES (20, '学生', NULL);
 
 -- ----------------------------
 -- Table structure for rolemenu
 -- ----------------------------
 DROP TABLE IF EXISTS `rolemenu`;
 CREATE TABLE `rolemenu`  (
-  `id` int(20) NOT NULL,
+  `id` int(20) NOT NULL AUTO_INCREMENT,
   `role` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `menu` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 158 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of rolemenu
@@ -339,7 +333,7 @@ INSERT INTO `rolemenu` VALUES (2, '学生', '加入班级');
 INSERT INTO `rolemenu` VALUES (3, '学生', '班课号加入班级');
 INSERT INTO `rolemenu` VALUES (4, '学生', '二维码加入班级');
 INSERT INTO `rolemenu` VALUES (5, '学生', '班课信息');
-INSERT INTO `rolemenu` VALUES (6, '学生', '班课搜索');
+INSERT INTO `rolemenu` VALUES (6, '学生', '搜索班课');
 INSERT INTO `rolemenu` VALUES (7, '学生', '排序');
 INSERT INTO `rolemenu` VALUES (8, '学生', '班课详情-成员');
 INSERT INTO `rolemenu` VALUES (9, '学生', '签到');
@@ -430,6 +424,9 @@ INSERT INTO `rolemenu` VALUES (93, '教师', '缓存管理');
 INSERT INTO `rolemenu` VALUES (94, '教师', '检查更新');
 INSERT INTO `rolemenu` VALUES (95, '教师', '反馈、投诉与建议');
 INSERT INTO `rolemenu` VALUES (96, '教师', '隐私设计');
+INSERT INTO `rolemenu` VALUES (155, '教师', '签到');
+INSERT INTO `rolemenu` VALUES (156, '教师', '班课信息');
+INSERT INTO `rolemenu` VALUES (157, '教师', '搜索班课');
 
 -- ----------------------------
 -- Table structure for signin
@@ -447,6 +444,26 @@ CREATE TABLE `signin`  (
   INDEX `FK_Reference_4`(`UserId`) USING BTREE,
   CONSTRAINT `FK_Reference_4` FOREIGN KEY (`UserId`) REFERENCES `userinfo` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Table structure for systemparameter
+-- ----------------------------
+DROP TABLE IF EXISTS `systemparameter`;
+CREATE TABLE `systemparameter`  (
+  `Id` int(10) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of systemparameter
+-- ----------------------------
+INSERT INTO `systemparameter` VALUES (1, '经验值', '3');
+INSERT INTO `systemparameter` VALUES (2, '魅力值', '2');
+INSERT INTO `systemparameter` VALUES (3, '蓝豆', '1');
+INSERT INTO `systemparameter` VALUES (4, '心意', '1');
+INSERT INTO `systemparameter` VALUES (5, '距离', '100m');
 
 -- ----------------------------
 -- Table structure for task
@@ -514,9 +531,9 @@ CREATE TABLE `usercheck`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `userinfo`;
 CREATE TABLE `userinfo`  (
-  `Id` int(11) NOT NULL,
-  `Number` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Number` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Image` mediumblob NULL,
   `NickName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -531,7 +548,13 @@ CREATE TABLE `userinfo`  (
   `ModificationDate` datetime NULL DEFAULT NULL,
   `Creator` int(11) NULL DEFAULT NULL,
   `Modifier` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+  PRIMARY KEY (`Id`, `Number`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of userinfo
+-- ----------------------------
+INSERT INTO `userinfo` VALUES (1, '190327066', NULL, '王五', NULL, NULL, NULL, '男', '厦门大学', '管理学院', '管理员', '19970666666', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (2, '190327201', NULL, '张三', NULL, NULL, NULL, '男', '福州大学', '数学与计算机科学学院', '教师', '18965151839', NULL, NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
