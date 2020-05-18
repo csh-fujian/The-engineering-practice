@@ -39,161 +39,164 @@
     </div>
 </template>
 
+
 <script>
-export default {
-    data() {
-        return {
-            selected: [],
-            rolename: '',
-            Permission: {
-                role: '',
-                menus: []
-            },
-            test: [],
-            datatable: [{
-                name: '班课频道',
-                state: 'unchecked',
-                layer: 1,
-                sub: [
+    export default {
+        data() {
+            return {
+                selected: [],
+                rolename:'',
+                Permission:{
+                    role:'',
+                    menus:[]
+                },
+                test:[],
+                datatable: [{
+                    name: '班课频道',
+                    state: 'unchecked',
+                    layer: 1,
+                    sub: [
+                        {
+                            name: '班课管理',
+                            state: 'unchecked',
+                            layer: 2,
+                            sub: [
+                                {
+                                    name: '创建班课',
+                                    state: 'unchecked',
+                                    layer: 3,
+                                    sub: [
+                                        {
+                                            name: '确定按钮',
+                                            state: 'unchecked',
+                                            layer: 4,
+                                            sub: null
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: '班课列表排序',
+                                    state: 'unchecked',
+                                    layer: 3,
+                                    sub: null
+                                },
+                                {
+                                    name: '查看班课',
+                                    state: 'checked',
+                                    layer: 3,
+                                    sub: null
+                                },
+                                {
+                                    name: '查看班课',
+                                    state: 'checked',
+                                    layer: 3,
+                                    sub: null
+                                }
+                            ]
+                        },
+                        {
+                            name: '加入班级',
+                            state: 'unchecked',
+                            layer: 2,
+                            sub: [
+                                {
+                                    name: '添加班级',
+                                    state: 'unchecked',
+                                    layer: 3,
+                                    sub: null
+                                }
+                            ]
+                        }
+                    ]
+                },
                     {
-                        name: '班课管理',
+                        name: '发现',
                         state: 'unchecked',
-                        layer: 2,
+                        layer: 1,
+                        sub: [
+                            {
+                                name: '发现内容',
+                                state: 'checked',
+                                layer: 2,
+                                sub: null
+                            }
+                        ]
+                    },
+                    {
+                        name: '我的频道',
+                        state: 'checked',
+                        layer: 1,
                         sub: [
                             {
                                 name: '创建班课',
                                 state: 'unchecked',
-                                layer: 3,
-                                sub: [
-                                    {
-                                        name: '确定按钮',
-                                        state: 'unchecked',
-                                        layer: 4,
-                                        sub: null
-                                    }
-                                ]
+                                layer: 2,
+                                sub: null
                             },
                             {
-                                name: '班课列表排序',
+                                name: '333',
                                 state: 'unchecked',
-                                layer: 3,
+                                layer: 2,
                                 sub: null
                             },
                             {
-                                name: '查看班课',
-                                state: 'checked',
-                                layer: 3,
-                                sub: null
-                            },
-                            {
-                                name: '查看班课',
-                                state: 'checked',
-                                layer: 3,
-                                sub: null
-                            }
-                        ]
-                    },
-                    {
-                        name: '加入班级',
-                        state: 'unchecked',
-                        layer: 2,
-                        sub: [
-                            {
-                                name: '添加班级',
+                                name: '222',
                                 state: 'unchecked',
-                                layer: 3,
+                                layer: 2,
+                                sub: null
+
+                            },
+                            {
+                                name: '111',
+                                state: 'unchecked',
+                                layer: 2,
                                 sub: null
                             }
                         ]
                     }
                 ]
-            },
-            {
-                name: '发现',
-                state: 'unchecked',
-                layer: 1,
-                sub: [
-                    {
-                        name: '发现内容',
-                        state: 'checked',
-                        layer: 2,
-                        sub: null
-                    }
-                ]
-            },
-            {
-                name: '我的频道',
-                state: 'checked',
-                layer: 1,
-                sub: [
-                    {
-                        name: '创建班课',
-                        state: 'unchecked',
-                        layer: 2,
-                        sub: null
-                    },
-                    {
-                        name: '333',
-                        state: 'unchecked',
-                        layer: 2,
-                        sub: null
-                    },
-                    {
-                        name: '222',
-                        state: 'unchecked',
-                        layer: 2,
-                        sub: null
-                    },
-                    {
-                        name: '111',
-                        state: 'unchecked',
-                        layer: 2,
-                        sub: null
-                    }
-                ]
-            }
-            ]
-        }
-    },
-    methods: {
-        consent() {
-            this.Permission.role = this.rolename
-            this.Permission.menus = this.test
-            this.$axios.post('http://localhost:8080/webpermission/addpermission' + this.selected).then(res => {
-                this.$alert('分配权限成功', '分配权限', {
-                    confirmButtonText: '确定',
-                    callback: action => {
-                    }
+            };
+        },
+        methods: {
+            consent(){
+                this.Permission.role = this.rolename
+                this.test[0] = '签到'
+                this.test[1] = '班课信息'
+                this.test[2] = '搜索班课'
+                this.Permission.menus = this.test
+                console.log(this.Permission)
+                this.$axios.post('http://localhost:8080/webpermission/addpermission',this.Permission).then(res => {
+                    alert('权限分配成功')
                 })
-            })
-        }
-    },
-    created() {
-        // alert(this.$route.query.rolename)
-        this.rolename = this.$route.query.rolename
-        const _this = this
-        this.$axios.get('http://localhost:8080/webpermission/findAll/' + this.rolename).then(res => {
-            _this.datatable = res.data
-            for (let i = 0; i < this.datatable.length; ++i) {
-                if (this.datatable[i].state == 'checked') {
-                    this.selected.push(this.datatable[i].name)
-                }
-                if (this.datatable[i].sub == null) { continue }
-                for (let j = 0; j < this.datatable[i].sub.length; ++j) {
-                    if (this.datatable[i].sub[j].state == 'checked') {
-                        this.selected.push(this.datatable[i].sub[j].name)
-                    }
-                    if (this.datatable[i].sub[j].sub == null) { continue }
-                    for (var k = 0; k < this.datatable[i].sub[j].sub.length; ++k) {
-                        if (this.datatable[i].sub[j].sub[k].state == 'checked') {
-                            this.selected.push(this.datatable[i].sub[j].sub[k].name)
-                        }
-                        if (this.datatable[i].sub[j].sub[k].sub == null) { continue }
-                    }
-                }
             }
+        },
+        created() {
+            // alert(this.$route.query.rolename)
+            this.rolename = this.$route.query.rolename
+            const _this = this
+            this.$axios.get('http://localhost:8080/webpermission/findAll/'+this.rolename).then(res => {
+                    _this.datatable = res.data
+                    for (let i = 0; i < this.datatable.length; ++i) {
+                        if (this.datatable[i].state == 'checked') {
+                            this.selected.push(this.datatable[i].name)
+                        }
+                        if (this.datatable[i].sub == null) { continue }
+                        for (let j = 0; j < this.datatable[i].sub.length; ++j) {
+                            if (this.datatable[i].sub[j].state == 'checked') {
+                                this.selected.push(this.datatable[i].sub[j].name)
+                            }
+                            if (this.datatable[i].sub[j].sub == null) { continue }
+                            for (var k = 0; k < this.datatable[i].sub[j].sub.length; ++k) {
+                                if (this.datatable[i].sub[j].sub[k].state == 'checked') {
+                                    this.selected.push(this.datatable[i].sub[j].sub[k].name)
+                                }
+                                if (this.datatable[i].sub[j].sub[k].sub == null) { continue }
+                            }
+                        }
+                    }
+                }
+
+            )
         }
-        )
     }
-}
 </script>

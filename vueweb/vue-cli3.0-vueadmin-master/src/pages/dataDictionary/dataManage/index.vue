@@ -8,10 +8,10 @@
                 v-model="search"
                 icon="el-icon-plus"
                 style="width:130px;height:10px"
-                placeholder="输入关键字搜索"/>
+                placeholder="输入数据搜索"/>
         </div>
         <el-table
-            :data="tableData.filter(data => !search || data.keyd.toLowerCase().includes(search.toLowerCase()))"
+            :data="tableData.filter(data => !search || data.parameterNname.toLowerCase().includes(search.toLowerCase()))"
             style="width: 100%">
             <el-table-column
                 label="序号"
@@ -180,11 +180,6 @@
                 this.$axios.post('http://localhost:8080/webdictionary/updatedata', this.Data).then(function(resp) {
                     _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + this.typed).then(function(resp) {
                         _this.tableData = resp.data
-                        this.$alert('编辑数据成功', '编辑数据', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                            }
-                        })
                     })
                 })
                 this.dialogVisible1 = false
@@ -201,11 +196,6 @@
                     console.log(resp)
                     _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + _this.typed).then(function(resp) {
                         _this.tableData = resp.data
-                        this.$alert('删除数据成功', '删除数据', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                            }
-                        })
                     })
                 })
 
@@ -226,11 +216,6 @@
                     console.log(resp)
                     _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + _this.typed).then(function(resp) {
                         _this.tableData = resp.data
-                        this.$alert('新增数据成功', '新增数据', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                            }
-                        })
                     })
                 })
 

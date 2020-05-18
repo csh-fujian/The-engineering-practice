@@ -232,11 +232,6 @@
                 this.editUser.user = this.user
                 console.log(this.editUser)
                 this.$axios.post('http://localhost:8080/webuser/updateuser/' ,this.editUser).then(function(resp) {
-                    this.$alert('编辑用户成功', '编辑用户', {
-                        confirmButtonText: '确定',
-                        callback: action => {
-                        }
-                    })
                 })
             },
             handleDelete(index, row) {
@@ -246,11 +241,6 @@
                     _this.$axios.get('http://localhost:8080/webuser/finduser').then(function(resp) {
                         _this.tableData = resp.data
                         console.log(_this.tableData)
-                        this.$alert('新增用户成功', '删除用户', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                            }
-                        })
                         // alert(321)
                         // 这个url要改下
                     })
@@ -278,11 +268,6 @@
                 this.$axios.post('http://localhost:8080/webuser/adduser', this.userinfo).then(function(resp) {
                     _this.$axios.get('http://localhost:8080/webuser/finduser').then(function(resp) {
                         _this.tableData = resp.data
-                        this.$alert('新增用户成功', '新增用户', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                            }
-                        })
                     })
                 })
 

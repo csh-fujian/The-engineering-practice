@@ -24,7 +24,7 @@
         </ul>
         <el-button type="primary" @click="dialogVisible1 = true">添加菜单</el-button>
         <el-button type="primary" @click="dialogVisible2 = true">添加页面</el-button>
-        <el-button type="primary" @click="addbutton3()">添加按钮</el-button>
+        <el-button type="primary" @click="dialogVisible3 = true">添加按钮</el-button>
         <el-button type="primary" @click="handdelete()">勾选删除</el-button>
         <el-dialog
             title="添加菜单"
@@ -68,7 +68,7 @@
             title="添加页面"
             :visible.sync="dialogVisible2"
             width="60%"
-            :before-close="handleClose2">
+            :before-close="handleClose1">
             <el-form  :model="menuname" label-width="80px">
                 <el-form-item label="名称">
                     <el-input v-model="menuname"></el-input>
@@ -105,10 +105,10 @@
             <el-button type="primary" @click="addpage()">确 定</el-button>
         </el-dialog>
         <el-dialog
-            title="添加按钮"
+            title="提示"
             :visible.sync="dialogVisible3"
             width="50%"
-            :before-close="handleClose3">
+            :before-close="handleClose">
             <el-form :model="menuname" label-width="80px">
                 <el-form-item label="名称">
                     <el-input v-model="button"></el-input>
@@ -252,21 +252,9 @@
                 this.$axios.post('http://localhost:8080/webmenu/deletemenu', this.delSel).then(res => {
                     _this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
                         _this.datatable = res.data
-                            this.$alert('删除成功', '删除', {
-                                confirmButtonText: '确定',
-                                callback: action => {
-                                }
-                            })
                     }
                     )
                 })
-            },
-            addbutton3(){
-                this.dialogVisible3 = true
-                this.supermenu = ''
-            },
-            handleClose3(){
-                this.dialogVisible3 = false
             },
             addmenu() {
                 this.dialogVisible1 = false
@@ -278,11 +266,6 @@
                     this.$axios.post('http://localhost:8080/webmenu/addmenu', _this.Menu).then(res => {
                         _this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
                                 _this.datatable = res.data
-                            this.$alert('分配权限成功', '分配权限', {
-                                confirmButtonText: '确定',
-                                callback: action => {
-                                }
-                            })
                             }
                         )
                     })
@@ -304,11 +287,6 @@
                     this.$axios.post('http://localhost:8080/webmenu/addpage', _this.Page1).then(res => {
                         this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
                                 _this.datatable = res.data
-                            this.$alert('新增页面成功', '新增页面', {
-                                confirmButtonText: '确定',
-                                callback: action => {
-                                }
-                            })
                             }
                         )
                     })
@@ -324,18 +302,13 @@
                 this.$axios.post('http://localhost:8080/webmenu/addbutton', this.button1).then(res => {
                     _this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
                             _this.datatable = res.data
-                        this.$alert('新增按钮成功', '新增按钮', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                            }
-                        })
                         }
                     )
                 })
 
             },
-            handleClose2(tag) {
-                this.dialogVisible2 = false
+            handleClose(tag) {
+                this.submenus.splice(this.submenus.indexOf(tag), 1)
             },
             handleClose1() {
                 this.dialogVisible1 = false

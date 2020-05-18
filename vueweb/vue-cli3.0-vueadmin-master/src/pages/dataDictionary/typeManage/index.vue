@@ -8,7 +8,7 @@
               v-model="search"
               icon="el-icon-plus"
               style="width:130px;height:10px"
-              placeholder="输入参数名称搜索"/>
+              placeholder="输入关键字搜索"/>
     </div>
     <el-table
             :data="tableData.filter(data => !search || data.type.toLowerCase().includes(search.toLowerCase()))"
@@ -122,13 +122,10 @@ export default {
                 console.log(resp)
                 _this.$axios.get('http://localhost:8080/webdictionary/findtype').then(function(resp) {
                     _this.tableData = resp.data
-                    this.$alert('删除类型成功', '删除类型', {
-                        confirmButtonText: '确定',
-                        callback: action => {
-                        }
-                    })
                 })
             })
+
+
         },
         onSubmit() {
             console.log(this.dict)
@@ -140,11 +137,6 @@ export default {
             this.$axios.post('http://localhost:8080/webdictionary/addtype', this.diction).then(function(resp) {
                 _this.$axios.get('http://localhost:8080/webdictionary/findtype').then(function(resp) {
                     _this.tableData = resp.data
-                    this.$alert('新增类型成功', '新增类型', {
-                        confirmButtonText: '确定',
-                        callback: action => {
-                        }
-                    })
                 })
             })
 
