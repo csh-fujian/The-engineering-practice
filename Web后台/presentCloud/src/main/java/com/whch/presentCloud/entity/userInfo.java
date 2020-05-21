@@ -1,5 +1,6 @@
 package com.whch.presentCloud.entity;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class userInfo {
@@ -188,6 +189,29 @@ public class userInfo {
 
 	public userInfo() {
 	}
+
+    @Override
+    public String toString() {
+        return "userInfo{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", birthday=" + birthday +
+                ", sex='" + sex + '\'' +
+                ", school='" + school + '\'' +
+                ", department='" + department + '\'' +
+                ", role='" + role + '\'' +
+                ", phone='" + phone + '\'' +
+                ", master='" + master + '\'' +
+                ", creationdate=" + creationdate +
+                ", modificationdate=" + modificationdate +
+                ", creator=" + creator +
+                ", modifier=" + modifier +
+                ", image=" + Arrays.toString(image) +
+                '}';
+    }
 
 	
 }

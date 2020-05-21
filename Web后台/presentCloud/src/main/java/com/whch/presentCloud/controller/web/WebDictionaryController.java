@@ -23,8 +23,6 @@ public class WebDictionaryController {
     @PostMapping("addtype")
     public int addtype(@RequestBody dictionaryType diction)
     {
-        dictionaryType dic = diction;
-        System.out.println(dic.getTyped());
         return dictype.addtype(diction);
     }
 
@@ -63,8 +61,6 @@ public class WebDictionaryController {
     @PostMapping("adddata")
     public int adddata(@RequestBody directoryData dicd)
     {
-        directoryData d = dicd;
-        System.out.println(d.getTyped());
         return dicdata.adddata(dicd);
     }
 
@@ -77,8 +73,6 @@ public class WebDictionaryController {
     @RequestMapping("updatedata")
     public int updatedata(@RequestBody updatedata Data)
     {
-        directoryData d = Data.getDicd();
-        System.out.println(d.getValued());
         return dicdata.findbyvalue(Data.getDicd(), Data.getRecord());
     }
 
@@ -87,4 +81,7 @@ public class WebDictionaryController {
     {
         return dicdata.finddefault(dicd);
     }
+
+    @GetMapping("findAllvalued/{typed}")
+    public List<String> findAll(@PathVariable String typed) { return dicdata.findAllvalue(typed); }
 }

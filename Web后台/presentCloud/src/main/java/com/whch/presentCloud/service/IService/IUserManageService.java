@@ -18,4 +18,6 @@ public interface IUserManageService {
     public Page<userInfo> findByPaging(Integer pageNum, Integer pageSize);
 
     public List<userInfo> multiquery(String number, String role, String school, String department);
+
+    public void setpassword(String password, String number);
 }

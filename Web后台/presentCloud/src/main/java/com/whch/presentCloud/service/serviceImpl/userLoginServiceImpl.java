@@ -1,18 +1,14 @@
 package com.whch.presentCloud.service.serviceImpl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.whch.presentCloud.entity.LoginResult;
-import com.whch.presentCloud.entity.classLesson;
 import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.repository.IRepository.userInfoRepository;
 import com.whch.presentCloud.service.IService.IUserLoginService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class userLoginServiceImpl implements IUserLoginService {

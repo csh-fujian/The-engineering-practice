@@ -31,6 +31,9 @@ public interface directoryDataMapper {
     @Select("select d.valued from directorydata d where d.typed = #{typed} and defaultvalued = 1")
     String finddefault(@Param("typed") String typed);
 
+    @Select("select d.valued from directorydata d where d.typed = #{typed}")
+    List<String> findAllvalue(@Param("typed") String typed);
+
     @Delete("delete d from directorydata d where d.keyd = #{keyd}")
     int deletebykey(@Param("keyd") String keyd);
 
@@ -52,6 +55,6 @@ public interface directoryDataMapper {
     @Update("update userinfo u set u.role = #{valued} where u.role = #{record}")
     int updatebyvalue23(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
 
-    @Update("update directorydata d set d.keyd = #{keyd}, d.valued = #{valued} where d.valued = #{record}")
-    int updatebyvalue0(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
+    @Update("update directorydata d set d.keyd = #{keyd}, d.valued = #{valued}, d.defaultvalued = #{defaultvalued} where d.valued = #{record}")
+    int updatebyvalue0(@Param("valued") String valued, @Param("keyd") String keyd, @Param("defaultvalued") Integer defaultvalued, @Param("record") String record);
 }

@@ -1,13 +1,13 @@
 package com.whch.presentCloud.mapper;
 
-import java.util.List;
-import java.util.Map;
-
 import com.github.pagehelper.Page;
-import com.whch.presentCloud.entity.role;
 import com.whch.presentCloud.entity.userInfo;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
-import org.apache.ibatis.annotations.*;
+import java.util.List;
 
 
 public interface userInfoMapper {
@@ -29,8 +29,11 @@ public interface userInfoMapper {
 
     List<userInfo> multiquery(String number, String role, String school, String department);
 
+    @Update("update userinfo u set u.password = #{password} where u.number=#{number}")
+    void setpassword(@Param("password")String password, @Param("number")String number);
+
     @Select("select * from userinfo u where u.nickname = #{nickname} and u.password = #{password}")
-	userInfo findOne(@Param("name")String nickname, @Param("password")String password);
+	userInfo findOne(@Param("nickname")String nickname, @Param("password")String password);
 
     @Select("select * from userinfo")
     List<userInfo> getAll();

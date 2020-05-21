@@ -25,7 +25,7 @@ public class sysparameterRepositoryImple implements sysparameterRepository {
     }
 
     @Override
-    public int updatesys(Integer value, String name, String record) {
+    public int updatesys(String value, String name, String record) {
         return sysM.updatesys(value, name, record);
     }
 }

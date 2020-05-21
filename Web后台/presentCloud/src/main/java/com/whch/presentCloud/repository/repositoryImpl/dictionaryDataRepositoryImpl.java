@@ -64,6 +64,11 @@ public class dictionaryDataRepositoryImpl implements dictionaryDataRepository {
     }
 
     @Override
+    public List<String> findAllvalue(String typed) {
+        return dicM.findAllvalue(typed);
+    }
+
+    @Override
     public int findbyvalue1(String valued, String keyd, Integer defaultvalued, String record) {
         dicM.updatebyvalue11(valued, keyd, record);
         dicM.updatebyvalue12(valued, keyd, defaultvalued, record);
@@ -79,8 +84,8 @@ public class dictionaryDataRepositoryImpl implements dictionaryDataRepository {
     }
 
     @Override
-    public int findbyvalue0(String valued, String keyd, String record) {
-        return dicM.updatebyvalue0(valued, keyd, record);
+    public int findbyvalue0(String valued, String keyd, Integer defaultvalued, String record) {
+        return dicM.updatebyvalue0(valued, keyd, defaultvalued, record);
     }
 
 

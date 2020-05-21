@@ -23,8 +23,6 @@ public class WebUserRoleController {
     @PostMapping("addrole")
     public int addrole(@RequestBody role ro)
     {
-        role roll = ro;
-        System.out.println(roll.getName());
         return roleManageService.addRole(ro);
     }
 
@@ -36,8 +34,6 @@ public class WebUserRoleController {
     @RequestMapping("deleterole")
     public int deleterole(@RequestBody role rol)
     {
-        role roll = rol;
-        System.out.println(roll.getName());
         return roleManageService.delete(rol);
     }
 

@@ -35,6 +35,9 @@ public interface permissionMapper {
     @Delete("delete from permission where menuname = #{menuname}")
     int deletemenu(@Param("menuname") String menuname);
 
+    @Delete("delete from rolemenu where role = #{role}")
+    int deleterolemenu(@Param("role") String role);
+
     @Insert("insert into rolemenu(role, menu) values (#{role}, #{menu})")
     int addpermisson(@Param("role") String role, @Param("menu") String menu);
 

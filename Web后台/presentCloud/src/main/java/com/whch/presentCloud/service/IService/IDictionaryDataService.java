@@ -13,5 +13,6 @@ public interface IDictionaryDataService {
     public String findbykey(String keyd);
     public List<directoryData> findbytype(String typed);
     public String finddefault(directoryData dirtdata);
+    public List<String> findAllvalue(String typed);
     public int findbyvalue(directoryData dirtdata, directoryData record);
 }

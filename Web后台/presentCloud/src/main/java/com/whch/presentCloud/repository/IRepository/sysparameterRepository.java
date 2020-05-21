@@ -11,5 +11,5 @@ public interface sysparameterRepository {
 
     public int delete(String name);
 
-    int updatesys(Integer value, String name, String record);
+    int updatesys(String value, String name, String record);
 }

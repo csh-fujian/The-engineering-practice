@@ -36,24 +36,17 @@ public class WebMenuController {
     @PostMapping("addpage")
     public int addpage(@RequestBody addpage Page1)
     {
-        addpage p = Page1;
-        System.out.println(p.getMenuname());
-        System.out.println(p.getButtons());
         return menuS.addpage(Page1.getMenuname(), Page1.getSupermenu(), Page1.getButtons());
     }
 
     @PostMapping("addpage1")
     public int addpage1(@RequestBody addpage Page)
     {
-        addpage p = Page;
-        System.out.println(p.getMenuname());
-        System.out.println(p.getButtons());
         return menuS.addpage1(Page.getMenuname(), Page.getSupermenu());
     }
     @PostMapping("addbutton")
     public int addbutton(@RequestBody addbutton button1)
     {
-        System.out.println(button1);
         return menuS.addbutton(button1.getButton(), button1.getSupermenu());
     }
 

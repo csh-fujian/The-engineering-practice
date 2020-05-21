@@ -1,7 +1,6 @@
 package com.whch.presentCloud.controller.web;
 
 import com.github.pagehelper.Page;
-import com.whch.presentCloud.entity.role;
 import com.whch.presentCloud.entity.updateuser;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.service.IService.IUserManageService;
@@ -25,7 +24,9 @@ public class WebUserController {
     @PostMapping("adduser")
     public int addUser(@RequestBody userInfo userinfo)
     {
-        return usermanage.addUser(userinfo);
+        userInfo user = userinfo;
+        user.setPassword("88888888");
+        return usermanage.addUser(user);
     }
 
     /**
@@ -71,6 +72,16 @@ public class WebUserController {
     public Page<userInfo> findUserbyPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize)
     {
         return usermanage.findByPaging(pageNum, pageSize);
+    }
+
+    /**
+     * 重置用户密码
+     * @param number
+     */
+    @RequestMapping("setpassword/{number}")
+    public void setpassword(@PathVariable String number){
+        String password = "88888888";
+        usermanage.setpassword(password, number);
     }
 
     @GetMapping("multiquery")

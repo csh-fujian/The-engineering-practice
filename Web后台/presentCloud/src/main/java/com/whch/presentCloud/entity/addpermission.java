@@ -4,7 +4,7 @@ import java.util.List;
 
 public class addpermission {
     public String role;
-    public List<String> test;
+    public List<String> selected;
 
     public String getRole() {
         return role;
@@ -15,10 +15,10 @@ public class addpermission {
     }
 
     public List<String> getMenus() {
-        return test;
+        return selected;
     }
 
     public void setMenus(List<String> menus) {
-        this.test = menus;
+        this.selected = menus;
     }
 }

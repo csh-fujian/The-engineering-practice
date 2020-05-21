@@ -86,6 +86,8 @@ public class permissionServiceImpl implements IPermissionService {
 
     @Override
     public int addpermission(String role, List<String> menus) {
+        permR.deleterolemenu(role);
+
         for (String m : menus)
         {
             permR.addpermission(role, m);

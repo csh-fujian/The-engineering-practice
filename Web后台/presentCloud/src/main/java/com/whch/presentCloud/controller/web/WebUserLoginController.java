@@ -1,21 +1,21 @@
 package com.whch.presentCloud.controller.web;
 
-import com.whch.presentCloud.entity.classCourseMember;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.whch.presentCloud.entity.result;
+import com.whch.presentCloud.entity.token;
 import com.whch.presentCloud.entity.userInfo;
+import com.whch.presentCloud.mapper.tokenMapper;
 import com.whch.presentCloud.service.IService.IClassManageService;
+import com.whch.presentCloud.service.IService.ITokenService;
 import com.whch.presentCloud.service.IService.IUserLoginService;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.Date;
 
 @RestController
 @RequestMapping("webinitialization")
@@ -25,8 +25,55 @@ public class WebUserLoginController {
     private IUserLoginService userloginservice;
     @Autowired
     private IClassManageService classManageService;
+    @Autowired
+    private tokenMapper tokenM;
+    @Autowired
+    private ITokenService tokenS;
 
-   
+    @PostMapping("login1")
+    public token login(@RequestBody userInfo user, HttpServletRequest request)
+    {
+        userInfo user1 = userloginservice.login(user.getNickname(), user.getPassword());
+        if (user1 != null){
+            token Token = tokenM.getByUserId(user1.getId());
+            String tokenString = "";
+            Date date = new Date();
+            int nowTime = (int) (date.getTime()/1000);
+            tokenString = tokenS.createtoken(user1, date);
+
+            if(Token == null){
+                // 如果是第一次登陆
+                Token = new token();
+                Token.setToken(tokenString);
+                Token.setBuildTime(nowTime);
+                Token.setUserId(user1.getId());
+                tokenM.Insert(Token);
+            }
+            else {
+                // 登陆后跟新Token信息
+                tokenString = tokenS.createtoken(user1, date);
+                Token.setToken(tokenString);
+                Token.setBuildTime(nowTime);
+                tokenM.update(Token);
+            }
+            return Token;
+        }
+        return null;
+    }
+
+    @GetMapping("parsejwt")
+    public Object parsejwt(HttpServletRequest request) throws Exception{
+        String Token = request.getParameter("token");
+        if (Token.equals("")){
+            System.out.println("token为空");
+        }
+        Claims claims = tokenS.parseJWT(Token);
+        String subject = claims.getSubject();
+        JSONObject jsonObject = JSON.parseObject(subject);
+        userInfo user = JSON.toJavaObject(jsonObject, userInfo.class);
+        return user;
+    }
+
     //测试
     @RequestMapping("login")
     @ResponseBody

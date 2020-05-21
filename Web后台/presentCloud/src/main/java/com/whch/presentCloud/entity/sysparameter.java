@@ -4,17 +4,7 @@ public class sysparameter {
 
     int id;
     String name;
-    int value;
-
-    public sysparameter(int id, String name, int value) {
-        this.id = id;
-        this.name = name;
-        this.value = value;
-    }
-
-    public sysparameter() {
-
-    }
+    String value;
 
     public int getId() {
         return id;
@@ -32,11 +22,11 @@ public class sysparameter {
         this.name = name;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(String value) {
         this.value = value;
     }
 }

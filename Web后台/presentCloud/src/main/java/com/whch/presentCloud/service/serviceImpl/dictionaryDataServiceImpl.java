@@ -45,17 +45,22 @@ public class dictionaryDataServiceImpl implements IDictionaryDataService {
     }
 
     @Override
+    public List<String> findAllvalue(String typed) {
+        return dictR.findAllvalue(typed);
+    }
+
+    @Override
     public int findbyvalue(directoryData dirtdata, directoryData record) {
         String valued = dirtdata.getValued();
         String keyd = dirtdata.getKeyd();
         Integer defaultvalued = dirtdata.getDefaultvalued();
-        if(record.getTyped() == "sexy"){
-            return dictR.findbyvalue1(valued, keyd, defaultvalued,record.getValued());
+        if(record.getTyped().equals("sexy")){
+            return dictR.findbyvalue1(valued, keyd, defaultvalued, record.getValued());
         }
-        else if(record.getTyped() == "role"){
-            return  dictR.findbyvalue2(valued, keyd, defaultvalued, record.getValued());
+        else if(record.getTyped().equals("role")){
+            return dictR.findbyvalue2(valued, keyd, defaultvalued, record.getValued());
         }
-        return dictR.findbyvalue0(valued, keyd, record.getValued());
+        return dictR.findbyvalue0(valued, keyd, defaultvalued, record.getValued());
 
     }
 

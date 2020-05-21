@@ -21,5 +21,5 @@ public interface sysparameterMapper {
     int delete(String name);
 
     @Update("update systemparameter s set s.name = #{name}, s.value = #{value} where s.name = #{record}")
-    int updatesys(@Param("value") Integer value, @Param("name") String name, @Param("record") String record);
+    int updatesys(@Param("value") String value, @Param("name") String name, @Param("record") String record);
 }

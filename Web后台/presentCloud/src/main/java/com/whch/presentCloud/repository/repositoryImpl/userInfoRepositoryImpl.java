@@ -1,13 +1,12 @@
 package com.whch.presentCloud.repository.repositoryImpl;
 
-import java.util.List;
-
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.repository.IRepository.userInfoRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class userInfoRepositoryImpl implements userInfoRepository {

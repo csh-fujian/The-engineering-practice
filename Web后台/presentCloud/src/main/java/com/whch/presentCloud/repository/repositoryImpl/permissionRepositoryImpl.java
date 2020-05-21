@@ -55,6 +55,11 @@ public class permissionRepositoryImpl implements permissionRepository {
     }
 
     @Override
+    public int deleterolemenu(String role) {
+        return permM.deleterolemenu(role);
+    }
+
+    @Override
     public int addpermission(String role, String menu) {
         return permM.addpermisson(role, menu);
     }

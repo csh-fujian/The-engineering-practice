@@ -1,8 +1,8 @@
 package com.whch.presentCloud.repository.IRepository;
 
-import java.util.List;
-
 import com.whch.presentCloud.entity.userInfo;
+
+import java.util.List;
 
 public interface userInfoRepository {
     public userInfo get(userInfo UserInfo);

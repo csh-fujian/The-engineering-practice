@@ -15,6 +15,7 @@ public interface permissionRepository {
     public rolemenu findone(String rolename, String menu);
     public int findmenuid(Integer superiormenunumber, String menuname);
     public int deletemenu(String menuname);
+    public int deleterolemenu(String role);
     public int addpermission(String role, String menu);
     int findbyname(String menuname);
 }
