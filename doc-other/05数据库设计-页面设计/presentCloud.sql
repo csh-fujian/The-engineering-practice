@@ -11,7 +11,7 @@
  Target Server Version : 50562
  File Encoding         : 65001
 
- Date: 16/05/2020 21:20:51
+ Date: 22/05/2020 12:23:13
 */
 
 SET NAMES utf8mb4;
@@ -92,7 +92,7 @@ CREATE TABLE `dictionarytype`  (
   `ModificationDate` datetime NULL DEFAULT NULL,
   `Modifier` int(20) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of dictionarytype
@@ -111,7 +111,7 @@ CREATE TABLE `directorydata`  (
   `ValueD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DefaultValueD` int(1) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of directorydata
@@ -121,7 +121,6 @@ INSERT INTO `directorydata` VALUES (2, 'sexy', 'female', '女', 0);
 INSERT INTO `directorydata` VALUES (3, 'role', 'teacher', '教师', 0);
 INSERT INTO `directorydata` VALUES (4, 'role', 'student', '学生', 1);
 INSERT INTO `directorydata` VALUES (5, 'role', 'assistant', '助教', 0);
-INSERT INTO `directorydata` VALUES (6, 'role', 'admin', '管理员', 0);
 
 -- ----------------------------
 -- Table structure for experience
@@ -151,7 +150,7 @@ CREATE TABLE `menu`  (
   `ModificationDate` datetime NULL DEFAULT NULL,
   `Modifier` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 118 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 60 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of menu
@@ -226,7 +225,7 @@ CREATE TABLE `permission`  (
   `ModificationDate` datetime NULL DEFAULT NULL,
   `Modifier` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 118 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 64 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of permission
@@ -304,13 +303,12 @@ CREATE TABLE `role`  (
   `Name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `MenuId` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of role
 -- ----------------------------
 INSERT INTO `role` VALUES (1, '教师', NULL);
-INSERT INTO `role` VALUES (18, '管理员', NULL);
 INSERT INTO `role` VALUES (19, '助教', NULL);
 INSERT INTO `role` VALUES (20, '学生', NULL);
 
@@ -507,6 +505,18 @@ CREATE TABLE `taskmemory`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
+-- Table structure for token
+-- ----------------------------
+DROP TABLE IF EXISTS `token`;
+CREATE TABLE `token`  (
+  `tokenId` int(20) NOT NULL,
+  `userId` int(20) NULL DEFAULT NULL,
+  `token` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `buildTime` int(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`tokenId`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
 -- Table structure for usercheck
 -- ----------------------------
 DROP TABLE IF EXISTS `usercheck`;
@@ -554,7 +564,6 @@ CREATE TABLE `userinfo`  (
 -- ----------------------------
 -- Records of userinfo
 -- ----------------------------
-INSERT INTO `userinfo` VALUES (1, '190327066', NULL, '王五', NULL, NULL, NULL, '男', '厦门大学', '管理学院', '管理员', '19970666666', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `userinfo` VALUES (2, '190327201', NULL, '张三', NULL, NULL, NULL, '男', '福州大学', '数学与计算机科学学院', '教师', '18965151839', NULL, NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
