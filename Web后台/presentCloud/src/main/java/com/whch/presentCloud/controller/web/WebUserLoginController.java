@@ -30,35 +30,25 @@ public class WebUserLoginController {
     @Autowired
     private ITokenService tokenS;
 
-    @PostMapping("login1")
-    public token login(@RequestBody userInfo user, HttpServletRequest request)
+    @PostMapping("login")
+    public Object login(@RequestBody userInfo user, HttpServletRequest request)
     {
+        JSONObject jsonObject = new JSONObject();
         userInfo user1 = userloginservice.login(user.getNickname(), user.getPassword());
-        if (user1 != null){
+        if (user1 == null){
+            jsonObject.put("message", "登录失败,用户名或密码错误");
+            return jsonObject;
+        }
+        else{
             token Token = tokenM.getByUserId(user1.getId());
             String tokenString = "";
             Date date = new Date();
             int nowTime = (int) (date.getTime()/1000);
             tokenString = tokenS.createtoken(user1, date);
-
-            if(Token == null){
-                // 如果是第一次登陆
-                Token = new token();
-                Token.setToken(tokenString);
-                Token.setBuildTime(nowTime);
-                Token.setUserId(user1.getId());
-                tokenM.Insert(Token);
-            }
-            else {
-                // 登陆后跟新Token信息
-                tokenString = tokenS.createtoken(user1, date);
-                Token.setToken(tokenString);
-                Token.setBuildTime(nowTime);
-                tokenM.update(Token);
-            }
-            return Token;
+            jsonObject.put("message", "用户登录成功");
+            jsonObject.put("token", tokenString);
+            return jsonObject;
         }
-        return null;
     }
 
     @GetMapping("parsejwt")
@@ -75,7 +65,7 @@ public class WebUserLoginController {
     }
 
     //测试
-    @RequestMapping("login")
+    @RequestMapping("login1")
     @ResponseBody
     public result userLogin(@RequestParam("username")String nickname, @RequestParam("password")String password, HttpSession session){
 //       System.out.println(tel+password);
