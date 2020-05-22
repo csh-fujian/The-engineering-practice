@@ -61,6 +61,7 @@ const detail = {
     time: '2019-2020-2 学校课表班课',
   },
   dataContent: {
+    classId: '123456',
     cloudBook: '未设置',
     school: '福州大学',
     department: '数计学院',

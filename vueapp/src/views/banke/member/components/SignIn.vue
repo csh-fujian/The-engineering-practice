@@ -1,11 +1,7 @@
 <template>
   <div>
     <md-nav-bar title="签到" />
-
-
-
     <pwd :isShow="true" @success="successClick" />
-
   </div>
 </template>
 
@@ -19,7 +15,7 @@
     name: "SignIn",
     data() {
       return {
-        signType: 1
+        signType: 1,
       }
     },
     computed: {
@@ -34,8 +30,16 @@
     },
     methods: {
       successClick() {
-        console.log('test11');
-        this.$router.push('/banke/'+this.$route.params.classId+'/member/sign-in/success')
+        //这边不支持浏览器，而支持真机获得经纬度 定位！
+        plus.geolocation.getCurrentPosition((p) => {
+                      this.$router.push({
+                        path:'/banke/'+this.$route.params.classId+'/member/sign-in/success',
+                        query: {long:p.coords.longitude, lat:p.coords.latitude}}
+                      )
+                    }, function(e){
+                      alert('Geolocation error: ' + e.message);
+                    }
+        );
       },
       itemClick(index) {
         if (index == 1) {

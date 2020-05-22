@@ -11,7 +11,7 @@ export default new Vuex.Store({
     test: 'test',
     phone: '',
     token: {
-      status: 'teacher'
+      status: 'student'
     }
   },
   mutations,

@@ -59,7 +59,7 @@
       </van-cell>
     </van-cell-group>
 
-    <van-button plain hairline type="primary" block>退出班课</van-button>
+    <van-button plain hairline type="primary" block class="margin-top-normal">保存</van-button>
 
     <time-picker ref="timePick" @newTime="newTime"/>
 

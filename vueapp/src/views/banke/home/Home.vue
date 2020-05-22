@@ -42,6 +42,8 @@ import TeacherClass from "./components/TeacherClass";
 import MdTabBar from "components/tabbar/MdTabBar";
 import {home} from 'mock/banke/home.js'
 
+import QrcodeDecoder from 'qrcode-decoder';
+
 export default {
   name: 'Home',
   data() {
@@ -53,6 +55,7 @@ export default {
         { name: '班课号加入班课' },
         { name: '二维码加入班课' },
       ],
+      videoImageData:[],
       isTeacher: true
     }
   },
@@ -90,11 +93,30 @@ export default {
       if (item.name === '创建班课') {
         this.$router.push('/banke/create')
       }
+      if (item.name === '二维码加入班课') {
+        this.galleryImg()
+      }
       this.plusShow = false;
     },
-    // 添加班课按钮事件 ---- end
-    onClickRight() {
-      Toast('按钮');
+    //从相册选择照片
+    galleryImg(){
+      var _this = this;
+      plus.gallery.pick(
+          (path) => {
+            console.log('test',path);
+            let qr = new QrcodeDecoder();
+            qr.decodeFromImage(path).then((res) => {
+              //打印结果为 解析出来的 二维码地址
+              alert(res.data);
+              //不是二维码： undefine
+              // 不是我们定义的二维码
+              // alert('失败文案');
+            })
+          },
+          ( e ) => {
+            console.log( "取消选择图片" );
+          },
+          {filter:"image"});
     },
     onSearch() {
       console.log('search');

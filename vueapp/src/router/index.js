@@ -181,7 +181,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history', //本地生成apk的成功 需要注释
   base: process.env.BASE_URL,
   routes
 })
