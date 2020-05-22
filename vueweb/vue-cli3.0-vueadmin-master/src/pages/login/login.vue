@@ -138,7 +138,7 @@ import { login } from '@/api/permission'
 export default {
     data() {
         const validateUsername = (rule, value, callback) => {
-            if (value.length < 5) {
+            if (value.length < 1) {
                 callback(new Error('请输入正确的用户名'))
             } else {
                 callback()
@@ -151,10 +151,15 @@ export default {
                 callback()
             }
         }
+
         return {
             loginType: true,
             loginForm: {
                 username: '',
+                password: ''
+            },
+            user: {
+                nickname: '',
                 password: ''
             },
             loginRules: {
@@ -199,10 +204,81 @@ export default {
         },
         async login() {
             try {
-                let data = await login(this.loginForm)
-                let token = data.token
-                this.$store.commit('LOGIN_IN', token)
-                this.$router.replace('/')
+                const foowwLocalStorage = {
+                    set: function(key, value, ttl_ms) {
+                        var data = {
+                            value: value,
+                            expirse: new Date(ttl_ms).getTime()
+                        }
+                        localStorage.setItem(key, JSON.stringify(data))
+                    },
+                    get: function(key) {
+                        var data = JSON.parse(localStorage.getItem(key))
+                        if (data !== null) {
+                            debugger
+                            if (
+                                data.expirse != null &&
+                                data.expirse < new Date().getTime()
+                            ) {
+                                localStorage.removeItem(key)
+                            } else {
+                                return data.value
+                            }
+                        }
+                        return null
+                    }
+                }
+                var token = foowwLocalStorage.get('token')
+                if (token === nill) {
+                    this.user.nickname = this.loginForm.username
+                    this.user.password = this.loginForm.password
+                    this.$axios
+                        .post(
+                            'http://localhost:8080/webinitialization/login',
+                            this.user
+                        )
+                        .then(res => {
+                            if (res.token != nill) {
+                                token = res.roken
+                                this.$store.commit('LOGIN_IN', token)
+
+                                let date = new Date().getTime()
+                                foowwLocalStorage.set(
+                                    'token',
+                                    token,
+                                    date + 10000 * 60 * 60 * 24 * 7
+                                )
+                                this.$router.replace('/')
+                            } else {
+                                this.$message({
+                                    message: '用户信息错误',
+                                    type: 'warning'
+                                })
+                            }
+                        })
+                } else {
+                    this.$axios
+                        .get(
+                            'http://localhost:8080/webinitialization/parsejwt',
+                            {
+                                params: {
+                                    token: token
+                                }
+                            }
+                        )
+                        .then(res => {
+                            if (res === nill) {
+                                this.$message({
+                                    message: '用户信息错误',
+                                    type: 'warning'
+                                })
+                            } else {
+                                this.$router.replace('/')
+                            }
+                        })
+                }
+
+                //this.$router.replace('/')
             } catch (e) {
                 console.log(e)
             }
