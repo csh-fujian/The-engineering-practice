@@ -71,16 +71,16 @@ public class classController {
      * @throws Exception
      */
     @RequestMapping("/participate/1")
-    public Double[] getWeiDu(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("ip") String ip) throws Exception {
+    public result getWeiDu(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("ip") String ip) throws Exception {
         result res = new result();
-        Double dou[] = IPUtils.getLatitudes(ip);
-        if(classManageService.isSucced(username,classId,ip,1)){
+        Double dou[] = IPUtils.getJingWeiDu(ip);
+        if(classManageService.isSucced(username,classId,ip,1,"")){
             res.setState("ok");
             
         }else{
             res.setState("false");
         }
         res.setMap("jingWeiDu", dou);
-        return ;
+        return res;
     }
 }

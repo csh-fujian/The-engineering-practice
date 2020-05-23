@@ -6,11 +6,17 @@ import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.service.IService.IClassManageService;
 import com.whch.presentCloud.service.IService.IUserLoginService;
+import com.whch.presentCloud.service.IService.IUserManageService;
+import com.whch.presentCloud.utils.TokenUtil;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,7 +35,37 @@ public class userLoginController {
     private IUserLoginService userloginservice;
     @Autowired
     private IClassManageService classManageService;
+    @Autowired
+    private IUserManageService userService;
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String notLogin() {
+        return "login";
+    }
+
+    @RequestMapping("/main")
+    @ResponseBody
+    public String test() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/noAuthorize")
+    @ResponseBody
+    public String notRole() {
+        return "您没有权限！";
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @ResponseBody
+    public String logout() {
+        Subject subject = SecurityUtils.getSubject();
+        //注销
+        subject.logout();
+        return "成功注销！";
+    }
+
+    
+    
     @RequestMapping("/loginbyphone")
     public Map<String,Object> login(@RequestParam("phone") String phone) {
         Map res = userloginservice.IsExistUser(phone);
@@ -38,9 +74,9 @@ public class userLoginController {
 
    
     //测试
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public result userLogin(@RequestParam("username")String number,@RequestParam("password")String password){
+    public result userLogin(@RequestParam("username")String number,@RequestParam("password")String password, HttpServletRequest request){
 //       System.out.println(tel+password);
         HashMap lessonInfo = new HashMap<>();
         result r = new result();
@@ -50,26 +86,48 @@ public class userLoginController {
             return r;
         }
 
-        int flag =userloginservice.IsExistUser(number, password);
-        
-        if(flag == 1)
-        {
-            List<classCourseMember> lessons = classManageService.getLessons(number);
-            List studentClassList = new ArrayList<>();
-            for (classCourseMember lesson : lessons) {
-               
-                lessonInfo.put("bankeName", lesson.getClassname());
-                lessonInfo.put("teacher", lesson.getTeachername());
-                lessonInfo.put("description", lesson.getClassname());
-                lessonInfo.put("profilePhoto", "");
-            } 
-            r.setState("true");
-            r.setRole("学生");
-            r.setResult(studentClassList);
-            return r;
-        } else if(flag == 2){
 
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(number, password);
+            subject.login(usernamePasswordToken);
+            // Roles role = rolesMapper.getRole(number);
+            userInfo role = userService.getUser(number);
+            String token = TokenUtil.getToken(role.getName(), Integer.toString(role.getId()) , request.getRemoteAddr());
+            
+            int flag =userloginservice.IsExistUser(number, password);
+            System.out.println(flag);
+            if(flag == 1)
+            {
+                List<classCourseMember> lessons = classManageService.getLessons(number);
+                List studentClassList = new ArrayList<>();
+                for (classCourseMember lesson : lessons) {
+                
+                    lessonInfo.put("bankeName", lesson.getClassname());
+                    lessonInfo.put("teacher", lesson.getTeachername());
+                    lessonInfo.put("description", lesson.getClassname());
+                    lessonInfo.put("profilePhoto", "");
+                } 
+                r.setState("true");
+                r.setRole("学生");
+                r.setResult(studentClassList);
+                //返回token
+                r.setToken(token);
+                return r;
+            } else if(flag == 2){
+
+            }
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            r.setState("false");
+            r.setInfo("帐号或用户名错误");
+            return r;
         }
+
+
+        
         
         r.setState("false");
         r.setInfo("帐号或用户名错误");

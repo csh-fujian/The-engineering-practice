@@ -9,6 +9,4 @@ public interface ISysparameterService {
     public List<sysparameter> findAll();
 
     public int delete(String name);
-
-    public int update(sysparameter sysp, sysparameter record);
 }

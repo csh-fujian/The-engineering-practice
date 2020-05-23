@@ -1,6 +1,7 @@
 package com.whch.presentCloud.controller.web;
 
-import com.whch.presentCloud.entity.*;
+import com.whch.presentCloud.entity.container;
+import com.whch.presentCloud.entity.menu;
 import com.whch.presentCloud.service.IService.IMenuManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,46 +22,26 @@ public class WebMenuController {
     }
 
     @PostMapping("addmenu")
-    public int addmenu(@RequestBody addmenu Menu)
+    public int addmenu(@RequestParam("menuname") String menuname, @RequestParam(value = "submenus[]") List<String> submenus)
     {
-        return menuS.addmenu(Menu.getMenuname(), Menu.getSubmenu());
-    }
-
-    @PostMapping("addmenu1/{menuname}")
-    public int addmenu(@PathVariable String menuname)
-    {
-        System.out.println(menuname);
-        return menuS.addmenu1(menuname);
+        return menuS.addmenu(menuname, submenus);
     }
 
     @PostMapping("addpage")
-    public int addpage(@RequestBody addpage Page1)
+    public int addpage(@RequestParam("menuname") String menuname, @RequestParam("supermenu") String supermenu, @RequestParam(value = "button[]") List<String> buttons)
     {
-        addpage p = Page1;
-        System.out.println(p.getMenuname());
-        System.out.println(p.getButtons());
-        return menuS.addpage(Page1.getMenuname(), Page1.getSupermenu(), Page1.getButtons());
+        return menuS.addpage(menuname, supermenu, buttons);
     }
 
-    @PostMapping("addpage1")
-    public int addpage1(@RequestBody addpage Page)
-    {
-        addpage p = Page;
-        System.out.println(p.getMenuname());
-        System.out.println(p.getButtons());
-        return menuS.addpage1(Page.getMenuname(), Page.getSupermenu());
-    }
     @PostMapping("addbutton")
-    public int addbutton(@RequestBody addbutton button1)
+    public int addbutton(@RequestParam("button") String button, @RequestParam("supermenu") String supermenu)
     {
-        System.out.println(button1);
-        return menuS.addbutton(button1.getButton(), button1.getSupermenu());
+        return menuS.addbutton(button, supermenu);
     }
 
     @RequestMapping("deletemenu")
-    public int deletemenu(@RequestBody addmenu delSel)
+    public int deletemenu(@RequestParam(value = "menus[]") List<String> menus)
     {
-        List<String> menus = delSel.getSubmenu();
         return menuS.deletemenu(menus);
     }
 

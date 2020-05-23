@@ -52,9 +52,4 @@ public class menuRepositoryImpl implements menuRepository {
         return menuM.deletemenu(menuname);
     }
 
-    @Override
-    public int findbyname(String menuname) {
-        return menuM.findbyname(menuname);
-    }
-
 }

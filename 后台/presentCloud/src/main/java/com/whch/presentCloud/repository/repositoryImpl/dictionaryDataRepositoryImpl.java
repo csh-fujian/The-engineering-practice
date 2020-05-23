@@ -64,17 +64,16 @@ public class dictionaryDataRepositoryImpl implements dictionaryDataRepository {
     }
 
     @Override
-    public int findbyvalue1(String valued, String keyd, Integer defaultvalued, String record) {
+    public int findbyvalue1(String valued, String keyd, String record) {
         dicM.updatebyvalue11(valued, keyd, record);
-        dicM.updatebyvalue12(valued, keyd, defaultvalued, record);
+        dicM.updatebyvalue12(valued, keyd, record);
         return 1;
     }
 
     @Override
-    public int findbyvalue2(String valued, String keyd, Integer defaultvalued, String record) {
+    public int findbyvalue2(String valued, String keyd, String record) {
         dicM.updatebyvalue21(valued, keyd, record);
-        dicM.updatebyvalue22(valued, keyd, defaultvalued, record);
-        dicM.updatebyvalue23(valued, keyd, record);
+        dicM.updatebyvalue22(valued, keyd, record);
         return 1;
     }
 

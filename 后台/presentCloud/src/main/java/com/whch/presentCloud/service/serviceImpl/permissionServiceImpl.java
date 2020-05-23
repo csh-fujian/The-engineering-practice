@@ -2,7 +2,6 @@ package com.whch.presentCloud.service.serviceImpl;
 
 import com.whch.presentCloud.entity.container;
 import com.whch.presentCloud.entity.permission;
-import com.whch.presentCloud.entity.rolemenu;
 import com.whch.presentCloud.repository.IRepository.permissionRepository;
 import com.whch.presentCloud.service.IService.IPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -58,9 +58,4 @@ public class permissionRepositoryImpl implements permissionRepository {
     public int addpermission(String role, String menu) {
         return permM.addpermisson(role, menu);
     }
-
-    @Override
-    public int findbyname(String menuname) {
-        return permM.findbyname(menuname);
-    }
 }
