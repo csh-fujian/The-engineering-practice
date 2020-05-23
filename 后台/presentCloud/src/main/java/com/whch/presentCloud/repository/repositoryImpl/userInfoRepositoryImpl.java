@@ -56,8 +56,8 @@ public class userInfoRepositoryImpl implements userInfoRepository {
         return userInfoM.getUser1(number,nickname);
     }
 
-    public userInfo login(String nickname, String password){
-        return userInfoM.findOne(nickname, password);
+    public userInfo login(String number, String password){
+        return userInfoM.findOne(number, password);
     }
 
     @Override

@@ -11,6 +11,7 @@ public class result {
     private String info;
     private String state;
     private String role;
+    private String token;
     private HashMap<String,Object> map;
     public result(){
         this.map = new HashMap<>();
@@ -55,6 +56,18 @@ public class result {
        
         this.map.put(str, obj);
        
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setMap(HashMap<String, Object> map) {
+        this.map = map;
     }
    
 

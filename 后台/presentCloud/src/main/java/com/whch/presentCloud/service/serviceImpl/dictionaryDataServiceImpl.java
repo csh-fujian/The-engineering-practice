@@ -48,12 +48,11 @@ public class dictionaryDataServiceImpl implements IDictionaryDataService {
     public int findbyvalue(directoryData dirtdata, directoryData record) {
         String valued = dirtdata.getValued();
         String keyd = dirtdata.getKeyd();
-        Integer defaultvalued = dirtdata.getDefaultvalued();
         if(record.getTyped() == "sexy"){
-            return dictR.findbyvalue1(valued, keyd, defaultvalued,record.getValued());
+            return dictR.findbyvalue1(valued, keyd, record.getValued());
         }
         else if(record.getTyped() == "role"){
-            return  dictR.findbyvalue2(valued, keyd, defaultvalued, record.getValued());
+            return  dictR.findbyvalue2(valued, keyd, record.getValued());
         }
         return dictR.findbyvalue0(valued, keyd, record.getValued());
 

@@ -27,8 +27,9 @@ public class userLoginServiceImpl implements IUserLoginService {
         user1.setName(number);
         user1.setPassword(password);
         userInfo user = userInfoRepo.get(user1);
+        System.out.println(user.getRole());
         if (user != null) {
-            if(user.getRole() == "学生")
+            if(user.getRole().equals("学生"))
             {
                 return 1;
             }

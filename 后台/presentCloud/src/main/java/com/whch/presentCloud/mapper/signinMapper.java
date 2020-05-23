@@ -29,5 +29,5 @@ public interface signinMapper {
 	List<signin> find(@Param("userId") Integer userId);
 
     @Select("select * from signin where ClassId = #{classId}")
-	int findByClassId(@Param("classId")String classId);
+	signin findByClassId(@Param("classId")String classId);
 }

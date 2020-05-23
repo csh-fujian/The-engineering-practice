@@ -23,9 +23,4 @@ public class sysparameterRepositoryImple implements sysparameterRepository {
     public int delete(String name) {
         return sysM.delete(name);
     }
-
-    @Override
-    public int updatesys(Integer value, String name, String record) {
-        return sysM.updatesys(value, name, record);
-    }
 }

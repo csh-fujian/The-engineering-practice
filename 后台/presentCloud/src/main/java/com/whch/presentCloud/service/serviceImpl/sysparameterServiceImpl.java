@@ -23,9 +23,4 @@ public class sysparameterServiceImpl implements ISysparameterService {
     public int delete(String name) {
         return sysR.delete(name);
     }
-
-    @Override
-    public int update(sysparameter sysp, sysparameter record) {
-        return sysR.updatesys(sysp.getValue(), sysp.getName(), record.getName());
-    }
 }

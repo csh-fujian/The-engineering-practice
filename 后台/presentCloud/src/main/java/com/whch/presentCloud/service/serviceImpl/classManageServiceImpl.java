@@ -169,14 +169,12 @@ public class classManageServiceImpl implements IClassManageService {
     }
 
     @Override
-    public boolean isSucced(String username, String classId, String ip,int role) {
+    public boolean isSucced(String username, String classId, String ip,int role,String stu_shouShi) throws Exception {
         signin sig = siginR.get(classId);
         String temp = sig.getPublisher();
         String res[] = temp.split(",");
-        //手势签到获取老师手势
-        if(role == 2){
-            String shouShi = res[2];
-        }
+        int flag = 0;
+        
         //获取老师经纬度
         GlobalCoordinates source = new GlobalCoordinates(Double.parseDouble(res[0]), Double.parseDouble(res[1]));
         
@@ -185,7 +183,22 @@ public class classManageServiceImpl implements IClassManageService {
         GlobalCoordinates target = new GlobalCoordinates(dou[0], dou[1]);
         //求距离，距离大于25米签到失败
         if(Distance.getDistanceMeter(source, target, Ellipsoid.Sphere) < 25){
-            return true;
+            flag = 1;
+        }
+
+        Date now = new Date();
+        
+        //手势签到获取老师手势
+        if(role == 2){
+            String shouShi = res[2];
+            //判断手势是否相同且签到时间是否符合
+            if(shouShi.equals(stu_shouShi) && (now.after(sig.getStarttime()))){
+                return true;
+            }
+        }else if(role == 1){
+            if((flag == 1) && (now.after(sig.getStarttime()))){
+                return true;
+            }
         }
         return false;
     }

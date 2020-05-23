@@ -43,7 +43,7 @@ public class signinRepositoryImpl implements signinRepository {
     }
 
     @Override
-    public int get(String classId) {
+    public signin get(String classId) {
         // TODO Auto-generated method stub
         return siginM.findByClassId(classId);
     }

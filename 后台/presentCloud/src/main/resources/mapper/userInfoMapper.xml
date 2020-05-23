@@ -177,7 +177,7 @@
         password = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.name != null" >
-        Name = #{record.name,jdbcType=VARCHAR},
+        Name = #{record.nam,jdbcType=VARCHAR},
       </if>
       <if test="record.nickname != null" >
         NickName = #{record.nickname,jdbcType=VARCHAR},

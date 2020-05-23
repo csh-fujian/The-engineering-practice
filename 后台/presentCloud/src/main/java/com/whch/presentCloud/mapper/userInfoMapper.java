@@ -19,7 +19,7 @@ public interface userInfoMapper {
 
     userInfo selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(@Param("record") userInfo record, @Param("oldnumber") String oldnumber);
+    int updateByPrimaryKeySelective(@Param("record") userInfo record, @Param("oldnumber") String number);
 
     int updateByPrimaryKeyWithBLOBs(userInfo record);
 
@@ -29,8 +29,8 @@ public interface userInfoMapper {
 
     List<userInfo> multiquery(String number, String role, String school, String department);
 
-    @Select("select * from userinfo u where u.nickname = #{nickname} and u.password = #{password}")
-	userInfo findOne(@Param("name")String nickname, @Param("password")String password);
+    @Select("select * from userinfo u where u.number = #{number} and u.password = #{password}")
+	userInfo findOne(@Param("number")String number, @Param("password")String password);
 
     @Select("select * from userinfo")
     List<userInfo> getAll();
@@ -43,4 +43,8 @@ public interface userInfoMapper {
 
     @Delete("delete from userinfo where number = #{number}")
     int deleteuser(@Param("number") String number);
+
+    @Select("select * from userinfo where number = #{number}")
+	userInfo findOneUser(@Param("number") String number);
+
 }

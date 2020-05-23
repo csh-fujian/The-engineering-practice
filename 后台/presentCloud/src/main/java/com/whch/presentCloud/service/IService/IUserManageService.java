@@ -9,6 +9,8 @@ public interface IUserManageService {
 
     public List<userInfo> getAllUser();
 
+    public userInfo getUser(String username);
+
     public int addUser(userInfo user);
 
     public int delete(userInfo user);

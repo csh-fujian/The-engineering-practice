@@ -19,6 +19,6 @@ public interface IClassManageService {
 
 	String getSignType(String classId);
 
-	boolean isSucced(String username, String classId, String ip, int i);
+	boolean isSucced(String username, String classId, String ip, int i, String string) throws Exception;
 
 }

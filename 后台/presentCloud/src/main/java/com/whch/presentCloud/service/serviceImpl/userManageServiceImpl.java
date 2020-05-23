@@ -51,4 +51,10 @@ public class userManageServiceImpl implements IUserManageService{
     public List<userInfo> multiquery(String number, String role, String school, String department) {
         return userRepo.multiquery(number, role, school, department);
     }
+
+    @Override
+    public userInfo getUser(String username) {
+       
+        return userMapper.findOneUser(username);
+    }
 }
