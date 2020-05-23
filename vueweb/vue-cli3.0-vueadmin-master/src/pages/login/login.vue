@@ -153,6 +153,8 @@ export default {
         }
 
         return {
+            date: 0,
+            token: '',
             loginType: true,
             loginForm: {
                 username: '',
@@ -176,6 +178,39 @@ export default {
             },
             loading: false,
             pwdType: 'password'
+        }
+    },
+    created: function() {
+        // `this` 指向 vm 实例
+        let date = new Date().getTime()
+        console.log(this.date)
+        let data = JSON.parse(localStorage.getItem('data'))
+        let dateLocal = data.date
+        let tokenLocal = data.token
+        if(data.token == nill){
+            return null
+        }
+        if (dateLocal != null || date-dateLocal>10000 * 60 * 60 * 24 * 7) {
+            localStorage.removeItem('data')
+            return null
+        } else {
+            await this.$axios
+                .get('http://localhost:8080/webinitialization/parsejwt', {
+                    params: {
+                        token: data.token
+                    }
+                })
+                .then(res => {
+                    if (res == null) {
+                        this.$message({
+                            message: '用户信息错误',
+                            type: 'warning'
+                        })
+                        return null
+                    } else {
+                        this.$router.replace('/')
+                    }
+                })
         }
     },
     methods: {
@@ -202,34 +237,19 @@ export default {
                 this.pwdType = 'password'
             }
         },
+        async login1() {
+            try {
+                let data = await login(this.loginForm)
+                let token = data.token
+                console.log(typeof token)
+                this.$store.commit('LOGIN_IN', token)
+                this.$router.replace('/')
+            } catch (e) {
+                console.log(e)
+            }
+        },
         async login() {
             try {
-                const foowwLocalStorage = {
-                    set: function(key, value, ttl_ms) {
-                        var data = {
-                            value: value,
-                            expirse: new Date(ttl_ms).getTime()
-                        }
-                        localStorage.setItem(key, JSON.stringify(data))
-                    },
-                    get: function(key) {
-                        var data = JSON.parse(localStorage.getItem(key))
-                        if (data !== null) {
-                            debugger
-                            if (
-                                data.expirse != null &&
-                                data.expirse < new Date().getTime()
-                            ) {
-                                localStorage.removeItem(key)
-                            } else {
-                                return data.value
-                            }
-                        }
-                        return null
-                    }
-                }
-                var token = foowwLocalStorage.get('token')
-                if (token === nill) {
                     this.user.nickname = this.loginForm.username
                     this.user.password = this.loginForm.password
                     this.$axios
@@ -243,43 +263,20 @@ export default {
                                 this.$store.commit('LOGIN_IN', token)
 
                                 let date = new Date().getTime()
-                                foowwLocalStorage.set(
-                                    'token',
-                                    token,
-                                    date + 10000 * 60 * 60 * 24 * 7
-                                )
+                                var data = { token: token, data: new Date().getTime()};
+                                localStorage.setItem(data, JSON.stringify(data));
                                 this.$router.replace('/')
                             } else {
                                 this.$message({
                                     message: '用户信息错误',
                                     type: 'warning'
                                 })
-                            }
-                        })
-                } else {
-                    this.$axios
-                        .get(
-                            'http://localhost:8080/webinitialization/parsejwt',
-                            {
-                                params: {
-                                    token: token
-                                }
-                            }
-                        )
-                        .then(res => {
-                            if (res === nill) {
-                                this.$message({
-                                    message: '用户信息错误',
-                                    type: 'warning'
-                                })
-                            } else {
-                                this.$router.replace('/')
                             }
                         })
                 }
 
                 //this.$router.replace('/')
-            } catch (e) {
+            catch (e) {
                 console.log(e)
             }
         }
