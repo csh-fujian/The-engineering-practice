@@ -1,14 +1,17 @@
 package com.whch.presentCloud.service.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.whch.presentCloud.entity.LoginResult;
+import com.whch.presentCloud.entity.classCourseMember;
 import com.whch.presentCloud.entity.classLesson;
 import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.repository.IRepository.userInfoRepository;
+import com.whch.presentCloud.service.IService.IClassManageService;
 import com.whch.presentCloud.service.IService.IUserLoginService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,10 @@ public class userLoginServiceImpl implements IUserLoginService {
 
     @Autowired
     private userInfoRepository userInfoRepo;
+    @Autowired
+    private IUserLoginService userloginservice;
+    @Autowired
+    private IClassManageService classManageService;
 
     //判断用户的角色
     @Override
@@ -33,18 +40,11 @@ public class userLoginServiceImpl implements IUserLoginService {
             {
                 return 1;
             }
-            else if(user.getRole() == "教师")
+            else if(user.getRole().equals("教师"))
             {
                 return 2;
             }
-            else if(user.getRole() == "助教")
-            {
-                return 3;
-            }
-            else if(user.getRole() == "管理员")
-            {
-                return 4;
-            }
+           
             
         }
         return 0;
@@ -115,5 +115,33 @@ public class userLoginServiceImpl implements IUserLoginService {
     @Override
     public userInfo login(String nickname, String password) {
         return userInfoRepo.login(nickname, password);
+    }
+
+    @Override
+    public result loginResult(String number, String password) {
+        HashMap lessonInfo = new HashMap<>();
+        result r = new result();
+        int flag =IsExistUser(number, password);
+        // System.out.println(flag);
+        if(flag == 1)
+        {
+            List<classCourseMember> lessons = classManageService.getLessons(number);
+            List studentClassList = new ArrayList<>();
+            for (classCourseMember lesson : lessons) {
+            
+                lessonInfo.put("bankeName", lesson.getClassname());
+                lessonInfo.put("teacher", lesson.getTeachername());
+                lessonInfo.put("description", lesson.getClassname());
+                lessonInfo.put("profilePhoto", "");
+            } 
+            r.setState("true");
+            r.setRole("学生");
+            r.setResult(studentClassList);
+            
+            return r;
+        } else if(flag == 2){
+
+        }
+        return null;
     }
 }

@@ -23,6 +23,13 @@
 
     <dependencies>
 
+    <!--lombok,简化实体类,mybatis plus和它很搭配-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
      <!--shiro-->
         <dependency>
             <groupId>org.apache.shiro</groupId>

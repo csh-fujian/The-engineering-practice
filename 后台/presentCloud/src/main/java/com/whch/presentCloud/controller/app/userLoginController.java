@@ -1,5 +1,14 @@
+/*
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: whc
+ * @Date: 2020-04-09 22:48:05
+ * @LastEditors: whc
+ * @LastEditTime: 2020-05-23 13:07:56
+ */ 
 package com.whch.presentCloud.controller.app;
 
+import com.whch.presentCloud.entity.ResponseData;
 import com.whch.presentCloud.entity.classCourseMember;
 import com.whch.presentCloud.entity.classLesson;
 import com.whch.presentCloud.entity.result;
@@ -7,11 +16,13 @@ import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.service.IService.IClassManageService;
 import com.whch.presentCloud.service.IService.IUserLoginService;
 import com.whch.presentCloud.service.IService.IUserManageService;
+import com.whch.presentCloud.utils.ResponseDataUtil;
 import com.whch.presentCloud.utils.TokenUtil;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -19,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +39,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-
-@Controller
+@RestController
 public class userLoginController {
 
     @Autowired
@@ -38,30 +49,22 @@ public class userLoginController {
     @Autowired
     private IUserManageService userService;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String notLogin() {
-        return "login";
-    }
-
-    @RequestMapping("/main")
-    @ResponseBody
-    public String test() {
-        return "login";
-    }
+   
 
     @RequestMapping(value = "/noAuthorize")
     @ResponseBody
-    public String notRole() {
-        return "您没有权限！";
+    public ResponseData notRole() {
+    
+        return ResponseDataUtil.authorizationFailed("您没有权限！");
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseBody
-    public String logout() {
+    public ResponseData logout() {
         Subject subject = SecurityUtils.getSubject();
         //注销
         subject.logout();
-        return "成功注销！";
+        return ResponseDataUtil.success("成功注销！");
     }
 
     
@@ -72,8 +75,7 @@ public class userLoginController {
         return res;
     }
 
-   
-    //测试
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public result userLogin(@RequestParam("username")String number,@RequestParam("password")String password, HttpServletRequest request){
@@ -88,62 +90,32 @@ public class userLoginController {
 
 
         try {
+            //shiro 用户权限认证 教师/学生
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(number, password);
             subject.login(usernamePasswordToken);
-            // Roles role = rolesMapper.getRole(number);
             userInfo role = userService.getUser(number);
+            //生成token
             String token = TokenUtil.getToken(role.getName(), Integer.toString(role.getId()) , request.getRemoteAddr());
             
-            int flag =userloginservice.IsExistUser(number, password);
-            System.out.println(flag);
-            if(flag == 1)
-            {
-                List<classCourseMember> lessons = classManageService.getLessons(number);
-                List studentClassList = new ArrayList<>();
-                for (classCourseMember lesson : lessons) {
-                
-                    lessonInfo.put("bankeName", lesson.getClassname());
-                    lessonInfo.put("teacher", lesson.getTeachername());
-                    lessonInfo.put("description", lesson.getClassname());
-                    lessonInfo.put("profilePhoto", "");
-                } 
-                r.setState("true");
-                r.setRole("学生");
-                r.setResult(studentClassList);
-                //返回token
-                r.setToken(token);
-                return r;
-            } else if(flag == 2){
-
-            }
-            
-            
+           
+            //返回登录结果
+            result r1 = userloginservice.loginResult(number, password);
+            //返回token
+            r1.setToken(token);
+            return r1;
         } catch (Exception e) {
             e.printStackTrace();
             r.setState("false");
             r.setInfo("帐号或用户名错误");
             return r;
         }
-
-
-        
-        
-        r.setState("false");
-        r.setInfo("帐号或用户名错误");
-        return r;
         
     }
 
-    /**
-     * 退出登录
-     * @param request
-     * @return
-     */
-    @RequestMapping("/userLoginOut")
-    public String userLoginOutController(HttpServletRequest request){
-        request.getSession().removeAttribute("session_user");
-        return "login";
+    @RequestMapping(value = "/noLogin", method = RequestMethod.GET)
+    public ResponseData notLogin() {
+        return ResponseDataUtil.failure("请先登录！");
     }
 
     /**

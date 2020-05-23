@@ -10,7 +10,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  
 public class TokenUtil {
     private static final String secret = "secret";
-    public static final String tokenHeard = "tokenHead";
+    public static final String tokenHeard = "token";
     private static final Long expTime = 60 * 5 * 1000L;
 
     public static String getToken(String name,String id,String ip) {

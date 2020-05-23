@@ -25,4 +25,6 @@ public interface IUserLoginService {
 	public int setpw(userInfo user, String password);
 
 	public userInfo login(String nickname, String password);
+
+	public result loginResult(String number, String password);
 }

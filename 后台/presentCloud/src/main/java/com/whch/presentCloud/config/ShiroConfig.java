@@ -17,7 +17,9 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Configuration
 public class ShiroConfig {
     @Bean
@@ -52,22 +54,25 @@ public class ShiroConfig {
         filter.setFilters(filterMap);
 
         //定义相关路径
-        // filter.setLoginUrl("/login");
-        // filter.setUnauthorizedUrl("/noAuthorize");
+        //让未登录的返回登录操作提醒
+        filter.setLoginUrl("/noLogin");
+        //拦截没有权限的用户跳到哪里去
+        filter.setUnauthorizedUrl("/noAuthorize");
 
         //定义拦截路径,记得将静态资源也排除过滤
         /*进行权限的控制,必须使用LinkHashMap,shrio要按照顺序进行设置*/
         Map<String, String> authMap = new LinkedHashMap<>();
         authMap.put("/login.html", "anon");
         // authMap.put("/static/**", "anon");
-        // authMap.put("/user/**", "client,roles[user]");
-        // authMap.put("/admin/**", "client,roles[admin]");
+        // authMap.put("/student/**", "client,roles[user]");
+        authMap.put("/teacher/**", "client,roles[老师]");
         authMap.put("/login", "anon");
         authMap.put("/**", "client");
         filter.setFilterChainDefinitionMap(authMap);
 
         //配置完成
-        System.out.println("---------------shirofactory创建成功");
+        log.info("---------------shirofactory创建成功");
+        
         return filter;
     }
 }
