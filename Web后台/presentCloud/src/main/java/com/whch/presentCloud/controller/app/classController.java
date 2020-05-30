@@ -21,38 +21,5 @@ public class classController {
      * @param studentId
      * @return
      */
-    @RequestMapping("/join-class")
-    public List<Map> joinClass(@RequestParam("classId")String classId , @RequestParam("username")String studentId)
-
-    {
-        List<Map> resul = classManageService.getCourse(classId);
-        return resul;
-    }
-
-    /**
-     * 加入班课
-     * @param classId
-     * @param studentId
-     * @return
-     */
-    @RequestMapping("/join-class/join-in")
-    public String joinIn(@RequestParam("classId")String classId , @RequestParam("username")String studentId)
-    {
-        String resul = classManageService.addCourse(classId,studentId);
-        return resul;
-    }
-
-    @RequestMapping("one-class")
-    public Map<String,Object> getClassInfo(@RequestParam("classId")String classId,@RequestParam("username")String username)
-    {
-        Map<String,Object> res = classManageService.getLesson(classId,username);
-        return res;
-    }
-
-    @RequestMapping("/participate")
-    public String participate(@RequestParam("username")String username)
-    {
-        return "";
-    }
     
 }
