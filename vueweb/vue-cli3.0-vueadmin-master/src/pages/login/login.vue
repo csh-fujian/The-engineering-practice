@@ -194,7 +194,7 @@ export default {
             localStorage.removeItem('data')
             return null
         } else {
-            await this.$axios
+            await.this.$axios
                 .get('http://localhost:8080/webinitialization/parsejwt', {
                     params: {
                         token: data.token

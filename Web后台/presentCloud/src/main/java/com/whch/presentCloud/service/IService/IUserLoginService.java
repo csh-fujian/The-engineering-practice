@@ -3,12 +3,7 @@ package com.whch.presentCloud.service.IService;
 import java.util.List;
 import java.util.Map;
 
-import com.whch.presentCloud.entity.LoginResult;
-import com.whch.presentCloud.entity.classLesson;
-import com.whch.presentCloud.entity.result;
-import com.whch.presentCloud.entity.userInfo;
-
-
+import com.whch.presentCloud.entity.*;
 
 
 public interface IUserLoginService {
@@ -25,4 +20,8 @@ public interface IUserLoginService {
 	public int setpw(userInfo user, String password);
 
 	public userInfo login(String nickname, String password);
+
+	public admin adminlogin(String name, String password);
+
+	public admin admintoken(String name);
 }

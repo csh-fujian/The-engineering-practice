@@ -1,5 +1,7 @@
 package com.whch.presentCloud.entity;
 
+import java.util.Date;
+
 public class classLesson {
     private Integer classid;
 
@@ -21,6 +23,10 @@ public class classLesson {
 
     private String college;
 
+    private String school;
+
+    private Date creattime;
+
     public Integer getClassid() {
         return classid;
     }
@@ -34,7 +40,7 @@ public class classLesson {
     }
 
     public void setClassname(String classname) {
-        this.classname = classname == null ? null : classname.trim();
+        this.classname = classname;
     }
 
     public String getTeachername() {
@@ -42,7 +48,7 @@ public class classLesson {
     }
 
     public void setTeachername(String teachername) {
-        this.teachername = teachername == null ? null : teachername.trim();
+        this.teachername = teachername;
     }
 
     public Integer getTeacherid() {
@@ -58,7 +64,7 @@ public class classLesson {
     }
 
     public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+        this.type = type;
     }
 
     public String getMaster() {
@@ -66,7 +72,7 @@ public class classLesson {
     }
 
     public void setMaster(String master) {
-        this.master = master == null ? null : master.trim();
+        this.master = master;
     }
 
     public Integer getPeopleCount() {
@@ -82,7 +88,7 @@ public class classLesson {
     }
 
     public void setLocation(String location) {
-        this.location = location == null ? null : location.trim();
+        this.location = location;
     }
 
     public String getClasstime() {
@@ -90,7 +96,7 @@ public class classLesson {
     }
 
     public void setClasstime(String classtime) {
-        this.classtime = classtime == null ? null : classtime.trim();
+        this.classtime = classtime;
     }
 
     public String getCollege() {
@@ -98,6 +104,22 @@ public class classLesson {
     }
 
     public void setCollege(String college) {
-        this.college = college == null ? null : college.trim();
+        this.college = college;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public Date getCreattime() {
+        return creattime;
+    }
+
+    public void setCreattime(Date creattime) {
+        this.creattime = creattime;
     }
 }

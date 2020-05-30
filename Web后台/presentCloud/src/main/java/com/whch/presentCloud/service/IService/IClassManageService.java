@@ -11,7 +11,15 @@ public interface IClassManageService {
 
 	List<classCourseMember> getLessons(String number);
 
-	String addCourse(String classId, String studentId);
+	public boolean addCourse(classLesson Class);
+
+	public boolean deleteCourse(Integer classid);
+
+	public List<classLesson> find(String teachername);
+
+	public List<classLesson> findAll();
+
+	public boolean updateCourse(classLesson Class);
 
 	List<Map> getCourse(String classId);
 

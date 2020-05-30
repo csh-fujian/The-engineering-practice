@@ -1,7 +1,9 @@
 package com.whch.presentCloud.service.serviceImpl;
 
+import com.whch.presentCloud.entity.admin;
 import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.entity.userInfo;
+import com.whch.presentCloud.mapper.adminMapper;
 import com.whch.presentCloud.repository.IRepository.userInfoRepository;
 import com.whch.presentCloud.service.IService.IUserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class userLoginServiceImpl implements IUserLoginService {
 
     @Autowired
     private userInfoRepository userInfoRepo;
+
+    @Autowired
+    private adminMapper adminM;
 
     //判断用户的角色
     @Override
@@ -107,8 +112,19 @@ public class userLoginServiceImpl implements IUserLoginService {
         return userInfoRepo.update(user, user.getNumber());
     }
 
+
     @Override
     public userInfo login(String nickname, String password) {
         return userInfoRepo.login(nickname, password);
+    }
+
+    @Override
+    public admin adminlogin(String name, String password) {
+        return adminM.adminlogin(name, password);
+    }
+
+    @Override
+    public admin admintoken(String name) {
+        return adminM.admintoken(name);
     }
 }

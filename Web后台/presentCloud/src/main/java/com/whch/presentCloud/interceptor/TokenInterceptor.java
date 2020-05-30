@@ -18,8 +18,6 @@ import java.io.IOException;
 public class TokenInterceptor implements HandlerInterceptor {
 
     @Autowired
-    private tokenMapper tokenM;
-    @Autowired
     private ITokenService tokenS;
 
     @Override
@@ -35,10 +33,6 @@ public class TokenInterceptor implements HandlerInterceptor {
         }
         CheckResult checkResult = tokenS.validateJWT(headerToken);
         if(checkResult.isSuccess()){
-            Claims claims = checkResult.getClaims();
-            String subject = claims.getSubject();
-            JSONObject jsonObject = JSON.parseObject(subject);
-            userInfo user = JSON.toJavaObject(jsonObject, userInfo.class);
             return true;
         }else {
             throw new BaseException(999, "token解析失败");

@@ -11,6 +11,7 @@ import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.entity.task;
 import com.whch.presentCloud.entity.taskMemory;
 import com.whch.presentCloud.mapper.classCourseMemberMapper;
+import com.whch.presentCloud.mapper.classLessonMapper;
 import com.whch.presentCloud.repository.IRepository.classLessonRepository;
 import com.whch.presentCloud.repository.IRepository.taskMemoryRepository;
 import com.whch.presentCloud.repository.IRepository.taskRepository;
@@ -25,6 +26,8 @@ public class classManageServiceImpl implements IClassManageService {
     @Autowired
     private classLessonRepository classLessonR;
     @Autowired
+    private classLessonMapper classM;
+    @Autowired
     private classCourseMemberMapper courseM;
     @Autowired
     private taskMemoryRepository taskM;
@@ -37,19 +40,48 @@ public class classManageServiceImpl implements IClassManageService {
     }
 
     @Override
-    public String addCourse(String classId, String studentId) {
+    public boolean addCourse(classLesson Class) {
         // TODO Auto-generated method stub
         // 课程成员
-        classCourseMember course1 = new classCourseMember();
-        course1.setClassid(Integer.parseInt(classId));
-        course1.setStudentid(studentId);
-        int flag = courseM.insertSelective(course1);
+        int flag = classM.insertSelective(Class);
+        if(flag == 1)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean deleteCourse(Integer classid) {
+        int flag = classM.deleteByPrimaryKey(classid);
         if(flag == 0)
         {
-            return "false";
+            return false;
         }
-        return "true";
+        courseM.deleteByPrimaryKey(classid);
+        return true;
     }
+
+    @Override
+    public List<classLesson> find(String teachername) {
+        return classM.find(teachername);
+    }
+
+    @Override
+    public List<classLesson> findAll() {
+        return classM.findAll();
+    }
+
+    @Override
+    public boolean updateCourse(classLesson Class) {
+        int flag = classM.updateByPrimaryKeySelective(Class);
+        if(flag == 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
 
     @Override
     public List<Map> getCourse(String classId) {

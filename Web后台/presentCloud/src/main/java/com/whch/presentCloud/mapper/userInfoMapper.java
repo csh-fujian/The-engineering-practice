@@ -6,10 +6,11 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-
+@Component
 public interface userInfoMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -46,4 +47,7 @@ public interface userInfoMapper {
 
     @Delete("delete from userinfo where number = #{number}")
     int deleteuser(@Param("number") String number);
+
+    @Select("select * from userinfo u where u.name = #{name} and u.role = #{role}")
+    userInfo findOne1(@Param("name")String name, @Param("role")String role);
 }

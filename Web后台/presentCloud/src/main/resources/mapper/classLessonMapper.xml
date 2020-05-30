@@ -12,10 +12,12 @@
     <result column="Location" property="location" jdbcType="VARCHAR" />
     <result column="ClassTime" property="classtime" jdbcType="VARCHAR" />
     <result column="College" property="college" jdbcType="VARCHAR" />
+    <result column="School" property="school" jdbcType="VARCHAR" />
+    <result column="CreatTime" property="creattime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
     ClassId, ClassName, TeacherName, TeacherId, type, Master, People_Count, Location, 
-    ClassTime, College
+    ClassTime, College, School, CreatTime
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -31,11 +33,11 @@
     insert into classlesson (ClassId, ClassName, TeacherName, 
       TeacherId, type, Master, 
       People_Count, Location, ClassTime, 
-      College)
+      College, School)
     values (#{classid,jdbcType=INTEGER}, #{classname,jdbcType=VARCHAR}, #{teachername,jdbcType=VARCHAR}, 
       #{teacherid,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{master,jdbcType=VARCHAR}, 
       #{peopleCount,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{classtime,jdbcType=VARCHAR}, 
-      #{college,jdbcType=VARCHAR})
+      #{college,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{creattime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.whch.presentCloud.entity.classLesson" >
     insert into classlesson
@@ -70,6 +72,12 @@
       <if test="college != null" >
         College,
       </if>
+      <if test="school != null" >
+        School,
+      </if>
+      <if test="creattime != null" >
+        CreatTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="classid != null" >
@@ -101,6 +109,12 @@
       </if>
       <if test="college != null" >
         #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="shcool != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="creattime != null" >
+        #{creattime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -134,6 +148,12 @@
       <if test="college != null" >
         College = #{college,jdbcType=VARCHAR},
       </if>
+      <if test="school != null" >
+        School = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="creattime != null" >
+        CreatTime = #{creattime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where ClassId = #{classid,jdbcType=INTEGER}
   </update>
@@ -147,7 +167,9 @@
       People_Count = #{peopleCount,jdbcType=INTEGER},
       Location = #{location,jdbcType=VARCHAR},
       ClassTime = #{classtime,jdbcType=VARCHAR},
-      College = #{college,jdbcType=VARCHAR}
+      College = #{college,jdbcType=VARCHAR},
+      School = #{school,jdbcType=VARCHAR},
+      CreatTime = #{creattime,jdbcType=TIMESTAMP}
     where ClassId = #{classid,jdbcType=INTEGER}
   </update>
 </mapper>

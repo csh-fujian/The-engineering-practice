@@ -11,7 +11,7 @@
  Target Server Version : 50562
  File Encoding         : 65001
 
- Date: 22/05/2020 12:23:13
+ Date: 31/05/2020 00:46:53
 */
 
 SET NAMES utf8mb4;
@@ -28,6 +28,18 @@ CREATE TABLE `admin`  (
   `Password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+INSERT INTO `admin` VALUES (1, 'zhb', '1', '190327107zhb');
+INSERT INTO `admin` VALUES (2, 'lhd', '1', '190327064lhd');
+INSERT INTO `admin` VALUES (3, 'csh', '1', '190327022csh');
+INSERT INTO `admin` VALUES (4, 'zal', '1', '190327105zal');
+INSERT INTO `admin` VALUES (5, 'whc', '1', '190327072whc');
+INSERT INTO `admin` VALUES (6, '张三', '2', '88888888zs');
+INSERT INTO `admin` VALUES (7, '李四', '2', '88888888ls');
+INSERT INTO `admin` VALUES (8, '王五', '2', '88888888ww');
 
 -- ----------------------------
 -- Table structure for checkinhistory
@@ -75,6 +87,8 @@ CREATE TABLE `classlesson`  (
   `Location` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `ClassTime` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `College` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `School` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `CreatTime` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`ClassId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -564,6 +578,6 @@ CREATE TABLE `userinfo`  (
 -- ----------------------------
 -- Records of userinfo
 -- ----------------------------
-INSERT INTO `userinfo` VALUES (2, '190327201', NULL, '张三', NULL, NULL, NULL, '男', '福州大学', '数学与计算机科学学院', '教师', '18965151839', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (2, '190327201', 'xxx123', '张三', NULL, '李四', NULL, '男', '福州大学', '数学与计算机科学学院', '教师', '18965151839', NULL, NULL, NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

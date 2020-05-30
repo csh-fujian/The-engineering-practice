@@ -7,6 +7,7 @@ import com.whch.presentCloud.service.IService.IUserManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -47,7 +48,7 @@ public class WebUserController {
      * @return
      */
     @GetMapping("finduser")
-    public List<userInfo> finduser()
+    public List<userInfo> finduser(HttpServletRequest request)
     {
         return usermanage.getAllUser();
     }
