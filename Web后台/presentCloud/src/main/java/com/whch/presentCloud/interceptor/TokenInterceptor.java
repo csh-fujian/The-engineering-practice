@@ -26,7 +26,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
 
-        final String headerToken = request.getHeader("Authorization");
+        String headerToken = request.getHeader("Authorization");
 
         if (headerToken == null || headerToken.trim().equals("")){
             throw new BaseException(999, "token为空，需要登录");
