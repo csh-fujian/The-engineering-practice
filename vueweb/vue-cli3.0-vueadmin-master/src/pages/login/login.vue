@@ -51,7 +51,7 @@
                     type="primary"
                     style="width:100%;"
                     :loading="loading"
-                    @click.native.prevent="login"
+                    @click.native.prevent="login1"
                 >
                     登 录
                 </el-button>
@@ -180,39 +180,39 @@ export default {
             pwdType: 'password'
         }
     },
-    created: function() {
-        // `this` 指向 vm 实例
-        let date = new Date().getTime()
-        console.log(this.date)
-        let data = JSON.parse(localStorage.getItem('data'))
-        let dateLocal = data.date
-        let tokenLocal = data.token
-        if(data.token == nill){
-            return null
-        }
-        if (dateLocal != null || date-dateLocal>10000 * 60 * 60 * 24 * 7) {
-            localStorage.removeItem('data')
-            return null
-        } else {
-            await.this.$axios
-                .get('http://localhost:8080/webinitialization/parsejwt', {
-                    params: {
-                        token: data.token
-                    }
-                })
-                .then(res => {
-                    if (res == null) {
-                        this.$message({
-                            message: '用户信息错误',
-                            type: 'warning'
-                        })
-                        return null
-                    } else {
-                        this.$router.replace('/')
-                    }
-                })
-        }
-    },
+    // created: function() {
+    //     // `this` 指向 vm 实例
+    //     let date = new Date().getTime()
+    //     console.log(this.date)
+    //     let data = JSON.parse(localStorage.getItem('data'))
+    //     let dateLocal = data.date
+    //     let tokenLocal = data.token
+    //     if(data.token == nill){
+    //         return null
+    //     }
+    //     if (dateLocal != null || date-dateLocal>10000 * 60 * 60 * 24 * 7) {
+    //         localStorage.removeItem('data')
+    //         return null
+    //     } else {
+    //         await.this.$axios
+    //             .get('http://localhost:8080/webinitialization/parsejwt', {
+    //                 params: {
+    //                     token: data.token
+    //                 }
+    //             })
+    //             .then(res => {
+    //                 if (res == null) {
+    //                     this.$message({
+    //                         message: '用户信息错误',
+    //                         type: 'warning'
+    //                     })
+    //                     return null
+    //                 } else {
+    //                     this.$router.replace('/')
+    //                 }
+    //             })
+    //     }
+    // },
     methods: {
         changeToM() {
             // 第一种方式
@@ -247,39 +247,39 @@ export default {
             } catch (e) {
                 console.log(e)
             }
-        },
-        async login() {
-            try {
-                    this.user.nickname = this.loginForm.username
-                    this.user.password = this.loginForm.password
-                    this.$axios
-                        .post(
-                            'http://localhost:8080/webinitialization/login',
-                            this.user
-                        )
-                        .then(res => {
-                            if (res.token != nill) {
-                                token = res.roken
-                                this.$store.commit('LOGIN_IN', token)
-
-                                let date = new Date().getTime()
-                                var data = { token: token, data: new Date().getTime()};
-                                localStorage.setItem(data, JSON.stringify(data));
-                                this.$router.replace('/')
-                            } else {
-                                this.$message({
-                                    message: '用户信息错误',
-                                    type: 'warning'
-                                })
-                            }
-                        })
-                }
-
-                //this.$router.replace('/')
-            catch (e) {
-                console.log(e)
-            }
         }
+        // async login() {
+        //     try {
+        //             this.user.nickname = this.loginForm.username
+        //             this.user.password = this.loginForm.password
+        //             this.$axios
+        //                 .post(
+        //                     'http://localhost:8080/webinitialization/login',
+        //                     this.user
+        //                 )
+        //                 .then(res => {
+        //                     if (res.token != nill) {
+        //                         token = res.roken
+        //                         this.$store.commit('LOGIN_IN', token)
+        //
+        //                         let date = new Date().getTime()
+        //                         var data = { token: token, data: new Date().getTime()};
+        //                         localStorage.setItem(data, JSON.stringify(data));
+        //                         this.$router.replace('/')
+        //                     } else {
+        //                         this.$message({
+        //                             message: '用户信息错误',
+        //                             type: 'warning'
+        //                         })
+        //                     }
+        //                 })
+        //         }
+        //
+        //         //this.$router.replace('/')
+        //     catch (e) {
+        //         console.log(e)
+        //     }
+        // }
     }
 }
 </script>
