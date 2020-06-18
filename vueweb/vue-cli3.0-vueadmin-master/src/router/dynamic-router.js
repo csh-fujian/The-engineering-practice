@@ -7,6 +7,9 @@ const Workmanage = () => import('@/pages/classManage/viewClasslist')
 /* 角色管理 */
 const designRolemanage = () => import('@/pages/Design-role-manage')
 const designRolemanage1 = () => import('@/pages/Design-role-manage/Design-role-manage1')
+/* 管理员管理*/
+const administrator = () => import('@/pages/administrator')
+const administratorManagement = () => import('@/pages/administrator/administratorManagement')
 /* 用户管理*/
 const Usermanage = () => import('@/pages/user-manage')
 const Usermanagetest = () => import('@/pages/user-manage/user-manage-test')
@@ -25,6 +28,26 @@ const Menumanage = () => import('@/pages/menuManage')
 const Menu = () => import('@/pages/menuManage/menu')
 /* 需要权限判断的路由 */
 const dynamicRoutes = [
+    {
+        path:'/administrator',
+        component:administrator,
+        name:'administrator',
+        meta: {
+            name: '管理员管理',
+            icon: 'user'
+        },
+        children: [
+            {
+                path: 'administratorManagement',
+                name: 'administratorManagement',
+                component: administratorManagement,
+                meta: {
+                    name: '管理员管理',
+                    icon: 'table'
+                }
+            },
+        ]
+    },
     {
         path:'/Datadictionary',
         component:Datadictionary,

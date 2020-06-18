@@ -66,10 +66,22 @@
                     <el-input v-model="user.name"></el-input>
                 </el-form-item>
                 <el-form-item label="性别">
-                    <el-input v-model="user.sex"></el-input>
+                    <div class="block">
+                        <el-cascader 
+                            v-model="value"
+                            :options="options1"
+                            :placeholder="user.sex"
+                            @change="handleChange"></el-cascader>
+                    </div>
                 </el-form-item>
                 <el-form-item label="身份">
-                    <el-input v-model="user.role"></el-input>
+                <div class="block">
+                        <el-cascader
+                            v-model="value"
+                            :options="options2"
+                            :placeholder="user.role"
+                            @change="handleChange"></el-cascader>
+                    </div>
                 </el-form-item>
                 <el-form-item label="电话号码">
                     <el-input v-model="user.phone"></el-input>
@@ -101,10 +113,20 @@
                     <el-input v-model="user.name"></el-input>
                 </el-form-item>
                 <el-form-item label="性别">
-                    <el-input v-model="user.sex"></el-input>
+                    <div class="block">
+                        <el-cascader 
+                            v-model="value"
+                            :options="options1"
+                            :placeholder="user.sex"
+                            @change="handleChange"></el-cascader>
+                    </div>
                 </el-form-item>
                 <el-form-item label="身份">
-                    <el-input v-model="user.role"></el-input>
+                        <el-cascader
+                            v-model="value"
+                            :options="options2"
+                            :placeholder="user.role"
+                            @change="handleChange"></el-cascader>
                 </el-form-item>
                 <el-form-item label="电话号码">
                     <el-input v-model="user.phone"></el-input>
@@ -143,6 +165,9 @@
                     school: '福州大学',
                     department: '数学与计算机科学'
                 },
+                dicd: {
+                    typed:''
+                },
                 userinfo: {
                     number: '190327064111',
                     name: '王小虎',
@@ -175,6 +200,20 @@
                 }],
                 search: '',
                 value: [],
+                options1: [{
+                    value: '男',
+                    label: '男',
+                }, {
+                    value: '女',
+                    label: '女',
+                }],
+                options2: [{
+                    value: '教师',
+                    label: '教师',
+                }, {
+                    value: '学生',
+                    label: '学生',
+                }],
                 options: [{
                     value: '福州大学',
                     label: '福州大学',
@@ -207,19 +246,53 @@
                     }]
                 }]
             }
+            
         },
         methods: {
             handleEdit(index, row) {
                 this.editUser.oldnumber = row.number
                 this.user = row
                 this.dialogVisible2 = true
-                console.log(index, row)
+                 this.user.sex='男'
+                _this=this
+                this.$axios.get('http://localhost:8080/webdictionary/finddata','sexy').then(function(resp) {
+                        _this.user.sex = resp.data
+                })
+                this.user.role='教师'
+                this.$axios.get('http://localhost:8080/webdictionary/finddata','role').then(function(resp) {
+                        _this.user.role = resp.data
+                })
+                this.dicd.typed='sex'
+                this.$axios.get('http://localhost:8080/webdictionary/finddata',this.dicd).then(function(resp) {
+                        _this.option1.label=resp.data
+                        _this.dicd.typed='role'
+                        _this.$axios.get('http://localhost:8080/webdictionary/finddata',_this.dicd).then(function(resp) {
+                                _this.option2.label=resp.data
+                })
+                })
             },
             adduser() {
                 this.dialogVisible = true
                 this.user = []
-                // this.user.department='数学与计算机科学学院'
-                // this.user.school='福州大学'
+                this.user.sex='男'
+                _this=this
+                this.$axios.get('http://localhost:8080/webdictionary/finddata','sexy').then(function(resp) {
+                        _this.user.sex = resp.data
+                })
+                this.user.role='教师'
+                this.$axios.get('http://localhost:8080/webdictionary/finddata','role').then(function(resp) {
+                        _this.user.role = resp.data
+                })
+                this.dicd.typed='sex'
+                this.$axios.get('http://localhost:8080/webdictionary/finddata',this.dicd).then(function(resp) {
+                        _this.option1.label=resp.data
+                        _this.dicd.typed='role'
+                        _this.$axios.get('http://localhost:8080/webdictionary/finddata',_this.dicd).then(function(resp) {
+                                _this.option2.label=resp.data
+                })
+                })
+
+
             },
             handleChange(value) {
                 console.log(value)
@@ -293,6 +366,7 @@
         },
         created() {
             const _this = this
+            
             this.$axios.get('http://localhost:8080/webuser/finduser').then(function(resp) {
                 _this.tableData = resp.data
                 console.log(_this.tableData)
