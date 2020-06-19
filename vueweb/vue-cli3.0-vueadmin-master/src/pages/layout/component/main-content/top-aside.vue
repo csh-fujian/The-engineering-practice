@@ -31,6 +31,7 @@
                     </span>
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>个人中心</el-dropdown-item>
+
                         <el-dropdown-item @click.native="resetPassword">修改密码</el-dropdown-item>
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -54,6 +55,32 @@ export default {
         ...mapState('permission', ['avatar', 'account'])
     },
     methods: {
+        resetPassword(){
+        //     this.$message({
+        //         title: '消息',
+        //         message: '修改成功'
+        //     })
+            this.$prompt('请输入新密码', '修改密码', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                inputPattern: 		/^[a-z0-9_-]{6,18}$/,
+                inputErrorMessage: '密码格式不正确'
+            }).then(({ value }) => {
+                    password:value
+                    this.$axios.post('http://localhost:8080/webadmin/update', password).then(res => {
+                        this.$message({
+                            type: 'success',
+                            message: '你的邮箱是: ' + value
+                        });
+                    })
+
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '取消输入'
+                });
+            });
+        },
         toggleNavCollapse() {
             this.$store.commit('toggleNavCollapse')
         },

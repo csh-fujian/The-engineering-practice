@@ -255,13 +255,13 @@ export default {
             try {
                 this.user.nickname = this.loginForm.username
                 this.user.password = this.loginForm.password
-                this.$axios.post('http://localhost:3000/login', this.user).then(res => {
+                this.$axios.post('http://localhost:8080/webinitialization/login', this.user).then(res => {
                     console.log('1')
                     console.log(res.data.token)
                     if(res.data.token == null){
                         this.$message({
                             title: '消息',
-                            message: '登录成功'
+                            message: '登录失败用户名密码有误'
                         })
                     }else{
                         let token = res.data.token
