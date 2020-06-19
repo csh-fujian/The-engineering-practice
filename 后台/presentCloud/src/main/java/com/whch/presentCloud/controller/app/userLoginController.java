@@ -4,7 +4,7 @@
  * @Autor: whc
  * @Date: 2020-04-09 22:48:05
  * @LastEditors: whc
- * @LastEditTime: 2020-05-23 13:07:56
+ * @LastEditTime: 2020-05-23 20:13:16
  */ 
 package com.whch.presentCloud.controller.app;
 
@@ -19,6 +19,7 @@ import com.whch.presentCloud.service.IService.IUserManageService;
 import com.whch.presentCloud.utils.ResponseDataUtil;
 import com.whch.presentCloud.utils.TokenUtil;
 
+import org.apache.http.HttpResponse;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class userLoginController {
@@ -60,8 +62,9 @@ public class userLoginController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseData logout() {
-        Subject subject = SecurityUtils.getSubject();
+    public ResponseData logout(HttpServletRequest request,HttpServletResponse response)  {
+        // Subject subject = SecurityUtils.getSubject();
+        getSubject(response,request).login();
         //注销
         subject.logout();
         return ResponseDataUtil.success("成功注销！");
@@ -136,5 +139,9 @@ public class userLoginController {
         return "false";
     }
 
-    
+    @RequestMapping("/main")
+    @ResponseBody
+    public String test() {
+        return "main";
+    }
 }

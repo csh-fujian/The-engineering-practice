@@ -54,6 +54,8 @@ export default {
              permissionList.data.push('Design-role-manage')
             permissionList.data.push('user-manage-test')
             permissionList.data.push('user-manage')
+            permissionList.data.push('administratorManagement')
+            permissionList.data.push('administrator')
             permissionList.data.push('role-manage')
             permissionList.data.push('menu')
             permissionList.data.push('menumanage')
