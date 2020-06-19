@@ -42,8 +42,15 @@ export default {
     },
     actions: {
         async FETCH_PERMISSION({ commit, state }) {
-            let permissionList = await fetchPermission()
-             permissionList.data.push('Design-role-manage1')
+            // let permissionList = await fetchPermission()
+            // console.log(permissionList)
+            let permissionList = {
+            avatar : "https://randy168.com/1533262153771.gif",
+            data : [],
+            name: "custom",
+            roles: ["custom"]
+        }
+            permissionList.data.push('Design-role-manage1')
              permissionList.data.push('Design-role-manage')
             permissionList.data.push('user-manage-test')
             permissionList.data.push('user-manage')

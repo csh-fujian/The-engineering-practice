@@ -135,6 +135,7 @@
 
 <script>
 import { login } from '@/api/permission'
+import { fetchPermission } from '@/api/permission'
 export default {
     data() {
         const validateUsername = (rule, value, callback) => {
@@ -180,7 +181,20 @@ export default {
             pwdType: 'password'
         }
     },
-    // created: function() {
+    created: function() {
+        let token = localStorage.getItem('token');
+        if(token == null){
+            this.$message({
+                message: '用户信息错误',
+                type: 'warning'
+            })
+            return null;
+        }else{
+
+            this.$axios.get('http://localhost:3000/token', token).then(res => {
+
+            })
+        }
     //     // `this` 指向 vm 实例
     //     let date = new Date().getTime()
     //     console.log(this.date)
@@ -212,7 +226,7 @@ export default {
     //                 }
     //             })
     //     }
-    // },
+    },
     methods: {
         changeToM() {
             // 第一种方式
@@ -239,10 +253,43 @@ export default {
         },
         async login1() {
             try {
-                let data = await login(this.loginForm)
-                let token = data.token
-                console.log(typeof token)
+                this.user.nickname = this.loginForm.username
+                this.user.password = this.loginForm.password
+                this.$axios.post('http://localhost:3000/login', this.user).then(res => {
+                    console.log('1')
+                    console.log(res.data.token)
+                    if(res.data.token == null){
+                        this.$message({
+                            title: '消息',
+                            message: '登录成功'
+                        })
+                    }else{
+                        let token = res.data.token
+                        console.log(typeof token)
+                        this.$store.commit('LOGIN_IN', token)
+                        this.$router.replace('/')
+                    }
+
+                })
+                //let token = resp.data.token
+                // let data = await login(this.loginForm)
+                // let token = data.token
+                // console.log(typeof token)
+                // this.$store.commit('LOGIN_IN', token)
+                // this.$router.replace('/')
+            } catch (e) {
+                // console.log(e)
+            }
+        },
+        async login() {
+            try {
+                //let data = await login(this.loginForm)
+                 //let token = data.token
+                let token = "dfasasdasdasdsadasdas"
+                // console.log(data)
                 this.$store.commit('LOGIN_IN', token)
+
+
                 this.$router.replace('/')
             } catch (e) {
                 console.log(e)

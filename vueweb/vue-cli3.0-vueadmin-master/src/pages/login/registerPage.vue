@@ -36,7 +36,7 @@
                 <el-input
                     name="checkPass"
                     v-model="registerForm.checkPass"
-                    
+
                     autocomplete="off"
                 ></el-input>
             </el-form-item>
@@ -126,13 +126,13 @@ export default {
         async register() {
             try {
                 // let data = await register(this.registerForm)
-                
+
                 var registerData = { userInfo: {} }
                 registerData.userInfo.name = this.registerForm.name
                 registerData.userInfo.idNumber = this.registerForm.idNumber
                 registerData.userInfo.phoneNumber = this.registerForm.phoneNumber
                 registerData.userInfo.passWord = this.registerForm.pass
-                this.$notify.info({
+                this.$message({
                     title: '消息',
                     message: '注册成功'
                 })
