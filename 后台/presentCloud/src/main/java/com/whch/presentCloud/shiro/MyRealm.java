@@ -46,15 +46,22 @@ public class MyRealm extends AuthorizingRealm {
         //从token中获取信息,此token只是shiro用于身份验证的,并非前端传过来的token.
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
+        
         userInfo user = userService.getUser(username);
         // String password = rolesMapper.getPassword(username);
         String password = user.getPassword();
+
+         /*获取当前的用户,已经登录后可以使用在任意的地方获取用户的信息*/
+         String current_username = (String) SecurityUtils.getSubject().getPrincipal();
 
         if (null == password) {
             throw new AuthenticationException("doGetAuthenticationInfo中的用户名不对");
         } else if (!password.equals(new String(token.getPassword()))){
             throw new AuthenticationException("doGetAuthenticationInfo中的密码不对");
+        }else if(!current_username.equals(username)){
+            throw new AuthenticationException("请求着与当前登录者不匹配");
         }
+        
         //组合一个验证信息
         System.out.println("token.getPrincipal()默认返回的username======"+token.getPrincipal());
         System.out.println("getName()"+getName());
