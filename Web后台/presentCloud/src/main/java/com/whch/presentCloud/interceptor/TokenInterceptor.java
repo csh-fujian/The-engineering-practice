@@ -9,6 +9,7 @@ import com.whch.presentCloud.mapper.tokenMapper;
 import com.whch.presentCloud.service.IService.ITokenService;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +26,16 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-
+        System.out.println(arg2);
+        System.out.println("1");
+        String a = request.getParameter("id");
+        System.out.println(a);
         String headerToken = request.getHeader("Authorization");
+        System.out.println(headerToken);
+
+        if (HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
+            return true;
+        }
 
         if (headerToken == null || headerToken.trim().equals("")){
             throw new BaseException(999, "token为空，需要登录");

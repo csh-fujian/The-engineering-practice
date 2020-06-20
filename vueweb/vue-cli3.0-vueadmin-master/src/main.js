@@ -13,7 +13,7 @@ import '@/icons'
 import axios from 'axios'
 Vue.prototype.$axios = axios
 // Vue.prototype.$http = axios
-
+axios.defaults.withCredentials = true;
 for (var key in globalFilter) {
     Vue.filter(key, globalFilter[key])
 }

@@ -37,7 +37,7 @@
                 <el-input
                     name="password"
                     :type="pwdType"
-                    @keyup.enter.native="login"
+                    @keyup.enter.native="login1"
                     v-model="loginForm.password"
                     autoComplete="on"
                     placeholder="请输入密码"
@@ -181,20 +181,20 @@ export default {
             pwdType: 'password'
         }
     },
-    created: function() {
-        let token = localStorage.getItem('token');
-        if(token == null){
-            this.$message({
-                message: '用户信息错误',
-                type: 'warning'
-            })
-            return null;
-        }else{
+    //created: function() {
+    //    let token = localStorage.getItem('token');
+    //    if(token == null){
+    //        this.$message({
+    //            message: '用户信息错误',
+    //            type: 'warning'
+    //        })
+    //        return null;
+    //    }else{
 
-            this.$axios.get('http://localhost:3000/token', token).then(res => {
+    //        this.$axios.get('http://localhost:3000/token', token).then(res => {
 
-            })
-        }
+    //        })
+    //    }
     //     // `this` 指向 vm 实例
     //     let date = new Date().getTime()
     //     console.log(this.date)
@@ -226,7 +226,7 @@ export default {
     //                 }
     //             })
     //     }
-    },
+    //},
     methods: {
         changeToM() {
             // 第一种方式
@@ -255,9 +255,11 @@ export default {
             try {
                 this.user.nickname = this.loginForm.username
                 this.user.password = this.loginForm.password
-                this.$axios.post('http://localhost:8080/webinitialization/login', this.user).then(res => {
+                this.$axios.post('http://localhost:8080/webinitialization/login', this.user,{headers:{
+				'Authorization': 'dasdasdasdfaq2e312'
+				}}).then(res => {
                     console.log('1')
-                    console.log(res.data.token)
+                    console.log(res.data)
                     if(res.data.token == null){
                         this.$message({
                             title: '消息',

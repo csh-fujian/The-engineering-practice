@@ -47,12 +47,14 @@ public class WebAdminController {
     @RequestMapping("update")
     public int update(@PathVariable String password, HttpServletRequest request) throws Exception
     {
+        System.out.println(password);
         String Token = request.getHeader("Authorization");
         Claims claims = tokenS.parseJWT(Token);
         String subject = claims.getSubject();
         JSONObject jsonObject = JSON.parseObject(subject);
         admin Admin = JSON.toJavaObject(jsonObject, admin.class);
         admin Admin1 = userloginservice.admintoken(Admin.getName());
+        System.out.println(Admin1.getName());
         if (Admin1 != null)
         {
             return adminS.update(password, Admin.getName());

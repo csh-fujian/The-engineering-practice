@@ -35,11 +35,12 @@ public class WebUserLoginController {
     @PostMapping("login")
     public Object login(@RequestBody userInfo user, HttpServletRequest request)
     {
+        String a = request.getHeader("Authorization");
+        System.out.println(a);
         JSONObject jsonObject = new JSONObject();
         admin Admin = userloginservice.adminlogin(user.getNickname(), user.getPassword());
         userInfo user1 = userloginservice.login(user.getNickname(), user.getPassword());
-
-        if (Admin == null || user1 == null){
+        if (Admin == null && user1 == null){
             jsonObject.put("message", "登录失败,用户名或密码错误");
             return jsonObject;
         }

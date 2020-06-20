@@ -55,6 +55,43 @@ export default {
         ...mapState('permission', ['avatar', 'account'])
     },
     methods: {
+
+
+
+
+
+		getProduct () {     
+      this.$axios.post("http://localhost:8080/webadmin/update",{id:3,name:'abc'},{
+        headers: {
+			'Postman-Token':'asdasdasdas',
+           'Content-Type': 'application/x-www-form-urlencoded',
+           'Authorization': "dasdasdjaskdhasjkdhkasj",
+		   'Accept': '*/*',
+		   'User-Agent':'PostmanRuntime/7.25.0'
+        }
+      }).then(function(res){
+          console.log('post请求...'); 
+          console.log(res.data);  
+      });     
+    }, 
+
+		getProduct1 () {     
+      this.$axios.post("http://localhost:8080/webadmin/update",{id:3,name:'abc'},{
+        headers: {
+           'content-type': 'application/x-www-form-urlencoded',
+           'Authorization': 'dasdasdjaskdhasjkdhkasj',
+		   'Connection': 'keep-alive',
+		   'Accept':'*/*',
+		   'Accept-Encoding':'gzip, deflate, br'
+		   
+        }
+      }).then(function(res){
+          console.log('post请求...'); 
+          console.log(res.data);  
+      });     
+    }, 
+
+		
         resetPassword(){
         //     this.$message({
         //         title: '消息',
@@ -66,11 +103,17 @@ export default {
                 inputPattern: 		/^[a-z0-9_-]{6,18}$/,
                 inputErrorMessage: '密码格式不正确'
             }).then(({ value }) => {
-                    password:value
-                    this.$axios.post('http://localhost:8080/webadmin/update', password).then(res => {
+					let password = value
+					let token = localStorage.getItem('token')
+                    this.$axios.post('http://localhost:8080/webadmin/update',{password: value},{
+        headers: {
+           'Content-Type': 'application/x-www-form-urlencoded',
+           'Authorization': localStorage.getItem('token')
+        }
+		}).then(res => {
                         this.$message({
                             type: 'success',
-                            message: '你的邮箱是: ' + value
+                            message: '修改成功'
                         });
                     })
 
