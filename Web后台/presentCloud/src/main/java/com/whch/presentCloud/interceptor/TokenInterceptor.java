@@ -3,6 +3,7 @@ package com.whch.presentCloud.interceptor;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.whch.presentCloud.entity.CheckResult;
+import com.whch.presentCloud.entity.admin;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.exception.BaseException;
 import com.whch.presentCloud.mapper.tokenMapper;
@@ -26,13 +27,9 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        System.out.println(arg2);
-        System.out.println("1");
-        String a = request.getParameter("id");
-        System.out.println(a);
         String headerToken = request.getHeader("Authorization");
+        System.out.println("========4===========");
         System.out.println(headerToken);
-
         if (HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
             return true;
         }
@@ -40,7 +37,9 @@ public class TokenInterceptor implements HandlerInterceptor {
         if (headerToken == null || headerToken.trim().equals("")){
             throw new BaseException(999, "token为空，需要登录");
         }
+
         CheckResult checkResult = tokenS.validateJWT(headerToken);
+
         if(checkResult.isSuccess()){
             return true;
         }else {

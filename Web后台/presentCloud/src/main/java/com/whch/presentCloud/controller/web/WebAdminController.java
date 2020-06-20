@@ -44,9 +44,10 @@ public class WebAdminController {
         return adminS.find();
     }
 
-    @RequestMapping("update")
+    @RequestMapping("update/{password}")
     public int update(@PathVariable String password, HttpServletRequest request) throws Exception
     {
+        System.out.println("======???========");
         System.out.println(password);
         String Token = request.getHeader("Authorization");
         Claims claims = tokenS.parseJWT(Token);

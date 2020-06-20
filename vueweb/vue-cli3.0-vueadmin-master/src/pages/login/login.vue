@@ -255,9 +255,7 @@ export default {
             try {
                 this.user.nickname = this.loginForm.username
                 this.user.password = this.loginForm.password
-                this.$axios.post('http://localhost:8080/webinitialization/login', this.user,{headers:{
-				'Authorization': 'dasdasdasdfaq2e312'
-				}}).then(res => {
+                this.$axios.post('http://localhost:8080/webinitialization/login', this.user).then(res => {
                     console.log('1')
                     console.log(res.data)
                     if(res.data.token == null){

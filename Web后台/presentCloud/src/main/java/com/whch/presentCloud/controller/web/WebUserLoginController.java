@@ -35,8 +35,6 @@ public class WebUserLoginController {
     @PostMapping("login")
     public Object login(@RequestBody userInfo user, HttpServletRequest request)
     {
-        String a = request.getHeader("Authorization");
-        System.out.println(a);
         JSONObject jsonObject = new JSONObject();
         admin Admin = userloginservice.adminlogin(user.getNickname(), user.getPassword());
         userInfo user1 = userloginservice.login(user.getNickname(), user.getPassword());
@@ -48,7 +46,7 @@ public class WebUserLoginController {
             String tokenString = "";
             Date date = new Date();
             int nowTime = (int) (date.getTime()/1000);
-            tokenString = tokenS.createtoken(user1, date);
+            tokenString = tokenS.createtoken(user, date);
             jsonObject.put("message", "用户登录成功");
             jsonObject.put("token", tokenString);
             jsonObject.put("role", "admin");
