@@ -1,3 +1,11 @@
+/*
+ * @Description: app 班课管理模块
+ * @Version: 1.0
+ * @Autor: whc
+ * @Date: 2020-04-17 18:04:31
+ * @LastEditors: whc
+ * @LastEditTime: 2020-06-19 10:34:23
+ */ 
 package com.whch.presentCloud.controller.app;
 
 import java.util.List;
@@ -71,7 +79,7 @@ public class classController {
      * @throws Exception
      */
     @RequestMapping("/participate/1")
-    public result getWeiDu(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("ip") String ip) throws Exception {
+    public result participate(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("ip") String ip) throws Exception {
         result res = new result();
         Double dou[] = IPUtils.getJingWeiDu(ip);
         if(classManageService.isSucced(username,classId,ip,1,"")){
@@ -82,5 +90,34 @@ public class classController {
         }
         res.setMap("jingWeiDu", dou);
         return res;
+    }
+
+    /**
+     * 手势签到
+     * @param username 学号
+     * @param classId
+     * @param number 1-4-5-7-9
+     * @param ip ip地址
+     * @return 
+     * @throws Exception
+     */
+
+    @RequestMapping("/participate/2")
+    public result shouShiQiandao(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("number")String number, @RequestParam("ip") String ip) throws Exception {
+        result res = new result();
+        Double dou[] = IPUtils.getJingWeiDu(ip);
+        if(classManageService.isSucced(username,classId,ip,2,number)){
+            res.setState("ok");
+            
+        }else{
+            res.setState("false");
+        }
+        res.setMap("jingWeiDu", dou);
+        return res;
+    }
+
+    @RequestMapping("/login-out")
+    public String logout(@RequestParam("username")String username,@RequestParam("classId")String classId){
+        return classManageService.logoutLesson(username,classId);
     }
 }

@@ -203,4 +203,11 @@ public class classManageServiceImpl implements IClassManageService {
         return false;
     }
 
+    @Override
+    public String logoutLesson(String username, String classId) {
+        if(courseM.delete(username,Integer.parseInt(classId)))
+            return "ok";
+        return "false";
+    }
+
 }

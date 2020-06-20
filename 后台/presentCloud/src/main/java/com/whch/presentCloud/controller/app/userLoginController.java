@@ -4,7 +4,7 @@
  * @Autor: whc
  * @Date: 2020-04-09 22:48:05
  * @LastEditors: whc
- * @LastEditTime: 2020-05-23 20:13:16
+ * @LastEditTime: 2020-06-19 10:17:19
  */ 
 package com.whch.presentCloud.controller.app;
 
@@ -23,6 +23,7 @@ import org.apache.http.HttpResponse;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.StringUtils;
 import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,7 +65,7 @@ public class userLoginController {
     @ResponseBody
     public ResponseData logout(HttpServletRequest request,HttpServletResponse response)  {
         // Subject subject = SecurityUtils.getSubject();
-        getSubject(response,request).login();
+        Subject subject = SecurityUtils.getSubject();
         //注销
         subject.logout();
         return ResponseDataUtil.success("成功注销！");

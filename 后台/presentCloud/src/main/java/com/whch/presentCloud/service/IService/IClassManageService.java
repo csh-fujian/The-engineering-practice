@@ -21,4 +21,6 @@ public interface IClassManageService {
 
 	boolean isSucced(String username, String classId, String ip, int i, String string) throws Exception;
 
+	String logoutLesson(String username, String classId);
+
 }
