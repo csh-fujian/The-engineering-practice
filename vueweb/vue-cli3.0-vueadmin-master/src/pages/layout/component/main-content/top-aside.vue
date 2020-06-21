@@ -106,7 +106,7 @@ export default {
 					let password = value
 					let token = localStorage.getItem('token')
                 console.log(token)
-                   this.$axios.post('http://localhost:8080/webadmin/update/', password, {
+                   this.$axios.post('http://localhost:8080/webadmin/update/'+ password, {}, {
         headers: {
            'Content-Type': 'application/x-www-form-urlencoded',
            'Authorization': localStorage.getItem('token')
