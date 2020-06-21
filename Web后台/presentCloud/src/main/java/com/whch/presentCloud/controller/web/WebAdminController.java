@@ -53,16 +53,19 @@ public class WebAdminController {
         Claims claims = tokenS.parseJWT(Token);
         String subject = claims.getSubject();
         JSONObject jsonObject = JSON.parseObject(subject);
-        admin Admin = JSON.toJavaObject(jsonObject, admin.class);
-        admin Admin1 = userloginservice.admintoken(Admin.getName());
-        System.out.println(Admin1.getName());
-        if (Admin1 != null)
-        {
+        userInfo user = JSON.toJavaObject(jsonObject, userInfo.class);
+        if (Token.equals("")){
+            System.out.println("token为空");
+        }
+        admin Admin = userloginservice.adminlogin(user.getNickname(), user.getPassword());
+        userInfo user1 = userloginservice.login(user.getNickname(), user.getPassword());
+        if (Admin == null && user1 == null){
+            return 0;
+        }
+        else if(Admin != null){
             return adminS.update(password, Admin.getName());
         }
-        else {
-            JSONObject jsonObject1 = JSON.parseObject(subject);
-            userInfo user = JSON.toJavaObject(jsonObject1, userInfo.class);
+        else{
             return userloginservice.setpw(user, password);
         }
     }
