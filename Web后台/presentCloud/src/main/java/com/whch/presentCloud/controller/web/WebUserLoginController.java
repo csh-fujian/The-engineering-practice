@@ -72,7 +72,7 @@ public class WebUserLoginController {
 
     @GetMapping("parsejwt")
     public Object parsejwt(HttpServletRequest request) throws Exception{
-        String Token = request.getParameter("token");
+        String Token = request.getHeader("Authorization");
         if (Token.equals("")){
             System.out.println("token为空");
         }
@@ -82,6 +82,37 @@ public class WebUserLoginController {
         userInfo user = JSON.toJavaObject(jsonObject, userInfo.class);
         return user;
     }
+
+    @GetMapping("parse")
+    public Object parse(HttpServletRequest request) throws Exception{
+        String Token = request.getHeader("Authorization");
+        Claims claims = tokenS.parseJWT(Token);
+        String subject = claims.getSubject();
+        JSONObject jsonObject = JSON.parseObject(subject);
+        userInfo user = JSON.toJavaObject(jsonObject, userInfo.class);
+        if (Token.equals("")){
+            System.out.println("token为空");
+        }
+        admin Admin = userloginservice.adminlogin(user.getNickname(), user.getPassword());
+        userInfo user1 = userloginservice.login(user.getNickname(), user.getPassword());
+        if (Admin == null && user1 == null){
+            jsonObject.put("message", "未知错误");
+            return jsonObject;
+        }
+        else if(Admin != null){
+            jsonObject.put("role", "admin");
+            jsonObject.put("nickname", Admin.getName());
+            jsonObject.put("layer", Admin.getAccount());
+            return jsonObject;
+        }
+        else{
+            jsonObject.put("role", "teacher");
+            jsonObject.put("nickname", user1.getNickname());
+            return jsonObject;
+        }
+    }
+
+
 
     //测试
     @RequestMapping("login1")
