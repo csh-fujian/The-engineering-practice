@@ -257,7 +257,7 @@ export default {
                 this.user.password = this.loginForm.password
                 this.$axios
                     .post(
-                        'http://localhost:8080/webinitialization/login',
+                        'http://47.112.239.108:8080/webinitialization/login',
                         this.user
                     )
                     .then(res => {

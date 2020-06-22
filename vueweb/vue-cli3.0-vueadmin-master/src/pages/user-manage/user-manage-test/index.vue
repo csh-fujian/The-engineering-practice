@@ -255,18 +255,18 @@
                 this.dialogVisible2 = true
                  this.user.sex='男'
                 _this=this
-                this.$axios.get('http://localhost:8080/webdictionary/finddata','sexy').then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','sexy').then(function(resp) {
                         _this.user.sex = resp.data
                 })
                 this.user.role='教师'
-                this.$axios.get('http://localhost:8080/webdictionary/finddata','role').then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','role').then(function(resp) {
                         _this.user.role = resp.data
                 })
                 this.dicd.typed='sex'
-                this.$axios.get('http://localhost:8080/webdictionary/finddata',this.dicd).then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',this.dicd).then(function(resp) {
                         _this.option1.label=resp.data
                         _this.dicd.typed='role'
-                        _this.$axios.get('http://localhost:8080/webdictionary/finddata',_this.dicd).then(function(resp) {
+                        _this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',_this.dicd).then(function(resp) {
                                 _this.option2.label=resp.data
                 })
                 })
@@ -276,18 +276,18 @@
                 this.user = []
                 this.user.sex='男'
                 _this=this
-                this.$axios.get('http://localhost:8080/webdictionary/finddata','sexy').then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','sexy').then(function(resp) {
                         _this.user.sex = resp.data
                 })
                 this.user.role='教师'
-                this.$axios.get('http://localhost:8080/webdictionary/finddata','role').then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','role').then(function(resp) {
                         _this.user.role = resp.data
                 })
                 this.dicd.typed='sex'
-                this.$axios.get('http://localhost:8080/webdictionary/finddata',this.dicd).then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',this.dicd).then(function(resp) {
                         _this.option1.label=resp.data
                         _this.dicd.typed='role'
-                        _this.$axios.get('http://localhost:8080/webdictionary/finddata',_this.dicd).then(function(resp) {
+                        _this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',_this.dicd).then(function(resp) {
                                 _this.option2.label=resp.data
                 })
                 })
@@ -304,7 +304,12 @@
                 this.dialogVisible2 = false
                 this.editUser.user = this.user
                 console.log(this.editUser)
-                this.$axios.post('http://localhost:8080/webuser/updateuser/' ,this.editUser).then(function(resp) {
+                this.$axios.post('http://47.112.239.108:8080/webuser/updateuser/' ,this.editUser,{
+                                headers: {
+
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                     this.$alert('编辑用户成功', '编辑用户', {
                         confirmButtonText: '确定',
                         callback: action => {
@@ -315,8 +320,18 @@
             handleDelete(index, row) {
                 console.log(this.user)
                 this.user = row
-                this.$axios.post('http://localhost:8080/webuser/deleteuser', this.user).then(function(resp) {
-                    _this.$axios.get('http://localhost:8080/webuser/finduser').then(function(resp) {
+                this.$axios.post('http://47.112.239.108:8080/webuser/deleteuser', this.user,{
+                                headers: {
+
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
+                    _this.$axios.get('http://47.112.239.108:8080/webuser/finduser',{
+                                headers: {
+
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.tableData = resp.data
                         console.log(_this.tableData)
                         this.$alert('新增用户成功', '删除用户', {
@@ -348,8 +363,17 @@
                 this.userinfo.school = this.user.school
                 this.userinfo.department = this.user.department
                 console.log(this.userinfo)
-                this.$axios.post('http://localhost:8080/webuser/adduser', this.userinfo).then(function(resp) {
-                    _this.$axios.get('http://localhost:8080/webuser/finduser').then(function(resp) {
+                this.$axios.post('http://47.112.239.108:8080/webuser/adduser', this.userinfo,{
+                                headers: {
+
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
+                    _this.$axios.get('http://47.112.239.108:8080/webuser/finduser',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.tableData = resp.data
                         this.$alert('新增用户成功', '新增用户', {
                             confirmButtonText: '确定',
@@ -367,7 +391,12 @@
         created() {
             const _this = this
             
-            this.$axios.get('http://localhost:8080/webuser/finduser').then(function(resp) {
+            this.$axios.get('http://47.112.239.108:8080/webuser/finduser',{
+                                headers: {
+
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                 _this.tableData = resp.data
                 console.log(_this.tableData)
                 // alert(321)
