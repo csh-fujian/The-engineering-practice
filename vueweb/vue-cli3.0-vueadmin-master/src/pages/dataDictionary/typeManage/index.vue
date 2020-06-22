@@ -137,8 +137,18 @@ export default {
             this.diction.type = this.dict.type
             this.diction.typed = this.dict.typed
             const _this = this
-            this.$axios.post('http://localhost:8080/webdictionary/addtype', this.diction).then(function(resp) {
-                _this.$axios.get('http://localhost:8080/webdictionary/findtype').then(function(resp) {
+            this.$axios.post('http://localhost:8080/webdictionary/addtype', this.diction,{
+                                headers: {
+
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
+                _this.$axios.get('http://localhost:8080/webdictionary/findtype',{
+                                headers: {
+                                  
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                     _this.tableData = resp.data
                     this.$alert('新增类型成功', '新增类型', {
                         confirmButtonText: '确定',
@@ -152,7 +162,12 @@ export default {
     },
     created() {
         const _this = this
-        this.$axios.get('http://localhost:8080/webdictionary/findtype').then(function(resp) {
+        this.$axios.get('http://localhost:8080/webdictionary/findtype',{
+                                headers: {
+
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
             _this.tableData = resp.data
         })
     }

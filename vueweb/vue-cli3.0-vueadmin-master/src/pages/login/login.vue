@@ -37,7 +37,7 @@
                 <el-input
                     name="password"
                     :type="pwdType"
-                    @keyup.enter.native="login"
+                    @keyup.enter.native="login1"
                     v-model="loginForm.password"
                     autoComplete="on"
                     placeholder="请输入密码"
@@ -51,7 +51,7 @@
                     type="primary"
                     style="width:100%;"
                     :loading="loading"
-                    @click.native.prevent="login"
+                    @click.native.prevent="login1"
                 >
                     登 录
                 </el-button>

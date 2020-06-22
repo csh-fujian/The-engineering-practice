@@ -72,18 +72,18 @@ export default {
         }
     },
     created: function() {
+	 console.log("1")
         this.$axios
             .get(
                 'http://localhost:8080/webclass/findAll',
                 {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
                         Authorization: localStorage.getItem('token')
                     }
                 }
             )
             .then(res => {
-               console.log(res.classLesson)
+               console.log(res)
             })
         this.tableData1 = [
             {
@@ -131,24 +131,23 @@ export default {
     methods: {
 
         onSearch() {
-            console.log('success')
+            //console.log('success')
         },
         addclass() {
-            let class ={
+            let classget ={
                 id: 2020622001,
                 classname: '中国特色社会主义',
-                teachername: '奥观海',
+                teachername: '张三',
                 school: '福州大学',
                 college: '人文学院',
         }
             this.$axios
                 .post(
                     'http://localhost:8080/webclass/adminaddclass',
-                    class,
+                    classget,
                     {
                         headers: {
-                            'Content-Type':
-                                'application/x-www-form-urlencoded',
+
                             Authorization: localStorage.getItem('token')
                         }
                     }
@@ -164,7 +163,7 @@ export default {
 
 
 
-            console.log('success')
+            //console.log('success')
         },
         Click() {
             console.log('success')
