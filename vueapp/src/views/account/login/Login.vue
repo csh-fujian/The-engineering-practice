@@ -16,7 +16,7 @@
         <van-tab  name="accountLogin">
           <div class="different-login">
             <account-login />
-            <login-bottom :buttonName="buttonName" />
+            <login-bottom :buttonName="buttonName"/>
           </div>
           <span :class="{tabTitle:!titleActive}" slot="title">账号登录</span>
         </van-tab>
@@ -33,6 +33,7 @@
   import Footer from "components/Footer";
 
   import { Button, Tab, Tabs } from 'vant';
+  import {getLogin} from "network/account/home";
 
   export default {
     name: "Login",
@@ -61,6 +62,11 @@
       [Tab.name]: Tab,
       [Tabs.name]: Tabs,
     },
+    methods: {
+      accountLogin() {
+        console.log('logintest');
+      }
+    }
   }
 </script>
 

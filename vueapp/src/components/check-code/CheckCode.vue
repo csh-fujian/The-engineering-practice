@@ -28,7 +28,10 @@
               @blur="showKeyboard = false"
       />
 
-      <van-button type="primary" block class="margin-top-normal">重新获取</van-button>
+      <van-button type="primary" block
+                  class="margin-top-normal"
+                  :disabled="cannt_click"
+                  @click="btnClick">{{content}}</van-button>
     </div>
   </div>
 </template>
@@ -44,19 +47,46 @@
         value: '',
         showKeyboard: true,
         errorInfo: '',
-        phone: ''
+        phone: '',
+        cannt_click: true,
+        totalTime: 30,
+        TOTALTIME: 30,
+        content: '',
+        goto: '',
       }
     },
     props: {
     },
     created() {
       this.phone = this.$route.params.phone
+      this.goto = this.$route.params.thing
+      console.log(this.goto);
+      this.onCalcTime();
+
     },
     components: {
       [PasswordInput.name]: PasswordInput,
       [NumberKeyboard.name]: NumberKeyboard
     },
     methods: {
+      btnClick() {
+        this.cannt_click = true
+        this.onCalcTime();
+      },
+      onCalcTime() {
+        this.content = this.totalTime + 's后重新发送'  //这里解决60秒不见了的问题
+        let clock = window.setInterval(() => {
+          this.totalTime--
+          this.content = this.totalTime + 's后重新发送'
+          this.cannt_click=true
+          if (this.totalTime < 0) {         //当倒计时小于0时清除定时器
+            window.clearInterval(clock)
+            this.content = '重新发送验证码'
+            this.cannt_click = false
+            this.totalTime = this.TOTALTIME
+          }
+        },1000)
+      },
       onClickLeft() {
         this.$router.back()
       },
@@ -65,7 +95,7 @@
         if (this.value.length == this.keySize && true)
         {
           this.value = ''
-          this.$router.replace('/banke')
+          this.$router.replace('/'+this.goto)
         }
       },
       onDelete() {

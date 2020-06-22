@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from "../views/account/login/Login";
+import Register from "../views/account/register/Register";
+import ResetPassword from "../components/ResetPassword";
 
 
 
@@ -56,8 +58,16 @@ const routes = [
     component: Login
   },
   {
-    path: '/components/checkcode/:phone/',
+    path: '/register',
+    component: Register
+  },
+  {
+    path: '/components/checkcode/:phone/:thing',
     component: CheckCode
+  },
+  {
+    path: '/resetpassword',
+    component: ResetPassword
   },
   {
     path: '/banke',

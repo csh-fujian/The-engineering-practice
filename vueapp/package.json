@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "qcloudsms": "^1.0.9",
     "qrcode-decoder": "^0.1.2",
     "qrcode-reader": "^1.0.4",
     "qrcodejs2": "0.0.2",

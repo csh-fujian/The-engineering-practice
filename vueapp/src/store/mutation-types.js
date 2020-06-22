@@ -1,3 +1,4 @@
 const PHONE = 'phone'
 const TEST = 'test'
-export {TEST, PHONE}
+const ROLE = 'role'
+export {TEST, PHONE, ROLE}

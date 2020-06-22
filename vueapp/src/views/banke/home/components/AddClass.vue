@@ -18,6 +18,7 @@
 
 <script>
   import MdNavBar from "components/MdNavBar";
+  import {joinClass} from "../../../../network/banke/home";
   export default {
     name: "AddClass",
     data() {
@@ -30,7 +31,16 @@
     },
     methods: {
       nextClick() {
+        // 加入班课
+        joinClass(this.classId).then(res=>{
+          console.log(res);
+        }).catch(err=>{
+          console.log(err);
+        })
+
+
         this.$router.push('/banke/add-class/' + this.classId)
+
       },
     }
   }
