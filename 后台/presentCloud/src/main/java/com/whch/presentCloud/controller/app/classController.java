@@ -8,6 +8,7 @@
  */ 
 package com.whch.presentCloud.controller.app;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class classController {
     @Autowired
     private IClassManageService classManageService;
@@ -31,11 +33,11 @@ public class classController {
      * @param studentId
      * @return
      */
-    @RequestMapping("/join-class")
-    public List<Map> joinClass(@RequestParam("classId")String classId , @RequestParam("username")String studentId)
+    @RequestMapping("/joinClass")
+    public  HashMap<String,Object> joinClass(@RequestParam("classId")String classId)
 
     {
-        List<Map> resul = classManageService.getCourse(classId);
+        HashMap<String,Object> resul = classManageService.getCourse(classId);
         return resul;
     }
 

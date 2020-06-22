@@ -140,7 +140,20 @@ public class userLoginServiceImpl implements IUserLoginService {
             
             return r;
         } else if(flag == 2){
+            List<classCourseMember> lessons = classManageService.getLessons(number);
+            List studentClassList = new ArrayList<>();
+            for (classCourseMember lesson : lessons) {
 
+                lessonInfo.put("bankeName", lesson.getClassname());
+                lessonInfo.put("teacher", lesson.getTeachername());
+                lessonInfo.put("description", lesson.getClassname());
+                lessonInfo.put("profilePhoto", "");
+            }
+            r.setState("true");
+            r.setRole("老师");
+            r.setResult(studentClassList);
+
+            return r;
         }
         return null;
     }

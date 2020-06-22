@@ -89,11 +89,8 @@ public class WebClassController {
         Date date = new Date();
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
         List<classLesson> classes = classManageService.findAll();
-        for(classLesson c : classes)
-        {
-            date = c.getCreattime();
-            c.setClasstime(dateFormat.format(date));
-        }
+        System.out.println(classManageService.findAll());
+        System.out.println(classes);
         return classes;
     }
 

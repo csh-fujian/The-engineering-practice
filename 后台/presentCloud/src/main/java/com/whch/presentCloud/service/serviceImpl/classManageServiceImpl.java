@@ -61,20 +61,20 @@ public class classManageServiceImpl implements IClassManageService {
     }
 
     @Override
-    public List<Map> getCourse(String classId) {
+    public HashMap<String,Object> getCourse(String classId) {
         classLesson lesson = classLessonR.getLesson(Integer.parseInt(classId));
         if(lesson == null)
         {
             return null;
         }
-        List<Map> list = new ArrayList<>();
+//        List<Map> list = new ArrayList<>();
         HashMap h = new HashMap<String,Object>();
         h.put("teacher", lesson.getTeachername());
         h.put("classId",lesson.getClassid());
         h.put("school", lesson.getCollege());
-        h.put("department", lesson.getMaster());
-        list.add(h);
-        return list;
+        h.put("department", lesson.getClassname());
+//        list.add(h);
+        return h;
     }
 
     @Override

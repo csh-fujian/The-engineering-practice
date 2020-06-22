@@ -23,8 +23,6 @@ public class WebDictionaryController {
     @PostMapping("addtype")
     public int addtype(@RequestBody dictionaryType diction)
     {
-        System.out.println("====222====");
-        System.out.println("====222====");
         return dictype.addtype(diction);
     }
 

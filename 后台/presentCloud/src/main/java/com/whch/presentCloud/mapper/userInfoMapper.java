@@ -8,8 +8,9 @@ import com.whch.presentCloud.entity.role;
 import com.whch.presentCloud.entity.userInfo;
 
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public interface userInfoMapper {
     int deleteByPrimaryKey(Integer id);
 

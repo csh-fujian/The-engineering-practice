@@ -62,8 +62,9 @@ public class ShiroConfig {
         //定义拦截路径,记得将静态资源也排除过滤
         /*进行权限的控制,必须使用LinkHashMap,shrio要按照顺序进行设置*/
         Map<String, String> authMap = new LinkedHashMap<>();
-        authMap.put("/login.html", "anon");
+        authMap.put("/joinClass", "anon");
         authMap.put("/logout", "anon");
+        authMap.put("/register", "anon");
         // authMap.put("/static/**", "anon");
         // authMap.put("/student/**", "client,roles[user]");
         authMap.put("/teacher/**", "roles[老师]");
@@ -73,7 +74,7 @@ public class ShiroConfig {
         filter.setFilterChainDefinitionMap(authMap);
 
         //配置完成
-        log.info("---------------shirofactory创建成功");
+//        log.info("---------------shirofactory创建成功");
         
         return filter;
     }

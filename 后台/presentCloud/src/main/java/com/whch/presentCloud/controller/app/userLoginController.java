@@ -97,7 +97,7 @@ public class userLoginController {
             //shiro 用户权限认证 教师/学生
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(number, password);
-            subject.login(usernamePasswordToken);
+//            subject.login(usernamePasswordToken);
             userInfo role = userService.getUser(number);
             //生成token
             String token = TokenUtil.getToken(role.getName(), Integer.toString(role.getId()) , request.getRemoteAddr());

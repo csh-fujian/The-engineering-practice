@@ -1,5 +1,6 @@
 package com.whch.presentCloud.service.IService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ public interface IClassManageService {
 
 	String addCourse(String classId, String studentId);
 
-	List<Map> getCourse(String classId);
+	HashMap<String,Object> getCourse(String classId);
 
 	Map<String, Object> getLesson(String classId, String username);
 
