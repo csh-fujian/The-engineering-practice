@@ -6,7 +6,9 @@ import com.whch.presentCloud.entity.signin;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface signinMapper {
     int deleteByPrimaryKey(Integer id);
 

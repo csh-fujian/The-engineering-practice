@@ -23,7 +23,7 @@ public class tokenServiceImpl implements ITokenService {
         JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "jwt") // 设置header
                 .setHeaderParam("alg", "HS256")
                 .setIssuedAt(date) // 设置签发时间
-                .setExpiration(new Date(date.getTime() + 1000 * 60 * 20)) // 设置过期时间
+                .setExpiration(new Date(date.getTime() + 1000 * 60 * 240)) // 设置过期时间
                 .setSubject(subject) // 设置主题
                 .setIssuer("lenses")// 设置签发人
                 .signWith(key); // 签名，需要算法和key

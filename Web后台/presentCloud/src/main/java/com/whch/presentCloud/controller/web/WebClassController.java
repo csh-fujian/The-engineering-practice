@@ -85,6 +85,7 @@ public class WebClassController {
 
     @GetMapping("findAll")
     public List<classLesson> findAll(){
+        System.out.println("管理员查询班课");
         Date date = new Date();
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
         List<classLesson> classes = classManageService.findAll();
@@ -98,6 +99,7 @@ public class WebClassController {
 
     @GetMapping("findbyteacher")
     public List<classLesson> findbyteacher(HttpServletRequest request) throws Exception {
+        System.out.println("教师查询班课");
         String Token = request.getHeader("Authorization");
         Claims claims = tokenS.parseJWT(Token);
         String subject = claims.getSubject();

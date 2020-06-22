@@ -23,6 +23,8 @@ public class WebDictionaryController {
     @PostMapping("addtype")
     public int addtype(@RequestBody dictionaryType diction)
     {
+        System.out.println("====222====");
+        System.out.println("====222====");
         return dictype.addtype(diction);
     }
 
@@ -35,6 +37,7 @@ public class WebDictionaryController {
     @GetMapping("findtype")
     public List<dictionaryType> findtype()
     {
+        System.out.println("====111====");
         List<dictionaryType> dict = dictype.findAll();
         int i = 0;
         for(dictionaryType d : dict)

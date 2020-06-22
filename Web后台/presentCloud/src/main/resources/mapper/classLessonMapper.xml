@@ -33,7 +33,7 @@
     insert into classlesson (ClassId, ClassName, TeacherName, 
       TeacherId, type, Master, 
       People_Count, Location, ClassTime, 
-      College, School)
+      College, School, CreatTime)
     values (#{classid,jdbcType=INTEGER}, #{classname,jdbcType=VARCHAR}, #{teachername,jdbcType=VARCHAR}, 
       #{teacherid,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{master,jdbcType=VARCHAR}, 
       #{peopleCount,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{classtime,jdbcType=VARCHAR}, 
@@ -110,7 +110,7 @@
       <if test="college != null" >
         #{college,jdbcType=VARCHAR},
       </if>
-      <if test="shcool != null" >
+      <if test="school != null" >
         #{school,jdbcType=VARCHAR},
       </if>
       <if test="creattime != null" >
