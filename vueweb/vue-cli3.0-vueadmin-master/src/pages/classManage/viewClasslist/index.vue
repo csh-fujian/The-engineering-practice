@@ -23,43 +23,85 @@
                 type="success"
                 icon="el-icon-plus"
                 style="margin:0px 0px 0px 30px"
-                @click="addclass"
+                @click="dialogVisible = true"
                 >新增班课</el-button
             >
         </div>
         <el-table :data="tableData1" border style="width: 100%">
-            <el-table-column fixed prop="id" label="班课id" width="150">
+            <el-table-column fixed prop="classid" label="班课id" width="150">
             </el-table-column>
-            <el-table-column prop="name" label="课程名称" width="120">
+            <el-table-column prop="classname" label="课程名称" width="120">
             </el-table-column>
-            <el-table-column prop="province" label="教师姓名" width="120">
+            <el-table-column prop="teachername" label="教师姓名" width="120">
             </el-table-column>
-            <el-table-column prop="city" label="所在学校" width="170">
+            <el-table-column prop="school" label="所在学校" width="170">
             </el-table-column>
-            <el-table-column prop="address" label="所属学院" width="250">
+            <el-table-column prop="college" label="所属学院" width="250">
             </el-table-column>
-            <el-table-column prop="zip" label="注册时间" width="150">
+            <el-table-column prop="classtime" label="注册时间" width="150">
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="150">
                 <template slot-scope="scope">
                     <el-button @click="Click" type="text" size="small"
                         >查看</el-button
                     >
-                    <el-button @click.native.prevent="deletedata(scope.$index, tableData1)" type="text" size="small"
+                    <el-button
+                        @click.native.prevent="
+                            deletedata(scope.$index, tableData1)
+                        "
+                        type="text"
+                        size="small"
                         >删除</el-button
                     >
                 </template>
             </el-table-column>
         </el-table>
+
+        <el-dialog
+            title="添加类型"
+            :visible.sync="dialogVisible"
+            width="60%">
+<!--            :before-close="handleClose">-->
+            <el-form ref="ro" :model="dict" label-width="80px">
+                <el-form-item label="班课号">
+                    <el-input v-model="dict.classid"></el-input>
+                </el-form-item>
+                <el-form-item label="课程名称">
+                    <el-input v-model="dict.classname"></el-input>
+                </el-form-item>
+                <el-form-item label="任课老师">
+                    <el-input v-model="dict.teachername"></el-input>
+                </el-form-item>
+                <el-form-item label="所属大学">
+                    <el-input v-model="dict.school"></el-input>
+                </el-form-item>
+                <el-form-item label="所属学院">
+                    <el-input v-model="dict.college"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button>取消</el-button>
+                    <el-button type="primary" @click="addclass()">确定</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+
+
     </el-card>
 </template>
 
 <script>
 // import { getRoleList, getAllPermissiion } from '@/api/permission'
 export default {
-
     data() {
         return {
+            dict: {
+                classid: null,
+                classname: '',
+                teachername: '',
+                school: '',
+                college: ''
+            },
+            dialogVisible: false,
             currentPage: 1,
             // 总条数
             totalCount: 1,
@@ -72,18 +114,15 @@ export default {
         }
     },
     created: function() {
-	 console.log("1")
+        console.log('1')
         this.$axios
-            .get(
-                'http://localhost:8080/webclass/findAll',
-                {
-                    headers: {
-                        Authorization: localStorage.getItem('token')
-                    }
+            .get('http://localhost:8080/webclass/findAll', {
+                headers: {
+                    Authorization: localStorage.getItem('token')
                 }
-            )
+            })
             .then(res => {
-               console.log(res)
+                console.log(res)
             })
         this.tableData1 = [
             {
@@ -129,25 +168,23 @@ export default {
         ]
     },
     methods: {
-
         onSearch() {
             //console.log('success')
         },
         addclass() {
-            let classget ={
-                id: 2020622001,
-                classname: '中国特色社会主义',
-                teachername: '张三',
-                school: '福州大学',
-                college: '人文学院',
-        }
+            // let classget = {
+            //     id: 2020622001,
+            //     classname: '中国特色社会主义',
+            //     teachername: '张三',
+            //     school: '福州大学',
+            //     college: '人文学院'
+            // }
             this.$axios
                 .post(
                     'http://localhost:8080/webclass/adminaddclass',
-                    classget,
+                    this.dict,
                     {
                         headers: {
-
                             Authorization: localStorage.getItem('token')
                         }
                     }
@@ -160,8 +197,6 @@ export default {
                         message: '修改成功'
                     })
                 })
-
-
 
             //console.log('success')
         },
@@ -177,8 +212,7 @@ export default {
                     {},
                     {
                         headers: {
-                            'Content-Type':
-                                'application/x-www-form-urlencoded',
+                            'Content-Type': 'application/x-www-form-urlencoded',
                             Authorization: localStorage.getItem('token')
                         }
                     }
@@ -190,7 +224,7 @@ export default {
                         message: '删除成功'
                     })
                 })
-            rows.splice(index, 1);
+            rows.splice(index, 1)
         }
     }
 }
