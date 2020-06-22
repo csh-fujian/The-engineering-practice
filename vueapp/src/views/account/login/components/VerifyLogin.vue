@@ -16,7 +16,7 @@
       </ValidationProvider>
 
 
-      <label class="forgetCss">忘记密码</label>
+      <div class="forgetCss" />
       <van-button type="primary" block class="margin-top-normal" @click="btnClick">验证码登录</van-button>
     </div>
 
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+
+  import {singleSendMessage} from "network/network";
 
   export default {
     name: "VerifyLogin",
@@ -44,7 +46,9 @@
         else
           console.log('true')
         this.$store.commit('phone', this.phone)
-        this.$router.push('/components/checkcode/'+this.phone)
+        this.$router.push('/components/checkcode/'+this.phone + '/banke')
+        singleSendMessage(this.phone, 1234)
+
       },
     }
   }
@@ -55,8 +59,7 @@
     border-bottom : 0.5px outset var(--theme-color);
   }
   .forgetCss {
-    float: right;
-    margin-top: 5px;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 25px;
   }
 </style>

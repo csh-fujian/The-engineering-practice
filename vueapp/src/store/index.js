@@ -12,7 +12,9 @@ export default new Vuex.Store({
     phone: '',
     token: {
       status: 'student'
-    }
+    },
+    //系统业务
+    role: 'student'
   },
   mutations,
   actions,

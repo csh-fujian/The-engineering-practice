@@ -21,6 +21,10 @@ import {Popup, Picker} from 'vant';
 import {Dialog} from 'vant';
 import { Overlay } from 'vant';
 import { SwipeCell } from 'vant';
+import { Checkbox, CheckboxGroup } from 'vant';
+
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);
 
 Vue.use(SwipeCell);
 Vue.use(Overlay);

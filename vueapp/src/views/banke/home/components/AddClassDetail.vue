@@ -9,10 +9,10 @@
         <h3>工程实践</h3>
 
         <div class="border-radius shadow margin-top-normal content text-left">
-          <van-cell title="老师" value="csh" />
+          <van-cell title="老师" :value="teacher" />
           <van-cell title="班课号" :value="classId"/>
-          <van-cell title="学校" value="福州大学"/>
-          <van-cell title="学院" value="数计学院"/>
+          <van-cell title="学校" :value="school"/>
+          <van-cell title="学院" :value="department"/>
         </div>
 
         <div class="margin-top-normal">
@@ -27,22 +27,40 @@
 
 <script>
   import MdNavBar from "components/MdNavBar";
+  import {joinClass, joinClassIn} from "../../../../network/banke/home";
   export default {
     name: "AddClassDetail",
     data() {
       return {
-        classId: ''
+        classId: '',
+        school: 'xx',
+        department: 'xx',
+        teacher: 'xxx',
       }
     },
     created() {
       this.classId = this.$route.params.classId
+      // 加入班课
+      joinClass(this.classId).then(data=>{
+        this.school = data.school
+        this.department = data.department
+        this.teacher = data.teacher
+        console.log(data);
+      }).catch(err=>{
+        console.log(err);
+      })
     },
     components: {
       [MdNavBar.name]: MdNavBar
     },
     methods: {
       participate() {
-        console.log('加入成功');
+        joinClassIn(this.classId).then(data=>{
+          console.log('加入成功');
+          this.$router.replace('/banke')
+        }).catch(err=>{
+
+        })
         this.$router.replace('/banke')
       }
     }

@@ -4,5 +4,8 @@ export default {
   },
   getStatus(state) {
     return state.token.status
+  },
+  getRole(state) {
+    return state.role
   }
 }
