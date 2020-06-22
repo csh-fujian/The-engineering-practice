@@ -28,7 +28,7 @@
             >
         </div>
         <el-table :data="tableData1" border style="width: 100%">
-            <el-table-column fixed prop="classid" label="班课id" width="150">
+            <el-table-column fixed prop="classid" label="班课id" width="100">
             </el-table-column>
             <el-table-column prop="classname" label="课程名称" width="120">
             </el-table-column>
@@ -36,9 +36,9 @@
             </el-table-column>
             <el-table-column prop="school" label="所在学校" width="170">
             </el-table-column>
-            <el-table-column prop="college" label="所属学院" width="250">
+            <el-table-column prop="college" label="所属学院" width="170">
             </el-table-column>
-            <el-table-column prop="classtime" label="注册时间" width="150">
+            <el-table-column prop="classtime" label="注册时间" width="200">
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="150">
                 <template slot-scope="scope">
@@ -60,8 +60,8 @@
         <el-dialog
             title="添加类型"
             :visible.sync="dialogVisible"
-            width="60%">
-<!--            :before-close="handleClose">-->
+            width="60%"
+            :before-close="handleClose">
             <el-form ref="ro" :model="dict" label-width="80px">
                 <el-form-item label="班课号">
                     <el-input v-model="dict.classid"></el-input>
@@ -79,7 +79,7 @@
                     <el-input v-model="dict.college"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button>取消</el-button>
+                    <el-button @click="dialogFormVisible = false">取消</el-button>
                     <el-button type="primary" @click="addclass()">确定</el-button>
                 </el-form-item>
             </el-form>
@@ -123,54 +123,17 @@ export default {
             })
             .then(res => {
                 console.log(res)
+				this.tableData1 = res.data
             })
-        this.tableData1 = [
-            {
-                id: '2016-05-02',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1518 弄',
-                zip: 200333
-            },
-            {
-                id: '2016-05-04',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1517 弄',
-                zip: 200333
-            },
-            {
-                id: '2016-05-01',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1519 弄',
-                zip: 200333
-            },
-            {
-                id: '2016-05-03',
-                name: '王小虎',
-                province: '上海',
-                city: '普陀区',
-                address: '上海市普陀区金沙江路 1516 弄',
-                zip: 200333
-            },
-            {
-                id: '2016',
-                name: '王',
-                province: '上',
-                city: '普',
-                address: '上',
-                zip: 200333
-            }
-        ]
+
     },
     methods: {
-        onSearch() {
-            //console.log('success')
-        },
+  //      onSearch() {
+//		
+		
+		
+    //        //console.log('success')
+      //  },
         addclass() {
             // let classget = {
             //     id: 2020622001,
@@ -196,6 +159,8 @@ export default {
                         type: 'success',
                         message: '修改成功'
                     })
+					this.tableData1.push(this.dict)
+					this.dialogVisible = false
                 })
 
             //console.log('success')
@@ -204,12 +169,14 @@ export default {
             console.log('success')
         },
         deletedata(index, rows) {
-            console.log(this.tableData1)
+            //console.log(this.tableData1)
             console.log(rows[index].id)
+			console.log(rows[index].classid)
+			let delid = rows[index].classid
             this.$axios
-                .get(
-                    'http://localhost:8080/webclass/delete/' + rows[index].id,
-                    {},
+                .post(
+                    'http://localhost:8080/webclass/delete/' + delid,
+                  {},
                     {
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
