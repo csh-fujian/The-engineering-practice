@@ -37,7 +37,7 @@
                 <el-input
                     name="password"
                     :type="pwdType"
-                    @keyup.enter.native="login1"
+                    @keyup.enter.native="login"
                     v-model="loginForm.password"
                     autoComplete="on"
                     placeholder="请输入密码"
@@ -51,7 +51,7 @@
                     type="primary"
                     style="width:100%;"
                     :loading="loading"
-                    @click.native.prevent="login1"
+                    @click.native.prevent="login"
                 >
                     登 录
                 </el-button>
@@ -255,22 +255,26 @@ export default {
             try {
                 this.user.nickname = this.loginForm.username
                 this.user.password = this.loginForm.password
-                this.$axios.post('http://localhost:8080/webinitialization/login', this.user).then(res => {
-                    console.log('1')
-                    console.log(res.data)
-                    if(res.data.token == null){
-                        this.$message({
-                            title: '消息',
-                            message: '登录失败用户名密码有误'
-                        })
-                    }else{
-                        let token = res.data.token
-                        console.log(typeof token)
-                        this.$store.commit('LOGIN_IN', token)
-                        this.$router.replace('/')
-                    }
-
-                })
+                this.$axios
+                    .post(
+                        'http://localhost:8080/webinitialization/login',
+                        this.user
+                    )
+                    .then(res => {
+                        console.log('1')
+                        console.log(res.data)
+                        if (res.data.token == null) {
+                            this.$message({
+                                title: '消息',
+                                message: res.data.message
+                            })
+                        } else {
+                            let token = res.data.token
+                            console.log(typeof token)
+                            this.$store.commit('LOGIN_IN', token)
+                            this.$router.replace('/')
+                        }
+                    })
                 //let token = resp.data.token
                 // let data = await login(this.loginForm)
                 // let token = data.token
@@ -283,13 +287,9 @@ export default {
         },
         async login() {
             try {
-                //let data = await login(this.loginForm)
-                 //let token = data.token
-                let token = "dfasasdasdasdsadasdas"
-                // console.log(data)
+                let data = await login(this.loginForm)
+                let token = data.token
                 this.$store.commit('LOGIN_IN', token)
-
-
                 this.$router.replace('/')
             } catch (e) {
                 console.log(e)

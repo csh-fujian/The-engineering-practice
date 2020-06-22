@@ -2,29 +2,29 @@
     <aside class="aside__top">
         <span
             class="iconfont icon-nav toggleNavCollapse"
-            :class="{active:isSidebarNavCollapse}"
+            :class="{ active: isSidebarNavCollapse }"
             @click="toggleNavCollapse"
         >
         </span>
         <el-breadcrumb separator="/">
             <transition-group name="breadcrumb">
                 <!-- 防止面包屑导航出现 首页/首页， v-if="route.name!='home'" -->
-                <template v-for="(route,i) in crumbList">
+                <template v-for="(route, i) in crumbList">
                     <el-breadcrumb-item
                         :key="route.name"
-                        :to="{name:route.name}"
-                        v-if="route.name!='home' && route.meta.name!='首页'"
-                        :class="{'is-last-link':i==crumbList.length-1}"
+                        :to="{ name: route.name }"
+                        v-if="route.name != 'home' && route.meta.name != '首页'"
+                        :class="{ 'is-last-link': i == crumbList.length - 1 }"
                     >
-                        {{route.meta.name}}
+                        {{ route.meta.name }}
                     </el-breadcrumb-item>
                 </template>
             </transition-group>
         </el-breadcrumb>
         <div class="aside__top--right">
             <div class="user-msg">
-                <img class="user-img" :src="avatar" alt="">
-                <span class="user-name">{{account}}</span>
+                <img class="user-img" :src="avatar" alt="" />
+                <span class="user-name">{{ account }}</span>
                 <el-dropdown trigger="click" placement="top">
                     <span class="el-dropdown-link">
                         <i class="el-icon-arrow-down el-icon--right"></i>
@@ -32,7 +32,9 @@
                     <el-dropdown-menu slot="dropdown">
                         <el-dropdown-item>个人中心</el-dropdown-item>
 
-                        <el-dropdown-item @click.native="resetPassword">修改密码</el-dropdown-item>
+                        <el-dropdown-item @click.native="resetPassword"
+                            >修改密码</el-dropdown-item
+                        >
                     </el-dropdown-menu>
                 </el-dropdown>
             </div>
@@ -55,76 +57,89 @@ export default {
         ...mapState('permission', ['avatar', 'account'])
     },
     methods: {
+        getProduct() {
+            this.$axios
+                .post(
+                    'http://localhost:8080/webadmin/update',
+                    { id: 3, name: 'abc' },
+                    {
+                        headers: {
+                            'Postman-Token': 'asdasdasdas',
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            Authorization: 'dasdasdjaskdhasjkdhkasj',
+                            Accept: '*/*',
+                            'User-Agent': 'PostmanRuntime/7.25.0'
+                        }
+                    }
+                )
+                .then(function(res) {
+                    console.log('post请求...')
+                    console.log(res.data)
+                })
+        },
 
+        getProduct1() {
+            this.$axios
+                .post(
+                    'http://localhost:8080/webadmin/update',
+                    { id: 3, name: 'abc' },
+                    {
+                        headers: {
+                            'content-type': 'application/x-www-form-urlencoded',
+                            Authorization: 'dasdasdjaskdhasjkdhkasj',
+                            Connection: 'keep-alive',
+                            Accept: '*/*',
+                            'Accept-Encoding': 'gzip, deflate, br'
+                        }
+                    }
+                )
+                .then(function(res) {
+                    console.log('post请求...')
+                    console.log(res.data)
+                })
+        },
 
-
-
-
-		getProduct () {     
-      this.$axios.post("http://localhost:8080/webadmin/update",{id:3,name:'abc'},{
-        headers: {
-			'Postman-Token':'asdasdasdas',
-           'Content-Type': 'application/x-www-form-urlencoded',
-           'Authorization': "dasdasdjaskdhasjkdhkasj",
-		   'Accept': '*/*',
-		   'User-Agent':'PostmanRuntime/7.25.0'
-        }
-      }).then(function(res){
-          console.log('post请求...'); 
-          console.log(res.data);  
-      });     
-    }, 
-
-		getProduct1 () {     
-      this.$axios.post("http://localhost:8080/webadmin/update",{id:3,name:'abc'},{
-        headers: {
-           'content-type': 'application/x-www-form-urlencoded',
-           'Authorization': 'dasdasdjaskdhasjkdhkasj',
-		   'Connection': 'keep-alive',
-		   'Accept':'*/*',
-		   'Accept-Encoding':'gzip, deflate, br'
-		   
-        }
-      }).then(function(res){
-          console.log('post请求...'); 
-          console.log(res.data);  
-      });     
-    }, 
-
-		
-        resetPassword(){
-        //     this.$message({
-        //         title: '消息',
-        //         message: '修改成功'
-        //     })
+        resetPassword() {
+            //     this.$message({
+            //         title: '消息',
+            //         message: '修改成功'
+            //     })
             this.$prompt('请输入新密码', '修改密码', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
-                inputPattern: 		/^[a-z0-9_-]{6,18}$/,
+                inputPattern: /^[a-z0-9_-]{6,18}$/,
                 inputErrorMessage: '密码格式不正确'
-            }).then(({ value }) => {
-					let password = value
-					let token = localStorage.getItem('token')
-                console.log(token)
-                   this.$axios.post('http://localhost:8080/webadmin/update/'+ password, {}, {
-        headers: {
-           'Content-Type': 'application/x-www-form-urlencoded',
-           'Authorization': localStorage.getItem('token')
-        }
-		}).then(res => {
-		    console.log(res.status)
-                        this.$message({
-                            type: 'success',
-                            message: '修改成功'
-                        });
+            })
+                .then(({ value }) => {
+                    let password = value
+                    let token = localStorage.getItem('token')
+                    console.log(token)
+                    this.$axios
+                        .post(
+                            'http://localhost:8080/webadmin/update/' + password,
+                            {},
+                            {
+                                headers: {
+                                    'Content-Type':
+                                        'application/x-www-form-urlencoded',
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }
+                        )
+                        .then(res => {
+                            console.log(res.status)
+                            this.$message({
+                                type: 'success',
+                                message: '修改成功'
+                            })
+                        })
+                })
+                .catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '取消输入'
                     })
-
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '取消输入'
-                });
-            });
+                })
         },
         toggleNavCollapse() {
             this.$store.commit('toggleNavCollapse')

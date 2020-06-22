@@ -3,7 +3,7 @@ const Classtmanage = () => import('@/pages/classManage')
 const ClassStudentmanage = () => import('@/pages/classManage/classStudentmanage')
 const Checkmanage = () => import('@/pages/classManage/checkManage')
 const Viewclasslist = () => import('@/pages/classManage/viewClasslist')
-const Workmanage = () => import('@/pages/classManage/viewClasslist')
+const Workmanage = () => import('@/pages/classManage/workManage')
 /* 角色管理 */
 const designRolemanage = () => import('@/pages/Design-role-manage')
 const designRolemanage1 = () => import('@/pages/Design-role-manage/Design-role-manage1')
