@@ -1,33 +1,17 @@
 <template lang="html">
     <el-card class="box-card">
-        <div class="search-bar">
-            <el-form :inline="true" :model="searchData" class="fl">
-                <el-input style="display: none;"></el-input>
-                <el-form-item label="班课ID：">
-                    <el-input
-                        v-model="searchData.idnum"
-                        placeholder="请输入班课ID"
-                        @keyup.enter.native="onSearch"
-                    ></el-input>
-                </el-form-item>
-            </el-form>
-            <div class="fl">
-                <el-button
-                    type="primary"
-                    icon="el-icon-search"
-                    @click="onSearch"
-                    >查询</el-button
-                >
-            </div>
+        <div style="display: block;font-size:10px;">
             <el-button
-                type="success"
+                type="success" icon="el-icon-plus"
+                @click="dialogVisible = true">添加类型</el-button>
+            <el-input
+                v-model="search"
                 icon="el-icon-plus"
-                style="margin:0px 0px 0px 30px"
-                @click="dialogVisible = true"
-                >新增班课</el-button
-            >
+                style="width:130px;height:10px"
+                placeholder="输入参数名称搜索"/>
         </div>
-        <el-table :data="tableData1" border style="width: 100%">
+        <el-table :data="tableData1.filter(data => !search || data.type.toLowerCase().includes(search.toLowerCase()))"
+                  border style="width: 100%">
             <el-table-column fixed prop="classid" label="班课id" width="100">
             </el-table-column>
             <el-table-column prop="classname" label="课程名称" width="120">
@@ -139,6 +123,7 @@ export default {
             totalCount: 1,
             totalCount1: null,
             PageSize: 1,
+            search: '',
             searchData: {
                 idnum: '190327105'
             },
@@ -157,6 +142,7 @@ export default {
             .then(res => {
                 console.log(res)
 				this.tableData1 = res.data
+
 				this.datalen = res.data.length
 				console.log(this.datalen)
             })
@@ -164,12 +150,12 @@ export default {
     },
     methods: {
        onSearch() {
-	   
+
            },
 
 
             //console.log('success')
-       
+
     editclass(){
         this.$axios
             .post(
