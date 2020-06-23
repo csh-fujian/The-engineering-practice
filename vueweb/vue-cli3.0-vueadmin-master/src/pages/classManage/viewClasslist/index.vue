@@ -8,7 +8,7 @@
                 v-model="search"
                 icon="el-icon-plus"
                 style="width:130px;height:10px"
-                placeholder="输入参数名称搜索"/>
+                placeholder="输入班课名称"/>
         </div>
         <el-table :data="tableData1.filter(data => !search || data.classname.toLowerCase().includes(search.toLowerCase()))"
                   border style="width: 100%">
