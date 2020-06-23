@@ -300,7 +300,7 @@
                 this.Menu.submenus = this.submenus
                 console.log(this.Menu)
                 const _this = this
-                this.$axios.post('http://localhost:8080/webmenu/addmenu1/' + this.menuname,{
+                this.$axios.post('http://localhost:8080/webmenu/addmenu1/' + this.menuname,{},{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -316,7 +316,7 @@
                                 }
                             }).then(res => {
                                 _this.datatable = res.data
-                            this.$alert('分配权限成功', '分配权限', {
+                            this.$alert('新增菜单成功', '分配权限', {
                                 confirmButtonText: '确定',
                                 callback: action => {
                                 }
