@@ -102,9 +102,17 @@ export default {
             console.log(this.ro)
             this.dialogVisible = false
             const _this = this
-            this.$axios.post('http://localhost:8080/webrole/addrole', this.ro).then(function(resp) {
+            this.$axios.post('http://localhost:8080/webrole/addrole', this.ro,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                 console.log(_this.ro)
-                _this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
+                _this.$axios.get('http://localhost:8080/webrole/findrole',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                     _this.tableData = resp.data
                     this.$alert('新增角色成功', '新增角色', {
                         confirmButtonText: '确定',
@@ -134,9 +142,17 @@ export default {
             this.rol.id = row.id
             const _this = this
             console.log(this.rol)
-            this.$axios.post('http://localhost:8080/webrole/deleterole', this.rol).then(function(resp) {
+            this.$axios.post('http://localhost:8080/webrole/deleterole', this.rol,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                 // console.log(resp)
-                _this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
+                _this.$axios.get('http://localhost:8080/webrole/findrole',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                     _this.tableData = resp.data
                     // alert(321)
                     this.$alert('删除成功', '删除', {
@@ -160,7 +176,11 @@ export default {
     },
     created() {
         const _this = this
-        this.$axios.get('http://localhost:8080/webrole/findrole').then(function(resp) {
+        this.$axios.get('http://localhost:8080/webrole/findrole',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
             _this.tableData = resp.data
             // alert(321)
         })

@@ -177,8 +177,16 @@
                 this.Data.dicd = this.dicd
                 this.Data.record = this.record
                 console.log(this.Data)
-                this.$axios.post('http://localhost:8080/webdictionary/updatedata', this.Data).then(function(resp) {
-                    _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + this.typed).then(function(resp) {
+                this.$axios.post('http://localhost:8080/webdictionary/updatedata', this.Data,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
+                    _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + this.typed,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.tableData = resp.data
                         this.$alert('编辑数据成功', '编辑数据', {
                             confirmButtonText: '确定',
@@ -197,9 +205,17 @@
                 this.dicd.valued = row.valued
                 const _this = this
                 console.log(this.dicd)
-                this.$axios.post('http://localhost:8080/webdictionary/deletedata', this.dicd).then(function(resp) {
+                this.$axios.post('http://localhost:8080/webdictionary/deletedata', this.dicd,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                     console.log(resp)
-                    _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + _this.typed).then(function(resp) {
+                    _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + _this.typed,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.tableData = resp.data
                         this.$alert('删除数据成功', '删除数据', {
                             confirmButtonText: '确定',
@@ -222,9 +238,17 @@
                 this.dicd.keyd = this.adddata.keyd
                 this.dicd.valued = this.adddata.valued
                 console.log(this.dicd)
-                this.$axios.post('http://localhost:8080/webdictionary/adddata', this.dicd).then(function(resp) {
+                this.$axios.post('http://localhost:8080/webdictionary/adddata', this.dicd,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                     console.log(resp)
-                    _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + _this.typed).then(function(resp) {
+                    _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + _this.typed,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.tableData = resp.data
                         this.$alert('新增数据成功', '新增数据', {
                             confirmButtonText: '确定',
@@ -240,7 +264,11 @@
             this.dicd.typed = this.$route.query.dicd
             const _this = this
             this.typed = this.dicd.typed
-            this.$axios.get('http://localhost:8080/webdictionary/finddata/' + this.typed).then(function(resp) {
+            this.$axios.get('http://localhost:8080/webdictionary/finddata/' + this.typed,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                 _this.tableData = resp.data
             })
         }

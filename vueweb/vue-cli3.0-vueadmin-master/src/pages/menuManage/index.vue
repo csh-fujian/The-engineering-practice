@@ -249,8 +249,16 @@
                 this.delSel.submenu = this.selected
                 console.log(this.delSel)
                 const _this = this
-                this.$axios.post('http://localhost:8080/webmenu/deletemenu', this.delSel).then(res => {
-                    _this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
+                this.$axios.post('http://localhost:8080/webmenu/deletemenu', this.delSel,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(res => {
+                    _this.$axios.get('http://localhost:8080/webmenu/findAll',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(res => {
                         _this.datatable = res.data
                             this.$alert('删除成功', '删除', {
                                 confirmButtonText: '确定',
@@ -274,9 +282,21 @@
                 this.Menu.submenus = this.submenus
                 console.log(this.Menu)
                 const _this = this
-                this.$axios.post('http://localhost:8080/webmenu/addmenu1/' + this.menuname).then(res => {
-                    this.$axios.post('http://localhost:8080/webmenu/addmenu', _this.Menu).then(res => {
-                        _this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
+                this.$axios.post('http://localhost:8080/webmenu/addmenu1/' + this.menuname,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(res => {
+                    this.$axios.post('http://localhost:8080/webmenu/addmenu', _this.Menu,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(res => {
+                        _this.$axios.get('http://localhost:8080/webmenu/findAll',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(res => {
                                 _this.datatable = res.data
                             this.$alert('分配权限成功', '分配权限', {
                                 confirmButtonText: '确定',
@@ -300,8 +320,16 @@
                 const _this = this
                 console.log(this.Page)
                 console.log(this.Page1)
-                this.$axios.post('http://localhost:8080/webmenu/addpage1', this.Page).then(res => {
-                    this.$axios.post('http://localhost:8080/webmenu/addpage', _this.Page1).then(res => {
+                this.$axios.post('http://localhost:8080/webmenu/addpage1', this.Page,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(res => {
+                    this.$axios.post('http://localhost:8080/webmenu/addpage', _this.Page1,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(res => {
                         this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
                                 _this.datatable = res.data
                             this.$alert('新增页面成功', '新增页面', {
@@ -321,8 +349,16 @@
                 this.button1.supermenu = this.supermenu
                 const _this = this
                 console.log(this.button1)
-                this.$axios.post('http://localhost:8080/webmenu/addbutton', this.button1).then(res => {
-                    _this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
+                this.$axios.post('http://localhost:8080/webmenu/addbutton', this.button1,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(res => {
+                    _this.$axios.get('http://localhost:8080/webmenu/findAll',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(res => {
                             _this.datatable = res.data
                         this.$alert('新增按钮成功', '新增按钮', {
                             confirmButtonText: '确定',
@@ -358,7 +394,11 @@
             }
         },
         created() {
-            this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
+            this.$axios.get('http://localhost:8080/webmenu/findAll',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(res => {
                     this.datatable = res.data
                     for (let i = 0; i < this.datatable.length; ++i) {
                         if (this.datatable[i].state == 'checked') {

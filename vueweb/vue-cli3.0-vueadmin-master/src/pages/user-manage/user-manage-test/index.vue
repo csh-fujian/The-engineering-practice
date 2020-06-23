@@ -255,18 +255,34 @@
                 this.dialogVisible2 = true
                  this.user.sex='男'
                 _this=this
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','sexy').then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','sexy',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.user.sex = resp.data
                 })
                 this.user.role='教师'
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','role').then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','role',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.user.role = resp.data
                 })
                 this.dicd.typed='sex'
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',this.dicd).then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',this.dicd,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.option1.label=resp.data
                         _this.dicd.typed='role'
-                        _this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',_this.dicd).then(function(resp) {
+                        _this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',_this.dicd,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                                 _this.option2.label=resp.data
                 })
                 })
@@ -276,15 +292,27 @@
                 this.user = []
                 this.user.sex='男'
                 _this=this
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','sexy').then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','sexy',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.user.sex = resp.data
                 })
                 this.user.role='教师'
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','role').then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','role',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.user.role = resp.data
                 })
                 this.dicd.typed='sex'
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',this.dicd).then(function(resp) {
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',this.dicd,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.option1.label=resp.data
                         _this.dicd.typed='role'
                         _this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',_this.dicd).then(function(resp) {

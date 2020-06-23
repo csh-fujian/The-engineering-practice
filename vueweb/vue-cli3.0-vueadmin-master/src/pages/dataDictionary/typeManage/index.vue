@@ -118,9 +118,17 @@ export default {
             console.log(this.dict)
             const _this = this
             this.deleteDict.typed = this.dict.typed
-            this.$axios.post('http://47.112.239.108:8080/webdictionary/deletetype', this.deleteDict).then(function(resp) {
+            this.$axios.post('http://47.112.239.108:8080/webdictionary/deletetype', this.deleteDict,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                 console.log(resp)
-                _this.$axios.get('http://47.112.239.108:8080/webdictionary/findtype').then(function(resp) {
+                _this.$axios.get('http://47.112.239.108:8080/webdictionary/findtype',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                     _this.tableData = resp.data
                     this.$alert('删除类型成功', '删除类型', {
                         confirmButtonText: '确定',

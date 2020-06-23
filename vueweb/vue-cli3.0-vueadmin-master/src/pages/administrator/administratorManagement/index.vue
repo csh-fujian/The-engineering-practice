@@ -97,7 +97,11 @@
             handleDelete(index, row) {
                 this.Management = row
                 const _this = this
-                this.$axios.post('http://localhost:8080/webadmin/delete'+this.Management.name).then(function(resp) {
+                this.$axios.post('http://localhost:8080/webadmin/delete'+this.Management.name,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                     _this.$axios.get('http://localhost:8080/webadmin/getAll').then(function(resp) {
                         _this.tableData = resp.data
                         this.$alert('删除管理员成功', '删除管理员', {
@@ -113,7 +117,11 @@
             },
             Initialization(index, row) {
             alert(row.name)
-            this.$axios.post('http://localhost:8080/webadmin/defaultadmin'+row.name).then(function(resp) {
+            this.$axios.post('http://localhost:8080/webadmin/defaultadmin'+row.name,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                 })
             },
             doAdd(index, row) {
@@ -123,7 +131,11 @@
                 this.dialogVisible = false
                 console.log(this.Management.name)
                 _this=this
-                this.$axios.post('http://localhost:8080/webadmin/addadmin/'+_this.Management.name).then(function(resp) {
+                this.$axios.post('http://localhost:8080/webadmin/addadmin/'+_this.Management.name,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                     _this.$axios.get('http://localhost:8080/webadmin/getAll').then(function(resp) {
                         _this.tableData = resp.data
                         this.$alert('新增管理员成功', '新增管理员', {
@@ -139,7 +151,11 @@
         },
         created() {
             const _this = this
-            this.$axios.get('http://localhost:8080/webadmin/getAll').then(function(resp) {
+            this.$axios.get('http://localhost:8080/webadmin/getAll',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                 _this.tableData = resp.data
             })
         }
