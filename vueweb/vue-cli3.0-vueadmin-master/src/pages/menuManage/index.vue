@@ -22,8 +22,8 @@
                 </ul>
             </el-checkbox-group>
         </ul>
-        <el-button type="primary" @click="dialogVisible1 = true">添加菜单</el-button>
-        <el-button type="primary" @click="dialogVisible2 = true">添加页面</el-button>
+        <el-button type="primary" @click="addmenu3()">添加菜单</el-button>
+        <el-button type="primary" @click="addpagestemp()">添加页面</el-button>
         <el-button type="primary" @click="addbutton3()">添加按钮</el-button>
         <el-button type="primary" @click="handdelete()">勾选删除</el-button>
         <el-dialog
@@ -269,13 +269,31 @@
                     )
                 })
             },
+            addpagestemp(){
+                this.dialogVisible2 = true,
+                this.menuname='',
+                this.temp1='',
+                this.supermenu='',
+                this.submenus=[]
+
+            },
             addbutton3(){
                 this.dialogVisible3 = true
-                this.supermenu = ''
+                this.supermenu = '',
+                this.button=''
             },
             handleClose3(){
                 this.dialogVisible3 = false
             },
+            addmenu3(){
+                this.dialogVisible1=true,
+                this.menuname='',
+                this.temp1='',
+                this.submenus=[]
+            },
+             handleClose(tag) {
+            this.submenus.splice(this.submenus.indexOf(tag), 1);
+         },
             addmenu() {
                 this.dialogVisible1 = false
                 this.Menu.menuname = this.menuname
