@@ -134,7 +134,7 @@
             onSubmit() {
                 this.dialogVisible = false
                 console.log(this.Management.name)
-                _this=this
+                cost _this=this
                 this.$axios.post('http://localhost:8080/webadmin/addadmin/'+this.Management.name,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
