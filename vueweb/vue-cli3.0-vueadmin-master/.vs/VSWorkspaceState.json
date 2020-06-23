@@ -3,12 +3,14 @@
     "",
     "\\src",
     "\\src\\pages",
+    "\\src\\pages\\classManage",
+    "\\src\\pages\\classManage\\viewClasslist",
+    "\\src\\pages\\classManage\\workManage",
     "\\src\\pages\\dataDictionary",
     "\\src\\pages\\dataDictionary\\typeManage",
-    "\\src\\pages\\login",
-    "\\src\\pages\\user-manage",
-    "\\src\\pages\\user-manage\\user-manage-test"
+    "\\src\\store",
+    "\\src\\store\\modules"
   ],
-  "SelectedNode": "\\src\\pages\\user-manage\\user-manage-test\\index.vue",
+  "SelectedNode": "\\src\\pages\\classManage\\viewClasslist\\index.vue",
   "PreviewInSolutionExplorer": false
 }

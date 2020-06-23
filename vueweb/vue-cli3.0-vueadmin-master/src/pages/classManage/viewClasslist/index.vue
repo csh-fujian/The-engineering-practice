@@ -277,7 +277,7 @@ export default {
             rows.splice(index, 1)
         }
     }
-}
+
 </script>
 
 <style>

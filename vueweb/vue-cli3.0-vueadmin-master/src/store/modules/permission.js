@@ -43,24 +43,35 @@ export default {
     },
     actions: {
         async FETCH_PERMISSION({ commit, state }) {
+			let getavatar
+			let getname
+			let getroles
             // let permissionList = await fetchPermission()
-            // console.log(permissionList)
+            console.log("42")
 
-            axios.get("http://localhost:8080/webinitialization/parse",{
+            await axios.get("http://localhost:8080/webinitialization/parse",{
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     Authorization: localStorage.getItem('token')
                 }
             }).then(res => {
+				console.log("43")
                 console.log(res)
+				getavatar = res.data.nickname
+				getname = res.data.role
+				getroles = res.data.role
+				//console.log(res.data.nickname)
             })
-
+			
+			console.log(getavatar)
+			
             let permissionList = {
-            avatar : "https://randy168.com/1533262153771.gif",
+            avatar : getavatar,
             data : [],
             name: "custom",
             roles: ["custom"]
         }
+		
             permissionList.data.push('Design-role-manage1')
              permissionList.data.push('Design-role-manage')
             permissionList.data.push('user-manage-test')
