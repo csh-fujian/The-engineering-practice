@@ -61,7 +61,7 @@
             title="添加班课"
             :visible.sync="dialogVisible"
             width="60%"
-            :before-close="handleClose">
+            >
             <el-form ref="ro" :model="dict" label-width="80px">
                 <el-form-item label="班课号">
                     <el-input v-model="dict.classid"></el-input>
@@ -89,7 +89,7 @@
             title="编辑班课"
             :visible.sync="dialogVisible1"
             width="60%"
-            :before-close="handleClose">
+            >
             <el-form ref="ro" :model="dict1" label-width="80px">
                 <el-form-item label="班课号">
                     <el-input v-model="dict1.classid"></el-input>
@@ -105,7 +105,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button @click="dialogVisible1 = false">取消</el-button>
-                    <el-button type="primary" @click="editclass(scope.$index, tableData1)">确定</el-button>
+                    <el-button type="primary" @click="editclass()">确定</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -142,6 +142,7 @@ export default {
             searchData: {
                 idnum: '190327105'
             },
+			datalen:null,
             tableData1: []
         }
     },
@@ -156,35 +157,19 @@ export default {
             .then(res => {
                 console.log(res)
 				this.tableData1 = res.data
+				this.datalen = res.data.length
+				console.log(this.datalen)
             })
 
     },
     methods: {
        onSearch() {
-		let searchid = this.searchData.idnum
-           if(searchid != null){
-           for(j = 0,len=this.tableData1.length; j < len; j++) {
-               if(searchid == this.tableData1[j].classid){
-                   this.tableData1 = this.tableData1[j]
-                   return null
-               }
-           }}else{
-                   this.$axios
-                       .get('http://localhost:8080/webclass/findAll', {
-                           headers: {
-                               Authorization: localStorage.getItem('token')
-                           }
-                       })
-                       .then(res => {
-                           console.log(res)
-                           this.tableData1 = res.data
-                       })
-               }
-           }
+	   
+           },
 
 
             //console.log('success')
-        },
+       
     editclass(){
         this.$axios
             .post(
@@ -197,21 +182,16 @@ export default {
                 }
             )
             .then(res => {
+                this.$axios
+            .get('http://localhost:8080/webclass/findAll', {
+                headers: {
+                    Authorization: localStorage.getItem('token')
+                }
+            })
+            .then(res => {
                 console.log(res)
-                console.log(res.message)
-                this.$message({
-                    type: 'success',
-                    message: res.message
-                })
-
-                let classget = {
-                        classid: this.dict1.classid,
-                        classname: this.dict1.classname,
-                        teachername: rows[index].teachername,
-                        school: this.dict1.school,
-                        college: this.dict1.college
-                    }
-                this.tableData1.push(classget)
+				this.tableData1 = res.data
+            })
                 this.dialogVisible1 = false
             })
 
@@ -277,6 +257,7 @@ export default {
             rows.splice(index, 1)
         }
     }
+	}
 
 </script>
 

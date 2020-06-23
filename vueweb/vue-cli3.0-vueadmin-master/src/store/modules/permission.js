@@ -68,8 +68,8 @@ export default {
             let permissionList = {
             avatar : getavatar,
             data : [],
-            name: "custom",
-            roles: ["custom"]
+            name: getname,
+            roles: [getname]
         }
 		
             permissionList.data.push('Design-role-manage1')

@@ -97,12 +97,12 @@
             handleDelete(index, row) {
                 this.Management = row
                 const _this = this
-                this.$axios.post('http://localhost:8080/webadmin/delete'+this.Management.name,{
+                this.$axios.post('http://47.112.239.108:8080/webadmin/delete'+this.Management.name,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                    _this.$axios.get('http://localhost:8080/webadmin/getAll',{
+                    _this.$axios.get('http://47.112.239.108:8080/webadmin/getAll',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -121,7 +121,7 @@
             },
             Initialization(index, row) {
             alert(row.name)
-            this.$axios.post('http://localhost:8080/webadmin/defaultadmin'+row.name,{
+            this.$axios.post('http://47.112.239.108:8080/webadmin/defaultadmin'+row.name,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -133,14 +133,14 @@
             },
             onSubmit() {
                 this.dialogVisible = false
-                console.log(this.Management.name)
-                cost _this=this
-                this.$axios.post('http://localhost:8080/webadmin/addadmin/'+this.Management.name,{
+                console.log(this.Management.name) 
+                const _this=this
+                this.$axios.post('http://47.112.239.108:8080/webadmin/addadmin/'+this.Management.name,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                    _this.$axios.get('http://localhost:8080/webadmin/getAll',{
+                    _this.$axios.get('http://47.112.239.108:8080/webadmin/getAll',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -159,7 +159,7 @@
         },
         created() {
             const _this = this
-            this.$axios.get('http://localhost:8080/webadmin/getAll',{
+            this.$axios.get('http://47.112.239.108:8080/webadmin/getAll',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
