@@ -27,4 +27,6 @@ public interface IUserLoginService {
 	public userInfo login(String nickname, String password);
 
 	public result loginResult(String number, String password);
+
+	public List<Map<String,Object>> classsInfo(String number, int flag);
 }

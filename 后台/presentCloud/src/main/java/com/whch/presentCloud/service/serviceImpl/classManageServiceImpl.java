@@ -68,11 +68,16 @@ public class classManageServiceImpl implements IClassManageService {
             return null;
         }
 //        List<Map> list = new ArrayList<>();
+
         HashMap h = new HashMap<String,Object>();
+        h.put("bankeName", lesson.getClassname());
+        h.put("profilePhoto", "");
         h.put("teacher", lesson.getTeachername());
         h.put("classId",lesson.getClassid());
         h.put("school", lesson.getCollege());
         h.put("department", lesson.getClassname());
+        h.put("description", lesson.getType());
+        h.put("semester",lesson.getClasstime());
 //        list.add(h);
         return h;
     }

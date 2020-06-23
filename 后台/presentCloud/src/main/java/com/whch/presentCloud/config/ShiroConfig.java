@@ -65,6 +65,9 @@ public class ShiroConfig {
         authMap.put("/joinClass", "anon");
         authMap.put("/logout", "anon");
         authMap.put("/register", "anon");
+        authMap.put("/loginbyphone", "anon");
+        authMap.put("/join-class/join-in", "anon");
+        authMap.put("/banke/id/one-class", "anon");
         // authMap.put("/static/**", "anon");
         // authMap.put("/student/**", "client,roles[user]");
         authMap.put("/teacher/**", "roles[老师]");

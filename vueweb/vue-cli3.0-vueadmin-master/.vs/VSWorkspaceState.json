@@ -3,8 +3,12 @@
     "",
     "\\src",
     "\\src\\pages",
-    "\\src\\pages\\login"
+    "\\src\\pages\\dataDictionary",
+    "\\src\\pages\\dataDictionary\\typeManage",
+    "\\src\\pages\\login",
+    "\\src\\pages\\user-manage",
+    "\\src\\pages\\user-manage\\user-manage-test"
   ],
-  "SelectedNode": "\\src\\pages\\login\\login copy.vue",
+  "SelectedNode": "\\src\\pages\\user-manage\\user-manage-test\\index.vue",
   "PreviewInSolutionExplorer": false
 }

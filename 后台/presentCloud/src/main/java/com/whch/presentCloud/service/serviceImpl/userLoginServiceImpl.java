@@ -125,36 +125,55 @@ public class userLoginServiceImpl implements IUserLoginService {
         // System.out.println(flag);
         if(flag == 1)
         {
-            List<classCourseMember> lessons = classManageService.getLessons(number);
-            List studentClassList = new ArrayList<>();
-            for (classCourseMember lesson : lessons) {
-            
-                lessonInfo.put("bankeName", lesson.getClassname());
-                lessonInfo.put("teacher", lesson.getTeachername());
-                lessonInfo.put("description", lesson.getClassname());
-                lessonInfo.put("profilePhoto", "");
-            } 
+
             r.setState("true");
             r.setRole("学生");
-            r.setResult(studentClassList);
+//            r.setResult(studentClassList);
             
             return r;
         } else if(flag == 2){
-            List<classCourseMember> lessons = classManageService.getLessons(number);
-            List studentClassList = new ArrayList<>();
-            for (classCourseMember lesson : lessons) {
 
-                lessonInfo.put("bankeName", lesson.getClassname());
-                lessonInfo.put("teacher", lesson.getTeachername());
-                lessonInfo.put("description", lesson.getClassname());
-                lessonInfo.put("profilePhoto", "");
-            }
             r.setState("true");
             r.setRole("老师");
-            r.setResult(studentClassList);
+//            r.setResult(studentClassList);
 
             return r;
         }
         return null;
     }
+
+
+
+    public List<Map<String,Object>> classsInfo(String number, int flag) {
+        List studentClassList = new ArrayList<>();
+
+        if(flag == 1)
+        {
+            List<classCourseMember> lessons = classManageService.getLessons(number);
+
+            for (classCourseMember lesson : lessons) {
+                HashMap lessonInfo =  classManageService.getCourse(lesson.getClassid().toString());
+                studentClassList.add(lessonInfo);
+            }
+
+
+            return studentClassList;
+        } else if(flag == 2){
+            List<classCourseMember> lessons = classManageService.getLessons(number);
+            for (classCourseMember lesson : lessons) {
+                HashMap lessonInfo = new HashMap<>();
+                lessonInfo.put("bankeName", lesson.getClassname());
+                lessonInfo.put("teacher", lesson.getTeachername());
+                lessonInfo.put("description", lesson.getClassname());
+                lessonInfo.put("profilePhoto", "");
+                studentClassList.add(lessonInfo);
+            }
+
+
+            return studentClassList;
+        }
+        return null;
+    }
+
+
 }

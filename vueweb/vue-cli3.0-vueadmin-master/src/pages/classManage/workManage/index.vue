@@ -201,7 +201,7 @@
                     })
 
                     let classget = {
-                        classid: this.dict1.classid
+                        classid: this.dict1.classid,
                         classname: this.dict1.classname,
                         teachername: rows[index].teachername,
                         school: this.dict1.school,

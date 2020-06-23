@@ -20,8 +20,8 @@ public interface taskMemoryMapper {
 
     int updateByPrimaryKey(taskMemory record);
 
-    @Select("select * from taskmeomory")
+    @Select("select * from taskmemory")
 	List<taskMemory> getAll();
-    @Select("select * from taskmeomory where StudentId =#{studentId}")
+    @Select("select * from taskmemory where StudentId =#{studentId}")
 	List<taskMemory> get(@Param("studentId") Integer studentId);
 }

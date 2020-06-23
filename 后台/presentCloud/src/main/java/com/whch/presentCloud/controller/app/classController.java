@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,10 +31,11 @@ public class classController {
     /**
      * 输入班级号获取班课详情
      * @param classId
-     * @param studentId
+
      * @return
      */
     @RequestMapping("/joinClass")
+    @ResponseBody
     public  HashMap<String,Object> joinClass(@RequestParam("classId")String classId)
 
     {
@@ -54,7 +56,7 @@ public class classController {
         return resul;
     }
 
-    @RequestMapping("one-class")
+    @RequestMapping("/banke/id/one-class")
     public Map<String,Object> getClassInfo(@RequestParam("classId")String classId,@RequestParam("username")String username)
     {
         Map<String,Object> res = classManageService.getLesson(classId,username);

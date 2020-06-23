@@ -24,4 +24,5 @@ public interface IClassManageService {
 
 	String logoutLesson(String username, String classId);
 
+//    void getCourseseInfo(Integer classid);
 }

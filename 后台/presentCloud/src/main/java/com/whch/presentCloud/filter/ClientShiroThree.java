@@ -20,14 +20,17 @@ import com.whch.presentCloud.utils.TokenUtil;
 
 @Component//这个注入与否影响不大
 public class ClientShiroThree extends AuthenticationFilter {
-    @Override
+
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse response1) throws Exception {
         HttpServletResponse response = (HttpServletResponse) response1;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String ajax = request.getHeader("x-requested-with");
         if (null==ajax) {
             System.out.println("=====不是ajax");
-            response.sendRedirect("/noLogin");
+//            response.setContentType("text/html;charset=utf-8");
+//            response.getWriter().write("请先登录");
+//            response.sendRedirect("/noLogin");
+            return false;
         }else {
             System.out.println("=====是ajax"+ajax);
             response.setContentType("text/html;charset=utf-8");

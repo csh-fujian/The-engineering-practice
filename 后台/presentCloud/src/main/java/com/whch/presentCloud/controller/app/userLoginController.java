@@ -73,7 +73,7 @@ public class userLoginController {
 
     
     
-    @RequestMapping("/loginbyphone")
+    @RequestMapping(value="/loginbyphone", method = RequestMethod.POST)
     public Map<String,Object> login(@RequestParam("phone") String phone) {
         Map res = userloginservice.IsExistUser(phone);
         return res;
@@ -117,7 +117,14 @@ public class userLoginController {
         
     }
 
+
+    @RequestMapping("/banke")
+    public List<Map<String,Object>> banke(@RequestParam("username"String username))
+    {
+
+    }
     @RequestMapping(value = "/noLogin", method = RequestMethod.GET)
+    @ResponseBody
     public ResponseData notLogin() {
         return ResponseDataUtil.failure("请先登录！");
     }
