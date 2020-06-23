@@ -123,7 +123,6 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-							alert(1)
                 })
             },
             doAdd(index, row) {
@@ -144,7 +143,6 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-							alert(1)
                         _this.tableData = resp.data
 
                     })
