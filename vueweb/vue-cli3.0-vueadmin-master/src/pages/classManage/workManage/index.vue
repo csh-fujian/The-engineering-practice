@@ -1,13 +1,292 @@
-<template>
-  
+<template lang="html">
+    <el-card class="box-card">
+        <div class="search-bar">
+            <el-form :inline="true" :model="searchData" class="fl">
+                <el-input style="display: none;"></el-input>
+                <el-form-item label="班课ID：">
+                    <el-input
+                        v-model="searchData.idnum"
+                        placeholder="请输入班课ID"
+                        @keyup.enter.native="onSearch"
+                    ></el-input>
+                </el-form-item>
+            </el-form>
+            <div class="fl">
+                <el-button
+                    type="primary"
+                    icon="el-icon-search"
+                    @click="onSearch"
+                >查询</el-button
+                >
+            </div>
+            <el-button
+                type="success"
+                icon="el-icon-plus"
+                style="margin:0px 0px 0px 30px"
+                @click="dialogVisible = true"
+            >新增班课</el-button
+            >
+        </div>
+        <el-table :data="tableData1" border style="width: 100%">
+            <el-table-column fixed prop="classid" label="班课id" width="100">
+            </el-table-column>
+            <el-table-column prop="classname" label="课程名称" width="120">
+            </el-table-column>
+            <el-table-column prop="teachername" label="教师姓名" width="120">
+            </el-table-column>
+            <el-table-column prop="school" label="所在学校" width="170">
+            </el-table-column>
+            <el-table-column prop="college" label="所属学院" width="170">
+            </el-table-column>
+            <el-table-column prop="classtime" label="注册时间" width="200">
+            </el-table-column>
+            <el-table-column fixed="right" label="操作" width="150">
+                <template slot-scope="scope">
+                    <el-button  @click="dialogVisible1 = true" type="text" size="small"
+                    >编辑</el-button
+                    >
+                    <el-button
+                        @click.native.prevent="
+                            deletedata(scope.$index, tableData1)
+                        "
+                        type="text"
+                        size="small"
+                    >删除</el-button
+                    >
+                </template>
+            </el-table-column>
+        </el-table>
+
+        <el-dialog
+            title="添加班课"
+            :visible.sync="dialogVisible"
+            width="60%"
+            :before-close="handleClose">
+            <el-form ref="ro" :model="dict" label-width="80px">
+                <el-form-item label="班课号">
+                    <el-input v-model="dict.classid"></el-input>
+                </el-form-item>
+                <el-form-item label="课程名称">
+                    <el-input v-model="dict.classname"></el-input>
+                </el-form-item>
+                <el-form-item label="所属大学">
+                    <el-input v-model="dict.school"></el-input>
+                </el-form-item>
+                <el-form-item label="所属学院">
+                    <el-input v-model="dict.college"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button @click="dialogVisible = false">取消</el-button>
+                    <el-button type="primary" @click="addclass()">确定</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+
+        <el-dialog
+            title="编辑班课"
+            :visible.sync="dialogVisible1"
+            width="60%"
+            :before-close="handleClose">
+            <el-form ref="ro" :model="dict1" label-width="80px">
+                <el-form-item label="班课号">
+                    <el-input v-model="dict1.classid"></el-input>
+                </el-form-item>
+                <el-form-item label="课程名称">
+                    <el-input v-model="dict1.classname"></el-input>
+                </el-form-item>
+                <el-form-item label="所属大学">
+                    <el-input v-model="dict1.school"></el-input>
+                </el-form-item>
+                <el-form-item label="所属学院">
+                    <el-input v-model="dict1.college"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button @click="dialogVisible1 = false">取消</el-button>
+                    <el-button type="primary" @click="editclass(scope.$index, tableData1)">确定</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
+
+    </el-card>
 </template>
 
 <script>
+    // import { getRoleList, getAllPermissiion } from '@/api/permission'
     export default {
-        name: 'index'
+        data() {
+            return {
+                dict: {
+                    classid: null,
+                    classname: '',
+                    school: '',
+                    college: ''
+                },
+                dict1: {
+                    classid: null,
+                    classname: '',
+                    school: '',
+                    college: ''
+                },
+                dialogVisible: false,
+                dialogVisible1: false,
+
+                currentPage: 1,
+                // 总条数
+                totalCount: 1,
+                totalCount1: null,
+                PageSize: 1,
+                searchData: {
+                    idnum: '190327105'
+                },
+                tableData1: []
+            }
+        },
+        created: function() {
+            console.log('1')
+            this.$axios
+                .get('http://localhost:8080/webclass/findbyteacher', {
+                    headers: {
+                        Authorization: localStorage.getItem('token')
+                    }
+                })
+                .then(res => {
+                    console.log(res)
+                    this.tableData1 = res.data
+                })
+
+        },
+        methods: {
+            onSearch() {
+                let searchid = this.searchData.idnum
+                if(searchid != null){
+                    for(j = 0,len=this.tableData1.length; j < len; j++) {
+                        if(searchid == this.tableData1[j].classid){
+                            this.tableData1 = this.tableData1[j]
+                            return null
+                        }
+                    }}else{
+                    this.$axios
+                        .get('http://localhost:8080/webclass/findAll', {
+                            headers: {
+                                Authorization: localStorage.getItem('token')
+                            }
+                        })
+                        .then(res => {
+                            console.log(res)
+                            this.tableData1 = res.data
+                        })
+                }
+            }
+
+
+            //console.log('success')
+        },
+        editclass(){
+            this.$axios
+                .post(
+                    'http://localhost:8080/webclass/update',
+                    this.dict1,
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem('token')
+                        }
+                    }
+                )
+                .then(res => {
+                    console.log(res)
+                    console.log(res.message)
+                    this.$message({
+                        type: 'success',
+                        message: res.message
+                    })
+
+                    let classget = {
+                        classid: this.dict1.classid
+                        classname: this.dict1.classname,
+                        teachername: rows[index].teachername,
+                        school: this.dict1.school,
+                        college: this.dict1.college
+                    }
+                    this.tableData1.push(classget)
+                    this.dialogVisible1 = false
+                })
+
+
+        },
+        addclass() {
+            // let classget = {
+            //     id: 2020622001,
+            //     classname: '中国特色社会主义',
+            //     teachername: '张三',
+            //     school: '福州大学',
+            //     college: '人文学院'
+            // }
+            this.$axios
+                .post(
+                    'http://localhost:8080/webclass/addclass',
+                    this.dict,
+                    {
+                        headers: {
+                            Authorization: localStorage.getItem('token')
+                        }
+                    }
+                )
+                .then(res => {
+                    console.log(res)
+                    console.log(res.message)
+                    this.$message({
+                        type: 'success',
+                        message: '修改成功'
+                    })
+                    this.tableData1.push(this.dict)
+                    this.dialogVisible = false
+                })
+
+            //console.log('success')
+        },
+        Click() {
+            console.log('success')
+        },
+        deletedata(index, rows) {
+            //console.log(this.tableData1)
+            console.log(rows[index].id)
+            console.log(rows[index].classid)
+            let delid = rows[index].classid
+            this.$axios
+                .post(
+                    'http://localhost:8080/webclass/delete/' + delid,
+                    {},
+                    {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            Authorization: localStorage.getItem('token')
+                        }
+                    }
+                )
+                .then(res => {
+                    console.log(res.status)
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功'
+                    })
+                })
+            rows.splice(index, 1)
+        }
+    }
     }
 </script>
 
-<style scoped>
-
+<style>
+    .fr {
+        float: right;
+    }
+    .fl {
+        float: left;
+    }
+    .search-bar {
+        overflow: hidden;
+    }
+    .tools-bar {
+        margin-bottom: 20px;
+    }
 </style>

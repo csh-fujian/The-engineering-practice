@@ -1,4 +1,5 @@
 import { fetchPermission } from '@/api/permission'
+import axios from 'axios'
 import router, { DynamicRoutes } from '@/router/index'
 import { recursionRouter } from '@/utils/recursion-router'
 import dynamicRouter from '@/router/dynamic-router'
@@ -44,6 +45,16 @@ export default {
         async FETCH_PERMISSION({ commit, state }) {
             // let permissionList = await fetchPermission()
             // console.log(permissionList)
+
+            axios.get("http://localhost:8080/webinitialization/parse",{
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    Authorization: localStorage.getItem('token')
+                }
+            }).then(res => {
+                console.log(res)
+            })
+
             let permissionList = {
             avatar : "https://randy168.com/1533262153771.gif",
             data : [],

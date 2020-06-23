@@ -42,8 +42,8 @@
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="150">
                 <template slot-scope="scope">
-                    <el-button @click="Click" type="text" size="small"
-                        >查看</el-button
+                    <el-button  @click="dialogVisible1 = true" type="text" size="small"
+                        >编辑</el-button
                     >
                     <el-button
                         @click.native.prevent="
@@ -58,7 +58,7 @@
         </el-table>
 
         <el-dialog
-            title="添加类型"
+            title="添加班课"
             :visible.sync="dialogVisible"
             width="60%"
             :before-close="handleClose">
@@ -79,12 +79,36 @@
                     <el-input v-model="dict.college"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button @click="dialogFormVisible = false">取消</el-button>
+                    <el-button @click="dialogVisible = false">取消</el-button>
                     <el-button type="primary" @click="addclass()">确定</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
 
+        <el-dialog
+            title="编辑班课"
+            :visible.sync="dialogVisible1"
+            width="60%"
+            :before-close="handleClose">
+            <el-form ref="ro" :model="dict1" label-width="80px">
+                <el-form-item label="班课号">
+                    <el-input v-model="dict1.classid"></el-input>
+                </el-form-item>
+                <el-form-item label="课程名称">
+                    <el-input v-model="dict1.classname"></el-input>
+                </el-form-item>
+                <el-form-item label="所属大学">
+                    <el-input v-model="dict1.school"></el-input>
+                </el-form-item>
+                <el-form-item label="所属学院">
+                    <el-input v-model="dict1.college"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button @click="dialogVisible1 = false">取消</el-button>
+                    <el-button type="primary" @click="editclass(scope.$index, tableData1)">确定</el-button>
+                </el-form-item>
+            </el-form>
+        </el-dialog>
 
     </el-card>
 </template>
@@ -101,7 +125,15 @@ export default {
                 school: '',
                 college: ''
             },
+            dict1: {
+                classid: null,
+                classname: '',
+                school: '',
+                college: ''
+            },
             dialogVisible: false,
+            dialogVisible1: false,
+
             currentPage: 1,
             // 总条数
             totalCount: 1,
@@ -128,12 +160,63 @@ export default {
 
     },
     methods: {
-  //      onSearch() {
-//		
-		
-		
-    //        //console.log('success')
-      //  },
+       onSearch() {
+		let searchid = this.searchData.idnum
+           if(searchid != null){
+           for(j = 0,len=this.tableData1.length; j < len; j++) {
+               if(searchid == this.tableData1[j].classid){
+                   this.tableData1 = this.tableData1[j]
+                   return null
+               }
+           }}else{
+                   this.$axios
+                       .get('http://localhost:8080/webclass/findAll', {
+                           headers: {
+                               Authorization: localStorage.getItem('token')
+                           }
+                       })
+                       .then(res => {
+                           console.log(res)
+                           this.tableData1 = res.data
+                       })
+               }
+           }
+
+
+            //console.log('success')
+        },
+    editclass(){
+        this.$axios
+            .post(
+                'http://localhost:8080/webclass/update',
+                this.dict1,
+                {
+                    headers: {
+                        Authorization: localStorage.getItem('token')
+                    }
+                }
+            )
+            .then(res => {
+                console.log(res)
+                console.log(res.message)
+                this.$message({
+                    type: 'success',
+                    message: res.message
+                })
+
+                let classget = {
+                        classid: this.dict1.classid
+                        classname: this.dict1.classname,
+                        teachername: rows[index].teachername,
+                        school: this.dict1.school,
+                        college: this.dict1.college
+                    }
+                this.tableData1.push(classget)
+                this.dialogVisible1 = false
+            })
+
+
+    },
         addclass() {
             // let classget = {
             //     id: 2020622001,
