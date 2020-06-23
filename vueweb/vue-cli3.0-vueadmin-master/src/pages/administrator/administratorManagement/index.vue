@@ -102,7 +102,11 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                    _this.$axios.get('http://localhost:8080/webadmin/getAll').then(function(resp) {
+                    _this.$axios.get('http://localhost:8080/webadmin/getAll',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.tableData = resp.data
                         this.$alert('删除管理员成功', '删除管理员', {
                             confirmButtonText: '确定',
@@ -136,7 +140,11 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                    _this.$axios.get('http://localhost:8080/webadmin/getAll').then(function(resp) {
+                    _this.$axios.get('http://localhost:8080/webadmin/getAll',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.tableData = resp.data
                         this.$alert('新增管理员成功', '新增管理员', {
                             confirmButtonText: '确定',
