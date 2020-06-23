@@ -105,8 +105,16 @@
                 this.editSys.sysp.value = parseInt(this.ro.value)
                 const _this = this
                 console.log(this.editSys)
-                this.$axios.post('http://localhost:8080/websysparameter/update', this.editSys).then(function(resp) {
-                    _this.$axios.get('http://localhost:8080/websysparameter/findAll').then(function(resp) {
+                this.$axios.post('http://localhost:8080/websysparameter/update', this.editSys,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
+                    _this.$axios.get('http://localhost:8080/websysparameter/findAll',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                         _this.tableData = resp.data
                         this.$alert('修改参数成功', '修改参数', {
                             confirmButtonText: '确定',
@@ -120,7 +128,11 @@
         },
         created() {
             const _this = this
-            this.$axios.get('http://localhost:8080/websysparameter/findAll').then(function(resp) {
+            this.$axios.get('http://localhost:8080/websysparameter/findAll',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
                 _this.tableData = resp.data
             })
         }
