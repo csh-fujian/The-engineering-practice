@@ -10,9 +10,9 @@
                 style="width:130px;height:10px"
                 placeholder="输入参数名称搜索"/>
         </div>
-        <el-table :data="tableData1.filter(data => !search || data.type.toLowerCase().includes(search.toLowerCase()))"
+        <el-table :data="tableData1.filter(data => !search || data.classname.toLowerCase().includes(search.toLowerCase()))"
                   border style="width: 100%">
-            <el-table-column fixed prop="classid" label="班课id" width="100">
+            <el-table-column  prop="classid" label="班课id" width="100">
             </el-table-column>
             <el-table-column prop="classname" label="课程名称" width="120">
             </el-table-column>
@@ -103,14 +103,14 @@ export default {
     data() {
         return {
             dict: {
-                classid: null,
+                classid: '',
                 classname: '',
                 teachername: '',
                 school: '',
                 college: ''
             },
             dict1: {
-                classid: null,
+                classid: '',
                 classname: '',
                 school: '',
                 college: ''
