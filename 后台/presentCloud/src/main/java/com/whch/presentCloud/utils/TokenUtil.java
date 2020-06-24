@@ -2,8 +2,11 @@ package com.whch.presentCloud.utils;
 
 import java.util.Date;
 
+import org.apache.shiro.authc.AuthenticationException;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -24,8 +27,13 @@ public class TokenUtil {
 
     public static Claims getTokenBody(String token) {
         JwtParser parser = Jwts.parser();
-        Claims body = parser.setSigningKey(secret).parseClaimsJws(token).getBody();
-        return body;
+        Claims body=null;
+        try{
+        body = parser.setSigningKey(secret).parseClaimsJws(token).getBody();
+    }catch(JwtException e){
+        throw new AuthenticationException("非法token");
+    }
+    return body;
     }
 
     public static String getName(String token) {

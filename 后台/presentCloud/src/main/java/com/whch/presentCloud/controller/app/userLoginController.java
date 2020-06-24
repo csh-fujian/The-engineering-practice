@@ -119,9 +119,9 @@ public class userLoginController {
 
 
     @RequestMapping("/banke")
-    public List<Map<String,Object>> banke(@RequestParam("username"String username))
+    public List<Map<String,Object>> banke(@RequestParam("username")String username,@RequestParam("flag")String flag)
     {
-
+        return userloginservice.classsInfo(username, Integer.parseInt(flag));
     }
     @RequestMapping(value = "/noLogin", method = RequestMethod.GET)
     @ResponseBody

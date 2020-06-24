@@ -9,51 +9,66 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import io.jsonwebtoken.JwtException;
+
+import java.io.IOException;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.whch.presentCloud.exception.DefaultExceptionHandler;
+import com.whch.presentCloud.exception.MyException;
 import com.whch.presentCloud.utils.TokenUtil;
- 
- 
 
-
-@Component//这个注入与否影响不大
+@Component // 这个注入与否影响不大
 public class ClientShiroThree extends AuthenticationFilter {
 
     protected boolean onAccessDenied(ServletRequest servletRequest, ServletResponse response1) throws Exception {
         HttpServletResponse response = (HttpServletResponse) response1;
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String ajax = request.getHeader("x-requested-with");
-        if (null==ajax) {
+        if (null == ajax) {
             System.out.println("=====不是ajax");
-//            response.setContentType("text/html;charset=utf-8");
-//            response.getWriter().write("请先登录");
-//            response.sendRedirect("/noLogin");
+            // response.setContentType("text/html;charset=utf-8");
+            // response.getWriter().write("请先登录");
+            // response.sendRedirect("/noLogin");
             return false;
-        }else {
-            System.out.println("=====是ajax"+ajax);
+        } else {
+            System.out.println("=====是ajax" + ajax);
             response.setContentType("text/html;charset=utf-8");
             response.getWriter().write("访问有问题");
         }
         return false;
     }
-  
-    protected boolean isAccessAllowed(ServletRequest servletRequest, ServletResponse response, Object mappedValue) {
+
+    protected boolean isAccessAllowed(ServletRequest servletRequest, ServletResponse response1, Object mappedValue) {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) response1;
         String token = request.getHeader(TokenUtil.tokenHeard);
-        System.out.println("================"+token);
-        if (null == token||"".equals(token)) {
+        System.out.println("================" + token);
+        if (null == token || "".equals(token)) {
             System.out.println("-------------------token为空");
             return false;
         }
-        //验证token的真实性
+        // 验证token的真实性
         try {
             TokenUtil.getTokenBody(token);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("----------------token有问题");
-            return false;
+        } catch (JwtException e) {
+            // e.printStackTrace();
+            // System.out.println("----------------token有问题");
+            // response.setContentType("text/html;charset=utf-8");
+            // response.getWriter().write("访问有问题");
+
+            try {
+                // response.sendError(500, "非法token");
+                response.sendRedirect("/noLogin");
+            } catch (IOException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            // throw new AuthenticationException("非法token");
+            
         }
         return true;
     }

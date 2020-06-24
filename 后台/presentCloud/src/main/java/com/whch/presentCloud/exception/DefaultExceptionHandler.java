@@ -5,7 +5,7 @@
  * @Autor: whc
  * @Date: 2020-05-23 12:19:24
  * @LastEditors: whc
- * @LastEditTime: 2020-05-23 12:23:44
+ * @LastEditTime: 2020-06-23 12:49:58
  */
 package com.whch.presentCloud.exception;
 
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @ControllerAdvice  //不指定包默认加了@Controller和@RestController都能控制
 //@ControllerAdvice(basePackages ="com.example.demo.controller")
+
 public class DefaultExceptionHandler {
 
 
