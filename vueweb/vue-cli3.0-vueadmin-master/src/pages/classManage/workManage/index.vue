@@ -1,33 +1,20 @@
 <template lang="html">
     <el-card class="box-card">
-        <div class="search-bar">
-            <el-form :inline="true" :model="searchData" class="fl">
-                <el-input style="display: none;"></el-input>
-                <el-form-item label="班课ID：">
-                    <el-input
-                        v-model="searchData.idnum"
-                        placeholder="请输入班课ID"
-                        @keyup.enter.native="onSearch"
-                    ></el-input>
-                </el-form-item>
-            </el-form>
-            <div class="fl">
-                <el-button
-                    type="primary"
-                    icon="el-icon-search"
-                    @click="onSearch"
-                >查询</el-button
-                >
-            </div>
+        <div style="display: block;font-size:10px;">
             <el-button
                 type="success"
                 icon="el-icon-plus"
-                style="margin:0px 0px 0px 30px"
                 @click="dialogVisible = true"
-            >新增班课</el-button
+                >添加类型</el-button
             >
+            <el-input
+                v-model="search"
+                icon="el-icon-plus"
+                style="width:130px;height:10px"
+                placeholder="输入班课名称"
+            />
         </div>
-        <el-table :data="tableData1" border style="width: 100%">
+        <el-table :data="tableData1.filter(data => !search || data.classname.toLowerCase().includes(search.toLowerCase()))" border style="width: 100%">
             <el-table-column fixed prop="classid" label="班课id" width="100">
             </el-table-column>
             <el-table-column prop="classname" label="课程名称" width="120">
@@ -42,8 +29,11 @@
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="150">
                 <template slot-scope="scope">
-                    <el-button  @click="dialogVisible1 = true" type="text" size="small"
-                    >编辑</el-button
+                    <el-button
+                        @click="dialogVisible1 = true"
+                        type="text"
+                        size="small"
+                        >编辑</el-button
                     >
                     <el-button
                         @click.native.prevent="
@@ -51,7 +41,7 @@
                         "
                         type="text"
                         size="small"
-                    >删除</el-button
+                        >删除</el-button
                     >
                 </template>
             </el-table-column>
@@ -61,7 +51,8 @@
             title="添加班课"
             :visible.sync="dialogVisible"
             width="60%"
-            :before-close="handleClose">
+            :before-close="handleClose"
+        >
             <el-form ref="ro" :model="dict" label-width="80px">
                 <el-form-item label="班课号">
                     <el-input v-model="dict.classid"></el-input>
@@ -77,7 +68,9 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button @click="dialogVisible = false">取消</el-button>
-                    <el-button type="primary" @click="addclass()">确定</el-button>
+                    <el-button type="primary" @click="addclass()"
+                        >确定</el-button
+                    >
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -86,7 +79,8 @@
             title="编辑班课"
             :visible.sync="dialogVisible1"
             width="60%"
-            :before-close="handleClose">
+            :before-close="handleClose"
+        >
             <el-form ref="ro" :model="dict1" label-width="80px">
                 <el-form-item label="班课号">
                     <el-input v-model="dict1.classid"></el-input>
@@ -102,71 +96,81 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button @click="dialogVisible1 = false">取消</el-button>
-                    <el-button type="primary" @click="editclass(scope.$index, tableData1)">确定</el-button>
+                    <el-button type="primary" @click="editclass()"
+                        >确定</el-button
+                    >
                 </el-form-item>
             </el-form>
         </el-dialog>
-
     </el-card>
 </template>
 
 <script>
-    // import { getRoleList, getAllPermissiion } from '@/api/permission'
-    export default {
-        data() {
-            return {
-                dict: {
-                    classid: null,
-                    classname: '',
-                    school: '',
-                    college: ''
-                },
-                dict1: {
-                    classid: null,
-                    classname: '',
-                    school: '',
-                    college: ''
-                },
-                dialogVisible: false,
-                dialogVisible1: false,
+// import { getRoleList, getAllPermissiion } from '@/api/permission'
+export default {
+    data() {
+        return {
+            teachername: '',
+            dict: {
+                classid: null,
+                classname: '',
+                school: '',
+                college: ''
+            },
+            dict1: {
+                classid: null,
+                classname: '',
+                school: '',
+                college: ''
+            },
+            dialogVisible: false,
+            dialogVisible1: false,
 
-                currentPage: 1,
-                // 总条数
-                totalCount: 1,
-                totalCount1: null,
-                PageSize: 1,
-                searchData: {
-                    idnum: '190327105'
-                },
-                tableData1: []
-            }
-        },
-        created: function() {
-            console.log('1')
+            currentPage: 1,
+            // 总条数
+            totalCount: 1,
+            totalCount1: null,
+            PageSize: 1,
+            searchData: {
+                idnum: '190327105'
+            },
+            tableData1: []
+        }
+    },
+    created: function() {
+        console.log('1')
+        this.$axios
+            .get('http://localhost:8080/webclass/findbyteacher', {
+                headers: {
+                    Authorization: localStorage.getItem('token')
+                }
+            })
+            .then(res => {
+                console.log(res)
+                this.tableData1 = res.data
+            })
+        this.$axios
+            .get('http://localhost:8080/webinitialization/parse', {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    Authorization: localStorage.getItem('token')
+                }
+            })
+            .then(res => {
+                this.teachername = res.data.nickname
+            })
+    },
+    methods: {
+        editclass() {
             this.$axios
-                .get('http://localhost:8080/webclass/findbyteacher', {
+                .post('http://localhost:8080/webclass/update', this.dict1, {
                     headers: {
                         Authorization: localStorage.getItem('token')
                     }
                 })
                 .then(res => {
-                    console.log(res)
-                    this.tableData1 = res.data
-                })
-
-        },
-        methods: {
-            onSearch() {
-                let searchid = this.searchData.idnum
-                if(searchid != null){
-                    for(j = 0,len=this.tableData1.length; j < len; j++) {
-                        if(searchid == this.tableData1[j].classid){
-                            this.tableData1 = this.tableData1[j]
-                            return null
-                        }
-                    }}else{
                     this.$axios
-                        .get('http://localhost:8080/webclass/findAll', {
+                        .get('http://localhost:8080/webclass/findbyteacher', {
                             headers: {
                                 Authorization: localStorage.getItem('token')
                             }
@@ -175,43 +179,7 @@
                             console.log(res)
                             this.tableData1 = res.data
                         })
-                }
-            }
-
-
-            //console.log('success')
-        },
-        editclass(){
-            this.$axios
-                .post(
-                    'http://localhost:8080/webclass/update',
-                    this.dict1,
-                    {
-                        headers: {
-                            Authorization: localStorage.getItem('token')
-                        }
-                    }
-                )
-                .then(res => {
-                    console.log(res)
-                    console.log(res.message)
-                    this.$message({
-                        type: 'success',
-                        message: res.message
-                    })
-
-                    let classget = {
-                        classid: this.dict1.classid,
-                        classname: this.dict1.classname,
-                        teachername: rows[index].teachername,
-                        school: this.dict1.school,
-                        college: this.dict1.college
-                    }
-                    this.tableData1.push(classget)
-                    this.dialogVisible1 = false
                 })
-
-
         },
         addclass() {
             // let classget = {
@@ -221,25 +189,32 @@
             //     school: '福州大学',
             //     college: '人文学院'
             // }
+
+            let classget = {
+                classid: this.dict.classid,
+                classname: this.dict.classname,
+                teachername: this.teachername,
+                school: this.dict.school,
+                college: this.dict.college
+            }
+            console.log(classget)
             this.$axios
-                .post(
-                    'http://localhost:8080/webclass/addclass',
-                    this.dict,
-                    {
-                        headers: {
-                            Authorization: localStorage.getItem('token')
-                        }
+                .post('http://localhost:8080/webclass/addclass', classget, {
+                    headers: {
+                        Authorization: localStorage.getItem('token')
                     }
-                )
+                })
                 .then(res => {
-                    console.log(res)
-                    console.log(res.message)
-                    this.$message({
-                        type: 'success',
-                        message: '修改成功'
-                    })
-                    this.tableData1.push(this.dict)
-                    this.dialogVisible = false
+                    this.$axios
+                        .get('http://localhost:8080/webclass/findbyteacher', {
+                            headers: {
+                                Authorization: localStorage.getItem('token')
+                            }
+                        })
+                        .then(res => {
+                            console.log(res)
+                            this.tableData1 = res.data
+                        })
                 })
 
             //console.log('success')
@@ -273,20 +248,20 @@
             rows.splice(index, 1)
         }
     }
-    
+}
 </script>
 
 <style>
-    .fr {
-        float: right;
-    }
-    .fl {
-        float: left;
-    }
-    .search-bar {
-        overflow: hidden;
-    }
-    .tools-bar {
-        margin-bottom: 20px;
-    }
+.fr {
+    float: right;
+}
+.fl {
+    float: left;
+}
+.search-bar {
+    overflow: hidden;
+}
+.tools-bar {
+    margin-bottom: 20px;
+}
 </style>
