@@ -97,22 +97,19 @@
             handleDelete(index, row) {
                 this.Management = row
                 const _this = this
-                this.$axios.post('http://47.112.239.108:8080/webadmin/delete'+this.Management.name,{
+				console.log(this.Management.name)
+                this.$axios.post('http://47.112.239.108:8080/webadmin/delete/'+this.Management.name,{},{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
+								alert(1)
                     _this.$axios.get('http://47.112.239.108:8080/webadmin/getAll',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
                         _this.tableData = resp.data
-                        this.$alert('删除管理员成功', '删除管理员', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                            }
-                        })
                     })
                 })
             },
@@ -121,7 +118,7 @@
             },
             Initialization(index, row) {
             alert(row.name)
-            this.$axios.post('http://47.112.239.108:8080/webadmin/defaultadmin'+row.name,{
+            this.$axios.post('http://47.112.239.108:8080/webadmin/defaultadmin/'+row.name,{},{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -135,22 +132,19 @@
                 this.dialogVisible = false
                 console.log(this.Management.name) 
                 const _this=this
-                this.$axios.post('http://47.112.239.108:8080/webadmin/addadmin/'+this.Management.name,{
+                this.$axios.post('http://localhost:8080/webadmin/addadmin/'+this.Management.name,{},{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
+							
                     _this.$axios.get('http://47.112.239.108:8080/webadmin/getAll',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
                         _this.tableData = resp.data
-                        this.$alert('新增管理员成功', '新增管理员', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                            }
-                        })
+
                     })
                 })
             },

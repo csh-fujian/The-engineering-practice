@@ -1,9 +1,18 @@
 <template lang="html">
     <el-card class="box-card">
+
         <div style="display: block;font-size:10px;">
+
+
+            <div style="display: block;font-size:10px;">
+
             <el-button
-                type="success"
+                type="success" icon="el-icon-plus"
+                @click="dialogVisible = true">添加类型</el-button>
+            <el-input
+                v-model="search"
                 icon="el-icon-plus"
+
                 @click="dialogVisible = true"
                 >添加类型</el-button
             >
@@ -13,6 +22,10 @@
                 style="width:130px;height:10px"
                 placeholder="输入班课名称"
             />
+
+                style="width:130px;height:10px"
+                placeholder="班课名称"/>
+
         </div>
         <el-table :data="tableData1.filter(data => !search || data.classname.toLowerCase().includes(search.toLowerCase()))" border style="width: 100%">
             <el-table-column fixed prop="classid" label="班课id" width="100">
