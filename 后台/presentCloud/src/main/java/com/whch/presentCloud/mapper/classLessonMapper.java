@@ -20,10 +20,10 @@ public interface classLessonMapper {
 
     int updateByPrimaryKey(classLesson record);
 
-    @Select("select * from classlesson where TeachId = #{teacherId}")
+    @Select("select * from classlesson where TeacherId = #{teacherId}")
 	List<classLesson> find(@Param("teacherId") String teacherId);
 
-    @Select("select * from classlesson where TeachId = #{teacherId} and ClassId = #{classId}")
+    @Select("select * from classlesson where TeacherId = #{teacherId} and ClassId = #{classId}")
 	classLesson findOne(@Param("teacherId") String teacherId,@Param("classId") Integer classId);
 
     @Select("select * from classlesson where type = #{studnetId}")

@@ -215,4 +215,10 @@ public class classManageServiceImpl implements IClassManageService {
         return "false";
     }
 
+    @Override
+    public List<classLesson> getBanke(String number) {
+        
+        return classLessonR.get(number);
+    }
+
 }

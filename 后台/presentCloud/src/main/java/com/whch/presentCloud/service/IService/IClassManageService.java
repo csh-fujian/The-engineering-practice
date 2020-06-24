@@ -24,5 +24,7 @@ public interface IClassManageService {
 
 	String logoutLesson(String username, String classId);
 
+	List<classLesson> getBanke(String number);
+
 //    void getCourseseInfo(Integer classid);
 }

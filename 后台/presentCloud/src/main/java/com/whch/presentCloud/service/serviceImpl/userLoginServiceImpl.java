@@ -119,7 +119,7 @@ public class userLoginServiceImpl implements IUserLoginService {
 
     @Override
     public result loginResult(String number, String password) {
-        HashMap lessonInfo = new HashMap<>();
+        // HashMap lessonInfo = new HashMap<>();
         result r = new result();
         int flag =IsExistUser(number, password);
         // System.out.println(flag);
@@ -159,12 +159,14 @@ public class userLoginServiceImpl implements IUserLoginService {
 
             return studentClassList;
         } else if(flag == 2){
-            List<classCourseMember> lessons = classManageService.getLessons(number);
-            for (classCourseMember lesson : lessons) {
+            List<classLesson> lessons = classManageService.getBanke(number);
+            for (classLesson lesson : lessons) {
                 HashMap lessonInfo = new HashMap<>();
                 lessonInfo.put("bankeName", lesson.getClassname());
                 lessonInfo.put("teacher", lesson.getTeachername());
-                lessonInfo.put("description", lesson.getClassname());
+                lessonInfo.put("description", lesson.getType());
+                lessonInfo.put("semster", lesson.getClasstime());
+                lessonInfo.put("master", lesson.getMaster());
                 lessonInfo.put("profilePhoto", "");
                 studentClassList.add(lessonInfo);
             }
