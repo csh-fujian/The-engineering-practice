@@ -3,7 +3,7 @@
         <div style="display: block;font-size:10px;">
             <el-button
                 type="success" icon="el-icon-plus"
-                @click="dialogVisible = true">添加类型</el-button>
+                @click="dialogVisible = true">添加班课</el-button>
             <el-input
                 v-model="search"
                 icon="el-icon-plus"
@@ -202,14 +202,23 @@ export default {
                     }
                 )
                 .then(res => {
-                    console.log(res)
-                    console.log(res.message)
-                    this.$message({
-                        type: 'success',
-                        message: '修改成功'
-                    })
-					this.tableData1.push(this.dict)
-					this.dialogVisible = false
+                    if(res.flag != null){
+                        console.log(res)
+                        console.log(res.message)
+                        this.$message({
+                            type: 'success',
+                            message: res.message
+                        })
+                        this.tableData1.push(this.dict)
+                        this.dialogVisible = false
+                    }else{
+                        this.$message({
+                            type: 'success',
+                            message: res.message
+                        })
+                        this.dialogVisible = false
+                    }
+
                 })
 
             //console.log('success')
