@@ -348,7 +348,11 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(res => {
-                        this.$axios.get('http://localhost:8080/webmenu/findAll').then(res => {
+                        this.$axios.get('http://localhost:8080/webmenu/findAll',{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(res => {
                                 _this.datatable = res.data
                             this.$alert('新增页面成功', '新增页面', {
                                 confirmButtonText: '确定',

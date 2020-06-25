@@ -3,7 +3,7 @@
     <div style="display: block;font-size:10px;">
       <el-button
               type="success" icon="el-icon-plus"
-              @click="dialogVisible = true">添加类型</el-button>
+              @click="add()">添加类型</el-button>
       <el-input
               v-model="search"
               icon="el-icon-plus"
@@ -95,7 +95,7 @@ export default {
                 typed: '性别',
                 type: 'sexy',
                 description: ''
-            }, {
+            }, { 
                 id: 2,
                 typed: '身份1',
                 type: 'identity',
@@ -113,6 +113,13 @@ export default {
                 }
             })
         },
+		add(){
+			this.dialogVisible=true,
+			this.dict.id=0,
+			thid.dict.typed='',
+			this.dict.type='',
+			this.dict.description=''
+		},
         handleDelete(index, row) {
             this.dict = row
             console.log(this.dict)

@@ -158,30 +158,31 @@ export default {
     methods: {
         consent() {
             this.Permission.role = this.rolename
-            this.Permission.menus = this.test
-            this.$axios.post('http://localhost:8080/webpermission/addpermission' + this.selected,{},{
+            this.Permission.menus = this.selected
+		
+			console.log(this.Permission)
+            this.$axios.post('http://localhost:8080/webpermission/addpermission',this.Permission,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(res => {
-                this.$alert('分配权限成功', '分配权限', {
+                this.$alert('分配权限成功', '分配权限', { 
                     confirmButtonText: '确定',
                     callback: action => {
-                    }
+                    }  
                 })
             })
-        }
+        } 
     },
     created() {
         // alert(this.$route.query.rolename)
         this.rolename = this.$route.query.rolename
         const _this = this
-        this.$axios.get('http://localhost:8080/webpermission/findAll/' + this.rolename,{},{
+        this.$axios.get('http://localhost:8080/webpermission/findAll/' + this.rolename,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(res => {
-							alert(1)
             _this.datatable = res.data
             for (let i = 0; i < this.datatable.length; ++i) {
                 if (this.datatable[i].state == 'checked') {
