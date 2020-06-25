@@ -30,7 +30,7 @@ public interface directoryDataMapper {
     @Select("select d.valued from directorydata d where d.keyd = #{keyd}")
     String findbykey(@Param("keyd") String keyd);
 
-    @Select("select d.valued from directorydata d where d.typed = #{typed} and defaultvalued = 1")
+    @Select("select d.valued from directorydata d where d.typed = #{typed} and d.defaultvalued = 1")
     String finddefault(@Param("typed") String typed);
 
     @Select("select d.valued from directorydata d where d.typed = #{typed}")

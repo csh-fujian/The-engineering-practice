@@ -40,8 +40,8 @@ public class dictionaryDataServiceImpl implements IDictionaryDataService {
     }
 
     @Override
-    public String finddefault(directoryData dirtdata) {
-        return dictR.finddefault(dirtdata);
+    public String finddefault(String typed) {
+        return dictR.finddefault(typed);
     }
 
     @Override

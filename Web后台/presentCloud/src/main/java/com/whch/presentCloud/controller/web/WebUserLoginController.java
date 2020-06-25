@@ -121,7 +121,6 @@ public class WebUserLoginController {
     @ResponseBody
     public result userLogin(@RequestParam("username")String nickname, @RequestParam("password")String password, HttpSession session){
 //       System.out.println(tel+password);
-
         result r = new result();
         if(nickname == "" || password == ""){
             r.setInfo("用户名或密码不能为空");

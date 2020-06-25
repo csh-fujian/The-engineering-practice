@@ -13,7 +13,7 @@ public interface dictionaryDataRepository {
     public String findbykey(String keyd);
     public int deletebykey(directoryData dicData);
     public List<directoryData> findbytype(String typed);
-    public String finddefault(directoryData dicData);
+    public String finddefault(String typed);
     List<String> findAllvalue(String typed);
     public int findbyvalue1(String valued, String keyd, Integer defaultvalued, String record);
     public int findbyvalue2(String valued, String keyd, Integer defaultvalued, String record);

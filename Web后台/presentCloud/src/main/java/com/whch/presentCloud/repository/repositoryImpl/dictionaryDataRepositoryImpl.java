@@ -59,8 +59,8 @@ public class dictionaryDataRepositoryImpl implements dictionaryDataRepository {
     }
 
     @Override
-    public String finddefault(directoryData dicData) {
-        return dicM.finddefault(dicData.getTyped());
+    public String finddefault(String typed) {
+        return dicM.finddefault(typed);
     }
 
     @Override

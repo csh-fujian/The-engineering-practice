@@ -19,7 +19,6 @@ public class WebPermissionController {
     @GetMapping("findAll/{rolename}")
     public List<container> findAll(@PathVariable String rolename)
     {
-        System.out.println(rolename);
         return permS.findAll(rolename);
     }
 

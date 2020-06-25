@@ -57,13 +57,12 @@ public class WebUserRoleController {
     /**
      * 角色管理的分页功能
      * @param pageNum
-     * @param pageSize
      * @return
      */
-    @GetMapping("pagefind")
-    public Page<role> findRolebyPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize)
+    @GetMapping("pagefind/{pageNum}")
+    public Page<role> findRolebyPage(@PathVariable Integer pageNum)
     {
-        return roleManageService.findByPaging(pageNum, pageSize);
+        return roleManageService.findByPaging(pageNum, 8);
     }
 
 }

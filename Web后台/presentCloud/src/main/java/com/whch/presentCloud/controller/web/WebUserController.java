@@ -1,7 +1,6 @@
 package com.whch.presentCloud.controller.web;
 
 import com.github.pagehelper.Page;
-import com.whch.presentCloud.entity.page;
 import com.whch.presentCloud.entity.updateuser;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.mapper.userInfoMapper;
@@ -107,13 +106,13 @@ public class WebUserController {
 
     /**
      * 用户管理分页功能
-     * @param Page
+     * @param pageNum
      * @return
      */
-    @GetMapping("pagefind")
-    public Page<userInfo> findUserbyPage(@RequestBody page Page)
+    @GetMapping("pagefind/{pageNum}")
+    public Page<userInfo> findUserbyPage(@PathVariable Integer pageNum)
     {
-        return usermanage.findByPaging(Page.getPageNum(), Page.getPageSize());
+        return usermanage.findByPaging(pageNum, 8);
     }
 
     @GetMapping("totalSize")

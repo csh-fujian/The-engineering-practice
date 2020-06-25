@@ -29,7 +29,6 @@ public class WebMenuController {
     @PostMapping("addmenu1/{menuname}")
     public int addmenu(@PathVariable String menuname)
     {
-        System.out.println(menuname);
         return menuS.addmenu1(menuname);
     }
 

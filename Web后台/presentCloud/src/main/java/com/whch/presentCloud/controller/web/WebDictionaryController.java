@@ -77,10 +77,10 @@ public class WebDictionaryController {
         return dicdata.findbyvalue(Data.getDicd(), Data.getRecord());
     }
 
-    @GetMapping("getdefault")
-    public String getdefault(@RequestBody directoryData dicd)
+    @GetMapping("getdefault/{typed}")
+    public String getdefault(@PathVariable String typed)
     {
-        return dicdata.finddefault(dicd);
+        return dicdata.finddefault(typed);
     }
 
     @GetMapping("findAllvalued/{typed}")

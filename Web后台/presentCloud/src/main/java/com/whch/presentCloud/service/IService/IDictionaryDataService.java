@@ -12,7 +12,7 @@ public interface IDictionaryDataService {
     public int updatadata(directoryData dirtdata);
     public String findbykey(String keyd);
     public List<directoryData> findbytype(String typed);
-    public String finddefault(directoryData dirtdata);
+    public String finddefault(String typed);
     public List<String> findAllvalue(String typed);
     public int findbyvalue(directoryData dirtdata, directoryData record);
 }

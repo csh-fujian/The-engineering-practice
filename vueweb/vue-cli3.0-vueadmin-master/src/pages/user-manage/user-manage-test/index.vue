@@ -150,9 +150,9 @@
 <el-pagination
   background
   layout="prev, pager, next"
-  page-size="6"
-  :total="total"
-  @current-change="page"
+  page-size="8"
+  :total="10"
+  @current-change="pagetemp"
   >
 </el-pagination>
 </div>
@@ -163,7 +163,9 @@
         // 未完成：编辑、权限设置
         data() {
             return {
+				typed:'',
                 total:null,
+				pageNum:null,
                 page:{
                     pageNum:1,
                     pageSize:6
@@ -262,11 +264,11 @@
             }
         },
         methods: {
-            page(currentPage){
+            pagetemp(currentPage){
 				const _this = this
-				this.page.pagenum = currentPage
-				console.log(this.page)
-				this.$axios.get('http://47.112.239.108:8080/webuser/finduser',this.page,{
+				this.pageNum = currentPage
+				alert(this.pageNum )
+				this.$axios.get('http://localhost:8080/webuser/pagefind/'+this.pageNum,{
 									headers: {
 										Authorization: localStorage.getItem('token')
 									}
@@ -281,6 +283,7 @@
                 this.dialogVisible2 = true
                 _this=this
                 this.dicd.typed='sex'
+				alert(1)
                 this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',this.dicd,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
@@ -298,18 +301,18 @@
                 })
             },
             adduser() {
-                this.dialogVisible = true
+                
                 this.user = [] 
                 const _this=this 
-                this.dicd.typed='性别'
-				console.log(this.dicd)
-				alert(2)
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/getdefault',this.dicd,{
+                this.typed='性别'
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/getdefault/'+this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-							console.log(this.dicd)
+							_this.user.sex=resp.data
+							_this.dialogVisible = true
+							
                 })
 
 
@@ -418,7 +421,6 @@
                             }).then(function(resp) {
                 _this.tableData = resp.data
                 console.log(_this.tableData)
-                 alert(321)
                 // 这个url要改下
             })
 			 this.$axios.get('http://localhost:8080/webuser/totalSize',
@@ -427,8 +429,7 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-					this.total = resp.data
-                 alert(1)
+					_this.total = resp.data
                 // 这个url要改下
             })
         }
