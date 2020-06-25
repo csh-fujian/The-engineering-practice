@@ -75,10 +75,11 @@ public class WebClassController {
         boolean flag = classManageService.addCourse(Class);
         if (flag){
             jsonObject1.put("message", "添加成功");
+            jsonObject1.put("flag","1");
             return jsonObject1;
         }
         else {
-            jsonObject1.put("message", "添加失败，该班课id已存在");
+            jsonObject1.put("message", "添加失败，该班课id已存在或该教师不存在");
             return jsonObject1;
         }
     }
