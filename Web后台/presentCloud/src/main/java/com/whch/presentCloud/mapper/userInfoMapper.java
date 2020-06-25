@@ -1,6 +1,7 @@
 package com.whch.presentCloud.mapper;
 
 import com.github.pagehelper.Page;
+import com.whch.presentCloud.entity.admin;
 import com.whch.presentCloud.entity.userInfo;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
@@ -38,6 +39,9 @@ public interface userInfoMapper {
 
     @Select("select * from userinfo")
     List<userInfo> getAll();
+
+    @Select("select * from admin where NickName = #{nickname}")
+    List<userInfo> find1(@Param("nickname") String nickname);
 
     @Select("select * from userinfo u where u.number = #{number} or u.nickname= #{nickname}")
     userInfo getUser1(@Param("number")String number, @Param("nickname")String nickname);

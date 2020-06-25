@@ -1,8 +1,10 @@
 package com.whch.presentCloud.controller.web;
 
 import com.github.pagehelper.Page;
+import com.whch.presentCloud.entity.page;
 import com.whch.presentCloud.entity.updateuser;
 import com.whch.presentCloud.entity.userInfo;
+import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.service.IService.IUserManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,8 @@ public class WebUserController {
 
     @Autowired
     private IUserManageService usermanage;
+    @Autowired
+    private userInfoMapper userM;
 
     /**
      * 添加用户
@@ -23,11 +27,30 @@ public class WebUserController {
      * @return
      */
     @PostMapping("adduser")
-    public int addUser(@RequestBody userInfo userinfo)
+    public String addUser(@RequestBody userInfo userinfo)
     {
         userInfo user = userinfo;
         user.setPassword("88888888");
-        return usermanage.addUser(user);
+        String nickname = user.getNickname();
+        List<userInfo> list1 = userM.find1(nickname);
+        int i = 0;
+        for(userInfo u : list1)
+        {
+            if (u.getNickname().equals(nickname)){
+                i++;
+            }
+        }
+        if(i == 0){
+            if(usermanage.addUser(user)==0){
+                return "新增成功";
+            }
+            else {
+                return "新增失败，原因未知";
+            }
+        }
+        else {
+            return "新增失败，该昵称已存在";
+        }
     }
 
     /**
@@ -39,7 +62,6 @@ public class WebUserController {
     public int deleterole(@RequestBody userInfo user)
     {
         userInfo user1 = user;
-        System.out.println(user1.getNumber());
         return usermanage.delete(user);
     }
 
@@ -59,20 +81,51 @@ public class WebUserController {
      * @return
      */
     @RequestMapping("updateuser")
-    public int updateuser(@RequestBody updateuser editUser){
-        return usermanage.updatebyid(editUser.getUser(), editUser.getOldnumber());
+    public String updateuser(@RequestBody updateuser editUser){
+        userInfo user1 = editUser.getUser();
+        String nickname = user1.getNickname();
+        List<userInfo> list1 = userM.find1(nickname);
+        int i = 0;
+        for(userInfo u : list1)
+        {
+            if (u.getNickname().equals(nickname)){
+                i++;
+            }
+        }
+        if(i == 0){
+            if(usermanage.updatebyid(editUser.getUser(), editUser.getOldnumber())==1){
+                return "编辑成功";
+            }
+            else {
+                return "编辑失败，该学/工号已存在";
+            }
+        }
+        else {
+            return "编辑失败，该昵称已存在";
+        }
     }
 
     /**
-     * 用户管理的分页功能
-     * @param pageNum
-     * @param pageSize
+     * 用户管理分页功能
+     * @param Page
      * @return
      */
     @GetMapping("pagefind")
-    public Page<userInfo> findUserbyPage(@RequestParam Integer pageNum, @RequestParam Integer pageSize)
+    public Page<userInfo> findUserbyPage(@RequestBody page Page)
     {
-        return usermanage.findByPaging(pageNum, pageSize);
+        return usermanage.findByPaging(Page.getPageNum(), Page.getPageSize());
+    }
+
+    @GetMapping("totalSize")
+    public int totalSize()
+    {
+        List<userInfo> list1 = usermanage.getAllUser();
+        int totalSize = 0;
+        for(userInfo u : list1)
+        {
+            totalSize++;
+        }
+        return totalSize;
     }
 
     /**

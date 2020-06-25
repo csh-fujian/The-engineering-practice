@@ -26,11 +26,31 @@ public class WebAdminController {
     private ITokenService tokenS;
     @Autowired
     private IUserLoginService userloginservice;
+    @Autowired
+    private adminMapper adminM;
 
     @PostMapping("addadmin/{name}")
-    public int addadmin(@PathVariable String name)
+    public String addadmin(@PathVariable String name)
     {
-        return adminS.addadmin(name);
+        List<admin> list1 = adminM.find1(name);
+        int i = 0;
+        for(admin a : list1)
+        {
+            if (a.getName().equals(name)){
+                i++;
+            }
+        }
+        if(i == 0){
+            if(adminS.addadmin(name)==0){
+                return "新增成功";
+            }
+            else {
+                return "新增失败，原因未知";
+            }
+        }
+        else {
+            return "新增失败，该昵称已存在";
+        }
     }
 
     @RequestMapping("delete/{name}")

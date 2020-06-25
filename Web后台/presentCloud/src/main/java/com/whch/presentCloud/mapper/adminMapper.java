@@ -33,6 +33,9 @@ public interface adminMapper {
     @Select("select * from admin where Name = #{name}")
     admin admintoken(@Param("name") String name);
 
+    @Select("select * from admin where Name = #{name}")
+    List<admin> find1(@Param("name") String name);
+
     @Select("select * from admin")
     List<admin> getAll();
 
