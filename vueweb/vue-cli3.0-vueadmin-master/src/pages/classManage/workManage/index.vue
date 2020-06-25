@@ -1,17 +1,32 @@
 <template lang="html">
     <el-card class="box-card">
-	<div style="display: block;font-size:10px;">
+        <div style="display: block;font-size:10px;">
             <el-button
-                type="success" 
-				icon="el-icon-plus"
-                @click="dialogVisible = true">添加班课</el-button>
-				<el-input
+                type="success"
+                icon="el-icon-plus"
+                @click="dialogVisible = true"
+                >添加班课</el-button
+            >
+            <el-input
                 v-model="search"
                 icon="el-icon-plus"
                 style="width:130px;height:10px"
-                placeholder="输入班课名称"/>
+                placeholder="输入班课名称"
+            />
         </div>
-        <el-table :data="tableData1.filter(data => !search || data.classname.toLowerCase().includes(search.toLowerCase()))" border style="width: 100%">
+        <el-table
+            :data="
+                tableData1.filter(
+                    data =>
+                        !search ||
+                        data.classname
+                            .toLowerCase()
+                            .includes(search.toLowerCase())
+                )
+            "
+            border
+            style="width: 100%"
+        >
             <el-table-column fixed prop="classid" label="班课id" width="100">
             </el-table-column>
             <el-table-column prop="classname" label="课程名称" width="120">
@@ -44,11 +59,7 @@
             </el-table-column>
         </el-table>
 
-        <el-dialog
-            title="添加班课"
-            :visible.sync="dialogVisible"
-            width="60%" 
-        >
+        <el-dialog title="添加班课" :visible.sync="dialogVisible" width="60%">
             <el-form ref="ro" :model="dict" label-width="80px">
                 <el-form-item label="班课号">
                     <el-input v-model="dict.classid"></el-input>
@@ -71,11 +82,7 @@
             </el-form>
         </el-dialog>
 
-        <el-dialog
-            title="编辑班课"
-            :visible.sync="dialogVisible1"
-            width="60%"
-        >
+        <el-dialog title="编辑班课" :visible.sync="dialogVisible1" width="60%">
             <el-form ref="ro" :model="dict1" label-width="80px">
                 <el-form-item label="班课号">
                     <el-input v-model="dict1.classid"></el-input>
@@ -106,7 +113,7 @@ export default {
     data() {
         return {
             teachername: '',
-			
+
             dict: {
                 classid: '',
                 classname: '',
@@ -153,9 +160,9 @@ export default {
                 }
             })
             .then(res => {
-			//console.log(res)
+                //console.log(res)
                 this.teachername = res.data.name
-				console.log(this.teachername)
+                console.log(this.teachername)
             })
     },
     methods: {
