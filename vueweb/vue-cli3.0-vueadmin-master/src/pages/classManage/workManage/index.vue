@@ -1,19 +1,15 @@
 <template lang="html">
     <el-card class="box-card">
-
-            <div style="display: block;font-size:10px;">
-
+	<div style="display: block;font-size:10px;">
             <el-button
-                type="success" icon="el-icon-plus"
-                @click="dialogVisible = true">添加类型</el-button>
-
-            <el-input
+                type="success" 
+				icon="el-icon-plus"
+                @click="dialogVisible = true">添加班课</el-button>
+				<el-input
                 v-model="search"
                 icon="el-icon-plus"
                 style="width:130px;height:10px"
-                placeholder="输入班课名称"
-            />
-
+                placeholder="输入班课名称"/>
         </div>
         <el-table :data="tableData1.filter(data => !search || data.classname.toLowerCase().includes(search.toLowerCase()))" border style="width: 100%">
             <el-table-column fixed prop="classid" label="班课id" width="100">
@@ -51,8 +47,7 @@
         <el-dialog
             title="添加班课"
             :visible.sync="dialogVisible"
-            width="60%"
-            :before-close="handleClose"
+            width="60%" 
         >
             <el-form ref="ro" :model="dict" label-width="80px">
                 <el-form-item label="班课号">
@@ -80,7 +75,6 @@
             title="编辑班课"
             :visible.sync="dialogVisible1"
             width="60%"
-            :before-close="handleClose"
         >
             <el-form ref="ro" :model="dict1" label-width="80px">
                 <el-form-item label="班课号">
@@ -112,8 +106,9 @@ export default {
     data() {
         return {
             teachername: '',
+			
             dict: {
-                classid: null,
+                classid: '',
                 classname: '',
                 school: '',
                 college: ''
@@ -158,7 +153,9 @@ export default {
                 }
             })
             .then(res => {
-                this.teachername = res.data.nickname
+			//console.log(res)
+                this.teachername = res.data.name
+				console.log(this.teachername)
             })
     },
     methods: {
