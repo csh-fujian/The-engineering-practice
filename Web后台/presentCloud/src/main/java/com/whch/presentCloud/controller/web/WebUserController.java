@@ -125,6 +125,7 @@ public class WebUserController {
         {
             totalSize++;
         }
+        System.out.println(totalSize);
         return totalSize;
     }
 

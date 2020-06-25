@@ -150,7 +150,7 @@
 <el-pagination
   background
   layout="prev, pager, next"
-  page-size="8"
+  page-size="6"
   :total="total"
   @current-change="page"
   >
@@ -263,16 +263,18 @@
         },
         methods: {
             page(currentPage){
-            const _this = this
-            this.page.pagenum = currentPage
-            this.$axios.get('http://47.112.239.108:8080/webuser/finduser',this.page,{
-                                headers: {
-                                    Authorization: localStorage.getItem('token')
-                                }
-                            }).then(function(resp) {
-                _this.tableData = resp.data
-            })    
-            },
+				const _this = this
+				this.page.pagenum = currentPage
+				console.log(this.page)
+				this.$axios.get('http://47.112.239.108:8080/webuser/finduser',this.page,{
+									headers: {
+										Authorization: localStorage.getItem('token')
+									}
+								}).then(function(resp) {
+					_this.tableData = resp.data
+				})    
+ 
+            }, 
             handleEdit(index, row) {
                 this.editUser.oldnumber = row.number
                 this.user = row
@@ -297,37 +299,17 @@
             },
             adduser() {
                 this.dialogVisible = true
-                this.user = []
-                this.user.sex='男'
-                this.user.role='学生'
-                this.dicd.
-                _this=this
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','sexy',{
+                this.user = [] 
+                const _this=this 
+                this.dicd.typed='性别'
+				console.log(this.dicd)
+				alert(2)
+                this.$axios.get('http://47.112.239.108:8080/webdictionary/getdefault',this.dicd,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                        _this.user.sex = resp.data
-                })
-                this.user.role='教师'
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','role',{
-                                headers: {
-                                    Authorization: localStorage.getItem('token')
-                                }
-                            }).then(function(resp) {
-                        _this.user.role = resp.data
-                })
-                this.dicd.typed='sex'
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',this.dicd,{
-                                headers: {
-                                    Authorization: localStorage.getItem('token')
-                                }
-                            }).then(function(resp) {
-                        _this.option1.label=resp.data
-                        _this.dicd.typed='role'
-                        _this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',_this.dicd).then(function(resp) {
-                                _this.option2.label=resp.data
-                })
+							console.log(this.dicd)
                 })
 
 
@@ -427,15 +409,26 @@
         },
         created() {
             const _this = this
-            
-            this.$axios.get('http://47.112.239.108:8080/webuser/finduser',this.page,{
+
+            this.$axios.get('http://localhost:8080/webuser/finduser',
+							{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
                 _this.tableData = resp.data
                 console.log(_this.tableData)
-                // alert(321)
+                 alert(321)
+                // 这个url要改下
+            })
+			 this.$axios.get('http://localhost:8080/webuser/totalSize',
+							{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
+					this.total = resp.data
+                 alert(1)
                 // 这个url要改下
             })
         }

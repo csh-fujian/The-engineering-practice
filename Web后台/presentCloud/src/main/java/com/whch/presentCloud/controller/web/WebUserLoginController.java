@@ -53,9 +53,9 @@ public class WebUserLoginController {
             jsonObject.put("layer", Admin.getAccount());
             return jsonObject;
         }
-        else {
+        else if(user1 != null) {
             String ro = dicd.findbykey("teacher");
-            if (user1.getRole() == ro){
+            if (user1.getRole().equals(ro)){
                 String tokenString = "";
                 Date date = new Date();
                 int nowTime = (int) (date.getTime()/1000);
@@ -65,9 +65,11 @@ public class WebUserLoginController {
                 jsonObject.put("role", "teacher");
                 return jsonObject;
             }
-            jsonObject.put("message", "登录失败,该用户不是教师或管理员");
+            jsonObject.put("message", "问题1");
             return jsonObject;
         }
+        jsonObject.put("message", "登录失败,该用户不是教师或管理员");
+        return jsonObject;
     }
 
     @GetMapping("parsejwt")
