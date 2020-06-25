@@ -13,6 +13,7 @@ import com.whch.presentCloud.entity.signin;
 import com.whch.presentCloud.entity.task;
 import com.whch.presentCloud.entity.taskMemory;
 import com.whch.presentCloud.mapper.classCourseMemberMapper;
+import com.whch.presentCloud.mapper.taskMapper;
 import com.whch.presentCloud.repository.IRepository.classLessonRepository;
 import com.whch.presentCloud.repository.IRepository.signinRepository;
 import com.whch.presentCloud.repository.IRepository.taskMemoryRepository;
@@ -37,6 +38,8 @@ public class classManageServiceImpl implements IClassManageService {
     private taskMemoryRepository taskM;
     @Autowired
     private signinRepository siginR;
+    @Autowired
+    private taskMapper taskmapper;
 
 
     @Override
@@ -82,7 +85,7 @@ public class classManageServiceImpl implements IClassManageService {
         return h;
     }
 
-    @Override
+ 
     public HashMap<String, Object> getLesson(String classId, String username) {
         classLesson lesson = classLessonR.getLesson(Integer.parseInt(classId));
         if(lesson == null)
@@ -110,8 +113,15 @@ public class classManageServiceImpl implements IClassManageService {
         //得到一个课程的每个学生的详细信息
         List<classCourseMember> list1 = courseM.getOneClassMembers(Integer.parseInt(classId));
         List<Map<String,Object>> members = new ArrayList<>();
+        HashMap<String,Object> memberInfo = new HashMap<String,Object>();
         int members_count = 0;
-        for (classCourseMember classCourseM : list1) {
+        int location = 1;
+        int rank = 0;
+        int flag = 1;
+        int experience = 0;
+        if(list1.size() > 0)
+        {
+            classCourseMember classCourseM = list1.get(0);
             HashMap<String,Object> member = new HashMap<String,Object>();
             member.put("name", classCourseM.getStudentname());
             member.put("studentId", classCourseM.getStudentid());
@@ -120,19 +130,59 @@ public class classManageServiceImpl implements IClassManageService {
             members.add(member);
             members_count += 1;
         }
-        res.put("members", members);
+        if(list1.get(0).getStudentid().equals(username))
+        {
+            rank = 1;
+            experience = list1.get(0).getExperience();
+        }
+        for (int i = 1; i < list1.size(); i++) {
+            classCourseMember classCourseM = list1.get(i);
+            if(classCourseM.getExperience() != list1.get(i - 1).getExperience())
+            {
+                location += 1;
+            }
+            if((classCourseM.getStudentid().equals(username)) && (flag == 1))
+            {
+                rank = location;
+                experience = classCourseM.getExperience();
+                flag = 0;
+            }
+            
+            HashMap<String,Object> member = new HashMap<String,Object>();
+            member.put("name", classCourseM.getStudentname());
+            member.put("studentId", classCourseM.getStudentid());
+            member.put("experience", classCourseM.getExperience());
+            member.put("cloudBookStudy", 0);
+            members.add(member);
+            members_count += 1;
+        }
+        
+        memberInfo.put("number", members_count);
+        memberInfo.put("members", members);
+        memberInfo.put("rank", rank);
+        memberInfo.put("experience", experience);
+        res.put("member", memberInfo);
 
         //得到一个课程的每个学生的详细任务
-        List<taskMemory> list2 = taskM.get(Integer.parseInt(username));
+        List<task> list2 = taskmapper.getTask(lesson.getClassid());
         List<Map<String,Object>> tasks = new ArrayList<>();
         int tasks_count_out_time = 0;
         int tasks_count_in_time = 0;
-        for (taskMemory tas : list2) {
+        for (task tas : list2) {
             HashMap<String,Object> member = new HashMap<String,Object>();
             member.put("taskName", tas.getTask());
-            member.put("number", members_count);
+            //获得已参与人数
+            List<taskMemory> tasks2 = taskM.getMemoryByTaskId(tas.getTask());
+            member.put("number", tasks2.size());
             member.put("experience", tas.getGrade());
-            member.put("state", tas.getIsparticipate());
+            taskMemory ta = taskM.getTask(tas.getTask(), Integer.parseInt(username));
+            if(ta == null)
+            {
+                member.put("state", "未参与");
+            }else{
+                member.put("state", ta.getIsparticipate());
+            }
+            
             Date now= new Date();
             if(now.after(tas.getLastsubmittime()) ){
                 member.put("timeState", "已超时");

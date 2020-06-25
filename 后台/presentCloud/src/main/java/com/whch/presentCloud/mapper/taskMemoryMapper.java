@@ -24,4 +24,9 @@ public interface taskMemoryMapper {
 	List<taskMemory> getAll();
     @Select("select * from taskmemory where StudentId =#{studentId}")
 	List<taskMemory> get(@Param("studentId") Integer studentId);
+
+    @Select("select * from taskmemory where StudentId =#{studentId} and Task = #{task}")
+	taskMemory getTaskByClassId(@Param("studentId") Integer studentId,@Param("task") String task);
+    @Select("select * from taskmemory where  Task = #{task}")
+	List<taskMemory> getMemoryByTaskId(@Param("task") String task);
 }

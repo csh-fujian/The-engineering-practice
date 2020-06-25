@@ -3,6 +3,7 @@ package com.whch.presentCloud.mapper;
 import java.util.List;
 
 import com.whch.presentCloud.entity.task;
+import com.whch.presentCloud.entity.taskMemory;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -25,4 +26,7 @@ public interface taskMapper {
 
     @Select("select * from task where UserId=#{userId}")
 	List<task> find(@Param("userId") Integer userId);
+
+    @Select("select * from task where  ClassId=#{classId}")
+	List<task> getTask(Integer classid);
 }

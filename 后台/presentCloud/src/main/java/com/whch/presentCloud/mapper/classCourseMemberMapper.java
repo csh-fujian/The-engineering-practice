@@ -29,7 +29,7 @@ public interface classCourseMemberMapper {
     @Select("select * from ClassCourseMember where StudentId = #{studentId} and ClassId = #{classId}")
 	classCourseMember getCourse(@Param("classId")String classId, @Param("studentId")String studentId);
 
-    @Select("select * from ClassCourseMember where ClassId = #{classId}")
+    @Select("select * from ClassCourseMember where ClassId = #{classId} ORDER BY experience DESC")
 	List<classCourseMember> getOneClassMembers(@Param("classId")int classId);
 
     @Delete("delete from ClassCourseMember where ClassId = #{classId} and StudentId = #{username}")

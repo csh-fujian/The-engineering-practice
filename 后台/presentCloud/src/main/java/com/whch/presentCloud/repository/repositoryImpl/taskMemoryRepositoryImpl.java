@@ -39,4 +39,15 @@ public class taskMemoryRepositoryImpl implements taskMemoryRepository {
         return taskM.deleteByPrimaryKey(taskMem.getId());
     }
 
+    @Override
+    public taskMemory getTask(String task, Integer studentId) {
+        
+        return taskM.getTaskByClassId(studentId, task);
+    }
+
+    @Override
+    public List<taskMemory> getMemoryByTaskId(String task) {
+        return taskM.getMemoryByTaskId(task);
+    }
+
 }
