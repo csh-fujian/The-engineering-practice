@@ -1,4 +1,5 @@
 <template>
+<div>
     <el-card class="box-card">
         <div style="display: block;font-size:10px;">
             <el-button type="success" icon="el-icon-plus" @click="adduser()">新增用户</el-button>
@@ -146,7 +147,15 @@
             </el-form>
         </el-dialog>
     </el-card>
-
+<el-pagination
+  background
+  layout="prev, pager, next"
+  page-size="8"
+  :total="total"
+  @current-change="page"
+  >
+</el-pagination>
+</div>
 </template>
 <script>
     export default {
@@ -154,6 +163,11 @@
         // 未完成：编辑、权限设置
         data() {
             return {
+                total:null,
+                page:{
+                    pageNum:1,
+                    pageSize:6
+                },
                 dialogVisible: false,
                 dialogVisible2: false,
                 user: {
@@ -246,44 +260,38 @@
                     }]
                 }]
             }
-            
         },
         methods: {
+            page(currentPage){
+            const _this = this
+            this.page.pagenum = currentPage
+            this.$axios.get('http://47.112.239.108:8080/webuser/finduser',this.page,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
+                _this.tableData = resp.data
+            })    
+            },
             handleEdit(index, row) {
                 this.editUser.oldnumber = row.number
                 this.user = row
                 this.dialogVisible2 = true
-                 this.user.sex='男'
                 _this=this
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','sexy',{
-                                headers: {
-                                    Authorization: localStorage.getItem('token')
-                                }
-                            }).then(function(resp) {
-                        _this.user.sex = resp.data
-                })
-                this.user.role='教师'
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','role',{
-                                headers: {
-                                    Authorization: localStorage.getItem('token')
-                                }
-                            }).then(function(resp) {
-                        _this.user.role = resp.data
-                })
                 this.dicd.typed='sex'
                 this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',this.dicd,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                        _this.option1.label=resp.data
+                        _this.user.sex=resp.data
                         _this.dicd.typed='role'
                         _this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',_this.dicd,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                                _this.option2.label=resp.data
+                                _this.user.role=resp.data
                 })
                 })
             },
@@ -291,6 +299,8 @@
                 this.dialogVisible = true
                 this.user = []
                 this.user.sex='男'
+                this.user.role='学生'
+                this.dicd.
                 _this=this
                 this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata','sexy',{
                                 headers: {
@@ -350,7 +360,6 @@
                 this.user = row
                 this.$axios.post('http://47.112.239.108:8080/webuser/deleteuser', this.user,{
                                 headers: {
-
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
@@ -419,9 +428,8 @@
         created() {
             const _this = this
             
-            this.$axios.get('http://47.112.239.108:8080/webuser/finduser',{
+            this.$axios.get('http://47.112.239.108:8080/webuser/finduser',this.page,{
                                 headers: {
-
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
