@@ -21,7 +21,7 @@ public class classLessonRepositoryImpl implements classLessonRepository {
     @Override
     public List<classLesson> get(String teacherId) {
         // TODO Auto-generated method stub
-        return lessonM.find(teacherId);
+        return lessonM.find00(teacherId);
     }
 
     @Override
@@ -30,11 +30,6 @@ public class classLessonRepositoryImpl implements classLessonRepository {
         return lessonM.insertSelective(lesson);
     }
 
-    @Override
-    public int update(classLesson lesson) {
-        // TODO Auto-generated method stub
-        return lessonM.updateByPrimaryKeySelective(lesson);
-    }
 
     @Override
     public int delete(classLesson lesson) {

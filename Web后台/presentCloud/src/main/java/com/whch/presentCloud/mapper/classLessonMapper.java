@@ -26,6 +26,9 @@ public interface classLessonMapper {
     @Select("select * from classlesson where TeacherName = #{teachername} and TeacherId = #{teacherid}")
 	List<classLesson> find(@Param("teachername") String teachername, @Param("teacherid") Integer teacherid);
 
+    @Select("select * from classlesson where TeacherName")
+    List<classLesson> find00(@Param("teachername") String teachername);
+
     @Select("select * from classlesson where TeachId = #{teacherId} and ClassId = #{classId}")
 	classLesson findOne(@Param("teacherId") String teacherId,@Param("classId") Integer classId);
 
