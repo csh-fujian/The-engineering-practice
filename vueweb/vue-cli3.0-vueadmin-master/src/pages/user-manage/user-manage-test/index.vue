@@ -217,18 +217,18 @@
                 search: '',
                 value: [],
                 options1: [{
-                    value: '男',
                     label: '男',
+					value:'男'
                 }, {
-                    value: '女',
                     label: '女',
+					value:'女'
                 }],
                 options2: [{
-                    value: '教师',
                     label: '教师',
+					value:'教师'
                 }, {
-                    value: '学生',
                     label: '学生',
+					value:'学生'
                 }],
                 options: [{
                     value: '福州大学',
@@ -267,7 +267,6 @@
             pagetemp(currentPage){
 				const _this = this
 				this.pageNum = currentPage
-				alert(this.pageNum )
 				this.$axios.get('http://localhost:8080/webuser/pagefind/'+this.pageNum,{
 									headers: {
 										Authorization: localStorage.getItem('token')
@@ -275,47 +274,72 @@
 								}).then(function(resp) {
 					_this.tableData = resp.data
 				})    
- 
             }, 
             handleEdit(index, row) {
                 this.editUser.oldnumber = row.number
                 this.user = row
-                this.dialogVisible2 = true
-                _this=this
+
+                const _this=this
                 this.dicd.typed='sex'
-				alert(1)
-                this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',this.dicd,{
+				this.typed='sexy'
+				this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                        _this.user.sex=resp.data
-                        _this.dicd.typed='role'
-                        _this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata',_this.dicd,{
+							_this.options1=resp.data
+							_this.typed='role'
+							_this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + _this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                                _this.user.role=resp.data
-                })
-                })
+							console.log(resp.data)
+							_this.options2=resp.data
+							                _this.dialogVisible2 = true
+                       
+                    }) 
+                    }) 
             },
             adduser() {
-                
                 this.user = [] 
-                const _this=this 
-                this.typed='性别'
+                const _this=this  
+                this.typed='sexy'
                 this.$axios.get('http://47.112.239.108:8080/webdictionary/getdefault/'+this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
 							_this.user.sex=resp.data
+
+							_this.typed='role'
+							_this.$axios.get('http://47.112.239.108:8080/webdictionary/getdefault/'+_this.typed,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
+							_this.user.role=resp.data
 							_this.dialogVisible = true
-							
+							_this.typed='sexy'
+							_this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + _this.typed,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
+							_this.options1=resp.data
+							_this.typed='role'
+							_this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + _this.typed,{
+                                headers: {
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
+							console.log(resp.data)
+							_this.options2=resp.data
+                       
+                    }) 
+                    }) 
                 })
-
-
+                })
             },
             handleChange(value) {
                 console.log(value)
@@ -327,13 +351,13 @@
                 this.dialogVisible2 = false
                 this.editUser.user = this.user
                 console.log(this.editUser)
+				const _this = this
                 this.$axios.post('http://47.112.239.108:8080/webuser/updateuser/' ,this.editUser,{
                                 headers: {
-
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                    this.$alert('编辑用户成功', '编辑用户', {
+                    _this.$alert('编辑用户成功', '编辑用户', {
                         confirmButtonText: '确定',
                         callback: action => {
                         }
@@ -423,15 +447,14 @@
                 console.log(_this.tableData)
                 // 这个url要改下
             })
-			 this.$axios.get('http://localhost:8080/webuser/totalSize',
-							{
-                                headers: {
-                                    Authorization: localStorage.getItem('token')
-                                }
-                            }).then(function(resp) {
-					_this.total = resp.data
-                // 这个url要改下
-            })
+			this.pageNum=1
+				this.$axios.get('http://localhost:8080/webuser/pagefind/'+this.pageNum,{
+									headers: {
+										Authorization: localStorage.getItem('token')
+									}
+								}).then(function(resp) {
+					_this.tableData = resp.data
+				})    
         }
     }
 </script>
