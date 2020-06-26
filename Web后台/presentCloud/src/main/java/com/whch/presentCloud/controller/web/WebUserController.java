@@ -7,6 +7,7 @@ import com.whch.presentCloud.mapper.classLessonMapper;
 import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.service.IService.IUserManageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,10 +49,15 @@ public class WebUserController {
      * @return
      */
     @RequestMapping("deleteuser")
-    public int deleterole(@RequestBody userInfo user)
+    public String deleterole(@RequestBody userInfo user)
     {
         userInfo user1 = user;
-        return usermanage.delete(user);
+        try{
+            usermanage.delete(user);
+            return "删除成功";
+        }catch (DataAccessException e){
+            return "删除失败，该用户与其他表外键相关";
+        }
     }
 
     /**
@@ -105,7 +111,6 @@ public class WebUserController {
         {
             totalSize++;
         }
-        System.out.println(totalSize);
         return totalSize;
     }
 

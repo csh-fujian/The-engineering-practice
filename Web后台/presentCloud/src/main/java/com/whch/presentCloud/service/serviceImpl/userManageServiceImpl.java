@@ -7,6 +7,7 @@ import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.repository.IRepository.userInfoRepository;
 import com.whch.presentCloud.service.IService.IUserManageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class userManageServiceImpl implements IUserManageService{
     }
 
     @Override
-    public int delete(userInfo user) {
+    public int delete(userInfo user) throws DataAccessException {
         return userRepo.delete(user);
     }
 

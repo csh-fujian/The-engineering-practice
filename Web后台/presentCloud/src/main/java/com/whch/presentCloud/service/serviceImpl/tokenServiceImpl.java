@@ -46,8 +46,6 @@ public class tokenServiceImpl implements ITokenService {
             checkResult.setSuccess(true); // 验证成功
             checkResult.setClaims(claims);
         } catch (ExpiredJwtException e) {
-            System.out.println(claims.getSubject());
-            System.out.println(claims.getExpiration());
             checkResult.setErrCode(1007); // Token过期
             checkResult.setSuccess(false);
         } catch (SignatureException e) {

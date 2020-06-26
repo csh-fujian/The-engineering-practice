@@ -50,10 +50,6 @@ public class classManageServiceImpl implements IClassManageService {
     @Override
     public boolean deleteCourse(Integer classid) {
         int flag = classM.deleteByPrimaryKey(classid);
-        if(flag == 0)
-        {
-            return false;
-        }
         courseM.deleteByPrimaryKey(classid);
         return true;
     }
