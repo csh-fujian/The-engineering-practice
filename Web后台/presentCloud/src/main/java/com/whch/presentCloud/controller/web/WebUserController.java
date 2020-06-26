@@ -34,11 +34,12 @@ public class WebUserController {
     {
         userInfo user = userinfo;
         user.setPassword("88888888");
+        System.out.println(user.getNickname());
         try{
             usermanage.addUser(user);
             return "新增成功";
         }catch (DuplicateKeyException e){
-            return "新增失败，该昵称已存在";
+            return "新增失败，该昵称或学/工号已存在";
         }
     }
 

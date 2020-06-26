@@ -114,7 +114,7 @@ export default {
                                 }
                             }).then(function(resp) {
                     _this.tableData = resp.data
-                    this.$alert('新增角色成功', '新增角色', {
+                    _this.$alert('新增角色成功', '新增角色', {
                         confirmButtonText: '确定',
                         callback: action => {
                         }
@@ -155,7 +155,7 @@ export default {
                             }).then(function(resp) {
                     _this.tableData = resp.data
                     // alert(321)
-                    this.$alert('删除成功', '删除', {
+                    _this.$alert('删除角色成功', '删除角色', {
                         confirmButtonText: '确定',
                         callback: action => {
                         }

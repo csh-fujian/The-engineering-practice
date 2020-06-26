@@ -20,6 +20,10 @@
                 label="姓名"
                 prop="name">
             </el-table-column>
+			<el-table-column
+                label="昵称"
+                prop="nickname">
+            </el-table-column>
             <el-table-column
                 label="性别"
                 prop="sex">
@@ -66,10 +70,13 @@
                 <el-form-item label="姓名">
                     <el-input v-model="user.name"></el-input>
                 </el-form-item>
+				 <el-form-item label="昵称">
+                    <el-input v-model="user.nickname"></el-input>
+                </el-form-item>
                 <el-form-item label="性别">
                     <div class="block">
                         <el-cascader 
-                            v-model="value"
+                            v-model="user.sex"
                             :options="options1"
                             :placeholder="user.sex"
                             @change="handleChange"></el-cascader>
@@ -78,7 +85,7 @@
                 <el-form-item label="身份">
                 <div class="block">
                         <el-cascader
-                            v-model="value"
+                            v-model="user.role"
                             :options="options2"
                             :placeholder="user.role"
                             @change="handleChange"></el-cascader>
@@ -116,18 +123,18 @@
                 <el-form-item label="性别">
                     <div class="block">
                         <el-cascader 
-                            v-model="value"
+                            v-model="user.sex"
                             :options="options1"
                             :placeholder="user.sex"
-                            @change="handleChange"></el-cascader>
+                            @change="handleChange1"></el-cascader>
                     </div>
                 </el-form-item>
                 <el-form-item label="身份">
                         <el-cascader
-                            v-model="value"
+                            v-model="user.role"
                             :options="options2"
                             :placeholder="user.role"
-                            @change="handleChange"></el-cascader>
+                            @change="handleChange2"></el-cascader>
                 </el-form-item>
                 <el-form-item label="电话号码">
                     <el-input v-model="user.phone"></el-input>
@@ -137,6 +144,7 @@
                         <el-cascader
                             v-model="value"
                             :options="options"
+							:placeholder="temp"
                             @change="handleChange"></el-cascader>
                     </div>
                 </el-form-item>
@@ -164,6 +172,7 @@
         data() {
             return {
 				typed:'',
+				temp:'福建师范大学/音乐学院',
                 total:null,
 				pageNum:null,
                 page:{
@@ -215,7 +224,7 @@
                     department: '数学与计算机科学'
                 }],
                 search: '',
-                value: [],
+                value: ['',''],
                 options1: [{
                     label: '男',
 					value:'男'
@@ -264,6 +273,9 @@
             }
         },
         methods: {
+			handleChange1(){
+				
+			},
             pagetemp(currentPage){
 				const _this = this
 				this.pageNum = currentPage
@@ -278,10 +290,13 @@
             handleEdit(index, row) {
                 this.editUser.oldnumber = row.number
                 this.user = row
-
+				console.log(this.user)
+				this.temp=row.school+'/'+row.department
+				
                 const _this=this
                 this.dicd.typed='sex'
 				this.typed='sexy'
+				console.log(this.typed)
 				this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
@@ -298,11 +313,12 @@
 							_this.options2=resp.data
 							                _this.dialogVisible2 = true
                        
-                    }) 
+                    })  
                     }) 
             },
             adduser() {
                 this.user = [] 
+				this.value=[]
                 const _this=this  
                 this.typed='sexy'
                 this.$axios.get('http://47.112.239.108:8080/webdictionary/getdefault/'+this.typed,{
@@ -343,24 +359,33 @@
             },
             handleChange(value) {
                 console.log(value)
+				
                 this.user.school = value[0]
                 this.user.department = value[1]
             },
             edit() {
-                console.log(this.user)
                 this.dialogVisible2 = false
                 this.editUser.user = this.user
                 console.log(this.editUser)
 				const _this = this
+				this.editUser.school=this.user.scholl
+				this.editUser.department=this.user.department
                 this.$axios.post('http://47.112.239.108:8080/webuser/updateuser/' ,this.editUser,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                    _this.$alert('编辑用户成功', '编辑用户', {
-                        confirmButtonText: '确定',
-                        callback: action => {
-                        }
+						this.$message({
+                            type: 'success',
+                            message: res.data
+                        })
+					_this.$axios.get('http://localhost:8080/webuser/pagefind/'+_this.pageNum,{
+                                headers: {
+
+                                    Authorization: localStorage.getItem('token')
+                                }
+                            }).then(function(resp) {
+                        _this.tableData = resp.data
                     })
                 })
             },
@@ -372,7 +397,7 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                    _this.$axios.get('http://47.112.239.108:8080/webuser/finduser',{
+                    _this.$axios.get('http://localhost:8080/webuser/pagefind/'+_this.pageNum,{
                                 headers: {
 
                                     Authorization: localStorage.getItem('token')
@@ -380,7 +405,7 @@
                             }).then(function(resp) {
                         _this.tableData = resp.data
                         console.log(_this.tableData)
-                        this.$alert('新增用户成功', '删除用户', {
+                        _this.$alert('删除用户成功', '删除用户', {
                             confirmButtonText: '确定',
                             callback: action => {
                             }
@@ -408,6 +433,7 @@
                 this.userinfo.phone = this.user.phone
                 this.userinfo.school = this.user.school
                 this.userinfo.department = this.user.department
+				this.userinfo.nickname=this.user.nickname
                 console.log(this.userinfo)
                 this.$axios.post('http://47.112.239.108:8080/webuser/adduser', this.userinfo,{
                                 headers: {
@@ -415,18 +441,18 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                    _this.$axios.get('http://47.112.239.108:8080/webuser/finduser',{
+					_this.$message({
+                            type: 'success',
+                            message: resp.data
+                        })
+                    _this.$axios.get('http://localhost:8080/webuser/pagefind/'+_this.pageNum,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
                         _this.tableData = resp.data
-                        this.$alert('新增用户成功', '新增用户', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                            }
-                        })
-                    })
+						
+                    }) 
                 })
 
                 // this.user = []
@@ -437,16 +463,6 @@
         created() {
             const _this = this
 
-            this.$axios.get('http://localhost:8080/webuser/finduser',
-							{
-                                headers: {
-                                    Authorization: localStorage.getItem('token')
-                                }
-                            }).then(function(resp) {
-                _this.tableData = resp.data
-                console.log(_this.tableData)
-                // 这个url要改下
-            })
 			this.pageNum=1
 				this.$axios.get('http://localhost:8080/webuser/pagefind/'+this.pageNum,{
 									headers: {

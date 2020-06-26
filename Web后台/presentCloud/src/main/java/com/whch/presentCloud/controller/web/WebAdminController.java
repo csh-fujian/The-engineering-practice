@@ -10,6 +10,7 @@ import com.whch.presentCloud.service.IService.ITokenService;
 import com.whch.presentCloud.service.IService.IUserLoginService;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,8 +37,7 @@ public class WebAdminController {
         try{
             adminS.addadmin(name);
             return "新增成功";
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (DuplicateKeyException e){
             return "新增失败，该昵称已存在";
         }
     }

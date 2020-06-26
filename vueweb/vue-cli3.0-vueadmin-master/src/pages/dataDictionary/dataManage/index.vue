@@ -182,13 +182,13 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                    _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + this.typed,{
+                    _this.$axios.get('http://localhost:8080/webdictionary/finddata/' +_this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
                         _this.tableData = resp.data
-                        this.$alert('编辑数据成功', '编辑数据', {
+                        _this.$alert('编辑数据成功', '编辑数据', {
                             confirmButtonText: '确定',
                             callback: action => {
                             }
@@ -217,7 +217,7 @@
                                 }
                             }).then(function(resp) {
                         _this.tableData = resp.data
-                        this.$alert('删除数据成功', '删除数据', {
+                        _this.$alert('删除数据成功', '删除数据', {
                             confirmButtonText: '确定',
                             callback: action => {
                             }
@@ -250,7 +250,7 @@
                                 }
                             }).then(function(resp) {
                         _this.tableData = resp.data
-                        this.$alert('新增数据成功', '新增数据', {
+                        _this.$alert('新增数据成功', '新增数据', {
                             confirmButtonText: '确定',
                             callback: action => {
                             }

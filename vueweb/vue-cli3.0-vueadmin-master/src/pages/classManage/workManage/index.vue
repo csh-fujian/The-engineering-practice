@@ -28,12 +28,12 @@
             </el-table-column>
             <el-table-column prop="college" label="所属学院" width="170">
             </el-table-column>
-            <el-table-column prop="classtime" label="注册时间" width="200">
+            <el-table-column prop="creattime" label="注册时间" width="200">
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="150">
                 <template slot-scope="scope">
                     <el-button
-                        @click="dialogVisible1 = true"
+                        @click="dialogVisible1 = true,handleEdit(scope.$index, scope.row)"
                         type="text"
                         size="small"
                         >编辑</el-button
@@ -108,7 +108,8 @@ export default {
     data() {
         return {
             teachername: '',
-
+classid1:'',
+teacherid1:'',
             dict: {
                 classid:null,
                 classname: '',
@@ -176,7 +177,7 @@ export default {
             })
             .then(res => {
                 console.log(res)
-                this.tableData1 = res.data
+               this.tableData1 = res.data
             })
 			console.log('1')
         this.$axios
@@ -193,6 +194,11 @@ export default {
             })
     },
     methods: {
+	handleEdit(index, row) {
+            console.log(index, row);
+            this.classid1 = row.classid
+			this.teacherid1 = row.teacherid
+        },
         handleChange(value) {
             console.log(value)
             this.dict.school = value[0]
@@ -204,16 +210,30 @@ export default {
             this.dict1.college = value[1]
         },
         editclass() {
-
+var Class2={
+        Class1:{
+            classid:Number(this.dict1.classid),
+            classname:this.dict1.classname,
+            school:this.dict1.school,
+            college:this.dict1.college,
+			teacherid:this.teacherid1 
+        },
+            oldclassid:this.classid1,
+			
+        }
 
 
             this.$axios
-                .post('http://localhost:8080/webclass/update', this.dict1, {
+                .post('http://localhost:8080/webclass/update', Class2, {
                     headers: {
                         Authorization: localStorage.getItem('token')
                     }
                 })
                 .then(res => {
+				this.$message({
+                            type: 'success',
+                            message: res.data.message
+                        })
                     this.$axios
                         .get('http://localhost:8080/webclass/findbyteacher', {
                             headers: {
@@ -251,6 +271,12 @@ export default {
                     }
                 })
                 .then(res => {
+				
+				this.$message({
+                            type: 'success',
+                            message: res.data.message
+                        })
+				 
                     this.$axios
                         .get('http://localhost:8080/webclass/findbyteacher', {
                             headers: {
@@ -259,7 +285,7 @@ export default {
                         })
                         .then(res => {
                             console.log(res)
-                            this.tableData1 = res.data
+                           this.tableData1 = res.data
 
                         })
 						this.dialogVisible = false

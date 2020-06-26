@@ -16,13 +16,15 @@
             </el-table-column>
             <el-table-column prop="classname" label="课程名称" width="120">
             </el-table-column>
+			<el-table-column prop="teacherid" label="教师工号" width="120">
+            </el-table-column>
             <el-table-column prop="teachername" label="教师姓名" width="120">
             </el-table-column>
             <el-table-column prop="school" label="所在学校" width="170">
             </el-table-column>
             <el-table-column prop="college" label="所属学院" width="170">
             </el-table-column>
-            <el-table-column prop="classtime" label="注册时间" width="200">
+            <el-table-column prop="creattimr" label="注册时间" width="200">
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="150">
                 <template slot-scope="scope">
@@ -108,7 +110,7 @@ export default {
     data() {
         return {
             classid1: null,
-
+teacherid1:null,
             dict: {
                 classid: '',
                 classname: '',
@@ -190,6 +192,7 @@ export default {
         handleEdit(index, row) {
             console.log(index, row);
             this.classid1 = row.classid
+			this.teacherid1 = row.teacherid
         },
         handleChange(value) {
             console.log(value)
@@ -211,14 +214,17 @@ export default {
     editclass(){
 
         var Class2={
-        class1:{
-            classid:this.dict1.classid,
+        Class1:{
+            classid:Number(this.dict1.classid),
             classname:this.dict1.classname,
             school:this.dict1.school,
-            college:this.dict1.college
+            college:this.dict1.college,
+			teacherid:this.teacherid1 
         },
-            oldclassid:this.classid1
+            oldclassid:this.classid1,
+			
         }
+		 console.log(Class2)
         this.$axios
             .post(
                 'http://localhost:8080/webclass/update',
@@ -230,6 +236,10 @@ export default {
                 }
             )
             .then(res => {
+			this.$message({
+                            type: 'success',
+                            message: res.data.message
+                        })
                 this.$axios
             .get('http://localhost:8080/webclass/findAll', {
                 headers: {
@@ -270,7 +280,7 @@ export default {
                         console.log(res)
                         this.$message({
                             type: 'success',
-                            message: res.message
+                            message: res.data.message
                         })
                     this.$axios
                         .get('http://localhost:8080/webclass/findAll', {

@@ -103,7 +103,11 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-								alert(1)
+						_this.$alert('删除数据成功', '删除数据', {
+                            confirmButtonText: '确定',
+                            callback: action => {
+                            }
+                        })	
                     _this.$axios.get('http://47.112.239.108:8080/webadmin/getAll',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
@@ -117,13 +121,18 @@
                 console.log(index, row)
             },
             Initialization(index, row) {
-            alert(row.name)
-            this.$axios.post('http://47.112.239.108:8080/webadmin/defaultadmin/'+row.name,{},{
-                                headers: {
-                                    Authorization: localStorage.getItem('token')
-                                }
-                            }).then(function(resp) {
-                })
+				const _this = this 
+				this.$axios.post('http://47.112.239.108:8080/webadmin/defaultadmin/'+row.name,{},{
+									headers: {
+										Authorization: localStorage.getItem('token')
+									}
+								}).then(function(resp) {
+						_this.$alert('初始化数据成功', '初始化数据', {
+                            confirmButtonText: '确定',
+                            callback: action => {
+                            }
+                        })	
+					})
             },
             doAdd(index, row) {
                 this.dialogVisible = false
@@ -137,7 +146,11 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-							
+					    _this.$alert('新增数据成功', '新增数据', {
+                            confirmButtonText: '确定',
+                            callback: action => {
+                            }
+                        })		
                     _this.$axios.get('http://47.112.239.108:8080/webadmin/getAll',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')

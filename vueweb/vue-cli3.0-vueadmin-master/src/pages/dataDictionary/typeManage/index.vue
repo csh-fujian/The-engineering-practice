@@ -137,7 +137,7 @@ export default {
                                 }
                             }).then(function(resp) {
                     _this.tableData = resp.data
-                    this.$alert('删除类型成功', '删除类型', {
+                    _this.$alert('删除类型成功', '删除类型', {
                         confirmButtonText: '确定',
                         callback: action => {
                         }
@@ -165,7 +165,7 @@ export default {
                                 }
                             }).then(function(resp) {
                     _this.tableData = resp.data
-                    this.$alert('新增类型成功', '新增类型', {
+                    _this.$alert('新增类型成功', '新增类型', {
                         confirmButtonText: '确定',
                         callback: action => {
                         }

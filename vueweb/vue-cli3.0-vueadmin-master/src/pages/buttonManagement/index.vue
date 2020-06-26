@@ -116,7 +116,7 @@
                                 }
                             }).then(function(resp) {
                         _this.tableData = resp.data
-                        this.$alert('修改参数成功', '修改参数', {
+                        _this.$alert('修改参数成功', '修改参数', {
                             confirmButtonText: '确定',
                             callback: action => {
                             }

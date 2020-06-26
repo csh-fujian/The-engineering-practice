@@ -260,7 +260,7 @@
                                 }
                             }).then(res => {
                         _this.datatable = res.data
-                            this.$alert('删除成功', '删除', {
+                            _this.$alert('删除成功', '删除', {
                                 confirmButtonText: '确定',
                                 callback: action => {
                                 }
@@ -316,7 +316,7 @@
                                 }
                             }).then(res => {
                                 _this.datatable = res.data
-                            this.$alert('新增菜单成功', '分配权限', {
+                            _this.$alert('新增菜单成功', '新增菜单', {
                                 confirmButtonText: '确定',
                                 callback: action => {
                                 }
@@ -354,7 +354,7 @@
                                 }
                             }).then(res => {
                                 _this.datatable = res.data
-                            this.$alert('新增页面成功', '新增页面', {
+                            _this.$alert('新增页面成功', '新增页面', {
                                 confirmButtonText: '确定',
                                 callback: action => {
                                 }
@@ -382,7 +382,7 @@
                                 }
                             }).then(res => {
                             _this.datatable = res.data
-                        this.$alert('新增按钮成功', '新增按钮', {
+                        _this.$alert('新增按钮成功', '新增按钮', {
                             confirmButtonText: '确定',
                             callback: action => {
                             }
