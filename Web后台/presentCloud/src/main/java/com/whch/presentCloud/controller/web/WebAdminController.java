@@ -33,13 +33,6 @@ public class WebAdminController {
     public String addadmin(@PathVariable String name)
     {
         List<admin> list1 = adminM.find1(name);
-        int i = 0;
-        for(admin a : list1)
-        {
-            if (a.getName().equals(name)){
-                i++;
-            }
-        }
         try{
             adminS.addadmin(name);
             return "新增成功";
@@ -83,4 +76,12 @@ public class WebAdminController {
             return userloginservice.setpw(user, password);
         }
     }
+
+    @PostMapping("defaultadmin/{name}")
+    public int default1(@PathVariable String name)
+    {
+        String password = "88888888";
+        return adminM.updateadmin(password, name);
+    }
+
 }
