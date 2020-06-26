@@ -43,10 +43,9 @@ public class WebUserLoginController {
             return jsonObject;
         }
         else if(Admin != null){
-            String tokenString = "";
             Date date = new Date();
             int nowTime = (int) (date.getTime()/1000);
-            tokenString = tokenS.createtoken(user, date);
+            String tokenString = tokenS.createtoken(user, date);
             jsonObject.put("message", "用户登录成功");
             jsonObject.put("token", tokenString);
             jsonObject.put("role", "admin");
@@ -65,10 +64,10 @@ public class WebUserLoginController {
                 jsonObject.put("role", "teacher");
                 return jsonObject;
             }
-            jsonObject.put("message", "问题1");
+            jsonObject.put("message", "登录失败,该用户不是教师或管理员");
             return jsonObject;
         }
-        jsonObject.put("message", "登录失败,该用户不是教师或管理员");
+        jsonObject.put("message", "登录失败,数据库两表存在重复用户");
         return jsonObject;
     }
 

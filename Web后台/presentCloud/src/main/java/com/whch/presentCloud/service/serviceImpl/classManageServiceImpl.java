@@ -43,11 +43,7 @@ public class classManageServiceImpl implements IClassManageService {
     public boolean addCourse(classLesson Class) {
         // TODO Auto-generated method stub
         // 课程成员
-        int flag = classM.insertSelective(Class);
-        if(flag == 1)
-        {
-            return false;
-        }
+        classM.insertSelective(Class);
         return true;
     }
 
@@ -63,8 +59,8 @@ public class classManageServiceImpl implements IClassManageService {
     }
 
     @Override
-    public List<classLesson> find(String teachername) {
-        return classM.find(teachername);
+    public List<classLesson> find(String teachername, Integer teacherid) {
+        return classM.find(teachername, teacherid);
     }
 
     @Override
@@ -73,12 +69,8 @@ public class classManageServiceImpl implements IClassManageService {
     }
 
     @Override
-    public boolean updateCourse(classLesson Class) {
-        int flag = classM.updateByPrimaryKeySelective(Class);
-        if(flag == 0)
-        {
-            return false;
-        }
+    public boolean updateCourse(classLesson Class, int oldclassid) {
+        classM.updateByPrimaryKeySelective(Class, oldclassid);
         return true;
     }
 

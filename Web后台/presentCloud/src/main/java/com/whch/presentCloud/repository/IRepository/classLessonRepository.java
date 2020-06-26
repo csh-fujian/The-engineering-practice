@@ -9,7 +9,6 @@ public interface classLessonRepository {
     public List<classLesson> get(String teacherId);
     public List<classLesson> getBanke(String studentId);
     public int add(classLesson lesson);
-    public int update(classLesson lesson);
     public int delete(classLesson lesson);
 	public classLesson getLesson(Integer parseInt);
 	

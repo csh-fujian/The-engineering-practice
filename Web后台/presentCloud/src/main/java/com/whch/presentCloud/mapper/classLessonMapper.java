@@ -19,12 +19,15 @@ public interface classLessonMapper {
 
     classLesson selectByPrimaryKey(Integer classid);
 
-    int updateByPrimaryKeySelective(classLesson record);
+    int updateByPrimaryKeySelective(@Param("record") classLesson record, @Param("oldclassid") int oldclassid);
 
     int updateByPrimaryKey(classLesson record);
 
-    @Select("select * from classlesson where TeacherName = #{teachername}")
-	List<classLesson> find(@Param("teachername") String teachername);
+    @Select("select * from classlesson where TeacherName = #{teachername} and TeacherId = #{teacherid}")
+	List<classLesson> find(@Param("teachername") String teachername, @Param("teacherid") Integer teacherid);
+
+    @Select("select * from classlesson where TeacherName")
+    List<classLesson> find00(@Param("teachername") String teachername);
 
     @Select("select * from classlesson where TeachId = #{teacherId} and ClassId = #{classId}")
 	classLesson findOne(@Param("teacherId") String teacherId,@Param("classId") Integer classId);

@@ -44,7 +44,6 @@ public class WebAdminController {
             adminS.addadmin(name);
             return "新增成功";
         }catch (Exception e){
-            e.printStackTrace();
             return "新增失败，该昵称已存在";
         }
     }
