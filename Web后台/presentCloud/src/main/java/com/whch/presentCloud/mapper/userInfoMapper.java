@@ -49,6 +49,9 @@ public interface userInfoMapper {
     @Select("select * from userinfo where Phone = #{phone}")
 	userInfo getUser(@Param("phone")String phone);
 
+    @Select("select * from userinfo where number = #{number}")
+    userInfo getTeacherUser(@Param("number")String number);
+
     @Delete("delete from userinfo where number = #{number}")
     int deleteuser(@Param("number") String number);
 

@@ -3,6 +3,7 @@ package com.whch.presentCloud.controller.web;
 import com.github.pagehelper.Page;
 import com.whch.presentCloud.entity.updateuser;
 import com.whch.presentCloud.entity.userInfo;
+import com.whch.presentCloud.mapper.classLessonMapper;
 import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.service.IService.IUserManageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class WebUserController {
     private IUserManageService usermanage;
     @Autowired
     private userInfoMapper userM;
+    @Autowired
+    private classLessonMapper classM;
 
     /**
      * 添加用户
@@ -93,6 +96,10 @@ public class WebUserController {
         }
         if(i == 0){
             if(usermanage.updatebyid(editUser.getUser(), editUser.getOldnumber())==1){
+                String teachername = editUser.getUser().getName();
+                userInfo uu = userM.getTeacherUser(editUser.getOldnumber());
+                String oldteachername = uu.getName();
+                classM.setname(teachername, oldteachername);
                 return "编辑成功";
             }
             else {

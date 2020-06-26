@@ -6,6 +6,7 @@ import com.whch.presentCloud.entity.classLesson;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,6 +31,9 @@ public interface classLessonMapper {
 
     @Select("select * from classlesson where type = #{studnetId}")
 	List<classLesson> findBanke(@Param("studentId")String studentId);
+
+    @Update("update classlesson c set c.TeacherName = #{teachername} where c.TeacherName = #{oldteachername}")
+    void setname(@Param("teachername")String teachername, @Param("oldteachername")String oldteachername);
 
     @Select("select * from classlesson")
     List<classLesson> findAll();

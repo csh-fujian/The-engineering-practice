@@ -37,7 +37,6 @@ public class WebDictionaryController {
     @GetMapping("findtype")
     public List<dictionaryType> findtype()
     {
-        System.out.println("====111====");
         List<dictionaryType> dict = dictype.findAll();
         int i = 0;
         for(dictionaryType d : dict)
