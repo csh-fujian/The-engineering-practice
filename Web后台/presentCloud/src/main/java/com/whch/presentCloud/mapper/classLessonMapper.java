@@ -22,7 +22,7 @@ public interface classLessonMapper {
 
     int updateByPrimaryKey(classLesson record);
 
-    @Select("select * from classlesson where TeacherName = #{teacherId}")
+    @Select("select * from classlesson where TeacherName = #{teachername}")
 	List<classLesson> find(@Param("teachername") String teachername);
 
     @Select("select * from classlesson where TeachId = #{teacherId} and ClassId = #{classId}")
