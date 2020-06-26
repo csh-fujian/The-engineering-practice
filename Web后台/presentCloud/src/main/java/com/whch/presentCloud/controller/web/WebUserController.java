@@ -47,7 +47,6 @@ public class WebUserController {
             usermanage.addUser(user);
             return "新增成功";
         }catch (DuplicateKeyException e){
-            e.printStackTrace();
             return "新增失败，该昵称已存在";
         }
     }
@@ -83,14 +82,6 @@ public class WebUserController {
     public String updateuser(@RequestBody updateuser editUser){
         userInfo user1 = editUser.getUser();
         String nickname = user1.getNickname();
-        List<userInfo> list1 = userM.find1(nickname);
-        int i = 0;
-        for(userInfo u : list1)
-        {
-            if (u.getNickname().equals(nickname)){
-                i++;
-            }
-        }
         try{
             usermanage.updatebyid(editUser.getUser(), editUser.getOldnumber());
             String teachername = editUser.getUser().getName();
@@ -99,7 +90,6 @@ public class WebUserController {
             classM.setname(teachername, oldteachername);
             return "编辑成功";
         }catch (DuplicateKeyException e){
-            e.printStackTrace();
             return "编辑失败，该学/工号或昵称已存在";
         }
     }

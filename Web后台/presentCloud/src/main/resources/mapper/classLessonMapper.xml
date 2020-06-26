@@ -155,7 +155,7 @@
         CreatTime = #{creattime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where ClassId = #{classid,jdbcType=INTEGER}
+    where ClassId = #{oldclassid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.whch.presentCloud.entity.classLesson" >
     update classlesson

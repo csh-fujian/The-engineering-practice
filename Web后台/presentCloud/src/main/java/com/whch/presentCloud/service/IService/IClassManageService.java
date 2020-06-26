@@ -15,11 +15,11 @@ public interface IClassManageService {
 
 	public boolean deleteCourse(Integer classid);
 
-	public List<classLesson> find(String teachername);
+	public List<classLesson> find(String teachername, Integer teacherid);
 
 	public List<classLesson> findAll();
 
-	public boolean updateCourse(classLesson Class);
+	public boolean updateCourse(classLesson Class, int oldclassid);
 
 	List<Map> getCourse(String classId);
 

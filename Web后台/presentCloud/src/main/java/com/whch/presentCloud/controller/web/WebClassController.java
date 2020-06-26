@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.whch.presentCloud.entity.addpage;
 import com.whch.presentCloud.entity.classLesson;
+import com.whch.presentCloud.entity.updateclass;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.service.IService.IClassManageService;
@@ -37,24 +38,23 @@ public class WebClassController {
 
     @PostMapping("adminaddclass")
     public Object adminaddclass(@RequestBody classLesson Class){
-        String ro = dicd.findbykey("teacher");
-        userInfo user = userM.findOne1(Class.getTeachername(), ro);
         JSONObject jsonObject = new JSONObject();
-        if (user == null)
-        {
-            jsonObject.put("message", "不存在该任课老师");
+        String id = Class.getTeacherid().toString();
+        userInfo user = userM.getTeacherUser(id);
+        if (user == null){
+            jsonObject.put("message", "该教师id不存在");
             return jsonObject;
         }
         else {
             Date date = new Date();
-            Class.setTeacherid(user.getId());
+            Class.setTeacherid(Integer.parseInt(user.getNumber()));
+            Class.setTeachername(user.getName());
             Class.setCreattime(date);
             try{
                 classManageService.addCourse(Class);
                 jsonObject.put("message", "添加成功");
                 return jsonObject;
             }catch (DuplicateKeyException e){
-                e.printStackTrace();
                 jsonObject.put("message", "添加失败,该班课id已存在");
                 return jsonObject;
             }
@@ -79,7 +79,6 @@ public class WebClassController {
             jsonObject1.put("flag","1");
             return jsonObject1;
         }catch (DuplicateKeyException e){
-            e.printStackTrace();
             jsonObject1.put("message", "添加失败，该班课id已存在");
             return jsonObject1;
         }
@@ -91,8 +90,6 @@ public class WebClassController {
         Date date = new Date();
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
         List<classLesson> classes = classManageService.findAll();
-        System.out.println(classManageService.findAll());
-        System.out.println(classes);
         return classes;
     }
 
@@ -106,7 +103,7 @@ public class WebClassController {
         userInfo user = JSON.toJavaObject(jsonObject, userInfo.class);
         Date date = new Date();
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
-        List<classLesson> classes = classManageService.find(user.getName());
+        List<classLesson> classes = classManageService.find(user.getName(), Integer.parseInt(user.getNumber()));
         for(classLesson c : classes)
         {
             date = c.getCreattime();
@@ -125,17 +122,24 @@ public class WebClassController {
     }
 
     @RequestMapping("update")
-    public Object update(@RequestBody classLesson Class)
+    public Object update(@RequestBody updateclass Class2)
     {
-        JSONObject jsonObject1 = new JSONObject();
+        classLesson Class = Class2.getClass1();
+        Integer oldclassid = Class2.getOldclassid();
+        JSONObject jsonObject = new JSONObject();
+        String id = Class.getTeacherid().toString();
+        userInfo user = userM.getTeacherUser(id);
+        if (user == null){
+            jsonObject.put("message", "该教师id不存在");
+            return jsonObject;
+        }
         try{
-            classManageService.updateCourse(Class);
-            jsonObject1.put("message", "编辑成功");
-            return jsonObject1;
+            classManageService.updateCourse(Class, oldclassid);
+            jsonObject.put("message", "编辑成功");
+            return jsonObject;
         }catch (DuplicateKeyException e){
-            e.printStackTrace();
-            jsonObject1.put("message", "编辑失败，该班课id已存在");
-            return jsonObject1;
+            jsonObject.put("message", "编辑失败，该班课id已存在");
+            return jsonObject;
         }
     }
 
