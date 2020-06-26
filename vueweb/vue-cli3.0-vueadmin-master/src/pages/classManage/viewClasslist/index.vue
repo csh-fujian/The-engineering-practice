@@ -26,8 +26,9 @@
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="150">
                 <template slot-scope="scope">
-                    <el-button  @click="dialogVisible1 = true" type="text" size="small"
+                    <el-button  @click.native.prevent="dialogVisible1 = true,handleEdit(scope.$index, scope.row)" type="text" size="small"
                         >编辑</el-button
+                    >
                     >
                     <el-button
                         @click.native.prevent="
@@ -53,8 +54,8 @@
                 <el-form-item label="课程名称">
                     <el-input v-model="dict.classname"></el-input>
                 </el-form-item>
-                <el-form-item label="任课老师">
-                    <el-input v-model="dict.teachername"></el-input>
+                <el-form-item label="教师工号">
+                    <el-input v-model="dict.teacherid"></el-input>
                 </el-form-item>
                 <el-form-item label="选择院校">
                     <div class="block">
@@ -106,10 +107,12 @@
 export default {
     data() {
         return {
+            classid1: null,
+
             dict: {
                 classid: '',
                 classname: '',
-                teachername: '',
+                teacherid: null,
                 school: '',
                 college: ''
             },
@@ -184,6 +187,10 @@ export default {
 
     },
     methods: {
+        handleEdit(index, row) {
+            console.log(index, row);
+            this.classid1 = row.classid
+        },
         handleChange(value) {
             console.log(value)
             this.dict.school = value[0]
@@ -202,10 +209,20 @@ export default {
             //console.log('success')
 
     editclass(){
+
+        var Class2={
+        class1:{
+            classid:this.dict1.classid,
+            classname:this.dict1.classname,
+            school:this.dict1.school,
+            college:this.dict1.college
+        },
+            oldclassid:this.classid1
+        }
         this.$axios
             .post(
                 'http://localhost:8080/webclass/update',
-                this.dict1,
+                Class2,
                 {
                     headers: {
                         Authorization: localStorage.getItem('token')
@@ -236,7 +253,7 @@ export default {
             //     school: '福州大学',
             //     college: '人文学院'
             // }
-			
+
 			console.log(this.dict)
             this.$axios
                 .post(
@@ -249,19 +266,26 @@ export default {
                     }
                 )
                 .then(res => {
- 
+
                         console.log(res)
-                        console.log(res.message)
                         this.$message({
                             type: 'success',
                             message: res.message
                         })
-
-                        this.tableData1.push(this.dict)
-                        this.dialogVisible = false
-
+                    this.$axios
+                        .get('http://localhost:8080/webclass/findAll', {
+                            headers: {
+                                Authorization: localStorage.getItem('token')
+                            }
+                        })
+                        .then(res => {
+                            console.log(res)
+                            this.tableData1 = res.data
+                            this.dialogVisible = false
+                        })
 
                 })
+
 
             //console.log('success')
         },
