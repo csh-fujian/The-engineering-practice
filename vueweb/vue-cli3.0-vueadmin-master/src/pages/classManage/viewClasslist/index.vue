@@ -236,6 +236,8 @@ export default {
             //     school: '福州大学',
             //     college: '人文学院'
             // }
+			
+			console.log(this.dict)
             this.$axios
                 .post(
                     'http://localhost:8080/webclass/adminaddclass',
@@ -247,7 +249,7 @@ export default {
                     }
                 )
                 .then(res => {
-                    if(res.flag != null){
+ 
                         console.log(res)
                         console.log(res.message)
                         this.$message({
@@ -257,14 +259,7 @@ export default {
 
                         this.tableData1.push(this.dict)
                         this.dialogVisible = false
-                    }else{
 
-                        this.$message({
-                            type: 'success',
-                            message: res.message
-                        })
-                        this.dialogVisible = false
-                    }
 
                 })
 
