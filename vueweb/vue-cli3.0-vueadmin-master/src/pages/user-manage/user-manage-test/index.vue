@@ -159,7 +159,7 @@
   background
   layout="prev, pager, next"
   page-size="8"
-  :total="10"
+  :total="total"
   @current-change="pagetemp"
   >
 </el-pagination>
@@ -462,7 +462,13 @@
         },
         created() {
             const _this = this
-
+            this.$axios.get('http://localhost:8080/webuser/totalSize/',{
+					headers: {
+							Authorization: localStorage.getItem('token')
+					}
+					}).then(function(resp) {
+					_this.total = resp.data
+				})    
 			this.pageNum=1
 				this.$axios.get('http://localhost:8080/webuser/pagefind/'+this.pageNum,{
 									headers: {
