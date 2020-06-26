@@ -121,38 +121,41 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.whch.presentCloud.entity.classLesson" >
     update classlesson
     <set >
-      <if test="classname != null" >
-        ClassName = #{classname,jdbcType=VARCHAR},
+      <if test="record.classid != null" >
+        ClassId = #{record.classid,jdbcType=VARCHAR},
       </if>
-      <if test="teachername != null" >
-        TeacherName = #{teachername,jdbcType=VARCHAR},
+      <if test="record.classname != null" >
+        ClassName = #{record.classname,jdbcType=VARCHAR},
       </if>
-      <if test="teacherid != null" >
-        TeacherId = #{teacherid,jdbcType=INTEGER},
+      <if test="record.teachername != null" >
+        TeacherName = #{record.teachername,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=VARCHAR},
+      <if test="record.teacherid != null" >
+        TeacherId = #{record.teacherid,jdbcType=INTEGER},
       </if>
-      <if test="master != null" >
-        Master = #{master,jdbcType=VARCHAR},
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
       </if>
-      <if test="peopleCount != null" >
-        People_Count = #{peopleCount,jdbcType=INTEGER},
+      <if test="record.master != null" >
+        Master = #{record.master,jdbcType=VARCHAR},
       </if>
-      <if test="location != null" >
-        Location = #{location,jdbcType=VARCHAR},
+      <if test="record.peopleCount != null" >
+        People_Count = #{record.peopleCount,jdbcType=INTEGER},
       </if>
-      <if test="classtime != null" >
-        ClassTime = #{classtime,jdbcType=VARCHAR},
+      <if test="record.location != null" >
+        Location = #{record.location,jdbcType=VARCHAR},
       </if>
-      <if test="college != null" >
-        College = #{college,jdbcType=VARCHAR},
+      <if test="record.classtime != null" >
+        ClassTime = #{record.classtime,jdbcType=VARCHAR},
       </if>
-      <if test="school != null" >
-        School = #{school,jdbcType=VARCHAR},
+      <if test="record.college != null" >
+        College = #{record.college,jdbcType=VARCHAR},
       </if>
-      <if test="creattime != null" >
-        CreatTime = #{creattime,jdbcType=TIMESTAMP},
+      <if test="record.school != null" >
+        School = #{record.school,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creattime != null" >
+        CreatTime = #{record.creattime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where ClassId = #{oldclassid,jdbcType=INTEGER}

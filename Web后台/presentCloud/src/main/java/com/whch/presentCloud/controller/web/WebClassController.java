@@ -16,6 +16,7 @@ import com.whch.presentCloud.service.IService.IClassManageService;
 import com.whch.presentCloud.service.IService.IDictionaryDataService;
 import com.whch.presentCloud.service.IService.ITokenService;
 import io.jsonwebtoken.Claims;
+import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -69,7 +70,7 @@ public class WebClassController {
         JSONObject jsonObject = JSON.parseObject(subject);
         userInfo user = JSON.toJavaObject(jsonObject, userInfo.class);
         Class.setTeachername(user.getName());
-        Class.setTeacherid(user.getId());
+        Class.setTeacherid(Integer.parseInt(user.getNumber()));
         Date date = new Date();
         Class.setCreattime(date);
         JSONObject jsonObject1 = new JSONObject();
@@ -103,12 +104,8 @@ public class WebClassController {
         userInfo user = JSON.toJavaObject(jsonObject, userInfo.class);
         Date date = new Date();
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
-        List<classLesson> classes = classManageService.find(user.getName(), Integer.parseInt(user.getNumber()));
-        for(classLesson c : classes)
-        {
-            date = c.getCreattime();
-            c.setClasstime(dateFormat.format(date));
-        }
+        int x = Integer.parseInt(user.getNumber());
+        List<classLesson> classes = classManageService.find(user.getName(), x);
         return classes;
     }
 
@@ -133,6 +130,7 @@ public class WebClassController {
             jsonObject.put("message", "该教师id不存在");
             return jsonObject;
         }
+        System.out.println(Class.getClassname());
         try{
             classManageService.updateCourse(Class, oldclassid);
             jsonObject.put("message", "编辑成功");

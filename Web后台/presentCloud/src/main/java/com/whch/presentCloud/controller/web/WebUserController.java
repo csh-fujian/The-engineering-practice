@@ -34,15 +34,6 @@ public class WebUserController {
     {
         userInfo user = userinfo;
         user.setPassword("88888888");
-        String nickname = user.getNickname();
-        List<userInfo> list1 = userM.find1(nickname);
-        int i = 0;
-        for(userInfo u : list1)
-        {
-            if (u.getNickname().equals(nickname)){
-                i++;
-            }
-        }
         try{
             usermanage.addUser(user);
             return "新增成功";

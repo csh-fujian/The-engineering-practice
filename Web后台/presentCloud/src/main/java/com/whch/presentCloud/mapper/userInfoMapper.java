@@ -40,7 +40,7 @@ public interface userInfoMapper {
     @Select("select * from userinfo")
     List<userInfo> getAll();
 
-    @Select("select * from admin where NickName = #{nickname}")
+    @Select("select * from userinfo where NickName = #{nickname}")
     List<userInfo> find1(@Param("nickname") String nickname);
 
     @Select("select * from userinfo u where u.number = #{number} or u.nickname= #{nickname}")
