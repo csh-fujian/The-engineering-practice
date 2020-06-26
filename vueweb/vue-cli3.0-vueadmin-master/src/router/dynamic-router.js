@@ -1,7 +1,7 @@
 /* 班课管理*/
 const Classtmanage = () => import('@/pages/classManage')
-const ClassStudentmanage = () => import('@/pages/classManage/classStudentmanage')
-const Checkmanage = () => import('@/pages/classManage/checkManage')
+//const ClassStudentmanage = () => import('@/pages/classManage/classStudentmanage')
+//const Checkmanage = () => import('@/pages/classManage/checkManage')
 const Viewclasslist = () => import('@/pages/classManage/viewClasslist')
 const Workmanage = () => import('@/pages/classManage/workManage')
 /* 角色管理 */
@@ -168,30 +168,30 @@ const dynamicRoutes = [
             icon: 'user'
         },
         children: [
-            {
-                path: 'ClassStudentmanage',
-                name: 'classStudentmanage',
-                component: ClassStudentmanage,
-                meta: {
-                    name: '班课学生管理',
-                    icon: 'table'
-                }
-            },
-            {
-                path: 'Checkmanage',
-                name: 'Checkmanage',
-                component: Checkmanage,
-                meta: {
-                    name: '签到管理',
-                    icon: 'table'
-                }
-            },
+            //{
+            //    path: 'ClassStudentmanage',
+            //    name: 'classStudentmanage',
+             //   component: ClassStudentmanage,
+             //   meta: {
+             //       name: '班课学生管理',
+             //       icon: 'table'
+             //   }
+           // },
+           // {
+           //     path: 'Checkmanage',
+             //   name: 'Checkmanage',
+             //   component: Checkmanage,
+            //    meta: {
+            //        name: '签到管理',
+             //       icon: 'table'
+             //   }
+           // },
             {
                 path:'Viewclasslist',
                 name:'Viewclasslist',
                 component:Viewclasslist,
                 meta:{
-                    name:'查看班课列表',
+                    name:'管理员班课管理',
                     icon:'table'
                 }
             },
@@ -200,7 +200,7 @@ const dynamicRoutes = [
                 name:'Workmanage',
                 component:Workmanage,
                 meta:{
-                    name:'作业管理',
+                    name:'教师班课管理',
                     icon:'table'
                 }
             }

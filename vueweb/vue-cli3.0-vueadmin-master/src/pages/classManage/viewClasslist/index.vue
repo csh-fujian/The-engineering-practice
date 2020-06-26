@@ -209,9 +209,11 @@ export default {
                             type: 'success',
                             message: res.message
                         })
+						
                         this.tableData1.push(this.dict)
                         this.dialogVisible = false
                     }else{
+				
                         this.$message({
                             type: 'success',
                             message: res.message

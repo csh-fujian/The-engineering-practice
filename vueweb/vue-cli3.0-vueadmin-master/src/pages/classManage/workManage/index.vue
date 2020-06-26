@@ -9,24 +9,15 @@
             >
             <el-input
                 v-model="search"
+				@input = "change($event)"
                 icon="el-icon-plus"
                 style="width:130px;height:10px"
                 placeholder="输入班课名称"
             />
         </div>
         <el-table
-            :data="
-                tableData1.filter(
-                    data =>
-                        !search ||
-                        data.classname
-                            .toLowerCase()
-                            .includes(search.toLowerCase())
-                )
-            "
-            border
-            style="width: 100%"
-        >
+            :data="tableData1.filter(data => !search || data.classname.toLowerCase().includes(search.toLowerCase()))"
+            border style="width: 100%">
             <el-table-column fixed prop="classid" label="班课id" width="100">
             </el-table-column>
             <el-table-column prop="classname" label="课程名称" width="120">
@@ -115,7 +106,7 @@ export default {
             teachername: '',
 
             dict: {
-                classid: '',
+                classid:null,
                 classname: '',
                 school: '',
                 college: ''
@@ -152,6 +143,7 @@ export default {
                 console.log(res)
                 this.tableData1 = res.data
             })
+			console.log('1')
         this.$axios
             .get('http://localhost:8080/webinitialization/parse', {
                 headers: {
@@ -160,13 +152,16 @@ export default {
                 }
             })
             .then(res => {
-                //console.log(res)
+                console.log(res)
                 this.teachername = res.data.name
                 console.log(this.teachername)
             })
     },
     methods: {
         editclass() {
+		
+		
+		
             this.$axios
                 .post('http://localhost:8080/webclass/update', this.dict1, {
                     headers: {
@@ -183,6 +178,7 @@ export default {
                         .then(res => {
                             console.log(res)
                             this.tableData1 = res.data
+							this.dialogVisible1 = false
                         })
                 })
         },
@@ -198,13 +194,13 @@ export default {
             let classget = {
                 classid: this.dict.classid,
                 classname: this.dict.classname,
-                teachername: this.teachername,
+                //teachername: this.teachername,
                 school: this.dict.school,
                 college: this.dict.college
             }
-            console.log(classget)
+            console.log(this.dict)
             this.$axios
-                .post('http://localhost:8080/webclass/addclass', classget, {
+                .post('http://localhost:8080/webclass/addclass', this.dict, {
                     headers: {
                         Authorization: localStorage.getItem('token')
                     }
@@ -219,7 +215,9 @@ export default {
                         .then(res => {
                             console.log(res)
                             this.tableData1 = res.data
+							
                         })
+						this.dialogVisible = false
                 })
 
             //console.log('success')
@@ -227,6 +225,9 @@ export default {
         Click() {
             console.log('success')
         },
+		change(e){
+		this.$forceUpdate()
+		},
         deletedata(index, rows) {
             //console.log(this.tableData1)
             console.log(rows[index].id)
