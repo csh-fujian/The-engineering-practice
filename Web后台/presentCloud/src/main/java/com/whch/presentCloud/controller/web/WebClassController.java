@@ -16,6 +16,7 @@ import com.whch.presentCloud.service.IService.IDictionaryDataService;
 import com.whch.presentCloud.service.IService.ITokenService;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,12 +49,12 @@ public class WebClassController {
             Date date = new Date();
             Class.setTeacherid(user.getId());
             Class.setCreattime(date);
-            boolean flag = classManageService.addCourse(Class);
-            if (flag){
+            try{
+                classManageService.addCourse(Class);
                 jsonObject.put("message", "添加成功");
                 return jsonObject;
-            }
-            else {
+            }catch (DuplicateKeyException e){
+                e.printStackTrace();
                 jsonObject.put("message", "添加失败,该班课id已存在");
                 return jsonObject;
             }
@@ -72,14 +73,14 @@ public class WebClassController {
         Date date = new Date();
         Class.setCreattime(date);
         JSONObject jsonObject1 = new JSONObject();
-        boolean flag = classManageService.addCourse(Class);
-        if (flag){
+        try{
+            classManageService.addCourse(Class);
             jsonObject1.put("message", "添加成功");
             jsonObject1.put("flag","1");
             return jsonObject1;
-        }
-        else {
-            jsonObject1.put("message", "添加失败，该班课id已存在或该教师不存在");
+        }catch (DuplicateKeyException e){
+            e.printStackTrace();
+            jsonObject1.put("message", "添加失败，该班课id已存在");
             return jsonObject1;
         }
     }
@@ -118,28 +119,22 @@ public class WebClassController {
     public Object delete(@PathVariable Integer classId)
     {
         JSONObject jsonObject1 = new JSONObject();
-        boolean flag = classManageService.deleteCourse(classId);
-        if (flag){
-            jsonObject1.put("message", "删除成功");
-            return jsonObject1;
-        }
-        else {
-            jsonObject1.put("message", "删除失败");
-            return jsonObject1;
-        }
+        classManageService.deleteCourse(classId);
+        jsonObject1.put("message", "删除成功");
+        return jsonObject1;
     }
 
     @RequestMapping("update")
     public Object update(@RequestBody classLesson Class)
     {
         JSONObject jsonObject1 = new JSONObject();
-        boolean flag = classManageService.updateCourse(Class);
-        if (flag){
+        try{
+            classManageService.updateCourse(Class);
             jsonObject1.put("message", "编辑成功");
             return jsonObject1;
-        }
-        else {
-            jsonObject1.put("message", "编辑失败");
+        }catch (DuplicateKeyException e){
+            e.printStackTrace();
+            jsonObject1.put("message", "编辑失败，该班课id已存在");
             return jsonObject1;
         }
     }

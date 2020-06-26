@@ -40,15 +40,11 @@ public class WebAdminController {
                 i++;
             }
         }
-        if(i == 0){
-            if(adminS.addadmin(name)==0){
-                return "新增成功";
-            }
-            else {
-                return "新增失败，原因未知";
-            }
-        }
-        else {
+        try{
+            adminS.addadmin(name);
+            return "新增成功";
+        }catch (Exception e){
+            e.printStackTrace();
             return "新增失败，该昵称已存在";
         }
     }

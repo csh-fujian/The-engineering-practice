@@ -28,8 +28,6 @@ public class TokenInterceptor implements HandlerInterceptor {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         String headerToken = request.getHeader("Authorization");
-        System.out.println("========4===========");
-        System.out.println(headerToken);
         if (HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
             return true;
         }

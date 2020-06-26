@@ -7,6 +7,7 @@ import com.whch.presentCloud.mapper.classLessonMapper;
 import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.service.IService.IUserManageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,15 +43,11 @@ public class WebUserController {
                 i++;
             }
         }
-        if(i == 0){
-            if(usermanage.addUser(user)==0){
-                return "新增成功";
-            }
-            else {
-                return "新增失败，原因未知";
-            }
-        }
-        else {
+        try{
+            usermanage.addUser(user);
+            return "新增成功";
+        }catch (DuplicateKeyException e){
+            e.printStackTrace();
             return "新增失败，该昵称已存在";
         }
     }
@@ -94,20 +91,16 @@ public class WebUserController {
                 i++;
             }
         }
-        if(i == 0){
-            if(usermanage.updatebyid(editUser.getUser(), editUser.getOldnumber())==1){
-                String teachername = editUser.getUser().getName();
-                userInfo uu = userM.getTeacherUser(editUser.getOldnumber());
-                String oldteachername = uu.getName();
-                classM.setname(teachername, oldteachername);
-                return "编辑成功";
-            }
-            else {
-                return "编辑失败，该学/工号已存在";
-            }
-        }
-        else {
-            return "编辑失败，该昵称已存在";
+        try{
+            usermanage.updatebyid(editUser.getUser(), editUser.getOldnumber());
+            String teachername = editUser.getUser().getName();
+            userInfo uu = userM.getTeacherUser(editUser.getOldnumber());
+            String oldteachername = uu.getName();
+            classM.setname(teachername, oldteachername);
+            return "编辑成功";
+        }catch (DuplicateKeyException e){
+            e.printStackTrace();
+            return "编辑失败，该学/工号或昵称已存在";
         }
     }
 
