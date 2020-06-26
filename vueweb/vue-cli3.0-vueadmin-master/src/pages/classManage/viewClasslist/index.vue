@@ -56,11 +56,13 @@
                 <el-form-item label="任课老师">
                     <el-input v-model="dict.teachername"></el-input>
                 </el-form-item>
-                <el-form-item label="所属大学">
-                    <el-input v-model="dict.school"></el-input>
-                </el-form-item>
-                <el-form-item label="所属学院">
-                    <el-input v-model="dict.college"></el-input>
+                <el-form-item label="选择院校">
+                    <div class="block">
+                        <el-cascader
+                            v-model="value"
+                            :options="options"
+                            @change="handleChange"></el-cascader>
+                    </div>
                 </el-form-item>
                 <el-form-item>
                     <el-button @click="dialogVisible = false">取消</el-button>
@@ -81,11 +83,13 @@
                 <el-form-item label="课程名称">
                     <el-input v-model="dict1.classname"></el-input>
                 </el-form-item>
-                <el-form-item label="所属大学">
-                    <el-input v-model="dict1.school"></el-input>
-                </el-form-item>
-                <el-form-item label="所属学院">
-                    <el-input v-model="dict1.college"></el-input>
+                <el-form-item label="选择院校">
+                    <div class="block">
+                        <el-cascader
+                            v-model="value"
+                            :options="options"
+                            @change="handleChange1"></el-cascader>
+                    </div>
                 </el-form-item>
                 <el-form-item>
                     <el-button @click="dialogVisible1 = false">取消</el-button>
@@ -128,7 +132,38 @@ export default {
                 idnum: '190327105'
             },
 			datalen:null,
-            tableData1: []
+            tableData1: [],
+            options: [{
+                value: '福州大学',
+                label: '福州大学',
+                children: [{
+                    value: '数学与计算机科学学院',
+                    label: '数学与计算机科学学院'
+                }, {
+                    value: '经济与管理学院',
+                    label: '经济与管理学院'
+                }]
+            }, {
+                value: '福建师范大学',
+                label: '福建师范大学',
+                children: [{
+                    value: '软件学院',
+                    label: '软件学院'
+                }, {
+                    value: '音乐学院',
+                    label: '音乐学院'
+                }]
+            }, {
+                value: '厦门大学',
+                label: '厦门大学',
+                children: [{
+                    value: '国际关系学院',
+                    label: '国际关系学院'
+                }, {
+                    value: '管理学院',
+                    label: '管理学院'
+                }]
+            }]
         }
     },
     created: function() {
@@ -149,6 +184,16 @@ export default {
 
     },
     methods: {
+        handleChange(value) {
+            console.log(value)
+            this.dict.school = value[0]
+            this.dict.college = value[1]
+        },
+        handleChange1(value) {
+            console.log(value)
+            this.dict1.school = value[0]
+            this.dict1.college = value[1]
+        },
        onSearch() {
 
            },
@@ -209,11 +254,11 @@ export default {
                             type: 'success',
                             message: res.message
                         })
-						
+
                         this.tableData1.push(this.dict)
                         this.dialogVisible = false
                     }else{
-				
+
                         this.$message({
                             type: 'success',
                             message: res.message
