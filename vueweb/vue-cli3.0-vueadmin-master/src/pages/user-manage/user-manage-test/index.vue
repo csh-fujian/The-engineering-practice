@@ -115,8 +115,8 @@
             title="编辑用户"
             :visible.sync="dialogVisible2"
             width="60%"
-            :before-close="handleClose">
-            <el-form ref="ro" :model="user" label-width="80px">
+            :before-close="handleClose" >
+            <el-form ref="user" :model="user" label-width="80px" :rules="rules" >
                 <el-form-item label="学号">
                     <el-input v-model="user.number"></el-input>
                 </el-form-item>
@@ -142,7 +142,7 @@
                             :placeholder="user.role"
                             @change="handleChange2"></el-cascader>
                 </el-form-item>
-                <el-form-item label="电话号码">
+               <el-form-item label="电话号码" prop="phone">
                     <el-input v-model="user.phone"></el-input>
                 </el-form-item>
                 <el-form-item label="选择院校">
@@ -155,7 +155,7 @@
                     </div>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="edit()">确定</el-button>
+                    <el-button type="primary" @click="edit('user')">确定</el-button>
                     <el-button @click="dialogVisible2 = false">取消</el-button>
                 </el-form-item>
             </el-form>
@@ -175,8 +175,8 @@
     export default {
 			data() {
 			var checkphone = (rule, value, callback) => {
-				if (!value) {
-				  return callback(new Error('手机号不能为空'));
+				if (value.length!=11) {
+				  return callback(new Error('手机号码应该为11位'));
 				}else{
 					callback();
 				}
@@ -395,7 +395,10 @@
                 this.user.school = value[0]
                 this.user.department = value[1]
             },
-            edit() {
+            edit(user) {
+				const _this = this
+				this.$refs[user].validate((valid) => {
+				if (valid) {
                 this.dialogVisible2 = false
                 this.editUser.user = this.user
                 console.log(this.editUser)
@@ -419,7 +422,10 @@
                             }).then(function(resp) {
                         _this.tableData = resp.data
                     })
-                })
+                })}else{
+					console.log('error submit!!'); 
+				  }
+				})
             },
             handleDelete(index, row) {
                 console.log(this.user)
@@ -447,7 +453,6 @@
                     })
                 })
                 const _this = this
-
             },
             addDelete(index, row) {
                 console.log(index, row)
@@ -455,16 +460,11 @@
             doAdd(index, row) {
                 this.dialogVisible = false
             },
-            onSubmit() {
+            onSubmit(user) {
+				const _this = this
 				this.$refs[user].validate((valid) => {
-				  if (valid) {
-				  } else {
-					console.log('error submit!!');
-					
-				  }
-				})
-                this.dialogVisible = false
-                const _this = this
+				if (valid) {
+				this.dialogVisible = false
                 this.userinfo.number = this.user.number
                 this.userinfo.name = this.user.name
                 this.userinfo.sex = this.user.sex
@@ -483,7 +483,7 @@
 					_this.$message({
                             type: 'success',
                             message: resp.data
-                        })
+                     })
 					 _this.$axios.get('http://localhost:8080/webuser/totalSize/',{
 					headers: {
 							Authorization: localStorage.getItem('token')
@@ -501,6 +501,12 @@
 				})   
 
                 })
+					console.log('success');
+				  } else {
+					console.log('error submit!!'); 
+				  }
+				})
+
 
                 // this.user = []
             },
