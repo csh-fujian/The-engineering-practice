@@ -146,10 +146,9 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-					    _this.$alert('新增数据成功', '新增数据', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                            }
+					_this.$message({
+                            type: 'success',
+                            message: resp.data
                         })		
                     _this.$axios.get('http://47.112.239.108:8080/webadmin/getAll',{
                                 headers: {
