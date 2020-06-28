@@ -11,5 +11,5 @@ public interface signinRepository {
     public int add(signin sign);
     public int update(signin sign);
     public int delete(signin sign);
-	public signin get(String classId);
+	public List<signin> get(String classId);
 }

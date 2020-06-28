@@ -6,7 +6,7 @@
  * @LastEditors: whc
  * @LastEditTime: 2020-06-19 10:17:19
  */ 
-package com.whch.presentCloud.controller.app;
+package com.whch.presentCloud.controller.student;
 
 import com.whch.presentCloud.entity.ResponseData;
 import com.whch.presentCloud.entity.classCourseMember;

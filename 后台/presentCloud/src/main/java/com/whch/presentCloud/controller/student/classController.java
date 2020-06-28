@@ -4,9 +4,9 @@
  * @Autor: whc
  * @Date: 2020-04-17 18:04:31
  * @LastEditors: whc
- * @LastEditTime: 2020-06-19 10:34:23
+ * @LastEditTime: 2020-06-26 09:36:45
  */ 
-package com.whch.presentCloud.controller.app;
+package com.whch.presentCloud.controller.student;
 
 import java.util.HashMap;
 import java.util.List;
@@ -63,62 +63,7 @@ public class classController {
         return res;
     }
 
-    /**
-     * 发起签到
-     * @param classId
-     * @return
-     */
-    @RequestMapping("/participate")
-    public String participate(@RequestParam("classId")String classId)
-    {
-        
-        return classManageService.getSignType(classId);
-    }
-
-    /**
-     * 一键签到
-     * @param username 学号
-     * @param ip
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping("/participate/1")
-    public result participate(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("ip") String ip) throws Exception {
-        result res = new result();
-        Double dou[] = IPUtils.getJingWeiDu(ip);
-        if(classManageService.isSucced(username,classId,ip,1,"")){
-            res.setState("ok");
-            
-        }else{
-            res.setState("false");
-        }
-        res.setMap("jingWeiDu", dou);
-        return res;
-    }
-
-    /**
-     * 手势签到
-     * @param username 学号
-     * @param classId
-     * @param number 1-4-5-7-9
-     * @param ip ip地址
-     * @return 
-     * @throws Exception
-     */
-
-    @RequestMapping("/participate/2")
-    public result shouShiQiandao(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("number")String number, @RequestParam("ip") String ip) throws Exception {
-        result res = new result();
-        Double dou[] = IPUtils.getJingWeiDu(ip);
-        if(classManageService.isSucced(username,classId,ip,2,number)){
-            res.setState("ok");
-            
-        }else{
-            res.setState("false");
-        }
-        res.setMap("jingWeiDu", dou);
-        return res;
-    }
+   
 
     @RequestMapping("/login-out")
     public String logout(@RequestParam("username")String username,@RequestParam("classId")String classId){

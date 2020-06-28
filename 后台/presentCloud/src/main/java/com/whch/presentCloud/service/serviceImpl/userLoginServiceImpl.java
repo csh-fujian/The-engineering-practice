@@ -153,7 +153,10 @@ public class userLoginServiceImpl implements IUserLoginService {
 
             for (classCourseMember lesson : lessons) {
                 HashMap lessonInfo =  classManageService.getCourse(lesson.getClassid().toString());
-                studentClassList.add(lessonInfo);
+                if(lessonInfo.get("state").equals("ok")){
+                    studentClassList.add(lessonInfo);
+                }
+                
             }
 
 
@@ -161,6 +164,10 @@ public class userLoginServiceImpl implements IUserLoginService {
         } else if(flag == 2){
             List<classLesson> lessons = classManageService.getBanke(number);
             for (classLesson lesson : lessons) {
+                if(lesson.getType().equals("over"))
+                {
+                    continue;
+                }
                 HashMap lessonInfo = new HashMap<>();
                 lessonInfo.put("bankeName", lesson.getClassname());
                 lessonInfo.put("teacher", lesson.getTeachername());

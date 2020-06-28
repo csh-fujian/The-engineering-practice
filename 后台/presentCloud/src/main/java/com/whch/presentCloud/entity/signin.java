@@ -72,4 +72,14 @@ public class signin {
     public void setStarttime(Date starttime) {
         this.starttime = starttime;
     }
+
+    public signin(Integer id,Integer userid, Integer signintype, Date endtime, String publisher, Integer classid, Date starttime) {
+        this.id = id;
+        this.userid = userid;
+        this.signintype = signintype;
+        this.endtime = endtime;
+        this.publisher = publisher;
+        this.classid = classid;
+        this.starttime = starttime;
+    }
 }

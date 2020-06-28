@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.whch.presentCloud.entity.ResponseData;
 import com.whch.presentCloud.entity.classCourseMember;
 import com.whch.presentCloud.entity.classLesson;
 import com.whch.presentCloud.entity.result;
@@ -18,13 +19,23 @@ public interface IClassManageService {
 
 	Map<String, Object> getLesson(String classId, String username);
 
-	String getSignType(String classId);
+	ResponseData getSignType(String classId);
 
 	boolean isSucced(String username, String classId, String ip, int i, String string) throws Exception;
 
 	String logoutLesson(String username, String classId);
 
 	List<classLesson> getBanke(String number);
+
+	String addClass( String username,String className, String courseName, String schoolName, String departmentName, String semester,
+			String studyDemand, String examDemand);
+
+	Map<String, Object> getClassInfo(String username, String classId);
+
+	String updateClass(String username, String classId, String state);
+
+	List<Map<String, Object>> getMembers(String classId);
+
 
 //    void getCourseseInfo(Integer classid);
 }

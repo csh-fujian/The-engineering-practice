@@ -25,4 +25,7 @@ public interface checkInHistoryMapper {
 
     @Select("select * from checkinhistory")
 	List<checkInHistory> getAll();
+
+    @Select("select * from checkinhistory where Id = #{id}")
+	List<checkInHistory> getHistories(@Param("id") Integer id);
 }

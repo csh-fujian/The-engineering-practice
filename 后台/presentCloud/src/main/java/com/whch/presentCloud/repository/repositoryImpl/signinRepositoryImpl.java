@@ -21,7 +21,7 @@ public class signinRepositoryImpl implements signinRepository {
     @Override
     public List<signin> get(Integer userId) {
         // TODO Auto-generated method stub
-        return siginM.find(userId);
+        return siginM.findByUserId(userId);
     }
 
     @Override
@@ -43,9 +43,9 @@ public class signinRepositoryImpl implements signinRepository {
     }
 
     @Override
-    public signin get(String classId) {
+    public List<signin> get(String classId) {
         // TODO Auto-generated method stub
-        return siginM.findByClassId(classId);
+        return siginM.findByClassId(Integer.parseInt(classId));
     }
 
 }

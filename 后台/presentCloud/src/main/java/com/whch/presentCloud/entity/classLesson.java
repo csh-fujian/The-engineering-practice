@@ -100,4 +100,23 @@ public class classLesson {
     public void setCollege(String college) {
         this.college = college == null ? null : college.trim();
     }
+
+    public classLesson(Integer classid, String classname, String teachername, Integer teacherid, String type,
+            String master, Integer peopleCount, String location, String classtime, String college) {
+        this.classid = classid;
+        this.classname = classname;
+        this.teachername = teachername;
+        this.teacherid = teacherid;
+        this.type = type;
+        this.master = master;
+        this.peopleCount = peopleCount;
+        this.location = location;
+        this.classtime = classtime;
+        this.college = college;
+    }
+    public classLesson(){}
+    public classLesson(Integer classid, String type) {
+        this.classid = classid;
+        this.type = type;
+    }
 }
