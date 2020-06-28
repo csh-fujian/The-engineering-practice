@@ -181,7 +181,14 @@ export default {
             pwdType: 'password'
         }
     },
-    //created: function() {
+    created: function() {
+
+        this.$notify({
+          title: '提示',
+          message: '管理员初始化密码：88888888',
+          duration: 0
+        });
+
     //    let token = localStorage.getItem('token');
     //    if(token == null){
     //        this.$message({
@@ -226,7 +233,7 @@ export default {
     //                 }
     //             })
     //     }
-    //},
+    },
     methods: {
         changeToM() {
             // 第一种方式

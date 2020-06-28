@@ -45,7 +45,7 @@ export default {
         async FETCH_PERMISSION({ commit, state }) {
 			let getavatar
 			let getname
-			let getroles
+			let rolelist
             // let permissionList = await fetchPermission()
             console.log("42")
 
@@ -55,45 +55,48 @@ export default {
                     Authorization: localStorage.getItem('token')
                 }
             }).then(res => {
-				console.log("43")
-                console.log(res)
+				console.log(res.data.role)
 				getavatar = res.data.nickname
 				getname = res.data.role
-				getroles = res.data.role
-				//console.log(res.data.nickname)
+				if(res.data.role == "admin"){
+				rolelist = ['Design-role-manage1','Design-role-manage','user-manage-test','user-manage','administratorManagement','administrator','role-manage','menu','menumanage','dataDictionary','dataManage','typeManage','classManage','Viewclasslist','Buttonmanagement','Buttonmanage','Perminssioninformanage','Perminssionlist']	
+			
+				}else{
+				rolelist = ['Design-role-manage1','Design-role-manage','user-manage-test','user-manage','administratorManagement','administrator','role-manage','menu','menumanage','dataDictionary','dataManage','typeManage','classManage','Workmanage','Buttonmanagement','Buttonmanage','Perminssioninformanage','Perminssionlist']	
+				}
             })
 			
 			console.log(getavatar)
 			
             let permissionList = {
             avatar : getavatar,
-            data : [],
+            data : rolelist,
             name: getname,
             roles: [getname]
         }
 		
-            permissionList.data.push('Design-role-manage1')
-             permissionList.data.push('Design-role-manage')
-            permissionList.data.push('user-manage-test')
-            permissionList.data.push('user-manage')
-            permissionList.data.push('administratorManagement')
-            permissionList.data.push('administrator')
-            permissionList.data.push('role-manage')
-            permissionList.data.push('menu')
-            permissionList.data.push('menumanage')
-            permissionList.data.push('dataDictionary')
-            permissionList.data.push('dataManage')
-            permissionList.data.push('typeManage')
-             permissionList.data.push('classManage')
+         //   permissionList.data.push('Design-role-manage1')
+         //    permissionList.data.push('Design-role-manage')
+         //   permissionList.data.push('user-manage-test')
+         //   permissionList.data.push('user-manage')
+         //   permissionList.data.push('administratorManagement')
+         //   permissionList.data.push('administrator')
+         //   permissionList.data.push('role-manage')
+         //   permissionList.data.push('menu')
+         //   permissionList.data.push('menumanage')
+         //   permissionList.data.push('dataDictionary')
+         //   permissionList.data.push('dataManage')
+         //   permissionList.data.push('typeManage')
+         //    permissionList.data.push('classManage')
 
-             permissionList.data.push('classStudentmanage')
-              permissionList.data.push('Checkmanage')
-              permissionList.data.push('Viewclasslist')
-              permissionList.data.push('Workmanage')
-             permissionList.data.push('Buttonmanagement')
-             permissionList.data.push('Buttonmanage')
-             permissionList.data.push('Perminssioninformanage')
-             permissionList.data.push('Perminssionlist')
+         //    permissionList.data.push('classStudentmanage')
+          //    permissionList.data.push('Checkmanage')
+          //    permissionList.data.push('Viewclasslist')
+          //    permissionList.data.push('Workmanage')
+          //   permissionList.data.push('Buttonmanagement')
+         //    permissionList.data.push('Buttonmanage')
+          //   permissionList.data.push('Perminssioninformanage')
+          //   permissionList.data.push('Perminssionlist')
 
 
             commit('SET_AVATAR', permissionList.avatar)
