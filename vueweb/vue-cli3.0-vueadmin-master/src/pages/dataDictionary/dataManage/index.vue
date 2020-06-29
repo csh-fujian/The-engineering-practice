@@ -130,19 +130,7 @@
                     valued: '男',
                     defaultvalued: 0
                 },
-                tableData: [{
-                    id: 1,
-                    typed: '性别',
-                    keyd: 'male',
-                    valued: '男',
-                    defaultvalued: 0
-                }, {
-                    id: 2,
-                    typed: '性别',
-                    keyd: 'female',
-                    valued: '女',
-                    defaultvalued: 0
-                } ],
+                tableData: [],
                 search: '',
                 temp:{
                     keyd:'',

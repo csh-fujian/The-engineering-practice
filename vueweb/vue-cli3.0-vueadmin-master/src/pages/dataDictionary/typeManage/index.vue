@@ -90,17 +90,7 @@ export default {
                 type: '',
                 description: ''
             },
-            tableData: [{
-                id: 1,
-                typed: '性别',
-                type: 'sexy',
-                description: ''
-            }, { 
-                id: 2,
-                typed: '身份1',
-                type: 'identity',
-                description: ''
-            } ],
+            tableData: [ ],
             search: ''
         }
     },

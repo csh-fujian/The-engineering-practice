@@ -36,7 +36,7 @@
                 <template slot-scope="scope">
                     <el-button
                         size="mini"
-                        @click="Initialization(scope.$index, scope.row)">初始化</el-button>
+                        @click="Initialization(scope.$index, scope.row)">重置密码</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -75,10 +75,7 @@
                     id: '190327064111',
                     name: '王小虎',
                 },
-                tableData: [{
-                    id: '190327064111',
-                    name: '王小虎',
-                }],
+                tableData: [],
                 search: '',
                 value: [],
             }

@@ -52,12 +52,13 @@
                     <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-					<el-button
-                        size="mini"
-                        @click="Initialization(scope.$index, scope.row)">初始化</el-button>
+
                     <el-button
                         size="mini"
                         @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+					<el-button 
+                        size="mini"
+                        @click="Initialization(scope.$index, scope.row)">重置密码</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -231,13 +232,7 @@
                     oldnumber:''
                 },
                 tableData: [{
-                    number: '190327064111',
-                    name: '王小虎',
-                    sex: '男',
-                    role: '教师',
-                    phone: '1335855555',
-                    school: '福州大学',
-                    department: '数学与计算机科学'
+
                 }],
                 search: '',
                 value: ['',''],

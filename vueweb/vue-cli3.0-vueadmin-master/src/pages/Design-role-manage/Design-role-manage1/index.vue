@@ -75,19 +75,7 @@ export default {
                 id: 1,
                 name: ''
             },
-            tableData: [{
-                id: 1,
-                name: '王小虎'
-            }, {
-                id: 2,
-                name: '王小虎'
-            }, {
-                id: 3,
-                name: '王小虎'
-            }, {
-                id: 4,
-                name: '王小虎'
-            }],
+            tableData: [],
             dialogVisible: false
         }
     },

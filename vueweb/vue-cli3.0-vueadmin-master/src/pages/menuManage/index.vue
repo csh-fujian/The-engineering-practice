@@ -116,6 +116,9 @@
                 <el-form-item label="上级页面">
                     <el-input v-model="supermenu"></el-input>
                 </el-form-item>
+				<el-form-item label="用途说明">
+                    <el-input v-model="temp1"></el-input>
+                </el-form-item>
             </el-form>
             <el-button @click="dialogVisible3 = false">取 消</el-button>
             <el-button type="primary" @click="addbutton()">确 定</el-button>
@@ -159,88 +162,7 @@
                     buttons:[]
                 },
                 buttons: [],
-                datatable: [{
-                    name: '班课频道',
-                    state: 'checked',
-                    layer: 1,
-                    sub: [
-                        {
-                            name: '班课管理',
-                            state: 'checked',
-                            layer: 2,
-                            sub: [
-                                {
-                                    name: '创建班课',
-                                    state: 'unchecked',
-                                    layer: 3,
-                                    sub: null
-                                },
-                                {
-                                    name: '班课列表排序',
-                                    state: 'checked',
-                                    layer: 3,
-                                    sub: null
-                                },
-                                {
-                                    name: '查看班课',
-                                    state: 'checked',
-                                    layer: 3,
-                                    sub: null
-                                },
-                                {
-                                    name: '查看班课',
-                                    state: 'checked',
-                                    layer: 3,
-                                    sub: null
-                                }
-                            ]
-                        },
-                        {
-                            name: '加入班级',
-                            state: 'unchecked',
-                            layer: 2,
-                            sub: null
-                        }
-                    ]
-                },
-                    {
-                        name: '发现',
-                        state: 'checked',
-                        layer: 1,
-                        sub: null
-                    },
-                    {
-                        name: '我的频道',
-                        state: 'checked',
-                        layer: 1,
-                        sub: [
-                            {
-                                name: '创建班课',
-                                state: 'unchecked',
-                                layer: 3,
-                                sub: null
-                            },
-                            {
-                                name: '333',
-                                state: 'checked',
-                                layer: 3,
-                                sub: null
-                            },
-                            {
-                                name: '222',
-                                state: 'checked',
-                                layer: 3,
-                                sub: null
-
-                            },
-                            {
-                                name: '111',
-                                state: 'checked',
-                                layer: 3,
-                                sub: null
-                            }
-                        ]
-                    }
+                datatable: [
                 ]
             }
         },
