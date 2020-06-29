@@ -12,9 +12,9 @@ function resolve(dir) {
     return path.join(__dirname, dir)
 }
 const proxyTargetMap = {
-    prod: 'https://xxx.xxx.com/',
-    randy: 'http://47.105.71.81:3306',
-    peter: 'http://192.168.11.178:3001'
+    prod: 'http://47.112.239.108:8181/',
+    randy: 'http://47.112.239.108:8181',
+    peter: 'http://47.112.239.108:8181'
 }
 let proxyTarget = proxyTargetMap[process.env.API_TYPE] || proxyTargetMap.prod
 let publicPath = process.env.NODE_ENV === 'production' ? '/' : '/'
@@ -109,7 +109,7 @@ module.exports = {
         // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/cli-service.md#配置代理
         proxy: {
             '/api': {
-                target: proxyTarget,
+                target: 'http://47.112.239.108:8181/',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': ''

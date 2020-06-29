@@ -304,7 +304,7 @@
             pagetemp(currentPage){
 				const _this = this
 				this.pageNum = currentPage
-				this.$axios.get('http://localhost:8080/webuser/pagefind/'+this.pageNum,{
+				this.$axios.get('http://47.112.239.108:8080/webuser/pagefind/'+this.pageNum,{
 									headers: {
 										Authorization: localStorage.getItem('token')
 									}
@@ -322,14 +322,14 @@
                 this.dicd.typed='sex'
 				this.typed='sexy'
 				console.log(this.typed)
-				this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + this.typed,{
+				this.$axios.get('http://47.112.239.108:8080/webdictionary/findAllvalued2/' + this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
 							_this.options1=resp.data
 							_this.typed='role'
-							_this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + _this.typed,{
+							_this.$axios.get('http://47.112.239.108:8080/webdictionary/findAllvalued2/' + _this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -363,7 +363,7 @@
 							_this.user.role=resp.data
 							_this.dialogVisible = true
 							_this.typed='sexy'
-							_this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + _this.typed,{
+							_this.$axios.get('http://47.112.239.108:8080/webdictionary/findAllvalued2/' + _this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -371,7 +371,7 @@
 							_this.options1=resp.data
 							_this.typed='role'
 							
-							_this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + _this.typed,{
+							_this.$axios.get('http://47.112.239.108:8080/webdictionary/findAllvalued2/' + _this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -409,7 +409,7 @@
                             type: 'success',
                             message: resp.data
                         })
-					_this.$axios.get('http://localhost:8080/webuser/pagefind/'+_this.pageNum,{
+					_this.$axios.get('http://47.112.239.108:8080/webuser/pagefind/'+_this.pageNum,{
                                 headers: {
 
                                     Authorization: localStorage.getItem('token')
@@ -434,7 +434,7 @@
                             type: 'success',
                             message: resp.data
                         })
-                    _this.$axios.get('http://localhost:8080/webuser/pagefind/'+_this.pageNum,{
+                    _this.$axios.get('http://47.112.239.108:8080/webuser/pagefind/'+_this.pageNum,{
                                 headers: {
 
                                     Authorization: localStorage.getItem('token')
@@ -479,13 +479,13 @@
                             type: 'success',
                             message: resp.data
                      })
-					 _this.$axios.get('http://localhost:8080/webuser/totalSize/',{
+					 _this.$axios.get('http://47.112.239.108:8080/webuser/totalSize/',{
 					headers: {
 							Authorization: localStorage.getItem('token')
 					}
 					}).then(function(resp) {
 					_this.total = resp.data
-					 _this.$axios.get('http://localhost:8080/webuser/pagefind/'+_this.pageNum,{
+					 _this.$axios.get('http://47.112.239.108:8080/webuser/pagefind/'+_this.pageNum,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -510,7 +510,7 @@
         },
         created() {
             const _this = this
-            this.$axios.get('http://localhost:8080/webuser/totalSize/',{
+            this.$axios.get('http://47.112.239.108:8080/webuser/totalSize/',{
 					headers: {
 							Authorization: localStorage.getItem('token')
 					}
@@ -518,7 +518,7 @@
 					_this.total = resp.data
 				})    
 			this.pageNum=1
-				this.$axios.get('http://localhost:8080/webuser/pagefind/'+this.pageNum,{
+				this.$axios.get('http://47.112.239.108:8080/webuser/pagefind/'+this.pageNum,{
 									headers: {
 										Authorization: localStorage.getItem('token')
 									}

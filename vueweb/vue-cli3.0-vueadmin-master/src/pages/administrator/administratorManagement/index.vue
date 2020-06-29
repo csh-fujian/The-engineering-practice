@@ -138,7 +138,7 @@
                 this.dialogVisible = false
                 console.log(this.Management.name) 
                 const _this=this
-                this.$axios.post('http://localhost:8080/webadmin/addadmin/'+this.Management.name,{},{
+                this.$axios.post('http://47.112.239.108:8080/webadmin/addadmin/'+this.Management.name,{},{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }

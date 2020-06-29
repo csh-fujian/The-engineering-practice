@@ -60,7 +60,7 @@ export default {
             this.Permission.menus = this.selected
 		
 			console.log(this.Permission)
-            this.$axios.post('http://localhost:8080/webpermission/addpermission',this.Permission,{
+            this.$axios.post('http://47.112.239.108:8080/webpermission/addpermission',this.Permission,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -77,7 +77,7 @@ export default {
         // alert(this.$route.query.rolename)
         this.rolename = this.$route.query.rolename
         const _this = this
-        this.$axios.get('http://localhost:8080/webpermission/findAll/' + this.rolename,{
+        this.$axios.get('http://47.112.239.108:8080/webpermission/findAll/' + this.rolename,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }

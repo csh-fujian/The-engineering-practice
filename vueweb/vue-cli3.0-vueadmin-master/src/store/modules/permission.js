@@ -49,7 +49,7 @@ export default {
             // let permissionList = await fetchPermission()
             console.log("42")
 
-            await axios.get("http://localhost:8080/webinitialization/parse",{
+            await axios.get("http://47.112.239.108:8080/webinitialization/parse",{
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     Authorization: localStorage.getItem('token')

@@ -90,13 +90,13 @@ export default {
             console.log(this.ro)
             this.dialogVisible = false
             const _this = this
-            this.$axios.post('http://localhost:8080/webrole/addrole', this.ro,{
+            this.$axios.post('http://47.112.239.108:8080/webrole/addrole', this.ro,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
                 console.log(_this.ro)
-                _this.$axios.get('http://localhost:8080/webrole/findrole',{
+                _this.$axios.get('http://47.112.239.108:8080/webrole/findrole',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -130,13 +130,13 @@ export default {
             this.rol.id = row.id
             const _this = this
             console.log(this.rol)
-            this.$axios.post('http://localhost:8080/webrole/deleterole', this.rol,{
+            this.$axios.post('http://47.112.239.108:8080/webrole/deleterole', this.rol,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
                 // console.log(resp)
-                _this.$axios.get('http://localhost:8080/webrole/findrole',{
+                _this.$axios.get('http://47.112.239.108:8080/webrole/findrole',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -164,7 +164,7 @@ export default {
     },
     created() {
         const _this = this
-        this.$axios.get('http://localhost:8080/webrole/findrole',{
+        this.$axios.get('http://47.112.239.108:8080/webrole/findrole',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }

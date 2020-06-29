@@ -216,7 +216,7 @@ export default {
     //         return null
     //     } else {
     //         await.this.$axios
-    //             .get('http://localhost:8080/webinitialization/parsejwt', {
+    //             .get('http://47.112.239.108:8080/webinitialization/parsejwt', {
     //                 params: {
     //                     token: data.token
     //                 }
@@ -268,7 +268,7 @@ export default {
                         this.user
                     )
                     .then(res => {
-                        console.log('1')
+                        
                         console.log(res.data)
                         if (res.data.token == null) {
                             this.$message({
@@ -279,6 +279,7 @@ export default {
                             let token = res.data.token
                             console.log(typeof token)
                             this.$store.commit('LOGIN_IN', token)
+							console.log('1')
                             this.$router.replace('/')
                         }
                     })
@@ -308,7 +309,7 @@ export default {
         //             this.user.password = this.loginForm.password
         //             this.$axios
         //                 .post(
-        //                     'http://localhost:8080/webinitialization/login',
+        //                     'http://47.112.239.108:8080/webinitialization/login',
         //                     this.user
         //                 )
         //                 .then(res => {
