@@ -34,6 +34,7 @@
   import {tabs, note, tasks} from "mock/banke/oneclass/data.js";
   import MdBankeTabBar from "components/banke-tabbar/MdBankeTabBar";
   import WorkActivity from "./components/WorkActivity";
+  import {getOneClass} from "network/banke/activity";
 
   export default {
     name: "Activity",
@@ -47,7 +48,10 @@
       }
     },
     created() {
-      // console.log(this.tasks);
+      // 页面数据
+      this.getOneClassData()
+
+      //身份判断
       this.isTeacher = this.$store.getters.getStatus === 'teacher'
     },
     components: {
@@ -55,6 +59,24 @@
       WorkActivity
     },
     methods: {
+      //获得页面数据
+      getOneClassData() {
+        // 请求首页数据
+        console.log(this.$route.params.classId)
+        // console.log(window.localStorage.userName)
+        // console.log(this.$store.getters.getUserName);
+        const params = {
+          classId:this.$route.params.classId,
+          username: window.localStorage.userName
+        }
+        getOneClass(params).then(data => {
+          console.log(data);
+          this.tabs = data.tabs
+          this.tasks = data.tasks
+        }).catch(err => {
+          console.log(err);
+        })
+      },
       onClickLeft()
       {
         this.$router.replace('/banke')

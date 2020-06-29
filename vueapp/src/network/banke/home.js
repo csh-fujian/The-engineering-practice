@@ -17,6 +17,27 @@ function getHomeGoods(type, page) {
   return request(config)
 }
 
+//创建班课
+function createClass(params) {
+  const config = {
+    url:'/api/banke/create',
+    params
+  }
+  return request(config)
+}
+
+
+
+//班课首页数据(传入username+flag)
+function getBankeData(params) {
+  const config = {
+    url: '/api/banke',
+    params,
+  }
+  return request(config)
+}
+
+
 //加入班课申请接口
 function joinClass(request_data) {
   const config = {
@@ -43,5 +64,7 @@ export {
   getHomeMultidata,
   getHomeGoods,
   joinClass,
-  joinClassIn
+  joinClassIn,
+  getBankeData,
+  createClass
 }

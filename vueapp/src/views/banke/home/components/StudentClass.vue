@@ -55,7 +55,8 @@
     methods: {
       // 进入一个班课
       classItemClick(classId) {
-        this.$router.push('/banke/'+classId+'/oneclass')
+        this.$emit('classItemClick', classId)
+
       },
     }
   }

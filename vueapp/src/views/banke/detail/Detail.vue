@@ -21,6 +21,7 @@
   import DetailBottom from "./components/DetailBottom";
 
   import {detail} from "mock/banke/oneclass/data";
+  import {getOneClass} from "../../../network/banke/activity";
 
   export default {
     name: "Detail",
@@ -32,8 +33,10 @@
       }
     },
     created() {
-      this.dataTop = this.data.dataTop
-      this.dataContent = this.data.dataContent
+      //网络获取首页数据
+      this.getOneClassData()
+      // this.dataTop = this.data.dataTop
+      // this.dataContent = this.data.dataContent
     },
     components: {
       MdBankeTabBar,
@@ -42,6 +45,23 @@
       DetailBottom
     },
     methods: {
+      //获得页面数据
+      getOneClassData() {
+        // 请求首页数据
+        console.log(this.$route.params.classId)
+        const params = {
+          classId:this.$route.params.classId,
+          username: window.localStorage.userName
+        }
+        getOneClass(params).then(data => {
+          console.log(data);
+          this.data = data.detail
+          this.dataTop = data.detail.dataTop
+          this.dataContent = data.detail.dataContent
+        }).catch(err => {
+          console.log(err);
+        })
+      },
       onClickLeft()
       {
         this.$router.replace('/banke')

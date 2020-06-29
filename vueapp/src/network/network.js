@@ -10,7 +10,8 @@ export function request(config) {
   // 拦截器的请求
   instance.interceptors.request.use(request_config => {
     if (localStorage.token) {
-      request_config.headers.Authorization = localStorage.token;
+      // console.log('请求器拦截token'+localStorage.token)
+      request_config.headers.token = localStorage.token;
     }
     return request_config
   },
@@ -22,6 +23,7 @@ export function request(config) {
   // 拦截器的响应
   instance.interceptors.response.use(result=>{
     // token过期的问题 要商量
+
 
     result = result.data
     return result

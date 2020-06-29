@@ -27,6 +27,7 @@
 <script>
 
   import {singleSendMessage} from "network/network";
+  import {getLogin} from "../../../../network/account/home";
 
   export default {
     name: "VerifyLogin",
@@ -49,7 +50,9 @@
         this.$router.push('/components/checkcode/'+this.phone + '/banke')
         singleSendMessage(this.phone, 1234)
 
+        // 验证成果
       },
+
     }
   }
 </script>

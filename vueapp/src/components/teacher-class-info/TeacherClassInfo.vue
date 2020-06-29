@@ -6,37 +6,37 @@
     <van-cell-group class="margin-top-large">
       <van-cell title="班级">
         <template >
-          <input class="input-css" placeholder="未设置" :value="myClass.className"/>
+          <input class="input-css" placeholder="未设置" v-model="myClass.className"/>
         </template>
       </van-cell>
       <van-cell title="课程">
         <template >
-          <input class="input-css" placeholder="未设置" :value="myClass.courseName"/>
+          <input class="input-css" placeholder="未设置" v-model="myClass.courseName"/>
         </template>
       </van-cell>
       <van-cell title="学校名称">
         <template >
-          <input class="input-css" placeholder="未设置" :value="myClass.schoolName"/>
+          <input class="input-css" placeholder="未设置" v-model="myClass.schoolName"/>
         </template>
       </van-cell>
       <van-cell title="学院名称">
         <template >
-          <input class="input-css" placeholder="未设置" :value="myClass.departmentName"/>
+          <input class="input-css" placeholder="未设置" v-model="myClass.departmentName"/>
         </template>
       </van-cell>
       <van-cell title="学期">
         <template >
-          <input class="input-css" placeholder="2020-2021-2" @click="showPicker = true" :value="myClass.semester"/>
+          <input class="input-css" placeholder="2020-2021-2" @click="showPicker = true" v-model="myClass.semester"/>
         </template>
       </van-cell>
       <van-cell title="学习要求">
         <template >
-          <input class="input-css" placeholder="未设置" :value="myClass.studyDemand"/>
+          <input class="input-css" placeholder="未设置" v-model="myClass.studyDemand"/>
         </template>
       </van-cell>
       <van-cell title="考试要求">
         <template >
-          <input class="input-css" placeholder="未设置" :value="myClass.examDemand"/>
+          <input class="input-css" placeholder="未设置" v-model="myClass.examDemand"/>
         </template>
       </van-cell>
     </van-cell-group>

@@ -15,23 +15,41 @@ function getLogin(params) {
   return oriRequest(config)
 }
 
-function register(params) {
+function getVerifyLogin(params) {
+  //params
+  const config = {
+    url: '/api/loginbyphone',
+    method: 'post',
+    params: params,
+    // params: {
+    //   // type: 'account',
+    //   username: '190327014',
+    //   password: '12345678',
+    // }
+  }
+  return oriRequest(config)
+}
+
+function register(profile) {
   // 结构对象
-  const {name,status,studentId,phone,passWord,checkCode,school,department} = params
+  // const {name,status,studentId,phone,passWord,checkCode,school,department} = params
+  const params = profile
   //params
   const config = {
     url: '/api/register',
-    method: 'post',
+    method: 'get',
     // params: params,
-    params: {
-      // type: 'account',
-      name,status,studentId,phone,passWord,school,department
-    }
+    // params: {
+    //   // type: 'account',
+    //   name,status,studentId,phone,passWord,school,department
+    // }
+    params
   }
   return oriRequest(config)
 }
 
 export {
   getLogin,
-  register
+  register,
+  getVerifyLogin
 }

@@ -85,21 +85,22 @@
         }
       },
       onChange(name) {
+        const classId = this.$store.getters.getCurrentClassId
         switch(name) {
           case'detail':
-            this.$router.replace('/banke/123/detail')
+            this.$router.replace('/banke/'+classId+'/detail')
             break
           case 'message':
-            this.$router.replace('/banke/123/message')
+            this.$router.replace('/banke/'+classId+'/message')
             break
           case 'activity':
-            this.$router.replace('/banke/123/oneclass')
+            this.$router.replace('/banke/'+classId+'/oneclass')
             break
           case'member':
-            this.$router.replace('/banke/123/member')
+            this.$router.replace('/banke/'+classId+'/member')
             break
           case 'resource':
-            this.$router.replace('/banke/123/resource')
+            this.$router.replace('/banke/'+classId+'/resource')
             break
         }
       }

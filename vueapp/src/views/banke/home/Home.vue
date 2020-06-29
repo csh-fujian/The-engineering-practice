@@ -25,12 +25,8 @@
       </template>
     </van-search>
 
-
-
-    <teacher-class v-if="isTeacher" :data="home.teacherClassList"  />
-    <student-class v-else :data="home.studentClassList"  />
-
-
+    <teacher-class v-if="this.$store.getters.getIsTeacher" :data="home.teacherClassList"  />
+    <student-class v-else :data="home.studentClassList"  @classItemClick="studentClassItem"/>
 
     <md-tab-bar activeValue="banke" />
   </div>
@@ -43,6 +39,7 @@ import MdTabBar from "components/tabbar/MdTabBar";
 import {home} from 'mock/banke/home.js'
 
 import QrcodeDecoder from 'qrcode-decoder';
+import {getBankeData} from "../../../network/banke/home";
 
 export default {
   name: 'Home',
@@ -60,11 +57,22 @@ export default {
     }
   },
   created() {
-    // 初始化根据用户不同身份显示不同内容
-    this.isTeacher = this.$store.getters.getStatus === 'teacher'
-    if (this.isTeacher) {
-      this.initTeacher()
-    }
+    console.log('create -- home 生命周期调用')
+
+    // 获取用户身份
+    this.initStatus()
+
+    //获取首页数据
+    this.getHomeData()
+
+  },
+
+  activated() {
+    console.log('页面 activated')
+    this.getHomeData()
+  },
+  deactivated() {
+
   },
   components: {
     StudentClass,
@@ -72,9 +80,47 @@ export default {
     MdTabBar
   },
   methods: {
+    // 获取首页数据
+    getHomeData() {
+      const params = {
+        username: window.localStorage["userName"],
+        flag: this.$store.getters.getIsTeacher ? 2 : 1,
+      }
+
+      console.log(params);
+
+      getBankeData(params).then(data=> {
+        console.log(data);
+        if (this.$store.getters.getIsTeacher) {
+          this.home.teacherClassList = data
+          console.log(this.home.teacherClassList);
+        }else {
+          this.home.studentClassList = data
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+    },
+    // 判定用户身份
+    initStatus() {
+      if (window.localStorage["role"] == 'teacher') {
+        this.$store.commit('setIsTeacher', true)
+        this.initTeacher()
+      }else {
+        this.$store.commit('setIsTeacher', false)
+      }
+    },
+
+    // 网络请求
     initTeacher() {
       this.actions = [{name: '创建班课'}]
     },
+    // 学生进入详细班课
+    studentClassItem(classId) {
+      this.$store.commit('setCurrentClassId', classId)
+      this.$router.push('/banke/'+classId+'/oneclass')
+    },
+
     // 添加班课按钮事件 ----
     onCancel() {
       this.plusShow = false;

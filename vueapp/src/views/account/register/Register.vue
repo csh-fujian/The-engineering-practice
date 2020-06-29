@@ -10,7 +10,7 @@
     <van-cell-group class="margin-topdown-small">
       <van-cell title="* 姓名">
         <template >
-          <input class="input-css" :value="profile.name"/>
+          <input class="input-css" :value="profile.Name"/>
         </template>
       </van-cell>
 
@@ -65,12 +65,12 @@
 
       <van-cell title="* 密码">
         <template >
-          <input class="input-css" :value="profile.passWord"/>
+          <input class="input-css" type="password" :value="profile.passWord" />
         </template>
       </van-cell>
       <van-cell title="* 确认密码">
         <template >
-          <input class="input-css" :value="profile.repassWord"/>
+          <input class="input-css" type="password" :value="profile.repassWord"/>
         </template>
       </van-cell>
     </van-cell-group>
@@ -108,12 +108,12 @@
         checked: false,
         cannt_click: true,
         profile: {
-          name: '池升恒',
+          Name: '池升恒',
           school: 'xx大学',
-          phone: '150',
+          phone: '15963248122',
           department: '计算机学院',
-          role: '学生',
-          studentId: '190327xxx',
+          status: '学生',
+          studentId: '8546785',
           experience: 20,
           passWord: '123',
           repassWord: '123',
@@ -129,11 +129,18 @@
 
     methods: {
       register() {
-        this.profile.role = this.statusRadio
-
+        if (this.statusRadio == 'student')
+          this.profile.status = '学生'
+        else
+          this.profile.status = '老师'
         // 注册
         register(this.profile).then(res=> {
           console.log(res);
+          if (res.data) {
+
+            this.$toast('注册成果')
+            this.$router.replace('\login')
+          }
         }).catch(err=>{
           console.log(err);
         })

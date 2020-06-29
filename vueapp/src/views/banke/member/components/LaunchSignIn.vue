@@ -21,7 +21,7 @@
 
     <p class="content background-gray text-small">历史签到记录，左滑可删除</p>
 
-    <van-swipe-cell v-for="(item, index) in member.launchHistory">
+    <van-swipe-cell v-for="(item, index) in launchHistory">
       <van-cell size="" :value="item.statistic" >
         <template #title>
           <span class="text-small">{{item.signDate}} {{item.signWeek}} </span>
@@ -44,6 +44,7 @@
   import {member} from "mock/banke/oneclass/data.js"
   import MdNavBar from "components/nav-bar/MdNavBar";
   import Pwd from "../../../../components/pwd/Pwd";
+  import {getSignLog} from "../../../../network/banke/member";
 
 
   export default {
@@ -51,17 +52,32 @@
     data() {
       return {
         member: member,
-        showPwd: false
+        showPwd: false,
+        launchHistory: []
       }
     },
     created() {
-
+      // 获取历史签到记录
+      this.getSignInLog(this.$route.params.classId)
     },
     components: {
       Pwd,
       MdNavBar
     },
     methods: {
+      //获得签到的历史记录
+      getSignInLog(classId) {
+        const params = {
+          classId: classId
+        }
+        getSignLog(params).then(data => {
+          console.log(data);
+          this.launchHistory = data
+        }).catch(err => {
+          console.log(err);
+        })
+      },
+
       startPwd() {
         console.log(this.$refs.pwd.lastPoint);
       },
@@ -69,6 +85,12 @@
         this.$refs.pwd.reset()
       },
       itemClick(index) {
+        //一键签到
+        if (index == 0) {
+
+        }
+
+        // 手势签到
         if (index == 1) {
           this.$router.push('/banke/'+this.$route.params.classId+'/member/launch-sign/pose')
         }

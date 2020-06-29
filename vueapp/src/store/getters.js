@@ -3,9 +3,21 @@ export default {
     return this.state.phone
   },
   getStatus(state) {
-    return state.token.status
+    if (state.role == '学生')
+      return 'student'
+    else if (state.role == '老师')
+      return 'teacher'
   },
   getRole(state) {
     return state.role
+  },
+  getUserName(state) {
+    return state.userName
+  },
+  getCurrentClassId(state) {
+    return state.currentClassId
+  },
+  getIsTeacher(state) {
+    return state.isTeacher
   }
 }

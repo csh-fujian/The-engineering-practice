@@ -38,6 +38,7 @@
 
 <script>
   import { PasswordInput, NumberKeyboard } from 'vant';
+  import {getVerifyLogin} from "../../network/account/home";
 
   export default {
     name: "CheckCode",
@@ -95,12 +96,44 @@
         if (this.value.length == this.keySize && true)
         {
           this.value = ''
-          this.$router.replace('/'+this.goto)
+          //通用性变低，为了简单，普遍多申请一次http获得用户信息
+          const params = {
+            phone : this.phone
+          }
+          this.getVerifyLoginInfo(params)
         }
       },
       onDelete() {
         this.value = this.value.slice(0, this.value.length - 1);
-      }
+      },
+      getVerifyLoginInfo(params) {
+        getVerifyLogin(params).then(res=>{
+          const data = res.data
+          if(data.state) {
+            this.$toast(data.role+'用户 登录成功');
+            window.localStorage["token"] = data.token
+            window.localStorage["userName"] = data.username
+            if (data.role == '学生')
+              window.localStorage["role"] = 'student'
+            else if (data.role == '老师')
+              window.localStorage["role"] = 'teacher'
+
+            this.$store.commit('role', data.role)
+            this.$store.commit('userName', data.username)
+
+            // 验证码验证成果，回去的地址
+            this.$router.replace('/'+this.goto)
+          }else if (data.code == 500) {
+            this.$toast(data.msg);
+          }
+          else {
+            this.$toast(data.info);
+          }
+          console.log(res);
+        }).catch(err=>{
+          console.log(err);
+        })
+      },
     }
   }
 </script>

@@ -14,7 +14,10 @@ export default new Vuex.Store({
       status: 'student'
     },
     //系统业务
-    role: 'student'
+    role: 'student',
+    userName: '',
+    currentClassId: '1',
+    isTeacher: true
   },
   mutations,
   actions,

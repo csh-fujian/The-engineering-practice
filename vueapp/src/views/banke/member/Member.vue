@@ -13,6 +13,7 @@
       <span class="text-normal">学生详情</span><br>
     </div>
     <div v-else class="margin-top-normal text-center text-white">
+<!--      <span class="text-max">第 {{member.rank}} 名</span><br>-->
       <span class="text-max">第 {{member.rank}} 名</span><br>
       <span class="text-small">当前获得{{member.experience}}经验值</span>
     </div>
@@ -68,6 +69,7 @@
   import MemberItem from "./components/MemberItem";
 
   import {member} from "mock/banke/oneclass/data.js"
+  import {getOneClass} from "../../../network/banke/activity";
 
   export default {
     name: "Member",
@@ -81,7 +83,7 @@
     },
     computed: {
       option() {
-        if (this.$store.getters.getStatus === 'student')
+        if (window.localStorage['role'] === 'student')
         {
           return  this.member.option_student
 
@@ -92,7 +94,11 @@
       }
     },
     created() {
-      this.isTeacher = this.$store.getters.getStatus === 'teacher'
+      //获取页面数据
+      this.getOneClassData()
+
+      // 身份判断
+      this.isTeacher = window.localStorage['role'] === 'teacher'
     },
 
     components: {
@@ -101,6 +107,23 @@
       MemberItem
     },
     methods: {
+      //获得页面数据
+      getOneClassData() {
+        // 请求首页数据
+        console.log(this.$route.params.classId)
+        const params = {
+          classId:this.$route.params.classId,
+          username: window.localStorage.userName
+        }
+        getOneClass(params).then(data => {
+          console.log(data);
+          this.member = data.member
+
+        }).catch(err => {
+          console.log(err);
+        })
+      },
+
       itemClick(index) {
         if (index == 0) {
           if (!this.isTeacher)

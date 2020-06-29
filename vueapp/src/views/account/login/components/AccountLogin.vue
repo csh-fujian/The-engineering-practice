@@ -18,6 +18,7 @@
               v-model="passWord"
               placeholder="请输入密码"
               size="large"
+              type="password"
               @click="fieldItemClick('passWord')"
       />
     </div>
@@ -28,7 +29,7 @@
 </template>
 
 <script>
-  import {getLogin} from "network/account/home";
+
 
   export default {
     name: "AccountLogin",
@@ -46,30 +47,13 @@
       fieldItemClick(tag) {
       },
       btnClick() {
+
         const params = {
           'username':this.userName,
           'password':this.passWord
         }
-
-        getLogin(params).then(res=>{
-          const data = res.data
-          if(data.state) {
-            this.$toast(data.role+'用户 登录成功');
-            window.localStorage["token"] = JSON.stringify(data.token);
-            window.localStorage["role"] = data.role
-            this.$store.commit('role', data.role)
-            console.log(this.$store.getters.getRole);
-            this.$router.push('/banke')
-          }else if (data.code == 500) {
-            this.$toast(data.msg);
-          }
-          else {
-            this.$toast(data.info);
-          }
-          console.log(res);
-        }).catch(err=>{
-          console.log(err);
-        })
+        console.log("emit")
+        this.$emit('accountLogin', params)
       }
     }
   }

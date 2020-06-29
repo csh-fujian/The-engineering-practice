@@ -15,7 +15,7 @@
 
         <van-tab  name="accountLogin">
           <div class="different-login">
-            <account-login />
+            <account-login  @accountLogin="accountLoginClick"/>
             <login-bottom :buttonName="buttonName"/>
           </div>
           <span :class="{tabTitle:!titleActive}" slot="title">账号登录</span>
@@ -34,6 +34,7 @@
 
   import { Button, Tab, Tabs } from 'vant';
   import {getLogin} from "network/account/home";
+
 
   export default {
     name: "Login",
@@ -63,9 +64,40 @@
       [Tabs.name]: Tabs,
     },
     methods: {
-      accountLogin() {
-        console.log('logintest');
-      }
+      //网络请求
+      accountLoginClick(params) {
+        getLogin(params).then(res=>{
+          const data = res.data
+          console.log(data);
+
+          if(data.state!="false") {
+            this.$toast(data.role+'用户 登录成功');
+            console.log(data.token);
+            // window.localStorage["token"] = JSON.stringify(data.token);
+            window.localStorage["token"] = data.token
+            window.localStorage["userName"] = params.username
+
+            if (data.role == '学生')
+              window.localStorage["role"] = 'student'
+            else if (data.role == '老师')
+              window.localStorage["role"] = 'teacher'
+
+            this.$store.commit('role', data.role)
+            this.$store.commit('userName', params.username)
+            // console.log(this.$store.getters.getRole);
+            // console.log(this.$store.getters.getUserName);
+            this.$router.push('/banke')
+          }else if (data.code == 500) {
+            this.$toast(data.msg);
+          }
+          else {
+            this.$toast(data.info);
+          }
+          console.log(res);
+        }).catch(err=>{
+          console.log(err);
+        })
+      },
     }
   }
 </script>
