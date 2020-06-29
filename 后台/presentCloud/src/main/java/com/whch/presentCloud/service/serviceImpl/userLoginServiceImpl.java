@@ -173,6 +173,7 @@ public class userLoginServiceImpl implements IUserLoginService {
                 lessonInfo.put("teacher", lesson.getTeachername());
                 lessonInfo.put("description", lesson.getType());
                 lessonInfo.put("semster", lesson.getClasstime());
+                lessonInfo.put("classId", lesson.getClassid());
                 lessonInfo.put("master", lesson.getMaster());
                 lessonInfo.put("profilePhoto", "");
                 studentClassList.add(lessonInfo);
