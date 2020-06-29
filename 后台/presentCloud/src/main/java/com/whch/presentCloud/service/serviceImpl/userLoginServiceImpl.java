@@ -40,7 +40,7 @@ public class userLoginServiceImpl implements IUserLoginService {
             {
                 return 1;
             }
-            else if(user.getRole().equals("教师"))
+            else if(user.getRole().equals("老师"))
             {
                 return 2;
             }
@@ -164,7 +164,7 @@ public class userLoginServiceImpl implements IUserLoginService {
         } else if(flag == 2){
             List<classLesson> lessons = classManageService.getBanke(number);
             for (classLesson lesson : lessons) {
-                if(lesson.getType().equals("over"))
+                if(lesson.getType() != null)
                 {
                     continue;
                 }

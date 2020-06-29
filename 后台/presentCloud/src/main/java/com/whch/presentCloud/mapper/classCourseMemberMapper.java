@@ -7,6 +7,7 @@ import com.whch.presentCloud.entity.classCourseMember;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 @Component
 public interface classCourseMemberMapper {
@@ -34,4 +35,7 @@ public interface classCourseMemberMapper {
 
     @Delete("delete from ClassCourseMember where ClassId = #{classId} and StudentId = #{username}")
 	boolean delete(@Param("username")String  username, @Param("classId")int classId);
+
+    @Update("update ClassCourseMember set Experience = #{experience} where ClassId = #{classId} and StudentId = #{username}")
+	void updateExperience(@Param("classId")int classId, @Param("username")String  username,@Param("experience") int experience);
 }
