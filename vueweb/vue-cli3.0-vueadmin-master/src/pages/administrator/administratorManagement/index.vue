@@ -20,6 +20,10 @@
                 prop="name">
             </el-table-column>
             <el-table-column
+                label="手机"
+                prop="phone">
+            </el-table-column>
+            <el-table-column
                 align="right">
                 <template slot="header" slot-scope="scope">
                 </template>
@@ -44,13 +48,16 @@
             title="新增用户"
             :visible.sync="dialogVisible"
             width="25%"
-            :before-close="handleClose">
+            >
             <el-form ref="ro" :model="Management" label-width="80px">
                 <el-form-item label="id">
                     <el-input v-model="Management.id"></el-input>
                 </el-form-item>
                 <el-form-item label="姓名">
                     <el-input v-model="Management.name"></el-input>
+                </el-form-item>
+                <el-form-item label="手机号">
+                    <el-input v-model="Management.phone"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit()">确定</el-button>
@@ -67,13 +74,19 @@
             return {
                 dialogVisible: false,
                 dialogVisible2: false,
+                Admin:{
+                    name:'',
+                    phone:''
+                },
                 Management: {
                     id: '190327064111',
                     name: '王小虎',
+                    phone:''
                 },
                 userinfo: {
                     id: '190327064111',
                     name: '王小虎',
+                    phone:''
                 },
                 tableData: [],
                 search: '',
@@ -85,6 +98,7 @@
                 this.dialogVisible = true
                 this.Management.id=''
                 this.Management.name=''
+                this.Management.phone=''
             },
             handleChange(value) {
                 console.log(value)
@@ -137,8 +151,10 @@
             onSubmit() {
                 this.dialogVisible = false
                 console.log(this.Management.name) 
+                this.Admin.name=this.Management.name
+                this.Admin.phone=this.Management.phone
                 const _this=this
-                this.$axios.post('http://47.112.239.108:8080/webadmin/addadmin/'+this.Management.name,{},{
+                this.$axios.post('http://47.112.239.108:8080/webadmin/addadmin/',this.Admin,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }

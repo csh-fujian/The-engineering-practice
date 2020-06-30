@@ -252,6 +252,15 @@
             this.dicd.typed = this.$route.query.dicd
             const _this = this
             this.typed = this.dicd.typed
+            if(this.typed==null)
+            {   this.$alert('请前往类型管理选择参数名称', '未选择参数', {
+                            confirmButtonText: '确定',
+                            callback: action => {
+                            }
+                })
+                this.$router.replace({
+                path: '/Datadictionary/typemanage',
+            })}
             this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata/' + this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')

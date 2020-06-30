@@ -29,75 +29,6 @@ const Menu = () => import('@/pages/menuManage/menu')
 /* 需要权限判断的路由 */
 const dynamicRoutes = [
     {
-        path:'/administrator',
-        component:administrator,
-        name:'administrator',
-        meta: {
-            name: '管理员管理',
-            icon: 'user'
-        },
-        children: [
-            {
-                path: 'administratorManagement',
-                name: 'administratorManagement',
-                component: administratorManagement,
-                meta: {
-                    name: '管理员管理',
-                    icon: 'table'
-                }
-            },
-        ]
-    },
-    {
-        path:'/Datadictionary',
-        component:Datadictionary,
-        name:'dataDictionary',
-        meta: {
-            name: '数据字典',
-            icon: 'user'
-        },
-        children: [
-            {
-                path: 'Typemanage',
-                name: 'typeManage',
-                component: Typemanage,
-                meta: {
-                    name: '类型管理',
-                    icon: 'table'
-                }
-            },
-            {
-                path: 'Datamanage',
-                name: 'dataManage',
-                component: Datamanage,
-                meta: {
-                    name: '数据管理',
-                    icon: 'table'
-                }
-            }
-        ]
-    },
-    {
-        path:'/Menumanage',
-        component:Menumanage,
-        name:'menumanage',
-        meta: {
-            name: '菜单管理',
-            icon: 'user'
-        },
-        children: [
-            {
-                path: 'Menu',
-                name: 'menu',
-                component: Menu,
-                meta: {
-                    name: '菜单管理',
-                    icon: 'table'
-                }
-            },
-        ]
-    },
-    {
         path:'/Usermanage',
         component:Usermanage,
         name:'user-manage',
@@ -118,47 +49,47 @@ const dynamicRoutes = [
         ]
     },
     {
-        path:'/Perminssioninformanage',
-        component:Perminssioninformanage,
-        name:'Perminssioninformanage',
+        path:'/administrator',
+        component:administrator,
+        name:'administrator',
         meta: {
-            name: '权限信息管理',
+            name: '管理员管理',
             icon: 'user'
         },
         children: [
             {
-                path: 'Perminssionlist',
-                name: 'Perminssionlist',
-                component: Perminssionlist,
+                path: 'administratorManagement',
+                name: 'administratorManagement',
+                component: administratorManagement,
                 meta: {
-                    name: '权限信息列表',
+                    name: '管理员管理',
                     icon: 'table'
                 }
             },
-
         ]
     },
     {
-        path:'/Buttonmanagement',
-        component:Buttonmanagement,
-        name:'Buttonmanagement',
+        path:'/designRolemanage',
+        component:designRolemanage,
+       name:'Design-role-manage',
         meta: {
-            name: '参数设置',
-            icon: 'user'
+            name: '角色管理',
+           icon: 'user'
         },
-        children: [
+       children: [
+          {
+              path: 'designRolemanage1',
+              name: 'role-manage',
+               component: designRolemanage1,
+             meta: {
+                   name: '角色管理',
+                 icon: 'table'
+               }
+         },
             {
-                path: 'Buttonmanage',
-                name: 'Buttonmanage',
-                component: Buttonmanage,
-                meta: {
-                    name: '参数设置',
-                    icon: 'table'
-                }
-            },
-
-        ]
-    },
+          }
+      ]
+   },
     {
         path:'/Classtmanage',
         component:Classtmanage,
@@ -208,29 +139,102 @@ const dynamicRoutes = [
         ]
     },
 
-
-      {
-          path:'/designRolemanage',
-          component:designRolemanage,
-         name:'Design-role-manage',
-          meta: {
-              name: '角色管理',
-             icon: 'user'
-          },
-         children: [
+    {
+        path:'/Menumanage',
+        component:Menumanage,
+        name:'menumanage',
+        meta: {
+            name: '菜单管理',
+            icon: 'user'
+        },
+        children: [
             {
-                path: 'designRolemanage1',
-                name: 'role-manage',
-                 component: designRolemanage1,
-               meta: {
-                     name: '角色管理',
-                   icon: 'table'
-                 }
-           },
-              {
+                path: 'Menu',
+                name: 'menu',
+                component: Menu,
+                meta: {
+                    name: '菜单管理',
+                    icon: 'table'
+                }
+            },
+        ]
+    },
+    {
+        path:'/Datadictionary',
+        component:Datadictionary,
+        name:'dataDictionary',
+        meta: {
+            name: '数据字典',
+            icon: 'user'
+        },
+        children: [
+            {
+                path: 'Typemanage',
+                name: 'typeManage',
+                component: Typemanage,
+                meta: {
+                    name: '类型管理',
+                    icon: 'table'
+                }
+            },
+            {
+                path: 'Datamanage',
+                name: 'dataManage',
+                component: Datamanage,
+                meta: {
+                    name: '数据管理',
+                    icon: 'table'
+                }
             }
         ]
-     },
+    },
+
+
+    {
+        path:'/Perminssioninformanage',
+        component:Perminssioninformanage,
+        name:'Perminssioninformanage',
+        meta: {
+            name: '权限信息管理',
+            icon: 'user'
+        },
+        children: [
+            {
+                path: 'Perminssionlist',
+                name: 'Perminssionlist',
+                component: Perminssionlist,
+                meta: {
+                    name: '权限信息列表',
+                    icon: 'table'
+                }
+            },
+
+        ]
+    },
+    {
+        path:'/Buttonmanagement',
+        component:Buttonmanagement,
+        name:'Buttonmanagement',
+        meta: {
+            name: '参数设置',
+            icon: 'user'
+        },
+        children: [
+            {
+                path: 'Buttonmanage',
+                name: 'Buttonmanage',
+                component: Buttonmanage,
+                meta: {
+                    name: '参数设置',
+                    icon: 'table'
+                }
+            },
+
+        ]
+    },
+
+
+
 ]
 
 export default dynamicRoutes
