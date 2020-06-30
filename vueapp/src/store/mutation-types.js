@@ -4,4 +4,10 @@ const ROLE = 'role'
 const USERNAME = 'userName'
 const CURRENTCLASSID = "setCurrentClassId"
 const ISTEACHER = "setIsTeacher"
-export {TEST, PHONE, ROLE, USERNAME, CURRENTCLASSID,ISTEACHER}
+const StudentSignType = "setStudentSignType"
+const StudentSignId = "setStudentSignId"
+const TeacherLatitude = "setTeacherLatitude"
+const TeacherLongitude = "setTeacherLongitude"
+export {TEST, PHONE, ROLE, USERNAME, CURRENTCLASSID,
+  ISTEACHER,StudentSignType,StudentSignId,TeacherLatitude,TeacherLongitude
+}

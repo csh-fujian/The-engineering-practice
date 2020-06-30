@@ -25,8 +25,8 @@
       </template>
     </van-search>
 
-    <teacher-class v-if="this.$store.getters.getIsTeacher" :data="home.teacherClassList"  />
-    <student-class v-else :data="home.studentClassList"  @classItemClick="studentClassItem"/>
+    <teacher-class v-if="this.$store.getters.getIsTeacher" :data="home.teacherClassList" @classItemClick="ClassItemClick"  />
+    <student-class v-else :data="home.studentClassList"  @classItemClick="ClassItemClick"/>
 
     <md-tab-bar activeValue="banke" />
   </div>
@@ -57,18 +57,19 @@ export default {
     }
   },
   created() {
-    console.log('create -- home 生命周期调用')
-
-    // 获取用户身份
-    this.initStatus()
-
-    //获取首页数据
-    this.getHomeData()
+    // console.log('create -- home 生命周期调用')
+    //
+    // // 获取用户身份
+    // this.initStatus()
+    //
+    // //获取首页数据
+    // this.getHomeData()
 
   },
 
   activated() {
     console.log('页面 activated')
+    this.initStatus()
     this.getHomeData()
   },
   deactivated() {
@@ -87,8 +88,9 @@ export default {
         flag: this.$store.getters.getIsTeacher ? 2 : 1,
       }
 
-      console.log(params);
 
+      console.log(this.$store.getters.getIsTeacher ? 2 : 1);
+      console.log(params);
       getBankeData(params).then(data=> {
         console.log(data);
         if (this.$store.getters.getIsTeacher) {
@@ -108,6 +110,7 @@ export default {
         this.initTeacher()
       }else {
         this.$store.commit('setIsTeacher', false)
+        this.initStudent()
       }
     },
 
@@ -115,8 +118,14 @@ export default {
     initTeacher() {
       this.actions = [{name: '创建班课'}]
     },
-    // 学生进入详细班课
-    studentClassItem(classId) {
+    initStudent() {
+      this.actions = [
+        { name: '班课号加入班课' },
+        { name: '二维码加入班课' },
+      ]
+    },
+    // 进入详细班课
+    ClassItemClick(classId) {
       this.$store.commit('setCurrentClassId', classId)
       this.$router.push('/banke/'+classId+'/oneclass')
     },
@@ -153,7 +162,9 @@ export default {
             let qr = new QrcodeDecoder();
             qr.decodeFromImage(path).then((res) => {
               //打印结果为 解析出来的 二维码地址
-              alert(res.data);
+              // alert(res.data);
+              console.log(res.data);
+              _this.$router.push(res.data)
               //不是二维码： undefine
               // 不是我们定义的二维码
               // alert('失败文案');

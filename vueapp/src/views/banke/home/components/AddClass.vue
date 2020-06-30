@@ -31,15 +31,26 @@
     },
     methods: {
       nextClick() {
-        // 加入班课
-        joinClass(this.classId).then(res=>{
-          console.log(res);
-        }).catch(err=>{
-          console.log(err);
-        })
+        console.log(this.classId);
+        if(/^\d+$/.test(this.classId))
+        {
+          // 加入班课
+          joinClass(this.classId).then(data=>{
+            console.log(data);
+            if(data.state == "false") {
+              this.$toast(data.messege)
+            } else {
+              this.$router.push('/banke/add-class/' + this.classId)
+            }
+          }).catch(err=>{
+            console.log(err);
+          })
+        }else {
+          this.$toast('输入班课有误，应为纯数字')
+          this.classId = ""
+        }
 
 
-        this.$router.push('/banke/add-class/' + this.classId)
 
       },
     }

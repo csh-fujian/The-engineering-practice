@@ -17,7 +17,11 @@ export default new Vuex.Store({
     role: 'student',
     userName: '',
     currentClassId: '1',
-    isTeacher: true
+    isTeacher: true,
+    studentSignType: "",
+    studentSignId: 0,
+    teacherLongitude: 0,
+    teacherLatitude: 0
   },
   mutations,
   actions,

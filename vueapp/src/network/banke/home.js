@@ -41,7 +41,7 @@ function getBankeData(params) {
 //加入班课申请接口
 function joinClass(request_data) {
   const config = {
-    url: '/api/join-class',
+    url: '/api/joinClass',
     params: {
       'classId':request_data
     }
@@ -50,12 +50,10 @@ function joinClass(request_data) {
 }
 
 //加入班课
-function joinClassIn(request_data) {
+function joinClassIn(params) {
   const config = {
     url: '/api/join-class/join-in',
-    params: {
-      'classId':request_data
-    }
+    params,
   }
   return request(config)
 }

@@ -22,7 +22,9 @@ import {Dialog} from 'vant';
 import { Overlay } from 'vant';
 import { SwipeCell } from 'vant';
 import { Checkbox, CheckboxGroup } from 'vant';
+import { Loading } from 'vant';
 
+Vue.use(Loading);
 Vue.use(Checkbox);
 Vue.use(CheckboxGroup);
 

@@ -55,9 +55,17 @@
     },
     methods: {
       participate() {
-        joinClassIn(this.classId).then(data=>{
-          console.log('加入成功');
-          this.$router.replace('/banke')
+        const params = {
+          classId:this.classId,
+          username:window.localStorage['userName']
+        }
+        console.log(params);
+        joinClassIn(params).then(data=>{
+          console.log(data);
+          if (data) {
+            this.$toast('加入班级'+this.classId+"成功")
+            this.$router.replace('/banke')
+          }
         }).catch(err=>{
 
         })

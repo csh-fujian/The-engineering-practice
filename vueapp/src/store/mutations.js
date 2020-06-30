@@ -1,4 +1,9 @@
-import {PHONE,ROLE,USERNAME,CURRENTCLASSID, ISTEACHER} from './mutation-types'
+import {
+  PHONE, ROLE, USERNAME, CURRENTCLASSID,
+  ISTEACHER,
+  StudentSignType,
+  StudentSignId, TeacherLongitude, TeacherLatitude
+} from './mutation-types'
 
 export default {
   // 输数量加1
@@ -21,5 +26,18 @@ export default {
 
   [ISTEACHER](state, payload) {
     state.isTeacher = payload
-  }
+  },
+
+  [StudentSignType](state, payload) {
+    state.studentSignType = payload
+  },
+  [StudentSignId](state, payload) {
+    state.studentSignId = payload
+  },
+  [TeacherLongitude](state, payload) {
+    state.teacherLongitude = payload
+  },
+  [TeacherLatitude](state, payload) {
+    state.teacherLatitude = payload
+  },
 }

@@ -59,6 +59,17 @@
       <member-item  v-for="item in member.members" :memberItem="item" />
     </van-cell-group>
 
+
+    <van-dialog v-model="showNowSignIn"
+                title="正在签到"
+                confirm-button-text="确认签到"
+                show-cancel-button
+                @confirm="studentSignNow">
+      <div class="text-center content margin-topdown-normal">
+        <van-loading type="spinner" size="100px" />
+      </div>
+    </van-dialog>
+
     <md-banke-tab-bar activeValue="member"/>
   </div>
 </template>
@@ -70,27 +81,33 @@
 
   import {member} from "mock/banke/oneclass/data.js"
   import {getOneClass} from "../../../network/banke/activity";
+  import {studentSignIn, studentSignNow} from "../../../network/banke/member";
 
   export default {
     name: "Member",
     data() {
       return {
         member: member,
+        member_option:member,
         isTeacher: false,
         searchData: '',
-        sortType: '切换为学号排序'
+        sortType: '切换为学号排序',
+        sigin_type: "",
+        signId:0,
+        showNowSignIn:false,
+
       }
     },
     computed: {
       option() {
         if (window.localStorage['role'] === 'student')
         {
-          return  this.member.option_student
+          return  this.member_option.option_student
 
         }else {
-          return this.member.option
+          return this.member_option.option
         }
-        console.log(this.member.option_student);
+        console.log(this.member_option.option_student);
       }
     },
     created() {
@@ -126,10 +143,18 @@
 
       itemClick(index) {
         if (index == 0) {
-          if (!this.isTeacher)
-            this.$router.push('/banke/'+this.$route.params.classId+'/member/sign-in')
+          if (!this.isTeacher) {
+            this.canParticipate()
+            // if(this.canParticipate()) {
+            //   this.$router.push('/banke/'+this.$route.params.classId+'/member/sign-in')
+            // }else {
+            //
+            // }
+          }
           else
             this.$router.push('/banke/'+this.$route.params.classId+'/member/launch-sign')
+        }else {
+          this.$toast('抱歉，尚未开发')
         }
       },
       sortTypeClick() {
@@ -141,7 +166,69 @@
       onClickLeft()
       {
         this.$router.replace('/banke')
+      },
+      canParticipate() {
+        const params = {
+          classId:this.$route.params.classId
+        }
+        studentSignIn(params).then(data=> {
+          console.log(data)
+          if(data.code == 404) {
+            this.$toast(data.msg)
+          } else {
+            this.sigin_type = data.data.sigin_type
+            this.signId = data.data.signId
+
+            this.$store.commit('setStudentSignId', data.data.signId)
+            this.$store.commit('setStudentSignType', data.data.sigin_type)
+            console.log(this.$store.getters.getStudentSignId);
+            console.log(this.$store.getters.getStudentSignType)
+            // 一键签到
+            if (this.sigin_type == 1) {
+              this.showNowSignIn = true
+            } else {
+              this.$router.push('/banke/'+this.$route.params.classId+'/member/sign-in'+ '')
+            }
+          }
+        }).catch(err => {
+
+        })
+      },
+      //学生一键签到
+      studentSignNow() {
+        let self = this
+        //这边不支持浏览器，而支持真机获得经纬度 定位！
+        plus.geolocation.getCurrentPosition((p) => {
+              const params = {
+                classId: self.$route.params.classId,
+                signId: self.$store.getters.getStudentSignId,
+                longitude:p.coords.longitude,
+                latitude:p.coords.latitude,
+                username: window.localStorage['userName']
+              }
+              studentSignNow(params).then(data => {
+                console.log(data);
+                if (data.state=='ok') {
+                  self.$store.commit('setTeacherLongitude', data.longitude)
+                  self.$store.commit('setTeacherLatitude', data.latitude)
+                  self.$toast('签到成功')
+                  self.$router.push({
+                    path:'/banke/'+self.$route.params.classId+'/member/sign-in/success',
+                    query: {long:p.coords.longitude, lat:p.coords.latitude}}
+                  )
+                }
+              }).catch(err => {
+                console.log(err);
+              })
+
+            }, function(e){
+              alert('Geolocation error: ' + e.message);
+            }
+        );
+
+
       }
+
     }
   }
 </script>

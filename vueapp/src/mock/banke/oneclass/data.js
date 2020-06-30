@@ -17,6 +17,7 @@ const note = "第五次作业已经发布"
 
 const tasks =[
   {
+    workId:1,
     taskName: '第一周XXXX',
     number: 150,
     state: '已参与',
@@ -24,6 +25,7 @@ const tasks =[
     timeState: '已超时'
   },
   {
+    workId:2,
     taskName: '第二周XXXX',
     number: 150,
     state: '已参与',
@@ -31,6 +33,7 @@ const tasks =[
     timeState: '已超时'
   },
   {
+    workId:3,
     taskName: '第三周XXXX',
     number: 150,
     state: '已参与',
@@ -38,6 +41,7 @@ const tasks =[
     timeState: '已超时'
   },
   {
+    workId:4,
     taskName: '第四周XXXX',
     number: 150,
     state: '已参与',
@@ -45,6 +49,7 @@ const tasks =[
     timeState: '已超时'
   },
   {
+    workId:5,
     taskName: '第五周XXXX',
     number: 150,
     state: '已参与',
@@ -78,47 +83,47 @@ const member = {
   number: 3,
   option: [
     {
-      imageUrl: require('assets/image/banke/home/class.png'),
+      imageUrl: require('assets/image/banke/member/sign.png'),
       title: '发起签到',
     },
     {
-      imageUrl: require('assets/image/banke/home/class.png'),
+      imageUrl: require('assets/image/banke/member/card.png'),
       title: '心意卡片',
     },
     {
-      imageUrl: require('assets/image/banke/home/class.png'),
+      imageUrl: require('assets/image/banke/member/group.png'),
       title: '小组方案',
     },
     {
-      imageUrl: require('assets/image/banke/home/class.png'),
+      imageUrl: require('assets/image/banke/member/danger.png'),
       title: '挂科预警',
     }
   ],
   option_student: [
     {
-      imageUrl: require('assets/image/banke/home/class.png'),
+      imageUrl: require('assets/image/banke/member/sign.png'),
       title: '签到',
     },
     {
-      imageUrl: require('assets/image/banke/home/class.png'),
+      imageUrl: require('assets/image/banke/member/card.png'),
       title: '心意卡片',
     },
     {
-      imageUrl: require('assets/image/banke/home/class.png'),
+      imageUrl: require('assets/image/banke/member/group.png'),
       title: '小组方案',
     },
   ],
   launchSignInOption: [
     {
-      imageUrl: require('assets/image/banke/home/class.png'),
+      imageUrl: require('assets/image/banke/member/signNow.png'),
       title: '一键签到',
     },
     {
-      imageUrl: require('assets/image/banke/home/class.png'),
+      imageUrl: require('assets/image/banke/member/signPose.png'),
       title: '手势签到',
     },
     {
-      imageUrl: require('assets/image/banke/home/class.png'),
+      imageUrl: require('assets/image/banke/member/signHand.png'),
       title: '手工登记',
     },
   ],

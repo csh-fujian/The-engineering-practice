@@ -16,7 +16,6 @@
         <span v-if="loaded">
           location: lng = {{ lng }} lat = {{ lat }}
         </span>
-        <span v-else>正在定位</span>
       </div>
     </div>
 
@@ -36,13 +35,13 @@
         lat: 0,
         markers: [
           {
-            position: [119.655705,26.956929],
+            position: [119.655705,26.956929], //从store中拿到老师的坐标
           },
           {
             position: [119.656705,26.956929],
           },
         ],
-        // loaded: false,
+        loaded: false,
         // plugin: [{
         //   pName: 'Geolocation',
         //   events: {

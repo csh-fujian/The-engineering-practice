@@ -3,9 +3,12 @@
     <div v-if="isTeacher">
       <van-cell title="班课号"
                 is-link
-                :label="data.classId + ' (常按复制)'"
+                :label="this.$route.params.classId"
                 value="二维码"
-                @click="createCode" />
+                @click="createCode"
+                @touchstart.native="gtouchstart()"
+                @touchmove.native="gtouchmove()"
+                @touchend.native="gtouchend()"/>
 
       <van-cell title="云教材"
                 is-link
@@ -35,6 +38,7 @@
                 @click="examArrangeShow=true"/>
     </div>
     <div v-else>
+
       <van-cell title="云教材" :label="data.cloudBook" />
       <van-cell title="学校院系" :label="data.school + data.department"/>
       <van-cell title="学习要求" :label="data.studyRequire" :border="false"/>
@@ -157,10 +161,15 @@
         examArrangeValue: '',
         createCodeShow: false,
         _qrcode: null,
+        timeOutEvent: 0 // 长按事件定时器
       }
     },
     created() {
       this.isTeacher = this.$store.getters.getStatus === 'teacher'
+      this.isTeacher = window.localStorage['role'] === 'teacher'
+    },
+    activated() {
+      this.isTeacher = window.localStorage['role'] === 'teacher'
     },
     props: {
       data: {
@@ -171,6 +180,25 @@
       QRCode
     },
     methods: {
+      gtouchstart () {
+        // 开始触摸
+        this.timeOutEvent = setTimeout(() => {
+          // 长按3秒
+          this.timeOutEvent = 0
+          console.log('长按复制')
+        }, 3000)
+      },
+      gtouchmove () {
+        console.log('长按复制')
+        // 看具体需求
+        // clearTimeout(this.timeOutEvent)
+        // this.timeOutEvent = 0
+      },
+      gtouchend () {
+        console.log('长按复制')
+        clearTimeout(this.timeOutEvent)
+        this.timeOutEvent = 0
+      },
       createCode() {
         this.createCodeShow=true
         this.$nextTick (function () {
@@ -180,11 +208,12 @@
       //  生成二维码
       qrcode () {
         let that = this;
+        let url = "/banke/add-class/"+this.$route.params.classId
         if (that._qrcode == null) {
           let qrcode = new QRCode('qrcode', {
             width: 250,
             height: 250,        // 高度
-            text:  'test text',   // 二维码内容
+            text:  url,   // 二维码内容
             // render: 'canvas' ,   // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
             // background: '#f0f',   // 背景色
             // foreground: '#ff0'    // 前景色

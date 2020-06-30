@@ -25,7 +25,8 @@
       <van-cell size="" :value="item.statistic" >
         <template #title>
           <span class="text-small">{{item.signDate}} {{item.signWeek}} </span>
-          <span class="text-small font-gray">{{item.signTime}} {{item.signType}}</span>
+          <span class="text-small font-gray">{{item.signTime}}</span><br>
+          <span class="text-small font-gray">{{item.signType}}</span>
         </template>
       </van-cell>
       <template #right>
@@ -37,6 +38,17 @@
       <a style="position: absolute;left: 5px;top: 5px;color:#fff;font-size: 13px;display:block;" @click="resetPassword()">重置密码</a>
       <a style="position: absolute;right: 5px;top: 5px;color:#fff;font-size: 13px;display:block;" @click="startPwd()">开始</a>
     </pwd>
+
+
+    <van-dialog v-model="showNowSignIn"
+                title="正在签到"
+                confirm-button-text="结束签到"
+                @confirm="signNowEnd">
+      <div class="text-center content margin-topdown-normal">
+        <van-loading type="spinner" size="100px" />
+      </div>
+    </van-dialog>
+
   </div>
 </template>
 
@@ -44,7 +56,7 @@
   import {member} from "mock/banke/oneclass/data.js"
   import MdNavBar from "components/nav-bar/MdNavBar";
   import Pwd from "../../../../components/pwd/Pwd";
-  import {getSignLog} from "../../../../network/banke/member";
+  import {getSignLog, signNowEnd, signNowStart} from "../../../../network/banke/member";
 
 
   export default {
@@ -53,11 +65,16 @@
       return {
         member: member,
         showPwd: false,
-        launchHistory: []
+        launchHistory: [],
+        showNowSignIn: false,
+        signId: 0,
       }
     },
     created() {
       // 获取历史签到记录
+      this.getSignInLog(this.$route.params.classId)
+    },
+    activated() {
       this.getSignInLog(this.$route.params.classId)
     },
     components: {
@@ -65,6 +82,23 @@
       MdNavBar
     },
     methods: {
+      //结束签到
+      signNowEnd() {
+        console.log('结束签到')
+        const params = {
+          signId: this.signId
+        }
+
+        signNowEnd(params).then(data=> {
+          if (data == 'ok') {
+            console.log('结束一键签到成功');
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+
+      },
+
       //获得签到的历史记录
       getSignInLog(classId) {
         const params = {
@@ -87,12 +121,31 @@
       itemClick(index) {
         //一键签到
         if (index == 0) {
-
+          // 发布签到
+          console.log('发布签到');
+          const params = {
+            username: window.localStorage['userName'],
+            classId: this.$route.params.classId,
+            longitude: 210,
+            latitude:140
+          }
+          console.log(params);
+          signNowStart(params).then(data => {
+            console.log(data);
+            this.signId = data
+          }).catch(err => {
+            console.log(err);
+          })
+          this.showNowSignIn = true
         }
 
         // 手势签到
         if (index == 1) {
           this.$router.push('/banke/'+this.$route.params.classId+'/member/launch-sign/pose')
+        }
+
+        if (index == 2) {
+          this.$toast('抱歉，未开发')
         }
       }
     }

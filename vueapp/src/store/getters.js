@@ -19,5 +19,17 @@ export default {
   },
   getIsTeacher(state) {
     return state.isTeacher
+  },
+  getStudentSignType(state) {
+    return state.studentSignType
+  },
+  getStudentSignId(state) {
+    return state.studentSignId
+  },
+  getTeacherLongitude(state) {
+    return state.teacherLongitude
+  },
+  getTeacherLatitude(state) {
+    return state.teacherLatitude
   }
 }

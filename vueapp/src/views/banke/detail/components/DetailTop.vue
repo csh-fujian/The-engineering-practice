@@ -6,10 +6,10 @@
       </van-col>
       <van-col span="18" class="message-css">
         <div class="message-css">
-          <span>{{data.description}}</span><br>
-          <span class="text-normal">{{data.className}}</span><br>
-          <span class="text-small">{{data.teacher}}</span><br>
-          <span class="text-small font-gray">{{data.time}}</span><br>
+          <div class="margin-top-small" />
+          <span class="text-big bold ">{{data.className}}</span><br>
+          <span class="text-normal ">{{data.teacher}}</span><br>
+          <span class="text-normal font-gray">{{data.time}}</span><br>
 
           <div class="icon-css"
                v-if="$store.getters.getStatus === 'teacher'"

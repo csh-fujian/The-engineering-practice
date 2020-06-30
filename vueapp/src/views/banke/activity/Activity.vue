@@ -52,7 +52,11 @@
       this.getOneClassData()
 
       //身份判断
-      this.isTeacher = this.$store.getters.getStatus === 'teacher'
+      this.isTeacher = this.$store.getters.isTeacher
+    },
+    activated() {
+      this.isTeacher = this.$store.getters.isTeacher
+      this.getOneClassData()
     },
     components: {
       MdBankeTabBar,
@@ -61,14 +65,13 @@
     methods: {
       //获得页面数据
       getOneClassData() {
-        // 请求首页数据
         console.log(this.$route.params.classId)
-        // console.log(window.localStorage.userName)
-        // console.log(this.$store.getters.getUserName);
         const params = {
           classId:this.$route.params.classId,
           username: window.localStorage.userName
         }
+
+        console.log(params)
         getOneClass(params).then(data => {
           console.log(data);
           this.tabs = data.tabs

@@ -190,7 +190,7 @@ export default {
             // this.drawPoint('red');
             this.reset()
         }
-        this.$emit('success')
+        // this.$emit('success', this.lastPoint)
 
     },
     // makeState () {
@@ -286,6 +286,7 @@ export default {
                  if (self.touchFlag) {
                      self.touchFlag = false;
                      console.log('self.lastPoint',self.lastPoint)
+                     self.$emit('success')
                      self.storePass(self.lastPoint);
                  }
              }

@@ -25,19 +25,15 @@
 </template>
 
 <script>
+  import imgUrl from 'assets/image/mine/yunbanke.png'
   export default {
     name: "ClassItem",
     data() {
       return {
-        test: 'assets/image/banke/home/class.png'
+        test: 'assets/image/banke/home/class.png',
+        imgSrc: require('assets/image/mine/yunbanke.png')
       }
     },
-    props: {
-      imgSrc: {
-        type: String,
-        default: "require('assets/image/banke/home/class.png')"
-      }
-    }
   }
 </script>
 
