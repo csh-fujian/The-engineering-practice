@@ -14,10 +14,12 @@ import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.entity.signin;
 import com.whch.presentCloud.entity.task;
 import com.whch.presentCloud.entity.taskMemory;
+import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.mapper.checkInHistoryMapper;
 import com.whch.presentCloud.mapper.classCourseMemberMapper;
 import com.whch.presentCloud.mapper.signinMapper;
 import com.whch.presentCloud.mapper.taskMapper;
+import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.repository.IRepository.classLessonRepository;
 import com.whch.presentCloud.repository.IRepository.signinRepository;
 import com.whch.presentCloud.repository.IRepository.taskMemoryRepository;
@@ -49,6 +51,8 @@ public class classManageServiceImpl implements IClassManageService {
     private signinMapper siginM;
     @Autowired
     private checkInHistoryMapper checkInHistoryM;
+    @Autowired
+    private userInfoMapper userM;
 
     @Override
     public List<classCourseMember> getLessons(String number) {
@@ -63,6 +67,13 @@ public class classManageServiceImpl implements IClassManageService {
         classCourseMember course1 = new classCourseMember();
         course1.setClassid(Integer.parseInt(classId));
         course1.setStudentid(studentId);
+        classLesson classL = classLessonR.getLesson(Integer.parseInt(classId));
+        userInfo user = userM.findOneUser(studentId);
+        course1.setTeacherid(classL.getTeacherid());
+        course1.setExperience(0);
+        course1.setClassname(classL.getClassname());
+        course1.setTeachername(classL.getTeachername());
+        course1.setStudentname(user.getName());
         int flag = courseM.insertSelective(course1);
         if (flag == 0) {
             return "false";
@@ -133,6 +144,9 @@ public class classManageServiceImpl implements IClassManageService {
         int rank = 0;
         int flag = 1;
         int experience = 0;
+        if(list1 == null){
+            return res;
+        }
         if (list1.size() > 0) {
             classCourseMember classCourseM = list1.get(0);
             HashMap<String, Object> member = new HashMap<String, Object>();
@@ -175,15 +189,22 @@ public class classManageServiceImpl implements IClassManageService {
 
         // 得到一个课程的每个学生的详细任务
         List<task> list2 = taskmapper.getTask(lesson.getClassid());
+       
         List<Map<String, Object>> tasks = new ArrayList<>();
         int tasks_count_out_time = 0;
         int tasks_count_in_time = 0;
+        if(list2 != null){
         for (task tas : list2) {
             HashMap<String, Object> member = new HashMap<String, Object>();
             member.put("taskName", tas.getTask());
             // 获得已参与人数
             List<taskMemory> tasks2 = taskM.getMemoryByTaskId(Integer.toString(tas.getId()));
-            member.put("number", tasks2.size());
+            if(tasks2 == null){
+                member.put("number", 0);
+            }else{
+                member.put("number", tasks2.size());
+            }
+           
             member.put("experience", tas.getGrade());
             taskMemory ta = taskM.getTask(tas.getTask(), Integer.parseInt(username));
             if (ta == null) {
@@ -203,6 +224,7 @@ public class classManageServiceImpl implements IClassManageService {
 
             tasks.add(member);
         }
+    }
         res.put("tasks", tasks);
 
         // tabs
@@ -322,7 +344,8 @@ public class classManageServiceImpl implements IClassManageService {
     public String addClass(String username,String className, String courseName, String schoolName, String departmentName,
             String semester, String studyDemand, String examDemand) {
         String departmentMaster = schoolName + departmentName;
-        classLesson course = new classLesson(null,courseName,null,Integer.parseInt(username),null,className,null,null,semester,departmentMaster);
+        userInfo user = userM.findOneUser(username);
+        classLesson course = new classLesson(null,courseName,user.getName(),Integer.parseInt(username),null,className,null,null,semester,departmentMaster);
         int flag = classLessonR.add(course);
         if(flag == 1)
         {
@@ -339,6 +362,9 @@ public class classManageServiceImpl implements IClassManageService {
     }
 
     @Override
+    /**
+     * 老师获得班课详情信息
+     */
     public Map<String, Object> getClassInfo(String username, String classId) {
         classLesson lesson = classLessonR.getLesson(Integer.parseInt(classId));
         if(lesson == null)

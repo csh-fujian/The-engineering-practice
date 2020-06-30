@@ -1,5 +1,6 @@
 package com.whch.presentCloud.service.IService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,6 @@ import org.springframework.stereotype.Service;
 
 public interface ITaskService {
 
-	List<Map<String, Object>> getTask(String username, String classId);
+	HashMap<String, Object> getTask(String username, String classId);
     
 }
