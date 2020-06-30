@@ -18,7 +18,7 @@ public interface IUserLoginService {
 
 	public result regist(userInfo user);
 
-	public Map<String,Object> IsExistUser(String phone);
+	public result phoneLoginResult(String phone,String remoteAddr);
 
 	public userInfo findbyphone(String phone);
 
@@ -29,4 +29,6 @@ public interface IUserLoginService {
 	public result loginResult(String number, String password);
 
 	public List<Map<String,Object>> classsInfo(String number, int flag);
+
+	public result userLoginResult(String number, String password, String remoteAddr);
 }

@@ -275,7 +275,8 @@ public class classManageServiceImpl implements IClassManageService {
                 if(checkInHistoryM.insertSelective(his) == 1){
                     //获得经验值
                     int expe = 2;
-                    courseM.updateExperience(Integer.parseInt(classId),username,expe);
+                    int nowExpe = courseM.getCourse(classId, username).getExperience() + expe;
+                    courseM.updateExperience(Integer.parseInt(classId),username,nowExpe);
                     re.put("state", "ok");
                     re.put("longitude", res[0]);
                     re.put("latitude", res[1]);
@@ -291,7 +292,8 @@ public class classManageServiceImpl implements IClassManageService {
                  if(checkInHistoryM.insertSelective(his) == 1){
                      //获得经验值
                      int expe = 2;
-                     courseM.updateExperience(Integer.parseInt(classId),username,expe);
+                     int nowExpe = courseM.getCourse(classId, username).getExperience() + expe;
+                     courseM.updateExperience(Integer.parseInt(classId),username,nowExpe);
                      re.put("state", "ok");
                      re.put("longitude", res[0]);
                      re.put("latitude", res[1]);

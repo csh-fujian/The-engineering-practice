@@ -1,3 +1,11 @@
+/*
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: whc
+ * @Date: 2020-04-09 22:48:05
+ * @LastEditors: whc
+ * @LastEditTime: 2020-06-30 07:54:07
+ */ 
 package com.whch.presentCloud.service.serviceImpl;
 
 import java.util.ArrayList;
@@ -5,7 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.whch.presentCloud.entity.LoginResult;
 import com.whch.presentCloud.entity.classCourseMember;
 import com.whch.presentCloud.entity.classLesson;
 import com.whch.presentCloud.entity.result;
@@ -13,7 +20,12 @@ import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.repository.IRepository.userInfoRepository;
 import com.whch.presentCloud.service.IService.IClassManageService;
 import com.whch.presentCloud.service.IService.IUserLoginService;
+import com.whch.presentCloud.service.IService.IUserManageService;
+import com.whch.presentCloud.utils.TokenUtil;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +38,8 @@ public class userLoginServiceImpl implements IUserLoginService {
     private IUserLoginService userloginservice;
     @Autowired
     private IClassManageService classManageService;
+    @Autowired
+    private IUserManageService userService;
 
     //判断用户的角色
     @Override
@@ -60,17 +74,20 @@ public class userLoginServiceImpl implements IUserLoginService {
 
     //通过手机号查询用户是否存在，若存在返回含用户名和角色的res
     @Override
-    public Map<String,Object> IsExistUser(String phone) {
+    public result phoneLoginResult(String phone,String remoteAddr) {
         userInfo user = userInfoRepo.get(phone);
-        
+        result resu = new result();
         if(user != null){
+            result re = userLoginResult(user.getNumber(), user.getPassword(), remoteAddr);
             HashMap res = new HashMap<String,Object>();
             res.put("username", user.getNumber());
-            res.put("role", user.getRole());
+            re.setMap(res);
             
-            return res;
+            return re;
         }
-        return null;
+        resu.setState("false");
+        resu.setInfo("手机号有误！");
+        return resu;
     }
 
     @Override
@@ -183,6 +200,40 @@ public class userLoginServiceImpl implements IUserLoginService {
             return studentClassList;
         }
         return null;
+    }
+
+    @Override
+    public result userLoginResult(String number, String password,String remoteAddr) {
+        HashMap lessonInfo = new HashMap<>();
+        result r = new result();
+        if(number == "" || password == ""){
+            r.setInfo("帐号密码不能为空");
+            r.setState("false");
+            return r;
+        }
+
+
+        try {
+            //shiro 用户权限认证 教师/学生
+            Subject subject = SecurityUtils.getSubject();
+            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(number, password);
+//            subject.login(usernamePasswordToken);
+            userInfo role = userService.getUser(number);
+            //生成token
+            String token = TokenUtil.getToken(role.getName(), Integer.toString(role.getId()) , remoteAddr);
+            
+           
+            //返回登录结果
+            result r1 = userloginservice.loginResult(number, password);
+            //返回token
+            r1.setToken(token);
+            return r1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            r.setState("false");
+            r.setInfo("帐号或用户名错误");
+            return r;
+        }
     }
 
 
