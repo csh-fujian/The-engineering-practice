@@ -36,7 +36,7 @@
                 <template slot-scope="scope">
                     <el-button
                         size="mini"
-                        @click="Initialization(scope.$index, scope.row)">初始化</el-button>
+                        @click="Initialization(scope.$index, scope.row)">重置密码</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -75,10 +75,7 @@
                     id: '190327064111',
                     name: '王小虎',
                 },
-                tableData: [{
-                    id: '190327064111',
-                    name: '王小虎',
-                }],
+                tableData: [],
                 search: '',
                 value: [],
             }
@@ -141,7 +138,7 @@
                 this.dialogVisible = false
                 console.log(this.Management.name) 
                 const _this=this
-                this.$axios.post('http://localhost:8080/webadmin/addadmin/'+this.Management.name,{},{
+                this.$axios.post('http://47.112.239.108:8080/webadmin/addadmin/'+this.Management.name,{},{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }

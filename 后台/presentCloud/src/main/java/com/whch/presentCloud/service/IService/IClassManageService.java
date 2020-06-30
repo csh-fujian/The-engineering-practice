@@ -21,7 +21,7 @@ public interface IClassManageService {
 
 	ResponseData getSignType(String classId);
 
-	boolean isSucced(String username, String classId, String ip, int i, String string) throws Exception;
+	Map<String, Object> isSucced(String username, String classId, String ip, String latitude, int i, String string, String signId) throws Exception;
 
 	String logoutLesson(String username, String classId);
 

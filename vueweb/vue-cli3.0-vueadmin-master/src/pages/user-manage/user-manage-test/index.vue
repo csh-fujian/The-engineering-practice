@@ -52,12 +52,13 @@
                     <el-button
                         size="mini"
                         @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-					<el-button
-                        size="mini"
-                        @click="Initialization(scope.$index, scope.row)">初始化</el-button>
+
                     <el-button
                         size="mini"
                         @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+					<el-button 
+                        size="mini"
+                        @click="Initialization(scope.$index, scope.row)">重置密码</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -231,13 +232,7 @@
                     oldnumber:''
                 },
                 tableData: [{
-                    number: '190327064111',
-                    name: '王小虎',
-                    sex: '男',
-                    role: '教师',
-                    phone: '1335855555',
-                    school: '福州大学',
-                    department: '数学与计算机科学'
+
                 }],
                 search: '',
                 value: ['',''],
@@ -309,7 +304,7 @@
             pagetemp(currentPage){
 				const _this = this
 				this.pageNum = currentPage
-				this.$axios.get('http://localhost:8080/webuser/pagefind/'+this.pageNum,{
+				this.$axios.get('http://47.112.239.108:8080/webuser/pagefind/'+this.pageNum,{
 									headers: {
 										Authorization: localStorage.getItem('token')
 									}
@@ -327,14 +322,14 @@
                 this.dicd.typed='sex'
 				this.typed='sexy'
 				console.log(this.typed)
-				this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + this.typed,{
+				this.$axios.get('http://47.112.239.108:8080/webdictionary/findAllvalued2/' + this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
 							_this.options1=resp.data
 							_this.typed='role'
-							_this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + _this.typed,{
+							_this.$axios.get('http://47.112.239.108:8080/webdictionary/findAllvalued2/' + _this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -368,7 +363,7 @@
 							_this.user.role=resp.data
 							_this.dialogVisible = true
 							_this.typed='sexy'
-							_this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + _this.typed,{
+							_this.$axios.get('http://47.112.239.108:8080/webdictionary/findAllvalued2/' + _this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -376,7 +371,7 @@
 							_this.options1=resp.data
 							_this.typed='role'
 							
-							_this.$axios.get('http://localhost:8080/webdictionary/findAllvalued2/' + _this.typed,{
+							_this.$axios.get('http://47.112.239.108:8080/webdictionary/findAllvalued2/' + _this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -414,7 +409,7 @@
                             type: 'success',
                             message: resp.data
                         })
-					_this.$axios.get('http://localhost:8080/webuser/pagefind/'+_this.pageNum,{
+					_this.$axios.get('http://47.112.239.108:8080/webuser/pagefind/'+_this.pageNum,{
                                 headers: {
 
                                     Authorization: localStorage.getItem('token')
@@ -439,7 +434,7 @@
                             type: 'success',
                             message: resp.data
                         })
-                    _this.$axios.get('http://localhost:8080/webuser/pagefind/'+_this.pageNum,{
+                    _this.$axios.get('http://47.112.239.108:8080/webuser/pagefind/'+_this.pageNum,{
                                 headers: {
 
                                     Authorization: localStorage.getItem('token')
@@ -484,13 +479,13 @@
                             type: 'success',
                             message: resp.data
                      })
-					 _this.$axios.get('http://localhost:8080/webuser/totalSize/',{
+					 _this.$axios.get('http://47.112.239.108:8080/webuser/totalSize/',{
 					headers: {
 							Authorization: localStorage.getItem('token')
 					}
 					}).then(function(resp) {
 					_this.total = resp.data
-					 _this.$axios.get('http://localhost:8080/webuser/pagefind/'+_this.pageNum,{
+					 _this.$axios.get('http://47.112.239.108:8080/webuser/pagefind/'+_this.pageNum,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -515,7 +510,7 @@
         },
         created() {
             const _this = this
-            this.$axios.get('http://localhost:8080/webuser/totalSize/',{
+            this.$axios.get('http://47.112.239.108:8080/webuser/totalSize/',{
 					headers: {
 							Authorization: localStorage.getItem('token')
 					}
@@ -523,7 +518,7 @@
 					_this.total = resp.data
 				})    
 			this.pageNum=1
-				this.$axios.get('http://localhost:8080/webuser/pagefind/'+this.pageNum,{
+				this.$axios.get('http://47.112.239.108:8080/webuser/pagefind/'+this.pageNum,{
 									headers: {
 										Authorization: localStorage.getItem('token')
 									}

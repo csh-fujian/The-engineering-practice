@@ -7,14 +7,19 @@ import java.util.List;
 import java.util.Map;
 
 import com.whch.presentCloud.entity.ResponseData;
+import com.whch.presentCloud.entity.checkInHistory;
 import com.whch.presentCloud.entity.classCourseMember;
 import com.whch.presentCloud.entity.classLesson;
 import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.entity.signin;
 import com.whch.presentCloud.entity.task;
 import com.whch.presentCloud.entity.taskMemory;
+import com.whch.presentCloud.entity.userInfo;
+import com.whch.presentCloud.mapper.checkInHistoryMapper;
 import com.whch.presentCloud.mapper.classCourseMemberMapper;
+import com.whch.presentCloud.mapper.signinMapper;
 import com.whch.presentCloud.mapper.taskMapper;
+import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.repository.IRepository.classLessonRepository;
 import com.whch.presentCloud.repository.IRepository.signinRepository;
 import com.whch.presentCloud.repository.IRepository.taskMemoryRepository;
@@ -42,6 +47,12 @@ public class classManageServiceImpl implements IClassManageService {
     private signinRepository siginR;
     @Autowired
     private taskMapper taskmapper;
+    @Autowired
+    private signinMapper siginM;
+    @Autowired
+    private checkInHistoryMapper checkInHistoryM;
+    @Autowired
+    private userInfoMapper userM;
 
     @Override
     public List<classCourseMember> getLessons(String number) {
@@ -56,6 +67,13 @@ public class classManageServiceImpl implements IClassManageService {
         classCourseMember course1 = new classCourseMember();
         course1.setClassid(Integer.parseInt(classId));
         course1.setStudentid(studentId);
+        classLesson classL = classLessonR.getLesson(Integer.parseInt(classId));
+        userInfo user = userM.findOneUser(studentId);
+        course1.setTeacherid(classL.getTeacherid());
+        course1.setExperience(0);
+        course1.setClassname(classL.getClassname());
+        course1.setTeachername(classL.getTeachername());
+        course1.setStudentname(user.getName());
         int flag = courseM.insertSelective(course1);
         if (flag == 0) {
             return "false";
@@ -72,13 +90,8 @@ public class classManageServiceImpl implements IClassManageService {
             state.put("messege", "不存在该班课！");
             return state;
         }
-        if (lesson.getType().equals("over")) {
-            state.put("state", "false");
-            state.put("messege", "该班课已结束");
-            return state;
-        }
-        // List<Map> list = new ArrayList<>();
-
+        if (lesson.getType() == null) {
+           
         HashMap h = new HashMap<String, Object>();
         h.put("state", "ok");
         h.put("bankeName", lesson.getClassname());
@@ -91,6 +104,12 @@ public class classManageServiceImpl implements IClassManageService {
         h.put("semester", lesson.getClasstime());
         // list.add(h);
         return h;
+        }
+        // List<Map> list = new ArrayList<>();
+
+        state.put("state", "false");
+        state.put("messege", "该班课已结束");
+        return state;
     }
 
     public HashMap<String, Object> getLesson(String classId, String username) {
@@ -125,6 +144,9 @@ public class classManageServiceImpl implements IClassManageService {
         int rank = 0;
         int flag = 1;
         int experience = 0;
+        if(list1 == null){
+            return res;
+        }
         if (list1.size() > 0) {
             classCourseMember classCourseM = list1.get(0);
             HashMap<String, Object> member = new HashMap<String, Object>();
@@ -167,15 +189,22 @@ public class classManageServiceImpl implements IClassManageService {
 
         // 得到一个课程的每个学生的详细任务
         List<task> list2 = taskmapper.getTask(lesson.getClassid());
+       
         List<Map<String, Object>> tasks = new ArrayList<>();
         int tasks_count_out_time = 0;
         int tasks_count_in_time = 0;
+        if(list2 != null){
         for (task tas : list2) {
             HashMap<String, Object> member = new HashMap<String, Object>();
             member.put("taskName", tas.getTask());
             // 获得已参与人数
             List<taskMemory> tasks2 = taskM.getMemoryByTaskId(Integer.toString(tas.getId()));
-            member.put("number", tasks2.size());
+            if(tasks2 == null){
+                member.put("number", 0);
+            }else{
+                member.put("number", tasks2.size());
+            }
+           
             member.put("experience", tas.getGrade());
             taskMemory ta = taskM.getTask(tas.getTask(), Integer.parseInt(username));
             if (ta == null) {
@@ -195,6 +224,7 @@ public class classManageServiceImpl implements IClassManageService {
 
             tasks.add(member);
         }
+    }
         res.put("tasks", tasks);
 
         // tabs
@@ -236,20 +266,21 @@ public class classManageServiceImpl implements IClassManageService {
     }
 
     @Override
-    public boolean isSucced(String username, String classId, String ip,int role,String stu_shouShi) throws Exception {
-        signin sig = siginR.get(classId).get(0);
+    public Map<String, Object> isSucced(String username, String classId, String longitude, String latitude, int role,
+            String stu_shouShi, String signId) throws Exception {
+        signin sig = siginM.selectByPrimaryKey(Integer.parseInt(signId));
         String temp = sig.getPublisher();
         String res[] = temp.split(",");
         int flag = 0;
-        
+        HashMap<String,Object> re = new HashMap<>();
         //获取老师经纬度
         GlobalCoordinates source = new GlobalCoordinates(Double.parseDouble(res[0]), Double.parseDouble(res[1]));
         
         //ip获得经纬度
-        Double dou[] = IPUtils.getJingWeiDu(ip);
-        GlobalCoordinates target = new GlobalCoordinates(dou[0], dou[1]);
+        GlobalCoordinates target = new GlobalCoordinates(Double.parseDouble(longitude), Double.parseDouble(latitude));
+        
         //求距离，距离大于25米签到失败
-        if(Distance.getDistanceMeter(source, target, Ellipsoid.Sphere) < 25){
+        if(Distance.getDistanceMeter(source, target, Ellipsoid.Sphere) < 2500){
             flag = 1;
         }
 
@@ -261,14 +292,39 @@ public class classManageServiceImpl implements IClassManageService {
             //判断手势是否相同且签到时间是否符合
             
             if(shouShi.equals(stu_shouShi) && (now.after(sig.getStarttime()))){
-                return true;
+                //插入学生签到记录 signId endTime username classId 
+                checkInHistory his = new checkInHistory(sig.getId(),sig.getStarttime(),now,"2",username,1,classId);
+                if(checkInHistoryM.insertSelective(his) == 1){
+                    //获得经验值
+                    int expe = 2;
+                    int nowExpe = courseM.getCourse(classId, username).getExperience() + expe;
+                    courseM.updateExperience(Integer.parseInt(classId),username,nowExpe);
+                    re.put("state", "ok");
+                    re.put("longitude", res[0]);
+                    re.put("latitude", res[1]);
+                    return re;
+                }
+                
+               
             }
         }else if(role == 1){
             if((flag == 1) && (now.after(sig.getStarttime()))){
-                return true;
+                 //插入学生签到记录 signId endTime username classId 
+                 checkInHistory his = new checkInHistory(sig.getId(),sig.getStarttime(),now,"1",username,1,classId);
+                 if(checkInHistoryM.insertSelective(his) == 1){
+                     //获得经验值
+                     int expe = 2;
+                     int nowExpe = courseM.getCourse(classId, username).getExperience() + expe;
+                     courseM.updateExperience(Integer.parseInt(classId),username,nowExpe);
+                     re.put("state", "ok");
+                     re.put("longitude", res[0]);
+                     re.put("latitude", res[1]);
+                     return re;
+                 }
             }
         }
-        return false;
+        re.put("state", "false");
+        return re;          
     }
 
     @Override
@@ -288,7 +344,8 @@ public class classManageServiceImpl implements IClassManageService {
     public String addClass(String username,String className, String courseName, String schoolName, String departmentName,
             String semester, String studyDemand, String examDemand) {
         String departmentMaster = schoolName + departmentName;
-        classLesson course = new classLesson(null,courseName,null,Integer.parseInt(username),null,className,null,null,semester,departmentMaster);
+        userInfo user = userM.findOneUser(username);
+        classLesson course = new classLesson(null,courseName,user.getName(),Integer.parseInt(username),null,className,null,null,semester,departmentMaster);
         int flag = classLessonR.add(course);
         if(flag == 1)
         {
@@ -305,6 +362,9 @@ public class classManageServiceImpl implements IClassManageService {
     }
 
     @Override
+    /**
+     * 老师获得班课详情信息
+     */
     public Map<String, Object> getClassInfo(String username, String classId) {
         classLesson lesson = classLessonR.getLesson(Integer.parseInt(classId));
         if(lesson == null)

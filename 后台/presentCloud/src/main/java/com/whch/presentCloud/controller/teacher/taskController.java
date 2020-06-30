@@ -1,5 +1,6 @@
 package com.whch.presentCloud.controller.teacher;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Autor: whc
  * @Date: 2020-06-26 09:34:31
  * @LastEditors: whc
- * @LastEditTime: 2020-06-26 10:18:44
+ * @LastEditTime: 2020-06-30 11:31:04
  */
 @RestController
 public class taskController {
@@ -24,7 +25,7 @@ public class taskController {
     private ITaskService taskService;
 
     @RequestMapping("/banke/id/oneclass")
-    public List<Map<String, Object>> getAllTasks(@RequestParam("classId") String classId,
+    public HashMap<String, Object> getAllTasks(@RequestParam("classId") String classId,
             @RequestParam("username") String username)
     {
         return taskService.getTask(username,classId);

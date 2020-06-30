@@ -1,5 +1,7 @@
 package com.whch.presentCloud.controller.student;
 
+import java.util.Map;
+
 import com.whch.presentCloud.entity.ResponseData;
 import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.service.IService.IClassManageService;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Autor: whc
  * @Date: 2020-06-26 09:35:54
  * @LastEditors: whc
- * @LastEditTime: 2020-06-28 12:11:34
+ * @LastEditTime: 2020-06-29 19:01:03
  */ 
 @RestController
 public class participateController {
@@ -43,11 +45,11 @@ public class participateController {
      * @return
      * @throws Exception
      */
-    // @RequestMapping("/participate/1")
-    // public result participate(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("longitude")String longitude,@RequestParam("latitude")String latitude,@RequestParam("signId")String signId) throws Exception {
+    @RequestMapping("/participate/1")
+    public Map<String ,Object> participate(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("longitude")String longitude,@RequestParam("latitude")String latitude,@RequestParam("signId")String signId) throws Exception {
         
-    //     return classManageService.isSucced(username,classId,longitude,latitude,1,"",signId);
-    // }
+        return classManageService.isSucced(username,classId,longitude,latitude,1,"",signId);
+    }
 
     /**
      * 手势签到
@@ -59,9 +61,9 @@ public class participateController {
      * @throws Exception
      */
 
-    // @RequestMapping("/participate/2")
-    // public result shouShiQiandao(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("poseNumber")String number, @RequestParam("longitude")String longitude,@RequestParam("latitude")String latitude, @RequestParam("signId")String signId) throws Exception {
+    @RequestMapping("/participate/2")
+    public Map<String ,Object> shouShiQiandao(@RequestParam("username")String username,@RequestParam("classId")String classId, @RequestParam("poseNumber")String number, @RequestParam("longitude")String longitude,@RequestParam("latitude")String latitude, @RequestParam("signId")String signId) throws Exception {
         
-    //     return classManageService.isSucced(username,classId,longitude,latitude,2,number,signId);
-    // }
+        return classManageService.isSucced(username,classId,longitude,latitude,2,number,signId);
+    }
 }

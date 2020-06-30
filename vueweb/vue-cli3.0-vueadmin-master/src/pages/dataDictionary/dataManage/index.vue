@@ -130,19 +130,7 @@
                     valued: '男',
                     defaultvalued: 0
                 },
-                tableData: [{
-                    id: 1,
-                    typed: '性别',
-                    keyd: 'male',
-                    valued: '男',
-                    defaultvalued: 0
-                }, {
-                    id: 2,
-                    typed: '性别',
-                    keyd: 'female',
-                    valued: '女',
-                    defaultvalued: 0
-                } ],
+                tableData: [],
                 search: '',
                 temp:{
                     keyd:'',
@@ -177,12 +165,12 @@
                 this.Data.dicd = this.dicd
                 this.Data.record = this.record
                 console.log(this.Data)
-                this.$axios.post('http://localhost:8080/webdictionary/updatedata', this.Data,{
+                this.$axios.post('http://47.112.239.108:8080/webdictionary/updatedata', this.Data,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                    _this.$axios.get('http://localhost:8080/webdictionary/finddata/' +_this.typed,{
+                    _this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata/' +_this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -205,13 +193,13 @@
                 this.dicd.valued = row.valued
                 const _this = this
                 console.log(this.dicd)
-                this.$axios.post('http://localhost:8080/webdictionary/deletedata', this.dicd,{
+                this.$axios.post('http://47.112.239.108:8080/webdictionary/deletedata', this.dicd,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
                     console.log(resp)
-                    _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + _this.typed,{
+                    _this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata/' + _this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -238,13 +226,13 @@
                 this.dicd.keyd = this.adddata.keyd
                 this.dicd.valued = this.adddata.valued
                 console.log(this.dicd)
-                this.$axios.post('http://localhost:8080/webdictionary/adddata', this.dicd,{
+                this.$axios.post('http://47.112.239.108:8080/webdictionary/adddata', this.dicd,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
                     console.log(resp)
-                    _this.$axios.get('http://localhost:8080/webdictionary/finddata/' + _this.typed,{
+                    _this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata/' + _this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -264,7 +252,7 @@
             this.dicd.typed = this.$route.query.dicd
             const _this = this
             this.typed = this.dicd.typed
-            this.$axios.get('http://localhost:8080/webdictionary/finddata/' + this.typed,{
+            this.$axios.get('http://47.112.239.108:8080/webdictionary/finddata/' + this.typed,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }

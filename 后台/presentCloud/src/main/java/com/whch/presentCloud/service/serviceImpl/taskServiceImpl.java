@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
  * @Autor: whc
  * @Date: 2020-06-26 09:42:12
  * @LastEditors: whc
- * @LastEditTime: 2020-06-26 11:05:12
+ * @LastEditTime: 2020-06-30 11:30:28
  */
 @Service
 public class taskServiceImpl implements ITaskService {
@@ -32,9 +32,28 @@ public class taskServiceImpl implements ITaskService {
     private taskMemoryRepository taskM;
 
     @Override
-    public List<Map<String, Object>> getTask(String username, String classId) {
+    public HashMap<String, Object> getTask(String username, String classId) {
          //得到一个课程的每个学生的详细任务
          List<task> list2 = taskmapper.getTask(Integer.parseInt(classId));
+         HashMap<String, Object> res = new HashMap<String, Object>();
+         if(list2 ==null){ 
+             // tabs
+            List<Map<String, Object>> tabs = new ArrayList<>();
+            HashMap<String, Object> tab1 = new HashMap<String, Object>();
+            tab1.put("title", "全部");
+            tab1.put("count",0);
+            HashMap<String, Object> tab2 = new HashMap<String, Object>();
+            tab2.put("title", "进行中");
+            tab2.put("count", 0);
+            HashMap<String, Object> tab3 = new HashMap<String, Object>();
+            tab3.put("title", "已结束");
+            tab3.put("count", 0);
+            tabs.add(tab1);
+            tabs.add(tab2);
+            tabs.add(tab3);
+            res.put("tabs", tabs);
+            return res;
+          }
          List<Map<String,Object>> tasks = new ArrayList<>();
          int tasks_count_out_time = 0;
          int tasks_count_in_time = 0;
@@ -64,8 +83,26 @@ public class taskServiceImpl implements ITaskService {
              
              tasks.add(member);
          }
-         
-        return tasks;
+         res.put("tasks", tasks);
+
+        // tabs
+        List<Map<String, Object>> tabs = new ArrayList<>();
+        HashMap<String, Object> tab1 = new HashMap<String, Object>();
+        tab1.put("title", "全部");
+        tab1.put("count", tasks_count_out_time + tasks_count_in_time);
+        HashMap<String, Object> tab2 = new HashMap<String, Object>();
+        tab2.put("title", "进行中");
+        tab2.put("count", tasks_count_in_time);
+        HashMap<String, Object> tab3 = new HashMap<String, Object>();
+        tab3.put("title", "已结束");
+        tab3.put("count", tasks_count_out_time);
+        tabs.add(tab1);
+        tabs.add(tab2);
+        tabs.add(tab3);
+        res.put("tabs", tabs);
+
+        return res;
+      
     }
     
 }

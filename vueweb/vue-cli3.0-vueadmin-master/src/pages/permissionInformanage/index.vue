@@ -50,108 +50,7 @@ export default {
                 menus: []
             },
             test: [],
-            datatable: [{
-                name: '班课频道',
-                state: 'unchecked',
-                layer: 1,
-                sub: [
-                    {
-                        name: '班课管理',
-                        state: 'unchecked',
-                        layer: 2,
-                        sub: [
-                            {
-                                name: '创建班课',
-                                state: 'unchecked',
-                                layer: 3,
-                                sub: [
-                                    {
-                                        name: '确定按钮',
-                                        state: 'unchecked',
-                                        layer: 4,
-                                        sub: null
-                                    }
-                                ]
-                            },
-                            {
-                                name: '班课列表排序',
-                                state: 'unchecked',
-                                layer: 3,
-                                sub: null
-                            },
-                            {
-                                name: '查看班课',
-                                state: 'checked',
-                                layer: 3,
-                                sub: null
-                            },
-                            {
-                                name: '查看班课',
-                                state: 'checked',
-                                layer: 3,
-                                sub: null
-                            }
-                        ]
-                    },
-                    {
-                        name: '加入班级',
-                        state: 'unchecked',
-                        layer: 2,
-                        sub: [
-                            {
-                                name: '添加班级',
-                                state: 'unchecked',
-                                layer: 3,
-                                sub: null
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                name: '发现',
-                state: 'unchecked',
-                layer: 1,
-                sub: [
-                    {
-                        name: '发现内容',
-                        state: 'checked',
-                        layer: 2,
-                        sub: null
-                    }
-                ]
-            },
-            {
-                name: '我的频道',
-                state: 'checked',
-                layer: 1,
-                sub: [
-                    {
-                        name: '创建班课',
-                        state: 'unchecked',
-                        layer: 2,
-                        sub: null
-                    },
-                    {
-                        name: '333',
-                        state: 'unchecked',
-                        layer: 2,
-                        sub: null
-                    },
-                    {
-                        name: '222',
-                        state: 'unchecked',
-                        layer: 2,
-                        sub: null
-                    },
-                    {
-                        name: '111',
-                        state: 'unchecked',
-                        layer: 2,
-                        sub: null
-                    }
-                ]
-            }
+            datatable: [
             ]
         }
     },
@@ -161,7 +60,7 @@ export default {
             this.Permission.menus = this.selected
 		
 			console.log(this.Permission)
-            this.$axios.post('http://localhost:8080/webpermission/addpermission',this.Permission,{
+            this.$axios.post('http://47.112.239.108:8080/webpermission/addpermission',this.Permission,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -178,7 +77,7 @@ export default {
         // alert(this.$route.query.rolename)
         this.rolename = this.$route.query.rolename
         const _this = this
-        this.$axios.get('http://localhost:8080/webpermission/findAll/' + this.rolename,{
+        this.$axios.get('http://47.112.239.108:8080/webpermission/findAll/' + this.rolename,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }

@@ -4,7 +4,7 @@
  * @Autor: whc
  * @Date: 2020-04-09 22:48:05
  * @LastEditors: whc
- * @LastEditTime: 2020-06-19 10:17:19
+ * @LastEditTime: 2020-06-30 07:25:25
  */ 
 package com.whch.presentCloud.controller.student;
 
@@ -74,9 +74,9 @@ public class userLoginController {
     
     
     @RequestMapping(value="/loginbyphone", method = RequestMethod.POST)
-    public Map<String,Object> login(@RequestParam("phone") String phone) {
-        Map res = userloginservice.IsExistUser(phone);
-        return res;
+    public result login(@RequestParam("phone") String phone, HttpServletRequest request) {
+        
+        return userloginservice.phoneLoginResult(phone,request.getRemoteAddr());
     }
 
 
@@ -84,36 +84,7 @@ public class userLoginController {
     @ResponseBody
     public result userLogin(@RequestParam("username")String number,@RequestParam("password")String password, HttpServletRequest request){
 //       System.out.println(tel+password);
-        HashMap lessonInfo = new HashMap<>();
-        result r = new result();
-        if(number == "" || password == ""){
-            r.setInfo("帐号密码不能为空");
-            r.setState("false");
-            return r;
-        }
-
-
-        try {
-            //shiro 用户权限认证 教师/学生
-            Subject subject = SecurityUtils.getSubject();
-            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(number, password);
-//            subject.login(usernamePasswordToken);
-            userInfo role = userService.getUser(number);
-            //生成token
-            String token = TokenUtil.getToken(role.getName(), Integer.toString(role.getId()) , request.getRemoteAddr());
-            
-           
-            //返回登录结果
-            result r1 = userloginservice.loginResult(number, password);
-            //返回token
-            r1.setToken(token);
-            return r1;
-        } catch (Exception e) {
-            e.printStackTrace();
-            r.setState("false");
-            r.setInfo("帐号或用户名错误");
-            return r;
-        }
+      return userloginservice.userLoginResult(number,password,request.getRemoteAddr());
         
     }
 

@@ -105,12 +105,12 @@
                 this.editSys.sysp.value = parseInt(this.ro.value)
                 const _this = this
                 console.log(this.editSys)
-                this.$axios.post('http://localhost:8080/websysparameter/update', this.editSys,{
+                this.$axios.post('http://47.112.239.108:8080/websysparameter/update', this.editSys,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(function(resp) {
-                    _this.$axios.get('http://localhost:8080/websysparameter/findAll',{
+                    _this.$axios.get('http://47.112.239.108:8080/websysparameter/findAll',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -128,7 +128,7 @@
         },
         created() {
             const _this = this
-            this.$axios.get('http://localhost:8080/websysparameter/findAll',{
+            this.$axios.get('http://47.112.239.108:8080/websysparameter/findAll',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
