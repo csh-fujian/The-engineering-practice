@@ -39,7 +39,7 @@ public class WebUserController {
             usermanage.addUser(user);
             return "新增成功";
         }catch (DuplicateKeyException e){
-            return "新增失败，该昵称或学/工号已存在";
+            return "新增失败，该昵称或学/工号或手机号已存在";
         }
     }
 
@@ -87,7 +87,7 @@ public class WebUserController {
             classM.setname(teachername, oldteachername);
             return "编辑成功";
         }catch (DuplicateKeyException e){
-            return "编辑失败，该学/工号或昵称已存在";
+            return "编辑失败，该学/工号或昵称或手机号已存在";
         }
     }
 

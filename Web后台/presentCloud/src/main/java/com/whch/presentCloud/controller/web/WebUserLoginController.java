@@ -6,7 +6,9 @@ import com.whch.presentCloud.entity.admin;
 import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.entity.token;
 import com.whch.presentCloud.entity.userInfo;
+import com.whch.presentCloud.mapper.adminMapper;
 import com.whch.presentCloud.mapper.tokenMapper;
+import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.service.IService.IClassManageService;
 import com.whch.presentCloud.service.IService.IDictionaryDataService;
 import com.whch.presentCloud.service.IService.ITokenService;
@@ -31,6 +33,10 @@ public class WebUserLoginController {
     private ITokenService tokenS;
     @Autowired
     private IDictionaryDataService dicd;
+    @Autowired
+    private adminMapper adminM;
+    @Autowired
+    private userInfoMapper userM;
 
     @PostMapping("login")
     public Object login(@RequestBody userInfo user, HttpServletRequest request)
@@ -40,6 +46,46 @@ public class WebUserLoginController {
         userInfo user1 = userloginservice.login(user.getNickname(), user.getPassword());
         if (Admin == null && user1 == null){
             jsonObject.put("message", "登录失败,用户名或密码错误");
+            return jsonObject;
+        }
+        else if(Admin != null){
+            Date date = new Date();
+            int nowTime = (int) (date.getTime()/1000);
+            String tokenString = tokenS.createtoken(user, date);
+            jsonObject.put("message", "用户登录成功");
+            jsonObject.put("token", tokenString);
+            jsonObject.put("role", "admin");
+            jsonObject.put("layer", Admin.getAccount());
+            return jsonObject;
+        }
+        else if(user1 != null) {
+            String ro = dicd.findbykey("teacher");
+            if (user1.getRole().equals(ro)){
+                String tokenString = "";
+                Date date = new Date();
+                int nowTime = (int) (date.getTime()/1000);
+                tokenString = tokenS.createtoken(user1, date);
+                jsonObject.put("message", "用户登录成功");
+                jsonObject.put("token", tokenString);
+                jsonObject.put("role", "teacher");
+                return jsonObject;
+            }
+            jsonObject.put("message", "登录失败,该用户不是教师或管理员");
+            return jsonObject;
+        }
+        jsonObject.put("message", "登录失败,数据库两表存在重复用户");
+        return jsonObject;
+    }
+
+    @PostMapping("loginbyphone")
+    public Object loginbyphone(@RequestBody userInfo user, HttpServletRequest request)
+    {
+
+        JSONObject jsonObject = new JSONObject();
+        admin Admin = adminM.findOnebyPhone(user.getPhone(), user.getPassword());
+        userInfo user1 = userM.findOnebyPhone(user.getPhone(), user.getPassword());
+        if (Admin == null && user1 == null){
+            jsonObject.put("message", "登录失败,手机号或密码错误");
             return jsonObject;
         }
         else if(Admin != null){

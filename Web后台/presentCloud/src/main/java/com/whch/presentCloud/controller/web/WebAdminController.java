@@ -30,15 +30,14 @@ public class WebAdminController {
     @Autowired
     private adminMapper adminM;
 
-    @PostMapping("addadmin/{name}")
-    public String addadmin(@PathVariable String name)
+    @PostMapping("addadmin")
+    public String addadmin(@PathVariable admin Admin)
     {
-        List<admin> list1 = adminM.find1(name);
         try{
-            adminS.addadmin(name);
+            adminS.addadmin(Admin);
             return "新增成功";
         }catch (DuplicateKeyException e){
-            return "新增失败，该昵称已存在";
+            return "新增失败，该昵称或手机号已存在";
         }
     }
 

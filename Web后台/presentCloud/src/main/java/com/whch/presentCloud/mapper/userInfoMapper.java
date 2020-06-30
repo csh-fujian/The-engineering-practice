@@ -57,4 +57,7 @@ public interface userInfoMapper {
 
     @Select("select * from userinfo u where u.name = #{name} and u.role = #{role}")
     userInfo findOne1(@Param("name")String name, @Param("role")String role);
+
+    @Select("select * from userinfo u where u.phone = #{phone} and u.password = #{password}")
+    userInfo findOnebyPhone(@Param("phone")String phone, @Param("password")String password);
 }

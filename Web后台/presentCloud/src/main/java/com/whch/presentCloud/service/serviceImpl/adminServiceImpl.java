@@ -17,12 +17,13 @@ public class adminServiceImpl implements IAdminService {
     @Autowired
     private classCourseMemberMapper courseM;
     @Override
-    public int addadmin(String name) {
-        admin Admin = new admin();
-        Admin.setName(name);
-        Admin.setAccount("2");
-        Admin.setPassword("88888888");
-        return adminM.insertSelective(Admin);
+    public int addadmin(admin Admin) {
+        admin Admin1 = new admin();
+        Admin1.setName(Admin.getName());
+        Admin1.setAccount("2");
+        Admin1.setPassword("88888888");
+        Admin1.setPhone(Admin.getPhone());
+        return adminM.insertSelective(Admin1);
     }
 
     @Override

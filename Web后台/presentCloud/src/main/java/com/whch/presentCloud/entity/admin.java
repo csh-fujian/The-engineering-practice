@@ -9,6 +9,8 @@ public class admin {
 
     private String password;
 
+    private String phone;
+
     public Integer getId() {
         return id;
     }
@@ -22,7 +24,7 @@ public class admin {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getAccount() {
@@ -30,7 +32,7 @@ public class admin {
     }
 
     public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
+        this.account = account;
     }
 
     public String getPassword() {
@@ -38,6 +40,14 @@ public class admin {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

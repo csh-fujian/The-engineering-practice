@@ -3,7 +3,6 @@ package com.whch.presentCloud.mapper;
 import java.util.List;
 
 import com.whch.presentCloud.entity.admin;
-
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -47,4 +46,7 @@ public interface adminMapper {
 
     @Update("update admin a set a.Password = #{password} where a.Name = #{name}")
     int updateadmin(@Param("password") String password, @Param("name") String name);
+
+    @Select("select * from admin a where a.phone = #{phone} and a.password = #{password}")
+    admin findOnebyPhone(@Param("phone")String phone, @Param("password")String password);
 }

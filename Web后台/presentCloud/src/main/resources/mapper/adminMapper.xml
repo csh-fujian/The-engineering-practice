@@ -6,9 +6,10 @@
     <result column="Name" property="name" jdbcType="VARCHAR" />
     <result column="Account" property="account" jdbcType="VARCHAR" />
     <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    Id, Name, Account, Password
+    Id, Name, Account, Password, Phone
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -22,9 +23,9 @@
   </delete>
   <insert id="insert" parameterType="com.whch.presentCloud.entity.admin" >
     insert into admin (Id, Name, Account, 
-      Password)
+      Password, Phone)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR})
+      #{password,jdbcType=VARCHAR}), #{phone,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.whch.presentCloud.entity.admin" >
     insert into admin
@@ -41,6 +42,9 @@
       <if test="password != null" >
         Password,
       </if>
+      <if test="phone!= null" >
+        Phone,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -54,6 +58,9 @@
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -69,6 +76,9 @@
       <if test="password != null" >
         Password = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="phone != null" >
+        Phone = #{phone,jdbcType=VARCHAR},
+      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
@@ -76,7 +86,8 @@
     update admin
     set Name = #{name,jdbcType=VARCHAR},
       Account = #{account,jdbcType=VARCHAR},
-      Password = #{password,jdbcType=VARCHAR}
+      Password = #{password,jdbcType=VARCHAR},
+      Phone = #{phone,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
