@@ -45,22 +45,19 @@
             </el-table-column>
         </el-table>
         <el-dialog
-            title="新增用户"
+            title="新增管理员"
             :visible.sync="dialogVisible"
             width="25%"
             >
-            <el-form ref="ro" :model="Management" label-width="80px">
-                <el-form-item label="id">
-                    <el-input v-model="Management.id"></el-input>
-                </el-form-item>
+            <el-form ref="Management" :model="Management" label-width="80px" :rules="rules">
                 <el-form-item label="姓名">
                     <el-input v-model="Management.name"></el-input>
                 </el-form-item>
-                <el-form-item label="手机号">
+                <el-form-item label="手机号" prop="phone">
                     <el-input v-model="Management.phone"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit()">确定</el-button>
+                    <el-button type="primary" @click="onSubmit('Management')">确定</el-button>
                     <el-button @click="dialogVisible=false">取消</el-button>
                 </el-form-item>
             </el-form>
@@ -71,7 +68,19 @@
 <script>
     export default {
         data() {
+                 var checkphone = (rule, value, callback) => {
+				if (value.length!=11) {
+				  return callback(new Error('手机号码应该为11位'));
+				}else{
+					callback();
+				}
+			  };
             return {
+                rules: {
+			    phone: [
+				{ validator: checkphone, trigger: 'blur' }
+				  ]
+				}, 
                 dialogVisible: false,
                 dialogVisible2: false,
                 Admin:{
@@ -148,13 +157,15 @@
             doAdd(index, row) {
                 this.dialogVisible = false
             },
-            onSubmit() {
+            onSubmit(Management) {
+                const _this = this
+				this.$refs[Management].validate((valid) => {
+				if (valid) {
                 this.dialogVisible = false
-                console.log(this.Management.name) 
                 this.Admin.name=this.Management.name
                 this.Admin.phone=this.Management.phone
-                const _this=this
-                this.$axios.post('http://47.112.239.108:8080/webadmin/addadmin/',this.Admin,{
+                console.log(this.Admin)
+                this.$axios.post('http://47.112.239.108:8080/webadmin/addadmin',this.Admin,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
@@ -172,9 +183,13 @@
 
                     })
                 })
+                console.log('success');
+                }else {
+					console.log('error submit!!'); 
+				  }
+				})
             },
-            handle() {
-            }
+            
         },
         created() {
             const _this = this
@@ -188,3 +203,4 @@
         }
     }
 </script>
+              
