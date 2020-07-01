@@ -14,13 +14,15 @@ public class WebClassCourseController {
     @Autowired
     private classCourseMemberMapper courseM;
 
-    @GetMapping("find/{id}")
-    public List<classCourseMember> findbyid(@PathVariable int classid){
+    @GetMapping("find/{classid}")
+    public List<classCourseMember> findbyid(@PathVariable Integer classid){
         return courseM.getOneClassMembers(classid);
     }
 
     @RequestMapping("delete")
     public String deletestu(@RequestBody classCourseMember coursemember){
+        System.out.println(coursemember.getStudentid());
+        System.out.println(coursemember.getClassid());
         int classid = coursemember.getClassid();
         String studentid = coursemember.getStudentid();
         try{

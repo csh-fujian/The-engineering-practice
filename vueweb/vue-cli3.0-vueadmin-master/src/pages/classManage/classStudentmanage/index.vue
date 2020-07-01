@@ -60,9 +60,11 @@ export default {
         }
     },
     created: function() {
+		console.log("2")
         this.classid = this.$route.query.classid
+		console.log(this.classid)
         this.$axios
-            .get('http://localhost:8080/webcourse/find/'+this.classid, {
+            .get('http://47.112.239.108:8080/webcourse/find/'+this.classid, {
                 headers: {
                     Authorization: localStorage.getItem('token')
                 }
@@ -86,11 +88,10 @@ export default {
 
             this.$axios
                 .post(
-                    'http://localhost:8080/webcourse/delete',
+                    'http://47.112.239.108:8080/webcourse/delete',
                     coursemember,
                     {
                         headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
                             Authorization: localStorage.getItem('token')
                         }
                     }

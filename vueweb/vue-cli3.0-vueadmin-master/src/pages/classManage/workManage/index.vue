@@ -327,16 +327,19 @@ var Class2={
                 })
             rows.splice(index, 1)
         },
-        Getinfo(index, row) {
-            // 这边要传数据  还没写
-            let delid = rows[index].classid
-            this.$router.replace({
-                path: '/classManage/classStudentmanage',
+         Getinfo(index, row) {
+
+
+            let delid = row.classid
+			console.log(delid) 
+			this.$router.replace({
+                path: '/Classtmanage/ClassStudentmanage',
                 query: {
                     classid: delid
                 }
             })
-            // console.log(index, row)
+			
+            console.log(index, row)
         }
     }
 }
