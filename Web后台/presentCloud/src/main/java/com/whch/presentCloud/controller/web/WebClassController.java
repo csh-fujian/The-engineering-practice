@@ -1,20 +1,20 @@
 package com.whch.presentCloud.controller.web;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.whch.presentCloud.entity.addpage;
-import com.whch.presentCloud.entity.classLesson;
-import com.whch.presentCloud.entity.updateclass;
-import com.whch.presentCloud.entity.userInfo;
+import com.whch.presentCloud.entity.*;
 import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.service.IService.IClassManageService;
 
 import com.whch.presentCloud.service.IService.IDictionaryDataService;
 import com.whch.presentCloud.service.IService.ITokenService;
+import com.whch.presentCloud.service.IService.Isha256Service;
 import io.jsonwebtoken.Claims;
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +36,8 @@ public class WebClassController {
     private userInfoMapper userM;
     @Autowired
     private IDictionaryDataService dicd;
+    @Autowired
+    private Isha256Service sha256S;
 
     @PostMapping("adminaddclass")
     public Object adminaddclass(@RequestBody classLesson Class){
@@ -51,6 +53,7 @@ public class WebClassController {
             Class.setTeacherid(Integer.parseInt(user.getNumber()));
             Class.setTeachername(user.getName());
             Class.setCreattime(date);
+            Class.setClasstime("2020-2021-2");
             try{
                 classManageService.addCourse(Class);
                 jsonObject.put("message", "添加成功");
@@ -73,6 +76,7 @@ public class WebClassController {
         Class.setTeacherid(Integer.parseInt(user.getNumber()));
         Date date = new Date();
         Class.setCreattime(date);
+        Class.setClasstime("2020-2021-2");
         JSONObject jsonObject1 = new JSONObject();
         try{
             classManageService.addCourse(Class);
@@ -86,16 +90,34 @@ public class WebClassController {
     }
 
     @GetMapping("findAll")
-    public List<classLesson> findAll(){
+    public List<classlesson1> findAll(){
         System.out.println("管理员查询班课");
         Date date = new Date();
-        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = DateFormat.getDateTimeInstance();
         List<classLesson> classes = classManageService.findAll();
-        return classes;
+        List<classlesson1> classes1 = new ArrayList<>();
+        for(classLesson c : classes)
+        {
+            classlesson1 c1 = new classlesson1();
+            c1.setClassid(c.getClassid());
+            c1.setClassname(c.getClassname());
+            c1.setTeachername(c.getTeachername());
+            c1.setTeacherid(c.getTeacherid());
+            c1.setType(c.getType());
+            c1.setMaster(c.getMaster());
+            c1.setPeopleCount(c.getPeopleCount());
+            c1.setLocation(c.getLocation());
+            c1.setClasstime(c.getClasstime());
+            c1.setCollege(c.getCollege());
+            c1.setSchool(c.getSchool());
+            c1.setCreattime(df.format(c.getCreattime()));
+            classes1.add(c1);
+        }
+        return classes1;
     }
 
     @GetMapping("findbyteacher")
-    public List<classLesson> findbyteacher(HttpServletRequest request) throws Exception {
+    public List<classlesson1> findbyteacher(HttpServletRequest request) throws Exception {
         System.out.println("教师查询班课");
         String Token = request.getHeader("Authorization");
         Claims claims = tokenS.parseJWT(Token);
@@ -103,10 +125,28 @@ public class WebClassController {
         JSONObject jsonObject = JSON.parseObject(subject);
         userInfo user = JSON.toJavaObject(jsonObject, userInfo.class);
         Date date = new Date();
-        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = DateFormat.getDateTimeInstance();
         int x = Integer.parseInt(user.getNumber());
         List<classLesson> classes = classManageService.find(user.getName(), x);
-        return classes;
+        List<classlesson1> classes1 = new ArrayList<>();
+        for(classLesson c : classes)
+        {
+            classlesson1 c1 = new classlesson1();
+            c1.setClassid(c.getClassid());
+            c1.setClassname(c.getClassname());
+            c1.setTeachername(c.getTeachername());
+            c1.setTeacherid(c.getTeacherid());
+            c1.setType(c.getType());
+            c1.setMaster(c.getMaster());
+            c1.setPeopleCount(c.getPeopleCount());
+            c1.setLocation(c.getLocation());
+            c1.setClasstime(c.getClasstime());
+            c1.setCollege(c.getCollege());
+            c1.setSchool(c.getSchool());
+            c1.setCreattime(df.format(c.getCreattime()));
+            classes1.add(c1);
+        }
+        return classes1;
     }
 
     @RequestMapping("delete/{classId}")

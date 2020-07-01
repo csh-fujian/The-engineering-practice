@@ -6,6 +6,7 @@ import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.mapper.classLessonMapper;
 import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.service.IService.IUserManageService;
+import com.whch.presentCloud.service.IService.Isha256Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
@@ -24,7 +25,8 @@ public class WebUserController {
     private userInfoMapper userM;
     @Autowired
     private classLessonMapper classM;
-
+    @Autowired
+    private Isha256Service sha256S;
     /**
      * 添加用户
      * @param userinfo
@@ -34,7 +36,7 @@ public class WebUserController {
     public String addUser(@RequestBody userInfo userinfo)
     {
         userInfo user = userinfo;
-        user.setPassword("88888888");
+        user.setPassword(sha256S.getSHA256Str("88888888"));
         try{
             usermanage.addUser(user);
             return "新增成功";
@@ -120,7 +122,7 @@ public class WebUserController {
      */
     @RequestMapping("setpassword/{number}")
     public void setpassword(@PathVariable String number){
-        String password = "88888888";
+        String password = sha256S.getSHA256Str("88888888");
         usermanage.setpassword(password, number);
     }
 

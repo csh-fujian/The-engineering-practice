@@ -8,6 +8,7 @@ import com.whch.presentCloud.mapper.adminMapper;
 import com.whch.presentCloud.service.IService.IAdminService;
 import com.whch.presentCloud.service.IService.ITokenService;
 import com.whch.presentCloud.service.IService.IUserLoginService;
+import com.whch.presentCloud.service.IService.Isha256Service;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -29,6 +30,8 @@ public class WebAdminController {
     private IUserLoginService userloginservice;
     @Autowired
     private adminMapper adminM;
+    @Autowired
+    private Isha256Service sha256S;
 
     @PostMapping("addadmin")
     public String addadmin(@RequestBody admin Admin)
@@ -70,23 +73,23 @@ public class WebAdminController {
         if (Token.equals("")){
             System.out.println("token为空");
         }
-        admin Admin = userloginservice.adminlogin(user.getNickname(), user.getPassword());
-        userInfo user1 = userloginservice.login(user.getNickname(), user.getPassword());
+        admin Admin = userloginservice.adminlogin(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
+        userInfo user1 = userloginservice.login(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
         if (Admin == null && user1 == null){
             return 0;
         }
         else if(Admin != null){
-            return adminS.update(password, Admin.getName());
+            return adminS.update(sha256S.getSHA256Str(password), Admin.getName());
         }
         else{
-            return userloginservice.setpw(user, password);
+            return userloginservice.setpw(user, sha256S.getSHA256Str(password));
         }
     }
 
     @PostMapping("defaultadmin/{name}")
     public int default1(@PathVariable String name)
     {
-        String password = "88888888";
+        String password = sha256S.getSHA256Str("88888888");
         return adminM.updateadmin(password, name);
     }
 

@@ -2,6 +2,7 @@ package com.whch.presentCloud.controller.web;
 
 import com.whch.presentCloud.entity.classCourseMember;
 import com.whch.presentCloud.mapper.classCourseMemberMapper;
+import com.whch.presentCloud.service.IService.Isha256Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,8 @@ import java.util.List;
 public class WebClassCourseController {
     @Autowired
     private classCourseMemberMapper courseM;
+    @Autowired
+    private Isha256Service sha256S;
 
     @GetMapping("find/{classid}")
     public List<classCourseMember> findbyid(@PathVariable Integer classid){
