@@ -31,6 +31,8 @@
                     <el-button  @click.native.prevent="dialogVisible1 = true,handleEdit(scope.$index, scope.row)" type="text" size="small"
                         >编辑</el-button
                     >
+                    <el-button  @click.native.prevent="dialogVisible1 = true,handleEdit(scope.$index, scope.row)" type="text" size="small"
+                    >查看详情</el-button
                     >
                     <el-button
                         @click.native.prevent="
@@ -219,10 +221,10 @@ teacherid1:null,
             classname:this.dict1.classname,
             school:this.dict1.school,
             college:this.dict1.college,
-			teacherid:this.teacherid1 
+			teacherid:this.teacherid1
         },
             oldclassid:this.classid1,
-			
+
         }
 		 console.log(Class2)
         this.$axios
