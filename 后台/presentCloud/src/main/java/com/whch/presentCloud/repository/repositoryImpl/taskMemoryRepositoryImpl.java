@@ -31,7 +31,7 @@ public class taskMemoryRepositoryImpl implements taskMemoryRepository {
 
     @Override
     public int update(taskMemory taskMem) {
-        return taskM.updateByPrimaryKeySelective(taskMem);
+        return taskM.updateByPrimaryKeySelective(taskMem,taskMem.getStudentid(),taskMem.getTask());
     }
 
     @Override

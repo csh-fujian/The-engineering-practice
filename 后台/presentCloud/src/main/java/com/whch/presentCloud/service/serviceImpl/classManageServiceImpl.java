@@ -1,3 +1,11 @@
+/*
+ * @Description: 
+ * @Version: 1.0
+ * @Autor: whc
+ * @Date: 2020-04-17 18:06:32
+ * @LastEditors: whc
+ * @LastEditTime: 2020-07-01 15:44:42
+ */ 
 package com.whch.presentCloud.service.serviceImpl;
 
 import java.util.ArrayList;
@@ -60,7 +68,9 @@ public class classManageServiceImpl implements IClassManageService {
         return courseM.get(number);
     }
 
-    @Override
+    /**
+     * 学生添加班课
+     */
     public String addCourse(String classId, String studentId) {
         // TODO Auto-generated method stub
         // 课程成员
@@ -197,6 +207,7 @@ public class classManageServiceImpl implements IClassManageService {
         for (task tas : list2) {
             HashMap<String, Object> member = new HashMap<String, Object>();
             member.put("taskName", tas.getTask());
+            member.put("workId", tas.getId());
             // 获得已参与人数
             List<taskMemory> tasks2 = taskM.getMemoryByTaskId(Integer.toString(tas.getId()));
             if(tasks2 == null){
@@ -210,7 +221,7 @@ public class classManageServiceImpl implements IClassManageService {
             if (ta == null) {
                 member.put("state", "未参与");
             } else {
-                member.put("state", ta.getIsparticipate());
+                member.put("state", "已参与");
             }
 
             Date now = new Date();
@@ -234,10 +245,10 @@ public class classManageServiceImpl implements IClassManageService {
         tab1.put("count", tasks_count_out_time + tasks_count_in_time);
         HashMap<String, Object> tab2 = new HashMap<String, Object>();
         tab2.put("title", "进行中");
-        tab2.put("count", tasks_count_in_time);
+        tab2.put("count", tasks_count_out_time + tasks_count_in_time);
         HashMap<String, Object> tab3 = new HashMap<String, Object>();
         tab3.put("title", "已结束");
-        tab3.put("count", tasks_count_out_time);
+        tab3.put("count", 0);
         tabs.add(tab1);
         tabs.add(tab2);
         tabs.add(tab3);
@@ -279,7 +290,7 @@ public class classManageServiceImpl implements IClassManageService {
         //ip获得经纬度
         GlobalCoordinates target = new GlobalCoordinates(Double.parseDouble(longitude), Double.parseDouble(latitude));
         
-        //求距离，距离大于25米签到失败
+        //求距离，距离大于2500米签到失败
         if(Distance.getDistanceMeter(source, target, Ellipsoid.Sphere) < 2500){
             flag = 1;
         }

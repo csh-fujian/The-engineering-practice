@@ -32,6 +32,6 @@ public interface classCourseMemberMapper {
     @Select("select * from ClassCourseMember where ClassId = #{classId}")
 	List<classCourseMember> getOneClassMembers(@Param("classId")int classId);
 
-    @Delete("delete from ClassCourseMember where ClassId = #{classId} and StudentId = #{studentid}")
+    @Delete("delete from ClassCourseMember where ClassId = #{classid} and StudentId = #{studentid}")
     int deletestu(@Param("classid") int classid, @Param("studentid") String studentid);
 }

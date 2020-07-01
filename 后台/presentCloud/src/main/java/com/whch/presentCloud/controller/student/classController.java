@@ -4,20 +4,19 @@
  * @Autor: whc
  * @Date: 2020-04-17 18:04:31
  * @LastEditors: whc
- * @LastEditTime: 2020-06-26 09:36:45
- */ 
+ * @LastEditTime: 2020-06-30 17:12:23
+ */
 package com.whch.presentCloud.controller.student;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.whch.presentCloud.entity.result;
+import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.service.IService.IClassManageService;
-import com.whch.presentCloud.utils.IPUtils;
+import com.whch.presentCloud.service.IService.IUserManageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class classController {
     @Autowired
     private IClassManageService classManageService;
+    @Autowired
+    private IUserManageService userManageService;
 
     /**
      * 输入班级号获取班课详情
@@ -64,9 +65,34 @@ public class classController {
     }
 
    
-
+    /**
+     * 退出班课
+     * @param username
+     * @param classId
+     * @return
+     */
     @RequestMapping("/login-out")
     public String logout(@RequestParam("username")String username,@RequestParam("classId")String classId){
         return classManageService.logoutLesson(username,classId);
+    }
+
+    /**
+     * 获得我的设置详情
+     * @param username
+     * @return
+     */
+    @RequestMapping("/mine")
+    public Map<String, Object> getUserInfo(@RequestParam("username")String username){
+        return userManageService.getUserInfo(username);
+    }
+
+    /**
+     * 修改用户信息
+     * @param user
+     * @return
+     */
+    @RequestMapping("/mine/profile-update")
+    public String updateUserInfo(@RequestBody userInfo user){
+        return userManageService.updatebyid(user, user.getNumber());
     }
 }

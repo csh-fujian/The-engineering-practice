@@ -111,41 +111,41 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.whch.presentCloud.entity.taskMemory" >
+  <update id="updateByPrimaryKeySelective">
     update taskmemory
     <set >
-      <if test="studentid != null" >
-        StudentId = #{studentid,jdbcType=INTEGER},
+      <if test="record.studentid != null" >
+        StudentId = #{record.studentid,jdbcType=INTEGER},
       </if>
-      <if test="isparticipate != null" >
-        IsParticipate = #{isparticipate,jdbcType=INTEGER},
+      <if test="record.isparticipate != null" >
+        IsParticipate = #{record.isparticipate,jdbcType=INTEGER},
       </if>
-      <if test="grade != null" >
-        Grade = #{grade,jdbcType=INTEGER},
+      <if test="record.grade != null" >
+        Grade = #{record.grade,jdbcType=INTEGER},
       </if>
-      <if test="anser != null" >
-        Anser = #{anser,jdbcType=VARCHAR},
+      <if test="record.anser != null" >
+        Anser = #{record.anser,jdbcType=VARCHAR},
       </if>
-      <if test="gradepoint != null" >
-        GradePoint = #{gradepoint,jdbcType=VARCHAR},
+      <if test="record.gradepoint != null" >
+        GradePoint = #{record.gradepoint,jdbcType=VARCHAR},
       </if>
-      <if test="task != null" >
-        Task = #{task,jdbcType=VARCHAR},
+      <if test="record.task != null" >
+        Task = #{record.task,jdbcType=VARCHAR},
       </if>
-      <if test="classid != null" >
-        ClassId = #{classid,jdbcType=INTEGER},
+      <if test="record.classid != null" >
+        ClassId = #{record.classid,jdbcType=INTEGER},
       </if>
-      <if test="team != null" >
-        Team = #{team,jdbcType=INTEGER},
+      <if test="record.team != null" >
+        Team = #{record.team,jdbcType=INTEGER},
       </if>
-      <if test="scoringmethod != null" >
-        ScoringMethod = #{scoringmethod,jdbcType=VARCHAR},
+      <if test="record.scoringmethod != null" >
+        ScoringMethod = #{record.scoringmethod,jdbcType=VARCHAR},
       </if>
-      <if test="lastsubmittime != null" >
-        LastSubmitTime = #{lastsubmittime,jdbcType=TIMESTAMP},
+      <if test="record.lastsubmittime != null" >
+        LastSubmitTime = #{record.lastsubmittime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where Id = #{id,jdbcType=INTEGER}
+    where StudentId = #{studentId,jdbcType=INTEGER} and Task = #{taskId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.whch.presentCloud.entity.taskMemory" >
     update taskmemory

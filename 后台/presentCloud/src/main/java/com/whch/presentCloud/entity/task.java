@@ -102,4 +102,28 @@ public class task {
     public void setLastsubmittime(Date lastsubmittime) {
         this.lastsubmittime = lastsubmittime;
     }
+
+    public task(Integer id, Integer userid, Integer grade, String answer, String gradepoint, String task,
+            Integer classid, Integer team, String scoringmethod, Date lastsubmittime) {
+        this.id = id;
+        this.userid = userid;
+        this.grade = grade;
+        this.answer = answer;
+        this.gradepoint = gradepoint;
+        this.task = task;
+        this.classid = classid;
+        this.team = team;
+        this.scoringmethod = scoringmethod;
+        this.lastsubmittime = lastsubmittime;
+    }
+
+    public task(Integer userid, String gradepoint, String task, Integer classid, Integer grade,
+            Date lastsubmittime) {
+        this.userid = userid;
+        this.gradepoint = gradepoint;
+        this.task = task;
+        this.classid = classid;
+        this.grade = grade;
+        this.lastsubmittime = lastsubmittime;
+    }
 }

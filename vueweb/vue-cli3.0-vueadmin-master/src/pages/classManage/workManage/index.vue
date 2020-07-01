@@ -38,6 +38,9 @@
                         size="small"
                         >编辑</el-button
                     >
+                    <el-button  @click.native.prevent="Getinfo(scope.$index, scope.row)" type="text" size="small"
+                    >查看详情</el-button
+                    >
                     <el-button
                         @click.native.prevent="
                             deletedata(scope.$index, tableData1)
@@ -216,10 +219,10 @@ var Class2={
             classname:this.dict1.classname,
             school:this.dict1.school,
             college:this.dict1.college,
-			teacherid:this.teacherid1 
+			teacherid:this.teacherid1
         },
             oldclassid:this.classid1,
-			
+
         }
 
 
@@ -271,12 +274,12 @@ var Class2={
                     }
                 })
                 .then(res => {
-				
+
 				this.$message({
                             type: 'success',
                             message: res.data.message
                         })
-				 
+
                     this.$axios
                         .get('http://localhost:8080/webclass/findbyteacher', {
                             headers: {
@@ -323,6 +326,20 @@ var Class2={
                     })
                 })
             rows.splice(index, 1)
+        },
+         Getinfo(index, row) {
+
+
+            let delid = row.classid
+			console.log(delid) 
+			this.$router.replace({
+                path: '/Classtmanage/ClassStudentmanage',
+                query: {
+                    classid: delid
+                }
+            })
+			
+            console.log(index, row)
         }
     }
 }
