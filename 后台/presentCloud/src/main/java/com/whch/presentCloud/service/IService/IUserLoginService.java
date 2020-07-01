@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.whch.presentCloud.entity.LoginResult;
+import com.whch.presentCloud.entity.ResponseData;
 import com.whch.presentCloud.entity.classLesson;
 import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.entity.userInfo;
@@ -31,4 +32,6 @@ public interface IUserLoginService {
 	public List<Map<String,Object>> classsInfo(String number, int flag);
 
 	public result userLoginResult(String number, String password, String remoteAddr);
+
+	public ResponseData setPassword(String phone, String newPassWord);
 }

@@ -11,6 +11,6 @@ public interface taskMemoryRepository {
     public int add(taskMemory taskM);
     public int update(taskMemory taskM);
     public int delete(taskMemory taskM);
-	public taskMemory getTask(String string,Integer studentId);
+	public taskMemory getTask(String taskId,Integer studentId);
 	public List<taskMemory> getMemoryByTaskId(String task);
 }

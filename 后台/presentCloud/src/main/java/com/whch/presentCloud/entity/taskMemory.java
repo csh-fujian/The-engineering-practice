@@ -112,4 +112,17 @@ public class taskMemory {
     public void setLastsubmittime(Date lastsubmittime) {
         this.lastsubmittime = lastsubmittime;
     }
+
+    public taskMemory(Integer id, Integer studentid, Integer isparticipate, Integer grade, String anser, String task,
+            Integer classid, String scoringmethod, Date lastsubmittime) {
+        this.id = id;
+        this.studentid = studentid;
+        this.isparticipate = isparticipate;
+        this.grade = grade;
+        this.anser = anser;
+        this.task = task;
+        this.classid = classid;
+        this.scoringmethod = scoringmethod;
+        this.lastsubmittime = lastsubmittime;
+    }
 }

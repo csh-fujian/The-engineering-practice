@@ -18,7 +18,7 @@ public interface taskMemoryMapper {
 
     taskMemory selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(taskMemory record);
+    int updateByPrimaryKeySelective(@Param("record") taskMemory record,@Param("studentId")Integer studentId,@Param("taskId")String taskId);
 
     int updateByPrimaryKey(taskMemory record);
 

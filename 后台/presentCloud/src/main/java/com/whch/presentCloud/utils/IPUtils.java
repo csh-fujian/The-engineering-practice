@@ -3,6 +3,8 @@ package com.whch.presentCloud.utils;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -135,17 +137,23 @@ public class IPUtils {
     
 
     public static void main(String[] args) throws Exception {
-    	// String path = req.getSession().getServletContext().getRealPath("/WEB-INF/classes/GeoLite2-City.mmdb");
-    	String path = "C:/D/工程实训/GeoLite2-City.mmdb";
-    	// 创建 GeoLite2 数据库
-    	File database = new File(path);
-    	// 读取数据库内容
-    	DatabaseReader reader = new DatabaseReader.Builder(database).build();
-    	// 访问IP
-    	String ip = "223.91.65.1";
-    	String site = IPUtils.getCountry(reader, ip) + "-" + IPUtils.getProvince(reader, ip) + "-" + IPUtils.getCity(reader, ip)+ "-" + IPUtils.getLongitude(reader, ip)+ "-" + IPUtils.getLatitude(reader, ip);
-    	
-    	System.out.println(site);
+    	// // String path = req.getSession().getServletContext().getRealPath("/WEB-INF/classes/GeoLite2-City.mmdb");
+    	// String path = "C:/D/工程实训/GeoLite2-City.mmdb";
+    	// // 创建 GeoLite2 数据库
+    	// File database = new File(path);
+    	// // 读取数据库内容
+    	// DatabaseReader reader = new DatabaseReader.Builder(database).build();
+    	// // 访问IP
+    	// String ip = "223.91.65.1";
+        // String site = IPUtils.getCountry(reader, ip) + "-" + IPUtils.getProvince(reader, ip) + "-" + IPUtils.getCity(reader, ip)+ "-" + IPUtils.getLongitude(reader, ip)+ "-" + IPUtils.getLatitude(reader, ip);
+        String time = "06月30日,04时";
+        Date now = new Date();
+        String da = 1900+now.getYear()+"年"+time.substring(0,6)+" "+time.substring(7,9)+":00:00";
+        System.out.println(da);;
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+
+        Date sr = formater.parse(da);
+    	System.out.println(sr);
 	}
 
 

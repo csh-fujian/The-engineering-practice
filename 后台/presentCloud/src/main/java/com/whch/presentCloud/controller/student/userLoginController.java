@@ -4,7 +4,7 @@
  * @Autor: whc
  * @Date: 2020-04-09 22:48:05
  * @LastEditors: whc
- * @LastEditTime: 2020-06-30 07:25:25
+ * @LastEditTime: 2020-07-01 17:51:38
  */ 
 package com.whch.presentCloud.controller.student;
 
@@ -118,9 +118,9 @@ public class userLoginController {
         return "false";
     }
 
-    @RequestMapping("/main")
+    @RequestMapping("/resetpassword")
     @ResponseBody
-    public String test() {
-        return "main";
+    public ResponseData resetpassword(@RequestParam("phone")String phone,@RequestParam("newPassWord")String newPassWord) {
+        return userloginservice.setPassword(phone,newPassWord);
     }
 }

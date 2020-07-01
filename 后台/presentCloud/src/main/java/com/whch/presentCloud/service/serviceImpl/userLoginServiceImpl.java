@@ -4,7 +4,7 @@
  * @Autor: whc
  * @Date: 2020-04-09 22:48:05
  * @LastEditors: whc
- * @LastEditTime: 2020-06-30 07:54:07
+ * @LastEditTime: 2020-07-01 17:53:53
  */ 
 package com.whch.presentCloud.service.serviceImpl;
 
@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.whch.presentCloud.entity.ResponseData;
 import com.whch.presentCloud.entity.classCourseMember;
 import com.whch.presentCloud.entity.classLesson;
 import com.whch.presentCloud.entity.result;
@@ -21,6 +22,7 @@ import com.whch.presentCloud.repository.IRepository.userInfoRepository;
 import com.whch.presentCloud.service.IService.IClassManageService;
 import com.whch.presentCloud.service.IService.IUserLoginService;
 import com.whch.presentCloud.service.IService.IUserManageService;
+import com.whch.presentCloud.utils.ResponseDataUtil;
 import com.whch.presentCloud.utils.TokenUtil;
 
 import org.apache.shiro.SecurityUtils;
@@ -234,6 +236,21 @@ public class userLoginServiceImpl implements IUserLoginService {
             r.setInfo("帐号或用户名错误");
             return r;
         }
+    }
+
+    @Override
+    public ResponseData setPassword(String phone, String newPassWord) {
+        userInfo user = findbyphone(phone);
+        if(user != null)
+        {
+            user.setPassword(newPassWord);
+            if(userInfoRepo.update(user, user.getNumber()) == 1){
+                return ResponseDataUtil.success("ok", "修改密码成功") ;
+            }else{
+                return ResponseDataUtil.success("ok", "修改密码失败");
+            }
+        }
+        return ResponseDataUtil.success("ok", "手机号错误");
     }
 
 
