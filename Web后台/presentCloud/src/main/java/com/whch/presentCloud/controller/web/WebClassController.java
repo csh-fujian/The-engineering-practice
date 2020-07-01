@@ -92,12 +92,12 @@ public class WebClassController {
     @GetMapping("findAll")
     public List<classlesson1> findAll(){
         System.out.println("管理员查询班课");
-        Date date = new Date();
         DateFormat df = DateFormat.getDateTimeInstance();
         List<classLesson> classes = classManageService.findAll();
         List<classlesson1> classes1 = new ArrayList<>();
         for(classLesson c : classes)
         {
+            Date date = c.getCreattime();
             classlesson1 c1 = new classlesson1();
             c1.setClassid(c.getClassid());
             c1.setClassname(c.getClassname());
@@ -110,7 +110,11 @@ public class WebClassController {
             c1.setClasstime(c.getClasstime());
             c1.setCollege(c.getCollege());
             c1.setSchool(c.getSchool());
-            c1.setCreattime(df.format(c.getCreattime()));
+            try{
+                c1.setCreattime(df.format(date));
+            }catch (NullPointerException e){
+
+            }
             classes1.add(c1);
         }
         return classes1;
@@ -143,7 +147,11 @@ public class WebClassController {
             c1.setClasstime(c.getClasstime());
             c1.setCollege(c.getCollege());
             c1.setSchool(c.getSchool());
-            c1.setCreattime(df.format(c.getCreattime()));
+            try{
+                c1.setCreattime(df.format(c.getCreattime()));
+            }catch (NullPointerException e){
+
+            }
             classes1.add(c1);
         }
         return classes1;
