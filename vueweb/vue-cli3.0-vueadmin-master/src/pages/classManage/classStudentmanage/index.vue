@@ -72,7 +72,10 @@ export default {
             .then(res => {
                 console.log(res)
                 this.tableData = res.data
-            })
+            }).catch(err => {
+				console.log(err)
+				console.log("===")
+			})
     },
     methods: {
         deletedata(index, rows) {

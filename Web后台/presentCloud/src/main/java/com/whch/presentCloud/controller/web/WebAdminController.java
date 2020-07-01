@@ -31,7 +31,7 @@ public class WebAdminController {
     private adminMapper adminM;
 
     @PostMapping("addadmin")
-    public String addadmin(@PathVariable admin Admin)
+    public String addadmin(@RequestBody admin Admin)
     {
         try{
             adminS.addadmin(Admin);
@@ -49,7 +49,14 @@ public class WebAdminController {
 
     @GetMapping("getAll")
     public List<admin> find(){
-        return adminS.find();
+        List<admin> Admin = adminS.find();
+        int i = 0;
+        for(admin a : Admin)
+        {
+            i++;
+            a.setId(i);
+        }
+        return Admin;
     }
 
     @RequestMapping("update/{password}")
