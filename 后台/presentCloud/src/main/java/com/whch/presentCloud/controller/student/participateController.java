@@ -56,8 +56,7 @@ public class participateController {
      * @param username 学号
      * @param classId
      * @param number 1-4-5-7-9
-     * @param ip ip地址
-     * @return 
+     * @return
      * @throws Exception
      */
 

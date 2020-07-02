@@ -5,6 +5,7 @@ import com.whch.presentCloud.entity.sysparameter;
 import com.whch.presentCloud.entity.updatesys;
 import com.whch.presentCloud.entity.updateuser;
 import com.whch.presentCloud.service.IService.ISysparameterService;
+import com.whch.presentCloud.service.IService.Isha256Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,8 @@ public class WebSysParameterController {
 
     @Autowired
     private ISysparameterService syspara;
+    @Autowired
+    private Isha256Service sha256S;
 
     @GetMapping("findAll")
     public List<sysparameter> findAll()

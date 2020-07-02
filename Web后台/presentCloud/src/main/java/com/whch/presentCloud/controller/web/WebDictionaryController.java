@@ -6,6 +6,7 @@ import com.whch.presentCloud.entity.directoryData;
 import com.whch.presentCloud.entity.updatedata;
 import com.whch.presentCloud.service.IService.IDictionaryDataService;
 import com.whch.presentCloud.service.IService.IDictionaryTypeService;
+import com.whch.presentCloud.service.IService.Isha256Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,9 @@ public class WebDictionaryController {
 
     @Autowired
     private IDictionaryDataService dicdata;
+
+    @Autowired
+    private Isha256Service sha256S;
 
     @PostMapping("addtype")
     public int addtype(@RequestBody dictionaryType diction)
@@ -83,8 +87,6 @@ public class WebDictionaryController {
     {
         return dicdata.finddefault(typed);
     }
-
-
 
     @GetMapping("findAllvalued/{typed}")
     public List<String> findAll(@PathVariable String typed) { return dicdata.findAllvalue(typed); }

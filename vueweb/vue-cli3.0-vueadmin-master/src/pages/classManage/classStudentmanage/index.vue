@@ -1,7 +1,7 @@
 <template lang="html">
     <el-card class="box-card">
         <div style="display: block;font-size:10px;">
-            <h1>班课id:{{ classid }}</h1>
+            <el-tag>当前班课id:{{classid}}</el-tag>
             <el-input
                 v-model="search"
                 icon="el-icon-plus"
@@ -72,7 +72,10 @@ export default {
             .then(res => {
                 console.log(res)
                 this.tableData = res.data
-            })
+            }).catch(err => {
+				console.log(err)
+				console.log("===")
+			})
     },
     methods: {
         deletedata(index, rows) {

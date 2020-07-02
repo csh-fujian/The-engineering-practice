@@ -2,6 +2,7 @@ package com.whch.presentCloud.controller.web;
 
 import com.whch.presentCloud.entity.*;
 import com.whch.presentCloud.service.IService.IMenuManageService;
+import com.whch.presentCloud.service.IService.Isha256Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,9 @@ public class WebMenuController {
 
     @Autowired
     private IMenuManageService menuS;
+
+    @Autowired
+    private Isha256Service sha256S;
 
     @GetMapping("findAll")
     public List<container> findAll()
@@ -43,6 +47,7 @@ public class WebMenuController {
     {
         return menuS.addpage1(Page.getMenuname(), Page.getSupermenu());
     }
+
     @PostMapping("addbutton")
     public int addbutton(@RequestBody addbutton button1)
     {

@@ -3,6 +3,7 @@ package com.whch.presentCloud.controller.web;
 import com.github.pagehelper.Page;
 import com.whch.presentCloud.entity.role;
 import com.whch.presentCloud.service.IService.IRoleManageService;
+import com.whch.presentCloud.service.IService.Isha256Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,8 @@ public class WebUserRoleController {
 
     @Autowired
     private IRoleManageService roleManageService;
-
+    @Autowired
+    private Isha256Service sha256S;
     /**
      * 添加角色
      * @param ro

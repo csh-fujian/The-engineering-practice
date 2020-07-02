@@ -9,10 +9,7 @@ import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.mapper.adminMapper;
 import com.whch.presentCloud.mapper.tokenMapper;
 import com.whch.presentCloud.mapper.userInfoMapper;
-import com.whch.presentCloud.service.IService.IClassManageService;
-import com.whch.presentCloud.service.IService.IDictionaryDataService;
-import com.whch.presentCloud.service.IService.ITokenService;
-import com.whch.presentCloud.service.IService.IUserLoginService;
+import com.whch.presentCloud.service.IService.*;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,13 +34,15 @@ public class WebUserLoginController {
     private adminMapper adminM;
     @Autowired
     private userInfoMapper userM;
+    @Autowired
+    private Isha256Service sha256S;
 
     @PostMapping("login")
     public Object login(@RequestBody userInfo user, HttpServletRequest request)
     {
         JSONObject jsonObject = new JSONObject();
-        admin Admin = userloginservice.adminlogin(user.getNickname(), user.getPassword());
-        userInfo user1 = userloginservice.login(user.getNickname(), user.getPassword());
+        admin Admin = userloginservice.adminlogin(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
+        userInfo user1 = userloginservice.login(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
         if (Admin == null && user1 == null){
             jsonObject.put("message", "登录失败,用户名或密码错误");
             return jsonObject;
@@ -82,8 +81,8 @@ public class WebUserLoginController {
     {
 
         JSONObject jsonObject = new JSONObject();
-        admin Admin = adminM.findOnebyPhone(user.getPhone(), user.getPassword());
-        userInfo user1 = userM.findOnebyPhone(user.getPhone(), user.getPassword());
+        admin Admin = adminM.findOnebyPhone(user.getPhone(), sha256S.getSHA256Str(user.getPassword()));
+        userInfo user1 = userM.findOnebyPhone(user.getPhone(), sha256S.getSHA256Str(user.getPassword()));
         if (Admin == null && user1 == null){
             jsonObject.put("message", "登录失败,手机号或密码错误");
             return jsonObject;
@@ -140,8 +139,8 @@ public class WebUserLoginController {
         if (Token.equals("")){
             System.out.println("token为空");
         }
-        admin Admin = userloginservice.adminlogin(user.getNickname(), user.getPassword());
-        userInfo user1 = userloginservice.login(user.getNickname(), user.getPassword());
+        admin Admin = userloginservice.adminlogin(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
+        userInfo user1 = userloginservice.login(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
         if (Admin == null && user1 == null){
             jsonObject.put("message", "未知错误");
             return jsonObject;
