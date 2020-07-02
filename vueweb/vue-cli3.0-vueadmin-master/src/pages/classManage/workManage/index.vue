@@ -4,7 +4,7 @@
             <el-button
                 type="success"
                 icon="el-icon-plus"
-                @click="dialogVisible = true"
+                @click="addclasslisttemp()"
                 >添加班课</el-button
             >
             <el-input
@@ -33,7 +33,7 @@
             <el-table-column fixed="right" label="操作" width="150">
                 <template slot-scope="scope">
                     <el-button
-                        @click="dialogVisible1 = true,handleEdit(scope.$index, scope.row)"
+                        @click="handleEdit(scope.$index, scope.row)"
                         type="text"
                         size="small"
                         >编辑</el-button
@@ -197,10 +197,16 @@ teacherid1:'',
             })
     },
     methods: {
+    addclasslisttemp(){
+        this.dialogVisible=true
+        this.dict.classid=''
+        this.dict.classname=''
+    },
 	handleEdit(index, row) {
+            this.dialogVisible1 = true,
             console.log(index, row);
-            this.classid1 = row.classid
-			this.teacherid1 = row.teacherid
+            this.dict1.classid = row.classid
+			this.dict1.classname = row.classname
         },
         handleChange(value) {
             console.log(value)

@@ -382,7 +382,9 @@
                     }) 
                     }) 
                 })
-                })
+                }).catch(err => {
+				alert(1)
+			})
             },
             handleChange(value) {
                 console.log(value)
@@ -495,7 +497,9 @@
                     }) 
 				})   
 
-                })
+                }).catch(err => {
+				alert(1)
+			})
 					console.log('success');
 				  } else {
 					console.log('error submit!!'); 

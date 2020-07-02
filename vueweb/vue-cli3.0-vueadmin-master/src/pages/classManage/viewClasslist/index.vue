@@ -186,7 +186,7 @@ teacherid1:null,
     created: function() {
         console.log('1')
         this.$axios
-            .get('http://localhost:8080/webclass/findAll', {
+            .get('http://47.112.239.108:8080/webclass/findAll', {
                 headers: {
                     Authorization: localStorage.getItem('token')
                 }

@@ -60,7 +60,7 @@ export default {
         getProduct() {
             this.$axios
                 .post(
-                    'http://localhost:8080/webadmin/update',
+                    'http://47.112.239.108:8080/webadmin/update',
                     { id: 3, name: 'abc' },
                     {
                         headers: {
@@ -81,7 +81,7 @@ export default {
         getProduct1() {
             this.$axios
                 .post(
-                    'http://localhost:8080/webadmin/update',
+                    'http://47.112.239.108:8080/webadmin/update',
                     { id: 3, name: 'abc' },
                     {
                         headers: {
@@ -116,7 +116,7 @@ export default {
                     console.log(token)
                     this.$axios
                         .post(
-                            'http://localhost:8080/webadmin/update/' + password,
+                            'http://47.112.239.108:8080/webadmin/update/' + password,
                             {},
                             {
                                 headers: {
