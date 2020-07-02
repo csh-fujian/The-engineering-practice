@@ -173,7 +173,7 @@ teacherid1:'',
     created: function() {
         console.log('1')
         this.$axios
-            .get('http://localhost:8080/webclass/findbyteacher', {
+            .get('http://47.112.239.108:8080/webclass/findbyteacher', {
                 headers: {
                     Authorization: localStorage.getItem('token')
                 }
@@ -184,7 +184,7 @@ teacherid1:'',
             })
 			console.log('1')
         this.$axios
-            .get('http://localhost:8080/webinitialization/parse', {
+            .get('http://47.112.239.108:8080/webinitialization/parse', {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     Authorization: localStorage.getItem('token')
@@ -227,7 +227,7 @@ var Class2={
 
 
             this.$axios
-                .post('http://localhost:8080/webclass/update', Class2, {
+                .post('http://47.112.239.108:8080/webclass/update', Class2, {
                     headers: {
                         Authorization: localStorage.getItem('token')
                     }
@@ -238,7 +238,7 @@ var Class2={
                             message: res.data.message
                         })
                     this.$axios
-                        .get('http://localhost:8080/webclass/findbyteacher', {
+                        .get('http://47.112.239.108:8080/webclass/findbyteacher', {
                             headers: {
                                 Authorization: localStorage.getItem('token')
                             }
@@ -268,7 +268,7 @@ var Class2={
             }
             console.log(this.dict)
             this.$axios
-                .post('http://localhost:8080/webclass/addclass', this.dict, {
+                .post('http://47.112.239.108:8080/webclass/addclass', this.dict, {
                     headers: {
                         Authorization: localStorage.getItem('token')
                     }
@@ -281,7 +281,7 @@ var Class2={
                         })
 
                     this.$axios
-                        .get('http://localhost:8080/webclass/findbyteacher', {
+                        .get('http://47.112.239.108:8080/webclass/findbyteacher', {
                             headers: {
                                 Authorization: localStorage.getItem('token')
                             }
@@ -309,7 +309,7 @@ var Class2={
             let delid = rows[index].classid
             this.$axios
                 .post(
-                    'http://localhost:8080/webclass/delete/' + delid,
+                    'http://47.112.239.108:8080/webclass/delete/' + delid,
                     {},
                     {
                         headers: {
@@ -331,14 +331,14 @@ var Class2={
 
 
             let delid = row.classid
-			console.log(delid) 
+			console.log(delid)
 			this.$router.replace({
                 path: '/Classtmanage/ClassStudentmanage',
                 query: {
                     classid: delid
                 }
             })
-			
+
             console.log(index, row)
         }
     }

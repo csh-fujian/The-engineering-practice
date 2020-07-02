@@ -219,7 +219,7 @@ teacherid1:null,
 			this.dict1.classid = row.classid
 			this.dict1.classname = row.classname
 			this.dict1.school = row.school
-			
+
         },
         handleChange(value) {
             console.log(value)
@@ -254,7 +254,7 @@ teacherid1:null,
 		 console.log(Class2)
         this.$axios
             .post(
-                'http://localhost:8080/webclass/update',
+                'http://47.112.239.108:8080/webclass/update',
                 Class2,
                 {
                     headers: {
@@ -268,7 +268,7 @@ teacherid1:null,
                             message: res.data.message
                         })
                 this.$axios
-            .get('http://localhost:8080/webclass/findAll', {
+            .get('http://47.112.239.108:8080/webclass/findAll', {
                 headers: {
                     Authorization: localStorage.getItem('token')
                 }
@@ -286,14 +286,14 @@ teacherid1:null,
 
 
             let delid = row.classid
-			console.log(delid) 
+			console.log(delid)
 			this.$router.replace({
                 path: '/Classtmanage/ClassStudentmanage',
                 query: {
                     classid: delid
                 }
             })
-			
+
             console.log(index, row)
         },
         addclass() {
@@ -308,7 +308,7 @@ teacherid1:null,
 			console.log(this.dict)
             this.$axios
                 .post(
-                    'http://localhost:8080/webclass/adminaddclass',
+                    'http://47.112.239.108:8080/webclass/adminaddclass',
                     this.dict,
                     {
                         headers: {
@@ -324,7 +324,7 @@ teacherid1:null,
                             message: res.data.message
                         })
                     this.$axios
-                        .get('http://localhost:8080/webclass/findAll', {
+                        .get('http://47.112.239.108:8080/webclass/findAll', {
                             headers: {
                                 Authorization: localStorage.getItem('token')
                             }
@@ -350,7 +350,7 @@ teacherid1:null,
 			let delid = rows[index].classid
             this.$axios
                 .post(
-                    'http://localhost:8080/webclass/delete/' + delid,
+                    'http://47.112.239.108:8080/webclass/delete/' + delid,
                   {},
                     {
                         headers: {
