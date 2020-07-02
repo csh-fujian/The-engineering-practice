@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.whch.presentCloud.entity.classCourseMember;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.mapper.classCourseMemberMapper;
+import com.whch.presentCloud.mapper.directoryDataMapper;
 import com.whch.presentCloud.mapper.userInfoMapper;
 import com.whch.presentCloud.repository.IRepository.userInfoRepository;
 import com.whch.presentCloud.service.IService.IUserManageService;
@@ -26,6 +27,8 @@ public class userManageServiceImpl implements IUserManageService {
     private userInfoMapper userMapper;
     @Autowired
     private classCourseMemberMapper courseM;
+    @Autowired
+    private directoryDataMapper dictionaryM;
 
     @Override
     public List<userInfo> getAllUser() {
@@ -87,7 +90,9 @@ public class userManageServiceImpl implements IUserManageService {
             res.put("birthtime", formater.format(user.getBirthday()).substring(0, 8));
         }
 //        res.put("birthtime", user.getBirthday());
-        res.put("sex", user.getSex());
+        res.put("sex", dictionaryM.findByValue(user.getSex()));
+        res.put("femaleValue", dictionaryM.findbykey("female"));
+        res.put("maleValue", dictionaryM.findbykey("male"));
         res.put("school", user.getSchool());
         res.put("department", user.getDepartment());
         res.put("role", user.getRole());
