@@ -33,7 +33,7 @@ public class taskController {
     }
 
     @RequestMapping("/banke/id/oneclass/createWork")
-    public String createTask(@RequestParam String classId,@RequestParam String title,@RequestParam String detail,@RequestParam String scroeMax,@RequestParam String endtime,@RequestParam String username){
-        return taskService.addTask(username,classId,detail,scroeMax,endtime,title);
+    public String createTask(@RequestParam String classId,@RequestParam String title,@RequestParam String detail,@RequestParam String scoreMax,@RequestParam String endtime,@RequestParam String username){
+        return taskService.addTask(username,classId,detail,scoreMax,endtime,title);
     }
 }

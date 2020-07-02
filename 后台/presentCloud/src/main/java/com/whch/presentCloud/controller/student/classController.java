@@ -16,11 +16,7 @@ import com.whch.presentCloud.service.IService.IClassManageService;
 import com.whch.presentCloud.service.IService.IUserManageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class classController {
@@ -91,7 +87,7 @@ public class classController {
      * @param user
      * @return
      */
-    @RequestMapping("/mine/profile-update")
+    @RequestMapping(value = "/mine/profile-update", method = RequestMethod.POST)
     public String updateUserInfo(@RequestBody userInfo user){
         return userManageService.updatebyid(user, user.getNumber());
     }
