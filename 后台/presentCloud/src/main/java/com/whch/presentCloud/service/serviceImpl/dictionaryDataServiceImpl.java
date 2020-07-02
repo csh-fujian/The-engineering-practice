@@ -1,6 +1,7 @@
 package com.whch.presentCloud.service.serviceImpl;
 
 import com.whch.presentCloud.entity.directoryData;
+import com.whch.presentCloud.mapper.directoryDataMapper;
 import com.whch.presentCloud.repository.IRepository.dictionaryDataRepository;
 import com.whch.presentCloud.service.IService.IDictionaryDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ public class dictionaryDataServiceImpl implements IDictionaryDataService {
 
     @Autowired
     private dictionaryDataRepository dictR;
+    @Autowired
+    private directoryDataMapper dictionaryM;
 
     @Override
     public int adddata(directoryData dirtdata) {
@@ -56,6 +59,12 @@ public class dictionaryDataServiceImpl implements IDictionaryDataService {
         }
         return dictR.findbyvalue0(valued, keyd, record.getValued());
 
+    }
+
+    @Override
+    public String findbyValue(String value) {
+       
+        return dictionaryM.findByValue(value);
     }
 
 }

@@ -1,11 +1,13 @@
 package com.whch.presentCloud.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import com.whch.presentCloud.entity.classLesson;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 public interface classLessonMapper {
     int deleteByPrimaryKey(Integer classid);
@@ -28,4 +30,7 @@ public interface classLessonMapper {
 
     @Select("select * from classlesson where type = #{studnetId}")
 	List<classLesson> findBanke(@Param("studentId")String studentId);
+
+    @Update("update classlesson set School = #{schoolName},CreatTime = {creatTime} where ClassId = #{classId}")
+	void updateClass(@Param("classId")Integer classid, @Param("schoolName")String schoolName,@Param("creatTime") Date createTime);
 }

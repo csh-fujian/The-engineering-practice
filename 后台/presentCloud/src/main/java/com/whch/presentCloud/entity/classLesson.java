@@ -20,6 +20,7 @@ public class classLesson {
     private String classtime;
 
     private String college;
+    
 
     public Integer getClassid() {
         return classid;

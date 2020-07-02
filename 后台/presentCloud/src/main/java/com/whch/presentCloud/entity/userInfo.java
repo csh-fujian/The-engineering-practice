@@ -189,5 +189,18 @@ public class userInfo {
 	public userInfo() {
 	}
 
+    public userInfo(String number, String password, String name, String school, String department, String role,
+            String phone, String master, Date creationdate) {
+        this.number = number;
+        this.password = password;
+        this.name = name;
+        this.school = school;
+        this.department = department;
+        this.role = role;
+        this.phone = phone;
+        this.master = master;
+        this.creationdate = creationdate;
+    }
+
 	
 }

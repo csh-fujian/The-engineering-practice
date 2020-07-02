@@ -30,8 +30,8 @@ public interface userInfoMapper {
 
     List<userInfo> multiquery(String number, String role, String school, String department);
 
-    @Select("select * from userinfo u where u.number = #{number} and u.password = #{password}")
-	userInfo findOne(@Param("number")String number, @Param("password")String password);
+    @Select("select * from userinfo u where u.phone = #{phone} and u.password = #{password}")
+	userInfo findOne(@Param("phone")String phone, @Param("password")String password);
 
     @Select("select * from userinfo")
     List<userInfo> getAll();
@@ -45,7 +45,7 @@ public interface userInfoMapper {
     @Delete("delete from userinfo where number = #{number}")
     int deleteuser(@Param("number") String number);
 
-    @Select("select * from userinfo where number = #{number}")
+    @Select("select * from userinfo where phone = #{number}")
 	userInfo findOneUser(@Param("number") String number);
 
 }

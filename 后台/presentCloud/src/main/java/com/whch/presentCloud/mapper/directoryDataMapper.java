@@ -51,4 +51,7 @@ public interface directoryDataMapper {
 
     @Update("update directorydata d set d.keyd = #{keyd}, d.valued = #{valued} where d.valued = #{record}")
     int updatebyvalue0(@Param("valued") String valued, @Param("keyd") String keyd, @Param("record") String record);
+
+    @Select("select d.keyd from directorydata d where d.valued = #{valued}")
+	String findByValue(@Param("valued")String value);
 }

@@ -10,7 +10,7 @@ public interface IUserManageService {
 
     public List<userInfo> getAllUser();
 
-    public userInfo     getUser(String username);
+    public userInfo    getUser(String username);
 
     public String addUser(userInfo user);
 

@@ -34,4 +34,7 @@ public interface IUserLoginService {
 	public result userLoginResult(String number, String password, String remoteAddr);
 
 	public ResponseData setPassword(String phone, String newPassWord);
+
+	public int insertUser(String studentId, String passWord, String name, String school, String department, String role,
+			String phone);
 }

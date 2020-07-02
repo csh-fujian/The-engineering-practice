@@ -28,4 +28,6 @@ public interface checkInHistoryMapper {
 
     @Select("select * from checkinhistory where Id = #{id}")
 	List<checkInHistory> getHistories(@Param("id") Integer id);
+    @Select("select * from checkinhistory where Id = #{id} and Number = #{number}")
+	checkInHistory getOnlyHistory(@Param("id")Integer id, Integer classid, @Param("number")String username);
 }

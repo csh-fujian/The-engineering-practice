@@ -4,7 +4,7 @@
  * @Autor: whc
  * @Date: 2020-04-09 22:48:05
  * @LastEditors: whc
- * @LastEditTime: 2020-07-01 17:51:38
+ * @LastEditTime: 2020-07-02 10:16:55
  */ 
 package com.whch.presentCloud.controller.student;
 
@@ -82,7 +82,7 @@ public class userLoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public result userLogin(@RequestParam("username")String number,@RequestParam("password")String password, HttpServletRequest request){
+    public result userLogin(@RequestParam("phone")String number,@RequestParam("password")String password, HttpServletRequest request){
 //       System.out.println(tel+password);
       return userloginservice.userLoginResult(number,password,request.getRemoteAddr());
         
@@ -108,8 +108,8 @@ public class userLoginController {
     @RequestParam("studentId")String studentId,@RequestParam("phone")String phone,@RequestParam("passWord")String passWord,
     @RequestParam("school")String school,@RequestParam("department")String department)
     {
-        userInfo user = new userInfo(studentId,passWord,Name,school,department,role,phone);
-        int flag = userloginservice.addUser(user);
+        
+        int flag = userloginservice.insertUser(studentId,passWord,Name,school,department,role,phone);
 
         if(flag == 1)
         {

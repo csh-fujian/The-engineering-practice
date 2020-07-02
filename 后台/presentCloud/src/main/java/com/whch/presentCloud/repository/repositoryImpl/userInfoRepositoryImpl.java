@@ -18,7 +18,7 @@ public class userInfoRepositoryImpl implements userInfoRepository {
     @Override
     public userInfo get(userInfo user) {
 
-        return userInfoM.findOne(user.getName(), user.getPassword());
+        return userInfoM.findOne(user.getPhone(), user.getPassword());
     }
 
     @Override

@@ -14,4 +14,5 @@ public interface IDictionaryDataService {
     public List<directoryData> findbytype(String typed);
     public String finddefault(directoryData dirtdata);
     public int findbyvalue(directoryData dirtdata, directoryData record);
+	public String findbyValue(String value);
 }

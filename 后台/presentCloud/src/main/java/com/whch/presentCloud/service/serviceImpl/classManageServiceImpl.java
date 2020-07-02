@@ -4,7 +4,7 @@
  * @Autor: whc
  * @Date: 2020-04-17 18:06:32
  * @LastEditors: whc
- * @LastEditTime: 2020-07-01 15:44:42
+ * @LastEditTime: 2020-07-02 12:04:39
  */ 
 package com.whch.presentCloud.service.serviceImpl;
 
@@ -20,11 +20,13 @@ import com.whch.presentCloud.entity.classCourseMember;
 import com.whch.presentCloud.entity.classLesson;
 import com.whch.presentCloud.entity.result;
 import com.whch.presentCloud.entity.signin;
+import com.whch.presentCloud.entity.sysparameter;
 import com.whch.presentCloud.entity.task;
 import com.whch.presentCloud.entity.taskMemory;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.mapper.checkInHistoryMapper;
 import com.whch.presentCloud.mapper.classCourseMemberMapper;
+import com.whch.presentCloud.mapper.classLessonMapper;
 import com.whch.presentCloud.mapper.signinMapper;
 import com.whch.presentCloud.mapper.taskMapper;
 import com.whch.presentCloud.mapper.userInfoMapper;
@@ -33,6 +35,7 @@ import com.whch.presentCloud.repository.IRepository.signinRepository;
 import com.whch.presentCloud.repository.IRepository.taskMemoryRepository;
 import com.whch.presentCloud.repository.IRepository.taskRepository;
 import com.whch.presentCloud.service.IService.IClassManageService;
+import com.whch.presentCloud.service.IService.ISysparameterService;
 import com.whch.presentCloud.utils.Distance;
 import com.whch.presentCloud.utils.IPUtils;
 import com.whch.presentCloud.utils.ResponseDataUtil;
@@ -61,6 +64,10 @@ public class classManageServiceImpl implements IClassManageService {
     private checkInHistoryMapper checkInHistoryM;
     @Autowired
     private userInfoMapper userM;
+    @Autowired
+    private ISysparameterService sysparameterService;
+    @Autowired
+    private classLessonMapper classLessonM;
 
     @Override
     public List<classCourseMember> getLessons(String number) {
@@ -73,6 +80,9 @@ public class classManageServiceImpl implements IClassManageService {
      */
     public String addCourse(String classId, String studentId) {
         // TODO Auto-generated method stub
+        if(courseM.getCourse(classId, studentId) != null){
+            return "您已加入班课，不能重复添加";
+        }
         // 课程成员
         classCourseMember course1 = new classCourseMember();
         course1.setClassid(Integer.parseInt(classId));
@@ -88,7 +98,7 @@ public class classManageServiceImpl implements IClassManageService {
         if (flag == 0) {
             return "false";
         }
-        return "true";
+        return "ok";
     }
 
     @Override
@@ -280,18 +290,42 @@ public class classManageServiceImpl implements IClassManageService {
     public Map<String, Object> isSucced(String username, String classId, String longitude, String latitude, int role,
             String stu_shouShi, String signId) throws Exception {
         signin sig = siginM.selectByPrimaryKey(Integer.parseInt(signId));
+        HashMap<String,Object> re = new HashMap<>();
+
+        checkInHistory hist = checkInHistoryM.getOnlyHistory(sig.getId(),sig.getClassid(),username);
+        if(hist != null){
+            re.put("state", "false");
+            re.put("msg", "您已签到，不能重复签到");
+            return re;
+        }
         String temp = sig.getPublisher();
         String res[] = temp.split(",");
         int flag = 0;
-        HashMap<String,Object> re = new HashMap<>();
+        
         //获取老师经纬度
         GlobalCoordinates source = new GlobalCoordinates(Double.parseDouble(res[0]), Double.parseDouble(res[1]));
         
         //ip获得经纬度
         GlobalCoordinates target = new GlobalCoordinates(Double.parseDouble(longitude), Double.parseDouble(latitude));
-        
+       
+        //获得系统参数
+        List<sysparameter > sys = sysparameterService.findAll();
+        //获得经验值 签到距离
+        int expe = 0;
+        int distance = 100;
+        for (sysparameter syspa : sys) {
+            if(syspa.getName().equals("签到经验值"))
+            {
+                expe = syspa.getValue();
+            }
+            if(syspa.getName().equals("距离"))
+            {
+                distance = syspa.getValue();
+            }
+            
+        }
         //求距离，距离大于2500米签到失败
-        if(Distance.getDistanceMeter(source, target, Ellipsoid.Sphere) < 2500){
+        if(Distance.getDistanceMeter(source, target, Ellipsoid.Sphere) < distance){
             flag = 1;
         }
 
@@ -306,8 +340,7 @@ public class classManageServiceImpl implements IClassManageService {
                 //插入学生签到记录 signId endTime username classId 
                 checkInHistory his = new checkInHistory(sig.getId(),sig.getStarttime(),now,"2",username,1,classId);
                 if(checkInHistoryM.insertSelective(his) == 1){
-                    //获得经验值
-                    int expe = 2;
+                  
                     int nowExpe = courseM.getCourse(classId, username).getExperience() + expe;
                     courseM.updateExperience(Integer.parseInt(classId),username,nowExpe);
                     re.put("state", "ok");
@@ -323,8 +356,7 @@ public class classManageServiceImpl implements IClassManageService {
                  //插入学生签到记录 signId endTime username classId 
                  checkInHistory his = new checkInHistory(sig.getId(),sig.getStarttime(),now,"1",username,1,classId);
                  if(checkInHistoryM.insertSelective(his) == 1){
-                     //获得经验值
-                     int expe = 2;
+                    
                      int nowExpe = courseM.getCourse(classId, username).getExperience() + expe;
                      courseM.updateExperience(Integer.parseInt(classId),username,nowExpe);
                      re.put("state", "ok");
@@ -335,6 +367,7 @@ public class classManageServiceImpl implements IClassManageService {
             }
         }
         re.put("state", "false");
+        re.put("msg", "网络异常");
         return re;          
     }
 
@@ -354,10 +387,11 @@ public class classManageServiceImpl implements IClassManageService {
     @Override
     public String addClass(String username,String className, String courseName, String schoolName, String departmentName,
             String semester, String studyDemand, String examDemand) {
-        String departmentMaster = schoolName + departmentName;
         userInfo user = userM.findOneUser(username);
-        classLesson course = new classLesson(null,courseName,user.getName(),Integer.parseInt(username),null,className,null,null,semester,departmentMaster);
+        classLesson course = new classLesson(null,courseName,user.getName(),Integer.parseInt(username),null,className,null,null,semester,departmentName);
+        Date createTime = new Date();
         int flag = classLessonR.add(course);
+        
         if(flag == 1)
         {
             
@@ -365,6 +399,8 @@ public class classManageServiceImpl implements IClassManageService {
             for (classLesson classLesson1 : list1) {
                 if(classLesson1.getClassname().equals(courseName)   && (classLesson1.getMaster().equals(className)))
                 {
+                    
+                    classLessonM.updateClass(classLesson1.getClassid(),schoolName,createTime);
                     return Integer.toString(classLesson1.getClassid());
                 }
             }

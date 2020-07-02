@@ -4,11 +4,12 @@
  * @Autor: whc
  * @Date: 2020-04-09 22:48:05
  * @LastEditors: whc
- * @LastEditTime: 2020-07-01 17:53:53
- */ 
+ * @LastEditTime: 2020-07-02 12:09:29
+ */
 package com.whch.presentCloud.service.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,10 +17,14 @@ import java.util.Map;
 import com.whch.presentCloud.entity.ResponseData;
 import com.whch.presentCloud.entity.classCourseMember;
 import com.whch.presentCloud.entity.classLesson;
+import com.whch.presentCloud.entity.directoryData;
 import com.whch.presentCloud.entity.result;
+import com.whch.presentCloud.entity.sysparameter;
 import com.whch.presentCloud.entity.userInfo;
 import com.whch.presentCloud.repository.IRepository.userInfoRepository;
 import com.whch.presentCloud.service.IService.IClassManageService;
+import com.whch.presentCloud.service.IService.IDictionaryDataService;
+import com.whch.presentCloud.service.IService.ISysparameterService;
 import com.whch.presentCloud.service.IService.IUserLoginService;
 import com.whch.presentCloud.service.IService.IUserManageService;
 import com.whch.presentCloud.utils.ResponseDataUtil;
@@ -42,21 +47,25 @@ public class userLoginServiceImpl implements IUserLoginService {
     private IClassManageService classManageService;
     @Autowired
     private IUserManageService userService;
+    @Autowired
+    private IDictionaryDataService dictionaryService;
+
 
     //判断用户的角色
     @Override
     public int IsExistUser(String number, String password) {
         userInfo user1 = new userInfo();
-        user1.setName(number);
+        user1.setPhone(number);
         user1.setPassword(password);
         userInfo user = userInfoRepo.get(user1);
-        System.out.println(user.getRole());
+        String value = user.getRole();
+        String role = dictionaryService.findbyValue(value);
         if (user != null) {
-            if(user.getRole().equals("学生"))
+            if(role.equals("student"))
             {
                 return 1;
             }
-            else if(user.getRole().equals("老师"))
+            else if(role.equals("teacher"))
             {
                 return 2;
             }
@@ -229,6 +238,7 @@ public class userLoginServiceImpl implements IUserLoginService {
             result r1 = userloginservice.loginResult(number, password);
             //返回token
             r1.setToken(token);
+            r1.setMap("username", role.getNumber());
             return r1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -251,6 +261,28 @@ public class userLoginServiceImpl implements IUserLoginService {
             }
         }
         return ResponseDataUtil.success("ok", "手机号错误");
+    }
+
+    @Override
+    public int insertUser(String studentId, String passWord, String name, String school, String department, String role,
+            String phone) {
+            
+             //获得系统参数距离
+             String sys_role = dictionaryService.findbykey(role);
+             String default_sex = "";
+             Date createTime = new Date();
+             List<directoryData> list = dictionaryService.findbytype("sexy");
+
+             for (directoryData Data : list) {
+                 if(Data.getDefaultvalued() == 1)
+                 {
+                    default_sex = Data.getValued();
+                 }
+                 
+             }
+             userInfo user = new userInfo(studentId,passWord,name,school,department,sys_role,phone,default_sex,createTime);
+             return addUser(user);
+        
     }
 
 
