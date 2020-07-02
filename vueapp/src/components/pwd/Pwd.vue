@@ -185,7 +185,7 @@ export default {
             // 签到成功
             // this.$emit('success')
         } else {
-            this.$refs.gestureTitle.innerHTML = '手势输入错误';
+            this.$refs.gestureTitle.innerHTML = '手势输入';
             // this.drawStatusPoint('red');
             // this.drawPoint('red');
             this.reset()

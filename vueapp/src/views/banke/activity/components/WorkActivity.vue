@@ -8,7 +8,7 @@
       <van-cell center is-link v-for="item in tasks">
         <template #title>
           <div class="cellItem" @click="workClick(item)">
-            <van-image :src="require('assets/image/banke/activity/task.png')" width="32px" height="32px" class="vertical-middle"/>
+            <van-image :src="require('assets/image/activity/task.png')" width="32px" height="32px" class="vertical-middle"/>
             <span class="margin-left-small">{{item.taskName}}</span>
           </div>
           <div class="flex cell-bottom" @click="workClick(item)">

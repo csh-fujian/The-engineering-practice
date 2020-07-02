@@ -5,13 +5,7 @@
         v-model="activeName"
         type="line"
         :border="false">
-        <van-tab name="verifyLogin" ref="verify">
-          <div class="different-login">
-            <verify-login />
-            <login-bottom :buttonName="buttonName"/>
-          </div>
-          <span :class="{tabTitle:titleActive}" slot="title">验证码登录</span>
-        </van-tab>
+
 
         <van-tab  name="accountLogin">
           <div class="different-login">
@@ -20,6 +14,16 @@
           </div>
           <span :class="{tabTitle:!titleActive}" slot="title">账号登录</span>
         </van-tab>
+
+        <van-tab name="verifyLogin" ref="verify">
+          <div class="different-login">
+            <verify-login />
+            <login-bottom :buttonName="buttonName"/>
+          </div>
+          <span :class="{tabTitle:titleActive}" slot="title">验证码登录</span>
+        </van-tab>
+
+
       </van-tabs>
     </div>
     <Footer />
@@ -40,7 +44,7 @@
     name: "Login",
     data() {
       return {
-        activeName: 'verifyLogin',
+        activeName: 'accountLogin',
       };
     },
     computed: {
@@ -108,8 +112,8 @@
             window.localStorage["isFirst"] = 1
             window.localStorage["passWord"] =  params.password
             window.localStorage['phone'] = params.phone
-
             this.$router.push('/banke')
+
           }else if (data.code == 500) {
             this.$toast(data.msg);
           }

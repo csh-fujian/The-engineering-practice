@@ -42,7 +42,6 @@
         console.log(this.myClass);
         const {className, courseName, schoolName, departmentName, semester, studyDemand,examDemand} = this.myClass
         const username = window.localStorage['userName']
-        console.log(username);
         const params = {
           className,
           courseName,
@@ -57,8 +56,10 @@
         createClass(params).then(data => {
           console.log(data);
           if (data>0) {
-            this.$toast('班课创建成果')
+            this.$toast('班课创建成功')
             this.$router.replace('/banke')
+          } else {
+            this.$toast('创建班课失败，数据填写不全')
           }
         }).catch(err => {
           console.log(err);

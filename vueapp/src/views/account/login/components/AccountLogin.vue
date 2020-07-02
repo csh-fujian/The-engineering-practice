@@ -5,7 +5,7 @@
       <van-field
               class="fieldCss"
               v-model="userName"
-              placeholder="请输入用户名"
+              placeholder="请输入账号"
               size="large"
               @click="fieldItemClick('userName')"
       />

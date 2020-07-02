@@ -35,6 +35,7 @@
   import MdBankeTabBar from "components/banke-tabbar/MdBankeTabBar";
   import WorkActivity from "./components/WorkActivity";
   import {getOneClass} from "network/banke/activity";
+  import {getTeacherOneClass} from "../../../network/banke/activity";
 
   export default {
     name: "Activity",
@@ -48,14 +49,13 @@
       }
     },
     created() {
-      // 页面数据
-      this.getOneClassData()
-
-      //身份判断
-      this.isTeacher = this.$store.getters.isTeacher
+      // //身份判断
+      // this.isTeacher = this.$store.getters.getIsTeacher
+      // // 页面数据
+      // this.getOneClassData()
     },
     activated() {
-      this.isTeacher = this.$store.getters.isTeacher
+      this.isTeacher = this.$store.getters.getIsTeacher
       this.getOneClassData()
     },
     components: {
@@ -63,24 +63,38 @@
       WorkActivity
     },
     methods: {
-
-
       //获得页面数据
       getOneClassData() {
-        console.log(this.$route.params.classId)
-        const params = {
-          classId:this.$route.params.classId,
-          username: window.localStorage.userName
+
+        if(this.$store.getters.getIsTeacher) {
+          const params = {
+            classId:this.$route.params.classId,
+            username: window.localStorage.userName
+          }
+          console.log(params);
+          getTeacherOneClass(params).then(data => {
+            console.log(data);
+            this.tabs = data.tabs
+            this.tasks = data.tasks
+          }).catch(err => {
+            console.log(err);
+          })
+
+        } else {
+
+          const params = {
+            classId:this.$route.params.classId,
+            username: window.localStorage.userName
+          }
+          getOneClass(params).then(data => {
+            console.log(data);
+            this.tabs = data.tabs
+            this.tasks = data.tasks
+          }).catch(err => {
+            console.log(err);
+          })
         }
 
-        console.log(params)
-        getOneClass(params).then(data => {
-          console.log(data);
-          this.tabs = data.tabs
-          this.tasks = data.tasks
-        }).catch(err => {
-          console.log(err);
-        })
       },
       workUpLoadClick(item) {
         const workData = {

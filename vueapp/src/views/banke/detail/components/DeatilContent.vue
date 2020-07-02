@@ -214,7 +214,7 @@
           let qrcode = new QRCode('qrcode', {
             width: 250,
             height: 250,        // 高度
-            text:  "bunnegyou",   // 二维码内容
+            text:  '"'+url+'"' ,   // 二维码内容
             correctLevel : QRCode.CorrectLevel.H,
             colorDark : "#000000",
             colorLight : "#ffffff",

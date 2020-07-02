@@ -173,9 +173,9 @@
       },
       requestRegister() {
         if (this.statusRadio == 'student')
-          this.profile.status = '学生'
+          this.profile.status = 'student'
         else
-          this.profile.status = '老师'
+          this.profile.status = 'teacher'
 
         this.profile.passWord = setSha256(this.profile.passWord)
         this.profile.repassWord = setSha256(this.profile.repassWord)

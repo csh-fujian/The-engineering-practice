@@ -44,7 +44,7 @@
 
         //这边不支持浏览器，而支持真机获得经纬度 定位！
         plus.geolocation.getCurrentPosition((p) => {
-          alert('得到手势' + poseresult)
+          // alert('得到手势' + poseresult)
           // let poseresult = ""
           // for (let item of self.$refs.pwd.lastPoint) {
           //   console.log(item);

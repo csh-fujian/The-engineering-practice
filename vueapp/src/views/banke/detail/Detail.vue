@@ -21,8 +21,8 @@
   import DetailBottom from "./components/DetailBottom";
 
   import {detail} from "mock/banke/oneclass/data";
-  import {getOneClass} from "../../../network/banke/activity";
-  import {endClass, exitClass} from "../../../network/banke/detail";
+  import {getOneClass, getTeacherOneClass} from "../../../network/banke/activity";
+  import {endClass, exitClass, getTeacherOneClassDetail} from "../../../network/banke/detail";
 
   export default {
     name: "Detail",
@@ -30,14 +30,26 @@
       return {
         data: detail,
         dataTop: {},
-        dataContent: {}
+        dataContent: {},
+        isTeacher: false,
       }
     },
     created() {
       //网络获取首页数据
-      this.getOneClassData()
+      // this.getOneClassData()
       // this.dataTop = this.data.dataTop
       // this.dataContent = this.data.dataContent
+    },
+    activated() {
+      console.log('activate');
+      this.isTeacher = this.$store.getters.getIsTeacher
+      console.log(this.isTeacher);
+      if (this.isTeacher) {
+        this.getTeacherOneClassData()
+      } else {
+        this.getOneClassData()
+      }
+
     },
     components: {
       MdBankeTabBar,
@@ -84,16 +96,40 @@
       //获得页面数据
       getOneClassData() {
         // 请求首页数据
-        console.log(this.$route.params.classId)
+
         const params = {
           classId:this.$route.params.classId,
           username: window.localStorage.userName
         }
+        console.log(params)
         getOneClass(params).then(data => {
           console.log(data);
           this.data = data.detail
           this.dataTop = data.detail.dataTop
           this.dataContent = data.detail.dataContent
+        }).catch(err => {
+          console.log(err);
+        })
+      },
+
+      //老师页面获取数据
+      getTeacherOneClassData() {
+        const params = {
+          classId:this.$route.params.classId,
+          username: window.localStorage.userName
+        }
+        console.log(params);
+        getTeacherOneClassDetail(params).then(data => {
+          console.log(data);
+
+          const dataTop={
+            description: data.data.description,
+            className: data.data.className,
+            teacher: data.data.teacher,
+            time: data.data.semester,
+          }
+          this.dataTop = dataTop
+          this.dataContent = data.dataContent
         }).catch(err => {
           console.log(err);
         })

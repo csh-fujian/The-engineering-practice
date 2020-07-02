@@ -1,5 +1,15 @@
 import {request} from "../network";
 
+
+function getTeacherOneClassDetail(params) {
+  const config = {
+    url: '/banke/id/detail',
+    params
+  }
+  return request(config)
+}
+
+
 function endClass(params) {
   const config = {
     url: '/banke/id/detail/end',
@@ -28,5 +38,6 @@ function exitClass(params) {
 export {
   endClass,
   exitClass,
+  getTeacherOneClassDetail
   // deleteClass
 }

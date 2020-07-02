@@ -1,1 +1,1 @@
-export const Copyright="@Copyright 2020-2021"
+export const Copyright="@Copyright 26小组设计"

@@ -9,6 +9,15 @@ function getOneClass(params) {
   return request(config)
 }
 
+//老师的接口，不一样
+function getTeacherOneClass(params) {
+  const config = {
+    url: '/banke/id/oneclass',
+    params
+  }
+  return request(config)
+}
+
 //创建任务
 function createWork(params) {
   const config = {
@@ -30,5 +39,6 @@ function upLoadWork(params) {
 export {
   getOneClass,
   createWork,
-  upLoadWork
+  upLoadWork,
+  getTeacherOneClass
 }

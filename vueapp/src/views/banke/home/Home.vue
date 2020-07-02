@@ -83,6 +83,8 @@ export default {
     //
     // //获取首页数据
     // this.getHomeData()
+    // this.initStatus()
+    // this.getHomeData()
 
   },
 
@@ -90,6 +92,7 @@ export default {
     console.log('页面 activated')
     this.initStatus()
     this.getHomeData()
+
   },
   deactivated() {
 
@@ -133,6 +136,7 @@ export default {
         this.$store.commit('setIsTeacher', false)
         this.initStudent()
       }
+
     },
 
     // 网络请求

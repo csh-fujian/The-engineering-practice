@@ -9,7 +9,7 @@
     <van-cell-group @click.native="profileClick">
       <card-item>
         <div slot="title-content" class="margin-top-normal text-big bold">
-          池升恒
+          个人信息
         </div>
       </card-item>
     </van-cell-group>
