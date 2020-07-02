@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.whch.presentCloud.entity.classLesson;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -40,4 +41,7 @@ public interface classLessonMapper {
 
     @Select("select * from classlesson")
     List<classLesson> findAll();
+
+    @Delete("delete from classlesson where teacherid = #{teacherid}")
+    int deleteclass1(@Param("teacherid") Integer teacherid);
 }

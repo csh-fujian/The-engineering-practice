@@ -56,6 +56,7 @@ public class WebUserController {
         userInfo user1 = user;
         try{
             usermanage.delete(user);
+            classM.deleteclass1(Integer.parseInt(user.getNumber()));
             return "删除成功";
         }catch (DataAccessException e){
             return "删除失败，该用户与其他表外键相关";

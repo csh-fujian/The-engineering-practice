@@ -24,8 +24,6 @@ public class WebClassCourseController {
 
     @RequestMapping("delete")
     public String deletestu(@RequestBody classCourseMember coursemember){
-        System.out.println(coursemember.getStudentid());
-        System.out.println(coursemember.getClassid());
         int classid = coursemember.getClassid();
         String studentid = coursemember.getStudentid();
         try{

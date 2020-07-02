@@ -98,7 +98,6 @@ public class menuManageServiceImpl implements IMenuManageService {
             menuR.add(m1);
         }
 
-
         int j = permR.findmenuid(0, menuname);
         // 将二级菜单逐个加入permission表并将其父菜单设置为上面取出的id
         for (String submenu : menus){
