@@ -31,6 +31,6 @@ public interface classLessonMapper {
     @Select("select * from classlesson where type = #{studnetId}")
 	List<classLesson> findBanke(@Param("studentId")String studentId);
 
-    @Update("update classlesson set School = #{schoolName},CreatTime = {creatTime} where ClassId = #{classId}")
+    @Update("update classlesson set School = #{schoolName},CreatTime = #{creatTime} where ClassId = #{classId}")
 	void updateClass(@Param("classId")Integer classid, @Param("schoolName")String schoolName,@Param("creatTime") Date createTime);
 }

@@ -30,5 +30,5 @@ public interface taskMapper {
 	List<task> find(@Param("userId") Integer userId);
 
     @Select("select * from task where  ClassId=#{classId}")
-	List<task> getTask(Integer classid);
+	List<task> getTask(@Param("classId")Integer classid);
 }
