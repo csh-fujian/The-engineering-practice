@@ -9,6 +9,16 @@ export function debounce(func, delay) {
   }
 }
 
+
+export function setSha256(data) {
+  let sha256 = require("js-sha256").sha256
+  data = sha256(data)
+  console.log(data)
+  return data
+}
+
+
+// 设置时间
 export function formatDate(date, fmt) {
   if (/(y+)/.test(fmt)) {
     fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));

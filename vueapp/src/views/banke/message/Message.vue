@@ -9,6 +9,14 @@
         私聊
       </template>
     </van-nav-bar>
+
+    <div class="imageclass">
+      <div class="margin-left-normal">
+        <van-image width="128" height="128" :src="require('assets/image/resource/making.png')" />
+      </div>
+      <p class="text-center text-big bold"><br></br>尚未开发</p>
+    </div>
+
     <md-banke-tab-bar activeValue="message"/>
   </div>
 </template>
@@ -33,5 +41,13 @@
 </script>
 
 <style scoped>
-
+  .imageclass {
+    position: absolute;
+    left: 53%;
+    top: 40%;
+    width:200px;
+    height:100px;
+    margin-left:-100px;
+    margin-top:-50px;
+  }
 </style>

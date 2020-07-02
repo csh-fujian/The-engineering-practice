@@ -24,7 +24,13 @@
 
   import MdNavBar from "components/nav-bar/MdNavBar";
   import Pwd from "components/pwd/Pwd";
-  import {signNowEnd, signNowStart, signPoseEnd, signPoseStart} from "../../../../network/banke/member";
+  import {
+    signNowEnd,
+    signNowStart,
+    signPoseEnd,
+    signPoseStart,
+    studentSignPose
+  } from "../../../../network/banke/member";
 
 
   export default {
@@ -58,6 +64,7 @@
           console.log(err);
         })
       },
+
       // 发布签到
       startPwd() {
         console.log(this.$refs.pwd.lastPoint);
@@ -67,21 +74,33 @@
         }
         poseresult = poseresult.substring(0, poseresult.length-1)
         console.log(poseresult);
-        const params = {
-          posenumber:poseresult,
-          username: window.localStorage['userName'],
-          classId: this.$route.params.classId,
-          longitude: 210,
-          latitude:140
-        }
+        alert(poseresult)
 
-        signPoseStart(params).then(data => {
-          console.log(data);
-          this.signId = data
-        }).catch(err => {
-          console.log(err);
-        })
-        this.showPoseSignIn = true
+        plus.geolocation.getCurrentPosition((p) => {
+
+          console.log('poseresult:' + poseresult);
+          console.log('p.coords.longitude:' + p.coords.longitude);
+          console.log('p.coords.latitude:' + p.coords.latitude);
+
+          const params = {
+            posenumber:poseresult,
+            username: window.localStorage['userName'],
+            classId: this.$route.params.classId,
+            longitude: p.coords.longitude,
+            latitude:p.coords.latitude
+          }
+          console.log('params.longitude:' + params.longitude);
+          signPoseStart(params).then(data => {
+            console.log('data'+data);
+            this.signId = data
+            this.showPoseSignIn = true
+          }).catch(err => {
+            console.log(err);
+          })
+
+        }, function(e){
+          alert('Geolocation error: ' + e.message);
+        });
 
       },
       resetPassword() {

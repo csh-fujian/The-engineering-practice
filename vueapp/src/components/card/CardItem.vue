@@ -33,7 +33,7 @@
       imageUrl: {
         type: String,
         // 不能是字符串格式的
-        default: require('assets/image/banke/home/class.png')
+        default: require('assets/image/mine/touxiang.png')
       }
     }
   }

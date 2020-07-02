@@ -31,6 +31,7 @@
     },
     methods: {
       signOut() {
+        window.localStorage['isFirst'] = -1
         this.$router.replace('/login')
       }
     }

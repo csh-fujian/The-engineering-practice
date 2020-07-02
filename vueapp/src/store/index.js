@@ -21,7 +21,13 @@ export default new Vuex.Store({
     studentSignType: "",
     studentSignId: 0,
     teacherLongitude: 0,
-    teacherLatitude: 0
+    teacherLatitude: 0,
+    teskData: {
+      scoreMax: 0,
+      title: '',
+      timeState: '',
+      description: ''
+    }
   },
   mutations,
   actions,

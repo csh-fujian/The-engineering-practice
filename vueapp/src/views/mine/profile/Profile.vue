@@ -28,7 +28,7 @@
         </template>
       </van-cell>
 
-      <van-cell title="出生年月" @click.native="birthTimeClick" :value="profile.birthtime">
+      <van-cell title="出生年月" @click.native="birthTimeClick" v-model="profile.birthtime">
       </van-cell>
 
       <van-cell title="性别">
@@ -59,7 +59,7 @@
       </van-cell>
     </van-cell-group>
 
-    <van-button plain hairline type="primary" block class="margin-top-normal">保存</van-button>
+    <van-button plain hairline type="primary" block class="margin-top-normal" @click="saveProfile">保存</van-button>
 
     <time-picker ref="timePick" @newTime="newTime"/>
 
@@ -73,24 +73,85 @@
 
   import {profile} from "mock/mine/data";
   import {formatDate} from "common/utils";
+  import {getProfile, updateProfile} from "../../../network/mine/home";
 
   export default {
     name: "Profile",
     data() {
       return {
-        imgUrl: require('assets/image/mine/yunbanke.png'),
+        imgUrl: require('assets/image/mine/touxiang.png'),
         profile: profile,
         sexRadio: 'male',
       }
     },
     created() {
       this.sexRadio = this.profile.sex
+      this.getProfileData()
     },
     components: {
       CardItem,
       TimePicker
     },
     methods: {
+      //获取个人信息
+      getProfileData() {
+        const params = {
+          username: window.localStorage['userName']
+        }
+        console.log(params);
+        getProfile(params).then(data => {
+          console.log(data);
+          const profile = {
+            name: data.name,
+            nickName: data.nickName,
+            birthtime: data.birthtime,
+            sex: data.sex,
+            school: data.school,
+            department: data.department,
+            role: data.role,
+            studentId: data.studentId,
+            experience: data.experience
+          }
+          if (data.sex == '女') {
+            this.sexRadio="female"
+          }else {
+            this.sexRadio="male"
+          }
+          this.profile = profile
+        }).catch(err => {
+          console.log(err);
+        })
+      },
+
+      // 更新个人信息
+      saveProfile() {
+        console.log();
+        let dateparse = this.profile.birthtime + "10日"
+        let date = new Date(Date.parse(dateparse.replace('年','-').replace('月','-').replace('日','')))
+        console.log(date);
+        const user = {
+          name: this.profile.name,
+          nickname: this.profile.nickName,
+          birthday: date,
+          sex: this.profile.sex,
+          school: this.profile.school,
+          department: this.profile.department,
+          role: this.profile.role,
+          number: this.profile.studentId,
+        }
+        console.log(user);
+
+        // const params = {
+        //   profile
+        // }
+        updateProfile(user).then(data => {
+          console.log(data);
+          if (data == 'ok') {
+            this.$toast('数据修改成功')
+          }
+        }).catch(err => {
+        })
+      },
       newTime(newtime) {
         this.profile.birthtime = formatDate(newtime, 'yyyy年MM月')
       },

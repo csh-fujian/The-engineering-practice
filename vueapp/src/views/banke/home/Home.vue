@@ -17,7 +17,8 @@
     <van-search
             v-model="value"
             show-action
-            placeholder="请输入搜索关键词"
+            placeholder="全局搜索"
+            clearable
             label="搜索"
     >
       <template #action>
@@ -53,7 +54,25 @@ export default {
         { name: '二维码加入班课' },
       ],
       videoImageData:[],
-      isTeacher: true
+      isTeacher: true,
+      tempData: null
+    }
+  },
+  watch: {
+    'value':function () {
+      let result=[]
+      this.tempData.forEach(item => {
+        if(JSON.stringify(item).indexOf(this.value)!=-1) {
+          result.push(item)
+        }
+        console.log(result);
+      })
+
+      if (this.$store.getters.getIsTeacher) {
+        this.home.teacherClassList = result
+      } else {
+        this.home.studentClassList = result
+      }
     }
   },
   created() {
@@ -99,6 +118,8 @@ export default {
         }else {
           this.home.studentClassList = data
         }
+        this.tempData = JSON.parse(JSON.stringify(data))
+
       }).catch(err => {
         console.log(err);
       })
@@ -155,31 +176,49 @@ export default {
     },
     //从相册选择照片
     galleryImg(){
-      var _this = this;
-      plus.gallery.pick(
-          (path) => {
-            console.log('test',path);
-            let qr = new QrcodeDecoder();
-            qr.decodeFromImage(path).then((res) => {
-              //打印结果为 解析出来的 二维码地址
-              // alert(res.data);
-              console.log(res.data);
-              _this.$router.push(res.data)
-              //不是二维码： undefine
-              // 不是我们定义的二维码
-              // alert('失败文案');
-            })
-          },
-          ( e ) => {
-            console.log( "取消选择图片" );
-          },
-          {filter:"image"});
+      let _this = this;
+      function onmarked( type, result ) {  //这个是扫描二维码的回调函数，type是扫描二维码回调的类型
+        var text = '';
+        switch(type){ //QR,EAN13,EAN8都是二维码的一种编码格式,result是返回的结果
+          case plus.barcode.QR:
+            text = 'QR: ';
+            break;
+          case plus.barcode.EAN13:
+            text = 'EAN13: ';
+            break;
+          case plus.barcode.EAN8:
+            text = 'EAN8: ';
+            break;
+        }
+        console.log('type'+type);
+        result = result.replace(/\"/g, "");
+        // alert(result);
+        _this.$router.push(result)
+      }
+
+      plus.gallery.pick(function(path){
+        plus.barcode.scan(path,onmarked,function(error){
+          plus.nativeUI.alert( "无法识别此图片" );
+          _this.$router.replace('/banke')
+        });
+      },function(err){
+        plus.nativeUI.alert("Failed: "+err.message);
+      });
+
     },
-    onSearch() {
+      onSearch() {
       console.log('search');
     },
     onSort() {
       console.log('调序');
+      this.$toast('功能尚未开发')
+      // // this.galleryImg1()
+      // let data = '"/banke/src"'
+      // console.log(data);
+      //
+      // console.log(data);
+
+
     }
   }
 }

@@ -62,14 +62,17 @@
         console.log(params);
         joinClassIn(params).then(data=>{
           console.log(data);
-          if (data) {
+          if (data == 'ok') {
             this.$toast('加入班级'+this.classId+"成功")
+            this.$router.replace('/banke')
+          } else {
+            this.$toast('你已加入该班课')
             this.$router.replace('/banke')
           }
         }).catch(err=>{
-
+          console.log(err);
         })
-        this.$router.replace('/banke')
+
       }
     }
   }

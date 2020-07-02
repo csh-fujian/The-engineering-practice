@@ -20,20 +20,20 @@
     <van-overlay :show="showOverlay" class="overlay" @click="showOverlay = !showOverlay">
       <div class="overlay-line" @click.stop>
         <div class="overlay-item text-center" @click="workClick">
-          <van-image :src="imageUrl" width="46px" height="46px" />
+          <van-image :src="require('assets/image/activity/work.png')" width="46px" height="46px" />
           <p class="font-css">作业任务</p>
         </div>
-        <div class="overlay-item text-center">
-          <van-image :src="imageUrl" width="46px" height="46px" />
+        <div class="overlay-item text-center" @click="testing">
+          <van-image :src="require('assets/image/activity/test.png')" width="46px" height="46px" />
           <p class="font-css">测试</p>
         </div>
-        <div class="overlay-item text-center">
-          <van-image :src="imageUrl" width="46px" height="46px" />
+        <div class="overlay-item text-center" @click="testing">
+          <van-image :src="require('assets/image/activity/activity.png')" width="46px" height="46px" />
           <p class="font-css">活动库</p>
         </div>
-        <div class="overlay-item text-center">
-          <van-image :src="imageUrl" width="46px" height="46px" />
-          <p class="font-css">头脑风暴</p>
+        <div class="overlay-item text-center" @click="testing">
+          <van-image :src="require('assets/image/activity/vote.png')" width="46px" height="46px" />
+          <p class="font-css">投票</p>
         </div>
       </div>
     </van-overlay>
@@ -59,10 +59,21 @@
         default: ''
       }
     },
+    watch: {
+      'showOverlay':function () {
+        if (this.showOverlay) {
+          this.teacherActivity = '取消'
+        } else
+        {
+          this.teacherActivity = '添加'
+        }
+      }
+    },
     created() {
       this.isTeacher = this.$store.getters.getStatus === 'teacher'
     },
     activated() {
+      this.isTeacher = window.localStorage['role'] === 'teacher'
       this.active = this.activeValue
       if(this.activeValue === 'activity') {
         this.isActivity = true
@@ -72,17 +83,14 @@
       }
     },
     methods: {
+      testing() {
+        this.$toast('未开发，已开发-发布任务')
+      },
       workClick() {
         this.$router.push(this.$route.path + '/createWork')
       },
       activityClick() {
         this.showOverlay = !this.showOverlay
-        if (this.showOverlay) {
-          this.teacherActivity = '取消'
-        } else
-        {
-          this.teacherActivity = '添加'
-        }
       },
       onChange(name) {
         const classId = this.$store.getters.getCurrentClassId

@@ -12,7 +12,7 @@
           <span class="text-normal font-gray">{{data.time}}</span><br>
 
           <div class="icon-css"
-               v-if="$store.getters.getStatus === 'teacher'"
+               v-if="$store.getters.getIsTeacher"
                @click="editClick">
             <van-icon name="edit" color="var(--theme-color)" size="20" />
           </div>

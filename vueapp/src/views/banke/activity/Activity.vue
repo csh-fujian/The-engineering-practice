@@ -19,7 +19,7 @@
         </template>
 
         <!-- 作业任务-->
-        <work-activity v-show="index===1" :tasks="tasks" :note="note"/>
+        <work-activity v-show="index===1" :tasks="tasks" :note="note" @workUpLoadClick="workUpLoadClick"/>
 
       </van-tab>
     </van-tabs>
@@ -63,6 +63,8 @@
       WorkActivity
     },
     methods: {
+
+
       //获得页面数据
       getOneClassData() {
         console.log(this.$route.params.classId)
@@ -79,6 +81,16 @@
         }).catch(err => {
           console.log(err);
         })
+      },
+      workUpLoadClick(item) {
+        const workData = {
+          scoreMax: item.experience,
+          title: item.taskName,
+          timeState: item.timeState,
+          description: item.description
+        }
+        this.$store.commit('setTeskData', workData)
+        this.$router.push('/banke/'+this.$route.params.classId+'/oneclass/'+item.workId+'/workUpLoad')
       },
       onClickLeft()
       {

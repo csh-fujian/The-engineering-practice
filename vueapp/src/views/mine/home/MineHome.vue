@@ -13,11 +13,12 @@
         </div>
       </card-item>
     </van-cell-group>
-    <van-grid>
-      <van-grid-item icon="photo-o" text="经验值" />
-      <van-grid-item icon="photo-o" text="签到数" />
-      <van-grid-item icon="photo-o" text="解答数" />
-      <van-grid-item icon="photo-o" text="点赞数" />
+
+    <van-grid class="margin-topdown-small">
+      <van-grid-item  text="经验值" />
+      <van-grid-item  text="签到数" />
+      <van-grid-item  text="解答数" />
+      <van-grid-item  text="点赞数" />
     </van-grid>
 
     <van-cell title="账号管理" is-link @click.native="accountClick"/>

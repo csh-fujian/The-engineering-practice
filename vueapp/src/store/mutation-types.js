@@ -8,6 +8,8 @@ const StudentSignType = "setStudentSignType"
 const StudentSignId = "setStudentSignId"
 const TeacherLatitude = "setTeacherLatitude"
 const TeacherLongitude = "setTeacherLongitude"
+const TeskData = "setTeskData"
 export {TEST, PHONE, ROLE, USERNAME, CURRENTCLASSID,
-  ISTEACHER,StudentSignType,StudentSignId,TeacherLatitude,TeacherLongitude
+  ISTEACHER,StudentSignType,StudentSignId,TeacherLatitude,TeacherLongitude,
+  TeskData
 }

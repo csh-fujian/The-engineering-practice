@@ -8,7 +8,8 @@
     <div class="content">
       <div class="margin-top-normal" />
       <van-cell-group>
-        <van-field class="margin-topdown-normal" v-model="email"  label="关联Email"  label-class="text-normal"/>
+        <van-field class="margin-topdown-normal" v-model="email"  label="关联Email"
+                   label-class="text-normal"/>
       </van-cell-group>
       <van-button plain hairline type="primary" block @click="check">邮箱验证</van-button>
     </div>
@@ -25,6 +26,7 @@
     },
     methods: {
       check() {
+        this.$toast('接口未实现')
       },
       onClickLeft() {
         this.$router.back()

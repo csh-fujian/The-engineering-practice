@@ -1,13 +1,13 @@
 const profile = {
-  name: '池升恒',
-  nickName: 'aboutnone',
-  birthtime: '1997/xx',
-  sex: 'male',
-  school: 'xx大学',
-  department: '计算机学院',
-  role: '学生',
-  studentId: '190327xxx',
-  experience: 20
+  name: '',
+  nickName: '',
+  birthtime: '',
+  sex: '',
+  school: '',
+  department: '',
+  role: '',
+  studentId: '',
+  experience: 0
 }
 
 

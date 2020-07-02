@@ -177,7 +177,7 @@
       }
     },
     components: {
-      QRCode
+      QRCode,
     },
     methods: {
       gtouchstart () {
@@ -209,11 +209,15 @@
       qrcode () {
         let that = this;
         let url = "/banke/add-class/"+this.$route.params.classId
+        console.log(url)
         if (that._qrcode == null) {
           let qrcode = new QRCode('qrcode', {
             width: 250,
             height: 250,        // 高度
-            text:  url,   // 二维码内容
+            text:  "bunnegyou",   // 二维码内容
+            correctLevel : QRCode.CorrectLevel.H,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
             // render: 'canvas' ,   // 设置渲染方式（有两种方式 table和canvas，默认是canvas）
             // background: '#f0f',   // 背景色
             // foreground: '#ff0'    // 前景色

@@ -19,6 +19,9 @@
   import TeacherClassInfo from "components/teacher-class-info/TeacherClassInfo";
   export default {
     name: "EditClassInfo",
+    activated() {
+      alert('尚未开发')
+    },
     components: {TeacherClassInfo},
     methods: {
       onClickLeft() {

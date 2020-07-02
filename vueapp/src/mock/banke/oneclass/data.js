@@ -1,11 +1,11 @@
 const tabs = [
   {
     title: '全部',
-    count: 5
+    count: 0
   },
   {
     title: '进行中',
-    count: 5
+    count: 0
   },
   {
     title: '已结束',
@@ -13,74 +13,34 @@ const tabs = [
   }
 ]
 
-const note = "第五次作业已经发布"
+const note = "通知栏："
 
 const tasks =[
-  {
-    workId:1,
-    taskName: '第一周XXXX',
-    number: 150,
-    state: '已参与',
-    experience: 10,
-    timeState: '已超时'
-  },
-  {
-    workId:2,
-    taskName: '第二周XXXX',
-    number: 150,
-    state: '已参与',
-    experience: 10,
-    timeState: '已超时'
-  },
-  {
-    workId:3,
-    taskName: '第三周XXXX',
-    number: 150,
-    state: '已参与',
-    experience: 10,
-    timeState: '已超时'
-  },
-  {
-    workId:4,
-    taskName: '第四周XXXX',
-    number: 150,
-    state: '已参与',
-    experience: 10,
-    timeState: '已超时'
-  },
-  {
-    workId:5,
-    taskName: '第五周XXXX',
-    number: 150,
-    state: '已参与',
-    experience: 10,
-    timeState: '已超时'
-  },
 ]
 
 const detail = {
   dataTop: {
-    description: '2019级工程',
-    className: '工程实践',
-    teacher: '池XX',
-    time: '2019-2020-2 学校课表班课',
+    description: '',
+    className: '',
+    teacher: '',
+    time: '',
   },
   dataContent: {
-    classId: '123456',
-    cloudBook: '未设置',
-    school: '福州大学',
-    department: '数计学院',
-    studyRequire: '暂无内容',
-    teachProcss: '暂无内容',
-    exam: '暂无安排'
+    classId: '',
+    cloudBook: '',
+    school: '',
+    department: '',
+    studyRequire: '',
+    teachProcss: '',
+    exam: ''
   }
 }
 
 
 const member = {
-  rank: 4,
-  experience: 40,
-  number: 3,
+  rank: null,
+  experience: null,
+  number: null,
   option: [
     {
       imageUrl: require('assets/image/banke/member/sign.png'),
@@ -128,51 +88,9 @@ const member = {
     },
   ],
   launchHistory: [
-    {
-      signDate: '2020-0414',
-      signWeek: '星期二',
-      signTime: '15:03',
-      signType: '一键签到',
-      statistic: '20人/25人'
-    },
-    {
-      signDate: '2020-0414',
-      signWeek: '星期二',
-      signTime: '15:03',
-      signType: '一键签到',
-      statistic: '20人/25人'
-    },
-    {
-      signDate: '2020-0414',
-      signWeek: '星期二',
-      signTime: '15:03',
-      signType: '一键签到',
-      statistic: '20人/25人'
-    }
   ],
 
   members: [
-    {
-      profilePhoto: 'xx',
-      name: '池xx',
-      studentId: '1903270xx',
-      experience: 35,
-      cloudBookStudy: 0
-    },
-    {
-      profilePhoto: 'xx',
-      name: '池xx',
-      studentId: '1903270xx',
-      experience: 35,
-      cloudBookStudy: 0
-    },
-    {
-      profilePhoto: 'xx',
-      name: '池xx',
-      studentId: '1903270xx',
-      experience: 35,
-      cloudBookStudy: 0
-    }
   ]
 }
 

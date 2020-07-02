@@ -49,9 +49,6 @@
           this.$toast('输入班课有误，应为纯数字')
           this.classId = ""
         }
-
-
-
       },
     }
   }

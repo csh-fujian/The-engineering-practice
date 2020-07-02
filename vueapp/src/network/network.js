@@ -3,8 +3,8 @@ import axios from 'axios'
 // 带有拦截器的请求，用于登录成功后的api请求操作
 export function request(config) {
   const instance = axios.create({
-    // baseURL: 'http://47.112.239.108:8080',
-    // baseURL: 'http://106.54.54.237:8000/api/wh',
+    baseURL: 'http://47.112.239.108:8081',
+    // baseURL: 'http://47.112.239.108:8081',
     timeout: 50000
   })
   // 拦截器的请求
@@ -38,8 +38,8 @@ export function request(config) {
 export function oriRequest(config) {
   const instance = axios.create({
     // 设置了代理
-    // baseURL: 'http://47.112.239.108:8080',
-    // baseURL: 'http://106.54.54.237:8000/api/wh',
+    baseURL: 'http://47.112.239.108:8081',
+    // baseURL: 'http://47.112.239.108:8081',
     timeout: 50000
   })
 

@@ -4,7 +4,7 @@ import {request} from "../network";
 // 获取签到的历史记录
 function getSignLog(params) {
   const config = {
-    url: '/api/banke/id/member/launch-sign',
+    url: '/banke/id/member/launch-sign',
     params
   }
   return request(config)
@@ -13,7 +13,7 @@ function getSignLog(params) {
 //发布手势签到
 function signPoseStart(params) {
   const config = {
-    url: '/api/banke/id/member/launch-sign/pose',
+    url: '/banke/id/member/launch-sign/pose',
     params
   }
   return request(config)
@@ -22,7 +22,7 @@ function signPoseStart(params) {
 //结束手势签到
 function signPoseEnd(params) {
   const config = {
-    url: '/api/banke/id/member/launch-sign/pose-end',
+    url: '/banke/id/member/launch-sign/pose-end',
     params
   }
   return request(config)
@@ -33,7 +33,7 @@ function signPoseEnd(params) {
 // 发布一键签到
 function signNowStart(params) {
   const config = {
-    url: '/api/banke/id/member/launch-sign/sign-now',
+    url: '/banke/id/member/launch-sign/sign-now',
     params
   }
   return request(config)
@@ -42,7 +42,7 @@ function signNowStart(params) {
 // 一键签到结束
 function signNowEnd(params) {
   const config = {
-    url: '/api/banke/id/member/launch-sign/sign-end',
+    url: '/banke/id/member/launch-sign/sign-end',
     params
   }
   return request(config)
@@ -53,7 +53,7 @@ function signNowEnd(params) {
 // 判断是否发布了签到
 function studentSignIn(params) {
   const config = {
-    url: '/api/participate',
+    url: '/participate',
     params
   }
   return request(config)
@@ -62,7 +62,7 @@ function studentSignIn(params) {
 // 学生一键签到
 function studentSignNow(params) {
   const config = {
-    url: '/api/participate/1',
+    url: '/participate/1',
     params
   }
   return request(config)
@@ -70,7 +70,7 @@ function studentSignNow(params) {
 
 function studentSignPose(params) {
   const config = {
-    url: '/api/participate/2',
+    url: '/participate/2',
     params
   }
   return request(config)

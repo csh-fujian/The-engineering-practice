@@ -31,5 +31,8 @@ export default {
   },
   getTeacherLatitude(state) {
     return state.teacherLatitude
+  },
+  getTeskData(state) {
+    return state.teskData
   }
 }

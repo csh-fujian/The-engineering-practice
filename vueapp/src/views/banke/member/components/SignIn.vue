@@ -31,16 +31,30 @@
     },
     methods: {
       successClick() {
+
         let self = this
+
+        console.log(self.$refs.pwd.lastPoint);
+        let poseresult = ""
+        for (let item of self.$refs.pwd.lastPoint) {
+          console.log(item);
+          poseresult = poseresult + item.index + "-"
+        }
+        poseresult = poseresult.substring(0, poseresult.length-1)
+
         //这边不支持浏览器，而支持真机获得经纬度 定位！
         plus.geolocation.getCurrentPosition((p) => {
+          alert('得到手势' + poseresult)
+          // let poseresult = ""
+          // for (let item of self.$refs.pwd.lastPoint) {
+          //   console.log(item);
+          //   poseresult = poseresult + item.index + "-"
+          // }
+          // poseresult = poseresult.substring(0, poseresult.length-1)
 
-          let poseresult = ""
-          for (let item of self.$refs.pwd.lastPoint) {
-            console.log(item);
-            poseresult = poseresult + item.index + "-"
-          }
-          poseresult = poseresult.substring(0, poseresult.length-1)
+          console.log('poseresult:' + poseresult);
+          console.log('p.coords.longitude:' + p.coords.longitude);
+          console.log('p.coords.latitude:' + p.coords.latitude);
           const params = {
             classId: self.$route.params.classId,
             signId: self.$store.getters.getStudentSignId,
@@ -49,9 +63,8 @@
             username: window.localStorage['userName'],
             poseNumber: poseresult
           }
-          console.log(params);
+          console.log('params.longitude:' + params.longitude);
           studentSignPose(params).then(data => {
-            console.log(data);
             if (data.state=='ok') {
               self.$store.commit('setTeacherLongitude', data.longitude)
               self.$store.commit('setTeacherLatitude', data.latitude)
@@ -61,7 +74,8 @@
                 query: {long:params.longitude, lat:params.latitude}}
               )
             }else {
-              this.$toast('手势错误')
+              this.$toast('签到失败'+ data.msg)
+              console.log('data.state', data.state);
             }
           }).catch(err => {
             console.log(err);

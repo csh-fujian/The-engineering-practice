@@ -31,13 +31,13 @@
       </div>
     </div>
 
-    <div v-if="isTeacher" class="background-theme">
+    <div>
       <van-field
-              class="background-theme"
+
               v-model="searchData"
               center
               clearable
-              placeholder="输入查询信息"
+              placeholder="输入全局查询信息"
               :border="true"
       >
         <template #button>
@@ -95,7 +95,7 @@
         sigin_type: "",
         signId:0,
         showNowSignIn:false,
-
+        tempmembers: null,
       }
     },
     computed: {
@@ -110,11 +110,27 @@
         console.log(this.member_option.option_student);
       }
     },
+    watch: {
+      'searchData':function () {
+        console.log(this.tempmembers);
+        let result=[]
+        this.tempmembers.forEach(item => {
+          if(JSON.stringify(item).indexOf(this.searchData)!=-1) {
+            result.push(item)
+          }
+          this.member.members = result
+        })
+
+      }
+    },
     created() {
       //获取页面数据
       this.getOneClassData()
-
       // 身份判断
+      this.isTeacher = window.localStorage['role'] === 'teacher'
+      console.log(this.member);
+    },
+    activated() {
       this.isTeacher = window.localStorage['role'] === 'teacher'
     },
 
@@ -135,7 +151,7 @@
         getOneClass(params).then(data => {
           console.log(data);
           this.member = data.member
-
+          this.tempmembers = JSON.parse(JSON.stringify(data.member.members))
         }).catch(err => {
           console.log(err);
         })
@@ -206,8 +222,16 @@
                 latitude:p.coords.latitude,
                 username: window.localStorage['userName']
               }
+              console.log('-----------------')
+              console.log(params.classId)
+              console.log(params.signId)
+              console.log(params.longitude)
+              console.log(params.latitude)
+              console.log(params.username)
+              console.log('-----------------')
+
               studentSignNow(params).then(data => {
-                console.log(data);
+                console.log('data'+data);
                 if (data.state=='ok') {
                   self.$store.commit('setTeacherLongitude', data.longitude)
                   self.$store.commit('setTeacherLatitude', data.latitude)
@@ -216,6 +240,9 @@
                     path:'/banke/'+self.$route.params.classId+'/member/sign-in/success',
                     query: {long:p.coords.longitude, lat:p.coords.latitude}}
                   )
+                } else {
+                  self.$toast('签到失败'+ data.msg)
+                  console.log(data.state);
                 }
               }).catch(err => {
                 console.log(err);

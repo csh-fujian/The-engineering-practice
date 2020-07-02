@@ -25,12 +25,12 @@ module.exports = {
     // disableHostCheck: true,
 
     proxy: {
-      '/api': {
-        target: ' http://47.112.239.108:8081',
+      '/': {
+        target: 'http://47.112.239.108:8081/',
         changeOrigin: true,
         secure: false,
         pathRewrite: {
-          '^/api': ''
+          '^/': '/' //用/来代替 http://47.112.239.108:8081/
         }
       }
     }

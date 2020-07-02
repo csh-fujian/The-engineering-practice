@@ -3,7 +3,7 @@ import {oriRequest} from "network/network.js";
 function getLogin(params) {
   //params
   const config = {
-    url: '/api/login',
+    url: '/login',
     method: 'post',
     params: params,
     // params: {
@@ -18,7 +18,7 @@ function getLogin(params) {
 function getVerifyLogin(params) {
   //params
   const config = {
-    url: '/api/loginbyphone',
+    url: '/loginbyphone',
     method: 'post',
     params: params,
     // params: {
@@ -36,7 +36,7 @@ function register(profile) {
   const params = profile
   //params
   const config = {
-    url: '/api/register',
+    url: '/register',
     method: 'get',
     // params: params,
     // params: {

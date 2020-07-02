@@ -20,7 +20,7 @@ function getHomeGoods(type, page) {
 //创建班课
 function createClass(params) {
   const config = {
-    url:'/api/banke/create',
+    url:'/banke/create',
     params
   }
   return request(config)
@@ -31,7 +31,7 @@ function createClass(params) {
 //班课首页数据(传入username+flag)
 function getBankeData(params) {
   const config = {
-    url: '/api/banke',
+    url: '/banke',
     params,
   }
   return request(config)
@@ -41,7 +41,7 @@ function getBankeData(params) {
 //加入班课申请接口
 function joinClass(request_data) {
   const config = {
-    url: '/api/joinClass',
+    url: '/joinClass',
     params: {
       'classId':request_data
     }
@@ -52,7 +52,7 @@ function joinClass(request_data) {
 //加入班课
 function joinClassIn(params) {
   const config = {
-    url: '/api/join-class/join-in',
+    url: '/join-class/join-in',
     params,
   }
   return request(config)

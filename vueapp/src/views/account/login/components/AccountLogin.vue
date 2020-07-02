@@ -31,6 +31,8 @@
 <script>
 
 
+  import {setSha256} from "../../../../common/utils";
+
   export default {
     name: "AccountLogin",
     data() {
@@ -48,9 +50,11 @@
       },
       btnClick() {
 
+        console.log(setSha256("123"));
+        const res = setSha256(this.passWord)
         const params = {
-          'username':this.userName,
-          'password':this.passWord
+          'phone':this.userName,
+          'password':res
         }
         console.log("emit")
         this.$emit('accountLogin', params)

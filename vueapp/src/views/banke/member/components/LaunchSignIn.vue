@@ -121,22 +121,31 @@
       itemClick(index) {
         //一键签到
         if (index == 0) {
-          // 发布签到
-          console.log('发布签到');
-          const params = {
-            username: window.localStorage['userName'],
-            classId: this.$route.params.classId,
-            longitude: 210,
-            latitude:140
-          }
-          console.log(params);
-          signNowStart(params).then(data => {
-            console.log(data);
-            this.signId = data
-          }).catch(err => {
-            console.log(err);
-          })
-          this.showNowSignIn = true
+
+          plus.geolocation.getCurrentPosition((p) => {
+            console.log('p.coords.longitude:' + p.coords.longitude);
+            console.log('p.coords.latitude:' + p.coords.latitude);
+            // 发布签到
+            console.log('发布签到');
+            const params = {
+              username: window.localStorage['userName'],
+              classId: this.$route.params.classId,
+              longitude: p.coords.longitude,
+              latitude:p.coords.latitude
+            }
+            console.log(params);
+            signNowStart(params).then(data => {
+              console.log(data);
+              this.signId = data
+              this.showNowSignIn = true
+            }).catch(err => {
+              console.log(err);
+            })
+
+          }, function(e){
+            alert('Geolocation error: ' + e.message);
+          });
+
         }
 
         // 手势签到

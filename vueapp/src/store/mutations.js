@@ -2,7 +2,7 @@ import {
   PHONE, ROLE, USERNAME, CURRENTCLASSID,
   ISTEACHER,
   StudentSignType,
-  StudentSignId, TeacherLongitude, TeacherLatitude
+  StudentSignId, TeacherLongitude, TeacherLatitude, TeskData
 } from './mutation-types'
 
 export default {
@@ -40,4 +40,7 @@ export default {
   [TeacherLatitude](state, payload) {
     state.teacherLatitude = payload
   },
+  [TeskData](state, payload) {
+    state.teskData = payload
+  }
 }

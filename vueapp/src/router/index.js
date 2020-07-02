@@ -12,6 +12,8 @@ import ResetPassword from "../components/ResetPassword";
 const BankeHome =() => import('../views/banke/home/Home.vue')
 const BankeActivity =() => import('views/banke/activity/Activity.vue')
 const CreateWork =() => import('views/banke/activity/components/CreateWork')
+const WorkUpLoad =() => import('../views/banke/activity/components/WorkUpLoad')
+
 const BankeDetail =() => import('views/banke/detail/Detail.vue')
 const EditClassInfo =() => import('views/banke/detail/components/EditClassInfo')
 const BankeMember =() => import('views/banke/member/Member.vue')
@@ -51,7 +53,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: BankeHome
+    component: Login
   },
   {
     path: '/login',
@@ -84,6 +86,10 @@ const routes = [
   {
     path: '/banke/:classId/oneclass/createWork',
     component: CreateWork
+  },
+  {
+    path: '/banke/:classId/oneclass/:workId/workUpLoad',
+    component: WorkUpLoad
   },
   {
     path: '/banke/:classId/detail/',

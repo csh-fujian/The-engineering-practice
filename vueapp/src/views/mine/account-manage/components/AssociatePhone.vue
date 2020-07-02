@@ -7,9 +7,20 @@
 
     <div class="content">
       <div class="margin-top-normal" />
-      <van-cell-group>
-        <van-field class="margin-topdown-normal" v-model="phoneNumber"  label="关联手机号"  label-class="text-normal"/>
-      </van-cell-group>
+
+
+      <ValidationObserver slim ref="form">
+        <ValidationProvider name="手机号" rules="required|phone" v-slot="{ errors }" slim>
+          <van-cell-group>
+            <van-field class="margin-topdown-normal"
+                       v-model="form.phoneNumber"
+                       label="关联手机号"
+                       :error-message="errors[0]"
+                       label-class="text-normal"/>
+          </van-cell-group>
+        </ValidationProvider>
+      </ValidationObserver>
+
       <van-button plain hairline type="primary" block @click="check">手机验证</van-button>
     </div>
   </div>
@@ -20,12 +31,30 @@
     name: "AssociatePhone",
     data() {
       return {
-        phoneNumber: '15960486819'
+        form: {
+          phoneNumber: ''
+        }
       }
     },
     methods: {
       check() {
-        this.$router.push('/components/checkcode/'+this.phoneNumber)
+        this.$refs.form.validate().then(success => {
+          // success结果返回布尔值
+          if (!success) return
+
+          // 处理请求
+          this.$store.commit('phone', this.phone)
+          this.$router.push('/components/checkcode/'+this.form.phoneNumber + '/account-manage')
+          singleSendMessage(this.phone, 1234)
+          this.$toast('接口未实现')
+
+          this.$nextTick(() => {
+            // 清除验证状态，需注意值不会清除要自己手动清除
+            this.$refs.form.reset()
+          })
+        }).catch(err => {
+          console.log(err);
+        })
       },
       onClickLeft() {
         this.$router.back()

@@ -9,7 +9,7 @@
 
     <detail-top class="top-css" :data="dataTop" />
     <deatil-content :data="dataContent"/>
-    <detail-bottom />
+    <detail-bottom  @endClass="teaherEndClass" @exitClass="studentExitClass"/>
     <md-banke-tab-bar activeValue="detail"/>
   </div>
 </template>
@@ -22,6 +22,7 @@
 
   import {detail} from "mock/banke/oneclass/data";
   import {getOneClass} from "../../../network/banke/activity";
+  import {endClass, exitClass} from "../../../network/banke/detail";
 
   export default {
     name: "Detail",
@@ -42,9 +43,44 @@
       MdBankeTabBar,
       DetailTop,
       DeatilContent,
-      DetailBottom
+      DetailBottom,
     },
     methods: {
+      //学生退出班课
+      studentExitClass() {
+        const params= {
+          username: window.localStorage['userName'],
+          classId: this.$route.params.classId,
+        }
+        exitClass(params).then(data => {
+          if(data == 'ok') {
+            this.$toast('退出班课成功')
+            this.$router.push('/banke')
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      },
+
+      //结束 删除班课
+      teaherEndClass(state) {
+        console.log(state);
+        const params = {
+          username: window.localStorage['userName'],
+          classId: this.$route.params.classId,
+          state: state
+        }
+        console.log(params);
+        endClass(params).then(data => {
+          if(data == 'ok') {
+            this.$toast(state+ ' 班课成功')
+            this.$router.replace('/banke')
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      },
+
       //获得页面数据
       getOneClassData() {
         // 请求首页数据

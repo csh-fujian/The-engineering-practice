@@ -51,6 +51,19 @@
         return 'verifyLogin' == this.activeName ? '验证码登录' : '登录'
       }
     },
+    created() {
+
+    },
+    activated() {
+      // 第二次登录，注销账号时window.localStorage["isFirst"]=-1
+      if(window.localStorage["isFirst"]==1 ) {
+        const params = {
+          'phone':window.localStorage['phone'],
+          'password':window.localStorage['passWord']
+        }
+        this.loginRequest(params)
+      }
+    },
     mounted() {
       console.log(this.$refs.tttt);
     },
@@ -66,6 +79,11 @@
     methods: {
       //网络请求
       accountLoginClick(params) {
+        this.loginRequest(params)
+      },
+      //登录请求
+      loginRequest(params) {
+        console.log(params);
         getLogin(params).then(res=>{
           const data = res.data
           console.log(data);
@@ -75,8 +93,9 @@
             console.log(data.token);
             // window.localStorage["token"] = JSON.stringify(data.token);
             window.localStorage["token"] = data.token
-            window.localStorage["userName"] = params.username
+            window.localStorage["userName"] = data.map.username
 
+            console.log(window.localStorage["userName"]);
             if (data.role == '学生')
               window.localStorage["role"] = 'student'
             else if (data.role == '老师')
@@ -84,8 +103,12 @@
 
             this.$store.commit('role', data.role)
             this.$store.commit('userName', params.username)
-            // console.log(this.$store.getters.getRole);
-            // console.log(this.$store.getters.getUserName);
+
+            //第二次不需要登录
+            window.localStorage["isFirst"] = 1
+            window.localStorage["passWord"] =  params.password
+            window.localStorage['phone'] = params.phone
+
             this.$router.push('/banke')
           }else if (data.code == 500) {
             this.$toast(data.msg);
@@ -97,7 +120,8 @@
         }).catch(err=>{
           console.log(err);
         })
-      },
+      }
+
     }
   }
 </script>

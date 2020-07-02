@@ -27,7 +27,7 @@
     },
     methods: {
       finish() {
-
+        this.$toast('接口未实现')
       },
       onClickLeft() {
         this.$router.back()
