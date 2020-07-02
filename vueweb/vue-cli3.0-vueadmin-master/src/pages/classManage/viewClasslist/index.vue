@@ -6,11 +6,12 @@
                 @click="dialogVisible = true">添加班课</el-button>
             <el-input
                 v-model="search"
+				@input = "change($event)"
                 icon="el-icon-plus"
                 style="width:130px;height:10px"
                 placeholder="输入班课名称"/>
         </div>
-        <el-table :data="tableData1.filter(data => !search || data.classname.toLowerCase().includes(search.toLowerCase()))"
+        <el-table :data="tableData1.slice((currentPage-1)*pagesize,currentPage*pagesize).filter(data => !search || data.classname.toLowerCase().includes(search.toLowerCase()))"
                   border style="width: 100%">
             <el-table-column  prop="classid" label="班课id" width="100">
             </el-table-column>
@@ -24,14 +25,14 @@
             </el-table-column>
             <el-table-column prop="college" label="所属学院" width="170">
             </el-table-column>
-            <el-table-column prop="creattimr" label="注册时间" width="200">
+            <el-table-column prop="creattime" label="注册时间" width="200">
             </el-table-column>
             <el-table-column fixed="right" label="操作" width="150">
                 <template slot-scope="scope">
                     <el-button  @click.native.prevent="dialogVisible1 = true,handleEdit(scope.$index, scope.row)" type="text" size="small"
                         >编辑</el-button
                     >
-                    <el-button  @click.native.prevent="dialogVisible1 = true,handleEdit(scope.$index, scope.row)" type="text" size="small"
+                    <el-button  @click.native.prevent="Getinfo(scope.$index, scope.row)" type="text" size="small"
                     >查看详情</el-button
                     >
                     <el-button
@@ -45,7 +46,15 @@
                 </template>
             </el-table-column>
         </el-table>
-
+        <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="[5, 10, 20, 40]"
+        :page-size="pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="tableData1.length">
+        </el-pagination>
         <el-dialog
             title="添加班课"
             :visible.sync="dialogVisible"
@@ -130,6 +139,7 @@ teacherid1:null,
             dialogVisible1: false,
 
             currentPage: 1,
+            pagesize: 5,
             // 总条数
             totalCount: 1,
             totalCount1: null,
@@ -191,10 +201,25 @@ teacherid1:null,
 
     },
     methods: {
+	change(e){
+            this.$forceUpdate()
+        },
+        handleSizeChange: function (size) {
+            this.pagesize = size;
+            console.log(this.pagesize)
+        },
+        handleCurrentChange: function(currentPage){
+            this.currentPage = currentPage;
+            console.log(this.currentPage)
+        },
         handleEdit(index, row) {
             console.log(index, row);
             this.classid1 = row.classid
 			this.teacherid1 = row.teacherid
+			this.dict1.classid = row.classid
+			this.dict1.classname = row.classname
+			this.dict1.school = row.school
+			
         },
         handleChange(value) {
             console.log(value)
@@ -257,6 +282,20 @@ teacherid1:null,
 
 
     },
+	Getinfo(index, row) {
+
+
+            let delid = row.classid
+			console.log(delid) 
+			this.$router.replace({
+                path: '/Classtmanage/ClassStudentmanage',
+                query: {
+                    classid: delid
+                }
+            })
+			
+            console.log(index, row)
+        },
         addclass() {
             // let classget = {
             //     id: 2020622001,
