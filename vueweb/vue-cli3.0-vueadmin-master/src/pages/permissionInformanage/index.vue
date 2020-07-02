@@ -88,6 +88,7 @@ export default {
                                 }
                             }).then(res => {
             _this.datatable = res.data
+            console.log(_this.datatable)
             for (let i = 0; i < this.datatable.length; ++i) {
                 if (this.datatable[i].state == 'checked') {
                     this.selected.push(this.datatable[i].name)
@@ -103,6 +104,12 @@ export default {
                             this.selected.push(this.datatable[i].sub[j].sub[k].name)
                         }
                         if (this.datatable[i].sub[j].sub[k].sub == null) { continue }
+                        for (var t = 0; t < this.datatable[i].sub[j].sub[k].sub.length; ++t) {
+                        if (this.datatable[i].sub[j].sub[k].sub[t].state == 'checked') {
+                            this.selected.push(this.datatable[i].sub[j].sub[k].sub[t].name)
+                        }
+                        if (this.datatable[i].sub[j].sub[k].sub[t].sub == null) { continue }
+                    }
                     }
                 }
             }
