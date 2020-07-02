@@ -88,7 +88,7 @@ public class classManageServiceImpl implements IClassManageService {
         course1.setClassid(Integer.parseInt(classId));
         course1.setStudentid(studentId);
         classLesson classL = classLessonR.getLesson(Integer.parseInt(classId));
-        userInfo user = userM.findOneUser(studentId);
+        userInfo user = userM.findOneByNumber(studentId);
         course1.setTeacherid(classL.getTeacherid());
         course1.setExperience(0);
         course1.setClassname(classL.getClassname());
@@ -218,6 +218,7 @@ public class classManageServiceImpl implements IClassManageService {
             HashMap<String, Object> member = new HashMap<String, Object>();
             member.put("taskName", tas.getTask());
             member.put("workId", tas.getId());
+            member.put("detail",tas.getGradepoint());
             // 获得已参与人数
             List<taskMemory> tasks2 = taskM.getMemoryByTaskId(Integer.toString(tas.getId()));
             if(tasks2 == null){
@@ -387,7 +388,7 @@ public class classManageServiceImpl implements IClassManageService {
     @Override
     public String addClass(String username,String className, String courseName, String schoolName, String departmentName,
             String semester, String studyDemand, String examDemand) {
-        userInfo user = userM.findOneUser(username);
+        userInfo user = userM.findOneByNumber(username);
         classLesson course = new classLesson(null,courseName,user.getName(),Integer.parseInt(username),null,className,null,null,semester,departmentName);
         Date createTime = new Date();
         int flag = classLessonR.add(course);

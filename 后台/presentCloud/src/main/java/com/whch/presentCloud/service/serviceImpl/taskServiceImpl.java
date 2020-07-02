@@ -71,6 +71,8 @@ public class taskServiceImpl implements ITaskService {
             List<taskMemory> tasks2 = taskM.getMemoryByTaskId(Integer.toString(tas.getId()));
             member.put("number", tasks2.size());
             member.put("experience", tas.getGrade());
+            member.put("detail",tas.getGradepoint());
+            member.put("workId", tas.getId());
             // taskMemory ta = taskM.getTask(tas.getTask(), Integer.parseInt(username));
             // if(ta == null)
             // {
