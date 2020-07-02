@@ -92,6 +92,7 @@
         signNowEnd(params).then(data=> {
           if (data == 'ok') {
             console.log('结束一键签到成功');
+            this.getSignInLog(this.$route.params.classId)
           }
         }).catch(err => {
           console.log(err);

@@ -19,6 +19,14 @@
           </van-cell>
         </ValidationProvider>
 
+        <ValidationProvider name="昵称" rules="required" v-slot="{ errors }" slim>
+          <van-cell title="* 昵称" :label="errors[0]">
+            <template >
+              <input class="input-css" v-model="profile.nickName"/>
+            </template>
+          </van-cell>
+        </ValidationProvider>
+
 
         <van-cell title="* 身份">
           <template>
@@ -142,7 +150,8 @@
           experience: 0,
           passWord: '',
           repassWord: '',
-          master:''
+          master:'',
+          nickName:''
         }
       }
     },

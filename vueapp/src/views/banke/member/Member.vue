@@ -132,6 +132,7 @@
     },
     activated() {
       this.isTeacher = window.localStorage['role'] === 'teacher'
+      this.getOneClassData()
     },
 
     components: {
