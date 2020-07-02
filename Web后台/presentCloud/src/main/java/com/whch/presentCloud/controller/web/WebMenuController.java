@@ -80,7 +80,7 @@ public class WebMenuController {
     public String addbutton(@RequestBody addbutton button1)
     {
         if(button1.getButton() == null){
-            return "添加失败，页面名称不能为空";
+            return "添加失败，按钮名称不能为空";
         }
         try{
             menuS.addbutton(button1.getButton(), button1.getSupermenu());
