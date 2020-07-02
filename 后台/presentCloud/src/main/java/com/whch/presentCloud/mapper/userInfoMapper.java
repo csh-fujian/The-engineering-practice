@@ -48,4 +48,6 @@ public interface userInfoMapper {
     @Select("select * from userinfo where phone = #{number}")
 	userInfo findOneUser(@Param("number") String number);
 
+    @Select("select * from userinfo where Number = #{number}")
+    userInfo findOneByNumber(@Param("number")String username);
 }

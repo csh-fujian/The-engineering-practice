@@ -36,5 +36,5 @@ public interface IUserLoginService {
 	public ResponseData setPassword(String phone, String newPassWord);
 
 	public int insertUser(String studentId, String passWord, String name, String school, String department, String role,
-			String phone);
+			String phone,String master);
 }

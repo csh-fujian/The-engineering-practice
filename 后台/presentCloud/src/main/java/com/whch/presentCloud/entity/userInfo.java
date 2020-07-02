@@ -190,7 +190,7 @@ public class userInfo {
 	}
 
     public userInfo(String number, String password, String name, String school, String department, String role,
-            String phone, String master, Date creationdate) {
+            String phone, String master,String  sex, Date creationdate) {
         this.number = number;
         this.password = password;
         this.name = name;
@@ -198,6 +198,7 @@ public class userInfo {
         this.department = department;
         this.role = role;
         this.phone = phone;
+        this.sex = sex;
         this.master = master;
         this.creationdate = creationdate;
     }

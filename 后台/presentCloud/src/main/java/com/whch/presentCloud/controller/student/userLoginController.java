@@ -106,10 +106,15 @@ public class userLoginController {
     @RequestMapping("/register")
     public String register(@RequestParam("Name")String Name,@RequestParam("status")String role,
     @RequestParam("studentId")String studentId,@RequestParam("phone")String phone,@RequestParam("passWord")String passWord,
-    @RequestParam("school")String school,@RequestParam("department")String department)
+    @RequestParam("school")String school,@RequestParam("department")String department,@RequestParam("master")String master)
     {
-        
-        int flag = userloginservice.insertUser(studentId,passWord,Name,school,department,role,phone);
+        int flag = 0;
+        try{
+            flag = userloginservice.insertUser(studentId,passWord,Name,school,department,role,phone,master);
+        }catch (Exception e){
+            return "false";
+        }
+
 
         if(flag == 1)
         {

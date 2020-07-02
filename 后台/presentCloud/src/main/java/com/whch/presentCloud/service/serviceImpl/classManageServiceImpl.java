@@ -227,7 +227,7 @@ public class classManageServiceImpl implements IClassManageService {
             }
            
             member.put("experience", tas.getGrade());
-            taskMemory ta = taskM.getTask(tas.getTask(), Integer.parseInt(username));
+            taskMemory ta = taskM.getTask(tas.getId().toString(), Integer.parseInt(username));
             if (ta == null) {
                 member.put("state", "未参与");
             } else {

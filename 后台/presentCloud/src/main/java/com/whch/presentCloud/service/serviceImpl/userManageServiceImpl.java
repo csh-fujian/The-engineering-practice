@@ -74,7 +74,7 @@ public class userManageServiceImpl implements IUserManageService {
 
     @Override
     public Map<String, Object> getUserInfo(String username) {
-        userInfo user = userMapper.findOneUser(username);
+        userInfo user = userMapper.findOneByNumber(username);
         if(user == null){
             return null;
         }
@@ -86,7 +86,7 @@ public class userManageServiceImpl implements IUserManageService {
         {
             res.put("birthtime", formater.format(user.getBirthday()).substring(0, 8));
         }
-        res.put("birthtime", user.getBirthday());
+//        res.put("birthtime", user.getBirthday());
         res.put("sex", user.getSex());
         res.put("school", user.getSchool());
         res.put("department", user.getDepartment());
