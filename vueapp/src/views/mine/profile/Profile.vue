@@ -34,8 +34,8 @@
       <van-cell title="性别">
         <template>
           <van-radio-group v-model="sexRadio" direction="horizontal" class="right">
-            <van-radio name="male">男</van-radio>
-            <van-radio name="female">女</van-radio>
+            <van-radio name="male">{{maleValue}}</van-radio>
+            <van-radio name="female">{{femaleValue}}</van-radio>
           </van-radio-group>
         </template>
       </van-cell>
@@ -82,6 +82,10 @@
         imgUrl: require('assets/image/mine/touxiang.png'),
         profile: profile,
         sexRadio: 'male',
+
+        femaleValue: '男',
+        maleValue: '女',
+
       }
     },
     created() {
@@ -99,8 +103,11 @@
           username: window.localStorage['userName']
         }
         console.log(params);
+
         getProfile(params).then(data => {
           console.log(data);
+          this.femaleValue = data.femaleValue
+          this.maleValue = data.maleValue
           const profile = {
             name: data.name,
             nickName: data.nickName,
@@ -110,13 +117,11 @@
             department: data.department,
             role: data.role,
             studentId: data.studentId,
-            experience: data.experience
+            experience: data.experience,
           }
-          if (data.sex == '女') {
-            this.sexRadio="female"
-          }else {
-            this.sexRadio="male"
-          }
+
+          this.sexRadio=data.sex
+
           this.profile = profile
         }).catch(err => {
           console.log(err);
