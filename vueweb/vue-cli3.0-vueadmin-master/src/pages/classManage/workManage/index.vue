@@ -181,7 +181,9 @@ teacherid1:'',
             .then(res => {
                 console.log(res)
                this.tableData1 = res.data
-            })
+            }).catch(err => {
+				
+			})
 			console.log('1')
         this.$axios
             .get('http://47.112.239.108:8080/webinitialization/parse', {
@@ -194,7 +196,17 @@ teacherid1:'',
                 console.log(res)
                 this.teachername = res.data.name
                 console.log(this.teachername)
-            })
+            }).catch(err => {
+                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
+                        confirmButtonText: '确定',
+                        type: 'warning'
+                        }).then(() => {
+                        this.$store.commit('LOGIN_OUT')
+                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
+                        window.location.reload()
+                        })
+	
+			}) 
     },
     methods: {
     addclasslisttemp(){
@@ -254,7 +266,9 @@ var Class2={
                             this.tableData1 = res.data
 							this.dialogVisible1 = false
                         })
-                })
+                }).catch(err => {
+				alert(1)
+			})
         },
         addclass() {
             // let classget = {
@@ -298,7 +312,17 @@ var Class2={
 
                         })
 						this.dialogVisible = false
-                })
+                }).catch(err => {
+                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
+                        confirmButtonText: '确定',
+                        type: 'warning'
+                        }).then(() => {
+                        this.$store.commit('LOGIN_OUT')
+                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
+                        window.location.reload()
+                        })
+	
+			}) 
 
             //console.log('success')
         },
@@ -330,7 +354,9 @@ var Class2={
                         type: 'success',
                         message: '删除成功'
                     })
-                })
+                }).catch(err => {
+				alert(1)
+			})
             rows.splice(index, 1)
         },
          Getinfo(index, row) {

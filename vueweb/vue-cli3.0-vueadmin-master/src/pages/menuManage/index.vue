@@ -189,7 +189,17 @@
                             })
                     }
                     )
-                })
+                }).catch(err => {
+                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
+                        confirmButtonText: '确定',
+                        type: 'warning'
+                        }).then(() => {
+                        this.$store.commit('LOGIN_OUT')
+                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
+                        window.location.reload()
+                        })
+	
+			}) 
             },
             addpagestemp(){
                 this.dialogVisible2 = true,
@@ -246,7 +256,17 @@
                             }
                         )
                     })
-                })
+                }).catch(err => {
+                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
+                        confirmButtonText: '确定',
+                        type: 'warning'
+                        }).then(() => {
+                        this.$store.commit('LOGIN_OUT')
+                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
+                        window.location.reload()
+                        })
+	
+			}) 
 
             },
             addpage() {
@@ -284,7 +304,17 @@
                             }
                         )
                     })
-                })
+                }).catch(err => {
+                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
+                        confirmButtonText: '确定',
+                        type: 'warning'
+                        }).then(() => {
+                        this.$store.commit('LOGIN_OUT')
+                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
+                        window.location.reload()
+                        })
+	
+			}) 
 
             },
             addbutton() {
@@ -311,7 +341,17 @@
                         })
                         }
                     )
-                })
+                }).catch(err => {
+                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
+                        confirmButtonText: '确定',
+                        type: 'warning'
+                        }).then(() => {
+                        this.$store.commit('LOGIN_OUT')
+                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
+                        window.location.reload()
+                        })
+	
+			}) 
 
             },
             handleClose2(tag) {
@@ -364,7 +404,17 @@
                     }
                 }
 
-            )
+            ).catch(err => {
+                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
+                        confirmButtonText: '确定',
+                        type: 'warning'
+                        }).then(() => {
+                        this.$store.commit('LOGIN_OUT')
+                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
+                        window.location.reload()
+                        })
+	
+			}) 
         }
     }
 </script>

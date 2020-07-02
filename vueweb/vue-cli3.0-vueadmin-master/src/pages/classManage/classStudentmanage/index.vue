@@ -73,9 +73,16 @@ export default {
                 console.log(res)
                 this.tableData = res.data
             }).catch(err => {
-				console.log(err)
-				console.log("===")
-			})
+                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
+                        confirmButtonText: '确定',
+                        type: 'warning'
+                        }).then(() => {
+                        this.$store.commit('LOGIN_OUT')
+                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
+                        window.location.reload()
+                        })
+	
+			}) 
     },
     methods: {
         deletedata(index, rows) {
@@ -105,7 +112,17 @@ export default {
                         type: 'success',
                         message: '删除成功'
                     })
-                })
+                }).catch(err => {
+                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
+                        confirmButtonText: '确定',
+                        type: 'warning'
+                        }).then(() => {
+                        this.$store.commit('LOGIN_OUT')
+                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
+                        window.location.reload()
+                        })
+	
+			}) 
             rows.splice(index, 1)
         }
     }
