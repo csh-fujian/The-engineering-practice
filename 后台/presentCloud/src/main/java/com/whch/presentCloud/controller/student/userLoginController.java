@@ -112,15 +112,16 @@ public class userLoginController {
         try{
             flag = userloginservice.insertUser(studentId,passWord,Name,school,department,role,phone,master,nickName);
         }catch (Exception e){
-            return "false";
+            System.out.println(e);
+            return "手机号、昵称或学号重复";
         }
 
 
         if(flag == 1)
         {
-            return "true";
+            return "1";
         }
-        return "false";
+        return "-1";
     }
 
     @RequestMapping("/resetpassword")
