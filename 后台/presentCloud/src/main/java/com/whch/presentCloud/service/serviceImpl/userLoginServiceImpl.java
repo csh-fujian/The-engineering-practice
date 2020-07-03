@@ -89,7 +89,7 @@ public class userLoginServiceImpl implements IUserLoginService {
         userInfo user = userInfoRepo.get(phone);
         result resu = new result();
         if(user != null){
-            result re = userLoginResult(user.getNumber(), user.getPassword(), remoteAddr);
+            result re = userLoginResult(user.getPhone(), user.getPassword(), remoteAddr);
             HashMap res = new HashMap<String,Object>();
             res.put("username", user.getNumber());
             re.setMap(res);
