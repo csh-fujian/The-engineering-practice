@@ -6,6 +6,7 @@ import org.gavaghan.geodesy.GeodeticCalculator;
 import org.gavaghan.geodesy.GeodeticCurve;
 import org.gavaghan.geodesy.GlobalCoordinates;
 
+
 public class Distance{
 
     public static void main(String[] args){
