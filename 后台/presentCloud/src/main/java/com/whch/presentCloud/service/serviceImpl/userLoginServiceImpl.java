@@ -265,7 +265,7 @@ public class userLoginServiceImpl implements IUserLoginService {
 
     @Override
     public int insertUser(String studentId, String passWord, String name, String school, String department, String role,
-            String phone,String master) {
+            String phone,String master,String nickName) {
             
              //获得系统参数距离
              String sys_role = dictionaryService.findbykey(role);

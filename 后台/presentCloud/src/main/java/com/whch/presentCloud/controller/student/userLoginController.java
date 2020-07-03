@@ -4,7 +4,7 @@
  * @Autor: whc
  * @Date: 2020-04-09 22:48:05
  * @LastEditors: whc
- * @LastEditTime: 2020-07-02 10:16:55
+ * @LastEditTime: 2020-07-03 16:01:26
  */ 
 package com.whch.presentCloud.controller.student;
 
@@ -106,11 +106,11 @@ public class userLoginController {
     @RequestMapping("/register")
     public String register(@RequestParam("Name")String Name,@RequestParam("status")String role,
     @RequestParam("studentId")String studentId,@RequestParam("phone")String phone,@RequestParam("passWord")String passWord,
-    @RequestParam("school")String school,@RequestParam("department")String department,@RequestParam("master")String master)
+    @RequestParam("school")String school,@RequestParam("department")String department,@RequestParam("master")String master,@RequestParam("nickName")String nickName)
     {
         int flag = 0;
         try{
-            flag = userloginservice.insertUser(studentId,passWord,Name,school,department,role,phone,master);
+            flag = userloginservice.insertUser(studentId,passWord,Name,school,department,role,phone,master,nickName);
         }catch (Exception e){
             return "false";
         }
