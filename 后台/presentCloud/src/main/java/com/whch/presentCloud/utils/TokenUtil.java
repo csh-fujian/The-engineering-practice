@@ -14,7 +14,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class TokenUtil {
     private static final String secret = "secret";
     public static final String tokenHeard = "token";
-    private static final Long expTime = 60 * 30 * 1000L;
+    private static final Long expTime = 60 * 300 * 1000L;
 
     public static String getToken(String name,String id,String ip) {
         JwtBuilder builder = Jwts.builder();

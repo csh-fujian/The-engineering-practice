@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan
 @MapperScan("com.whch.presentCloud.mapper")
 public class presentCloudApplication {
 

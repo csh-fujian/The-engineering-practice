@@ -6,7 +6,9 @@ import com.whch.presentCloud.entity.checkInHistory;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface checkInHistoryMapper {
     int deleteByPrimaryKey(Integer id);
 
