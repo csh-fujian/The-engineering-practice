@@ -159,6 +159,16 @@ public class WebUserLoginController {
     }
 
 
+    @GetMapping("phoneisexist/{phone}")
+    public String phoneisexist(@PathVariable String phone) {
+        userInfo user = userM.getUser(phone);
+        if (user==null){
+            return "false";
+        }else {
+            return "true";
+        }
+    }
+
 
     //测试
     @RequestMapping("login1")
