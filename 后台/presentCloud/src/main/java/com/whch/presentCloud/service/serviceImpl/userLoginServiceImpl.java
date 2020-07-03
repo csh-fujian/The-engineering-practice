@@ -280,7 +280,7 @@ public class userLoginServiceImpl implements IUserLoginService {
                  }
                  
              }
-             userInfo user = new userInfo(studentId,passWord,name,school,department,sys_role,phone,master,default_sex,createTime);
+             userInfo user = new userInfo(studentId,passWord,name,school,department,sys_role,phone,master,default_sex,createTime,nickName);
              return addUser(user);
         
     }
