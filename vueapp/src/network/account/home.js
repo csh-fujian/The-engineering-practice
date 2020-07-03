@@ -30,6 +30,17 @@ function getVerifyLogin(params) {
   return oriRequest(config)
 }
 
+//修改密码
+function modifyPassWord(params) {
+  //params
+  const config = {
+    url: '/resetpassword',
+    params,
+  }
+  return oriRequest(config)
+}
+
+
 function register(profile) {
   // 结构对象
   // const {name,status,studentId,phone,passWord,checkCode,school,department} = params
@@ -51,5 +62,6 @@ function register(profile) {
 export {
   getLogin,
   register,
-  getVerifyLogin
+  getVerifyLogin,
+  modifyPassWord
 }

@@ -18,7 +18,7 @@
         </span>
       </div>
 
-      <van-button class="margin-top-large" plain hairline type="primary" block @click="exit">退出签到</van-button>
+      <van-button class="content margin-top-large" plain hairline type="primary" block @click="exit">退出签到</van-button>
     </div>
 
   </div>

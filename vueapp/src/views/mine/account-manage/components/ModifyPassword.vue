@@ -27,7 +27,7 @@
     },
     methods: {
       finish() {
-        this.$toast('接口未实现')
+        this.$toast('接口未实现，请在登录页面修改密码')
       },
       onClickLeft() {
         this.$router.back()

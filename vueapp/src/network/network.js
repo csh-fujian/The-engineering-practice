@@ -47,6 +47,10 @@ export function oriRequest(config) {
 }
 
 export function singleSendMessage(phone, randcode) {
+
+
+  console.log(randcode);
+
   // 发送验证码
   const Qsms=require("qcloudsms")
   const qsms=new Qsms("1400297576",'e1f6556578926674e1bfbe94e43e3aca')

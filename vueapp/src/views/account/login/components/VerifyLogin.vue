@@ -39,6 +39,7 @@
 
   import {singleSendMessage} from "network/network";
   import {getLogin} from "../../../../network/account/home";
+  import {getCheckCode} from "../../../../common/utils";
 
   export default {
     name: "VerifyLogin",
@@ -61,7 +62,10 @@
           // 处理请求
             this.$store.commit('phone', this.phone)
             this.$router.push('/components/checkcode/'+this.form.phone + '/banke')
-            singleSendMessage(this.phone, 1234)
+
+            const code = getCheckCode()
+            console.log(this.form.phone);
+            singleSendMessage(this.form.phone, code)
           this.$nextTick(() => {
             // 清除验证状态，需注意值不会清除要自己手动清除
             this.$refs.form.reset()

@@ -18,13 +18,13 @@
     <van-cell-group class="margin-topdown-small">
       <van-cell title="姓名">
         <template >
-          <input class="input-css" :value="profile.name"/>
+          <input class="input-css" v-model="profile.name"/>
         </template>
       </van-cell>
 
       <van-cell title="昵称">
         <template >
-          <input class="input-css" :value="profile.nickName"/>
+          <input class="input-css" v-model="profile.nickName"/>
         </template>
       </van-cell>
 
@@ -44,17 +44,17 @@
     <van-cell-group class="margin-topdown-small">
       <van-cell title="学校">
         <template >
-          <input class="input-css" :value="profile.school"/>
+          <input class="input-css" v-model="profile.school"/>
         </template>
       </van-cell>
       <van-cell title="学院">
         <template >
-          <input class="input-css" :value="profile.department"/>
+          <input class="input-css" v-model="profile.department"/>
         </template>
       </van-cell>
       <van-cell title="学号">
         <template >
-          <input class="input-css" :value="profile.studentId"/>
+          <input class="input-css" v-model="profile.studentId"/>
         </template>
       </van-cell>
     </van-cell-group>
@@ -89,6 +89,10 @@
       }
     },
     created() {
+      this.sexRadio = this.profile.sex
+      this.getProfileData()
+    },
+    activated() {
       this.sexRadio = this.profile.sex
       this.getProfileData()
     },
@@ -133,19 +137,19 @@
         console.log();
         let dateparse = this.profile.birthtime + "10日"
         let date = new Date(Date.parse(dateparse.replace('年','-').replace('月','-').replace('日','')))
-        console.log(date);
+
         const user = {
           name: this.profile.name,
           nickname: this.profile.nickName,
           birthday: date,
-          sex: this.profile.sex,
+          sex: this.sexRadio == 'male'? this.maleValue: this.femaleValue ,
           school: this.profile.school,
           department: this.profile.department,
           role: this.profile.role,
           number: this.profile.studentId,
         }
         console.log(user);
-
+        console.log(this.profile.sex);
         // const params = {
         //   profile
         // }

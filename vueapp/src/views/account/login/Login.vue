@@ -38,6 +38,7 @@
 
   import { Button, Tab, Tabs } from 'vant';
   import {getLogin} from "network/account/home";
+  import {getVerifyLogin} from "../../../network/account/home";
 
 
   export default {
@@ -66,10 +67,13 @@
           'password':window.localStorage['passWord']
         }
         this.loginRequest(params)
+        //手机验证码登录
+      } else if (window.localStorage["isFirst"] == 100) {
+        this.getVerifyLoginUtil(window.localStorage['verifyPhone'])
       }
     },
     mounted() {
-      console.log(this.$refs.tttt);
+
     },
     components: {
       VerifyLogin,
@@ -124,7 +128,45 @@
         }).catch(err=>{
           console.log(err);
         })
-      }
+      },
+      //手机验证码登录
+      getVerifyLoginUtil(phone) {
+        const params = {
+          phone : phone
+        }
+        console.log(params);
+        getVerifyLogin(params).then(res => {
+          console.log(res);
+          let data = res.data
+          if (data.state == "true") {
+            if (data.role == '学生')
+              window.localStorage["role"] = 'student'
+            else if (data.role == '老师')
+              window.localStorage["role"] = 'teacher'
+
+            window.localStorage["token"] = data.token
+            window.localStorage["verifyPhone"] = phone
+            window.localStorage["userName"] = data.map.username
+
+            this.$store.commit('role', data.role)
+            this.$store.commit('userName', data.map.username)
+            this.$store.commit('setIsTeacher', data.role == '老师')
+
+            console.log(this.$store.getters.getRole);
+            console.log(this.$store.getters.getUserName);
+
+            // -100为手机验证码登录
+            window.localStorage['isFirst'] = 100
+            this.$toast(data.role+'用户 登录成功');
+
+            this.$router.replace('/banke')
+          }else {
+            this.$toast('手机号不存在')
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      },
 
     }
   }

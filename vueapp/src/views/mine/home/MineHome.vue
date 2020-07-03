@@ -14,12 +14,15 @@
       </card-item>
     </van-cell-group>
 
-    <van-grid class="margin-topdown-small">
-      <van-grid-item  text="经验值" />
-      <van-grid-item  text="签到数" />
-      <van-grid-item  text="解答数" />
-      <van-grid-item  text="点赞数" />
-    </van-grid>
+<!--    <van-grid class="margin-topdown-small">-->
+<!--      <van-grid-item  text="经验值" />-->
+<!--      <van-grid-item  text="签到数" />-->
+<!--      <van-grid-item  text="解答数" />-->
+<!--      <van-grid-item  text="点赞数" />-->
+<!--    </van-grid>-->
+
+    <div class="margin-top-large"></div>
+
 
     <van-cell title="账号管理" is-link @click.native="accountClick"/>
     <van-cell title="用户协议" is-link value="ISSA" @click.native="userClick"/>

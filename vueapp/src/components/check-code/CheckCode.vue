@@ -93,47 +93,94 @@
       },
       onInput(key) {
         this.value = (this.value + key).slice(0, this.keySize);
-        if (this.value.length == this.keySize && true)
+        console.log(this.value);
+        console.log(window.localStorage['checkCode']);
+        const checkResule = this.value === window.localStorage['checkCode']
+        console.log(checkResule);
+        if (this.value.length == this.keySize && checkResule)
         {
           this.value = ''
-          //通用性变低，为了简单，普遍多申请一次http获得用户信息
-          const params = {
-            phone : this.phone
+          console.log(this.goto);
+
+          if (this.goto == 'banke') {
+            this.getVerifyLoginUtil(this.phone)
           }
-          this.getVerifyLoginInfo(params)
+
         }
       },
       onDelete() {
         this.value = this.value.slice(0, this.value.length - 1);
       },
-      getVerifyLoginInfo(params) {
-        getVerifyLogin(params).then(res=>{
-          const data = res.data
-          if(data.state) {
-            this.$toast(data.role+'用户 登录成功');
-            window.localStorage["token"] = data.token
-            window.localStorage["userName"] = data.username
+
+      getVerifyLoginUtil(phone) {
+        const params = {
+          phone : phone
+        }
+        console.log(params);
+        getVerifyLogin(params).then(res => {
+          console.log(res);
+          let data = res.data
+          if (data.state == "true") {
             if (data.role == '学生')
               window.localStorage["role"] = 'student'
             else if (data.role == '老师')
               window.localStorage["role"] = 'teacher'
 
-            this.$store.commit('role', data.role)
-            this.$store.commit('userName', data.username)
+            window.localStorage["token"] = data.token
+            window.localStorage["verifyPhone"] = phone
+            window.localStorage["userName"] = data.map.username
 
-            // 验证码验证成果，回去的地址
+            this.$store.commit('role', data.role)
+            this.$store.commit('userName', data.map.username)
+            this.$store.commit('setIsTeacher', data.role == '老师')
+
+            console.log(this.$store.getters.getRole);
+            console.log(this.$store.getters.getUserName);
+
+            // -100为手机验证码登录
+            window.localStorage['isFirst'] = 100
+            this.$toast(data.role+'用户 登录成功');
+
             this.$router.replace('/'+this.goto)
-          }else if (data.code == 500) {
-            this.$toast(data.msg);
+          }else {
+            this.$toast('手机号不存在')
           }
-          else {
-            this.$toast(data.info);
-          }
-          console.log(res);
-        }).catch(err=>{
+        }).catch(err => {
           console.log(err);
         })
       },
+
+
+      // //有点问题
+      // getVerifyLoginInfo(params) {
+      //   getVerifyLogin(params).then(res=>{
+      //     const data = res.data
+      //     console.log(data);
+      //     if(data.state) {
+      //       this.$toast(data.role+'用户 登录成功');
+      //       window.localStorage["token"] = data.token
+      //       window.localStorage["userName"] = data.username
+      //       if (data.role == '学生')
+      //         window.localStorage["role"] = 'student'
+      //       else if (data.role == '老师')
+      //         window.localStorage["role"] = 'teacher'
+      //
+      //       this.$store.commit('role', data.role)
+      //       this.$store.commit('userName', data.username)
+      //
+      //       // 验证码验证成果，回去的地址
+      //       this.$router.replace('/'+this.goto)
+      //     }else if (data.code == 500) {
+      //       this.$toast(data.msg);
+      //     }
+      //     else {
+      //       this.$toast(data.info);
+      //     }
+      //     console.log(res);
+      //   }).catch(err=>{
+      //     console.log(err);
+      //   })
+      // },
     }
   }
 </script>

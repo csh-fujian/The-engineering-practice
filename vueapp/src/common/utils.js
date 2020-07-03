@@ -17,6 +17,28 @@ export function setSha256(data) {
   return data
 }
 
+export  function checkPhone(phone){
+  if(!(/^1[3456789]\d{9}$/.test(phone))){
+    alert("手机号码有误，请重填");
+    return false;
+  }else {
+    return true
+  }
+}
+
+
+//生成四位验证码
+export function getCheckCode() {
+  const count = 4
+  let res= ""
+  for (let i=0 ; i<4; i++) {
+    res = res + Math.round(Math.random() * 9)
+  }
+  console.log(res);
+  window.localStorage['checkCode'] = res
+  return res
+}
+
 
 // 设置时间
 export function formatDate(date, fmt) {

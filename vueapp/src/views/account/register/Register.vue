@@ -83,7 +83,7 @@
           <template >
             <van-row>
               <van-col span="12"><input class="input-css" v-model="checkcode"/></van-col>
-              <van-col span="12"><van-button size="small" type="primary">验证码 </van-button></van-col>
+              <van-col span="12"><van-button size="small" type="primary" @click="checkCodeClick">验证码 </van-button></van-col>
             </van-row>
           </template>
         </van-cell>
@@ -128,7 +128,8 @@
   // import {profile} from "mock/mine/data";
   import {formatDate} from "common/utils";
   import {register} from "../../../network/account/home";
-  import {setSha256} from "../../../common/utils";
+  import {checkPhone, getCheckCode, setSha256} from "../../../common/utils";
+  import {singleSendMessage} from "../../../network/network";
 
   export default {
     name: "Profile",
@@ -139,7 +140,8 @@
         statusRadio: 'student',
         checked: false,
         cannt_click: true,
-        checkcode: '暂无',
+        checkcode: '',
+        checkCodeIsY: false,
         profile: {
           Name: '',
           school: '',
@@ -163,6 +165,17 @@
     },
 
     methods: {
+
+      //验证码
+      checkCodeClick() {
+        const code = getCheckCode()
+        const phone = this.profile.phone
+        if (checkPhone(phone)) {
+          singleSendMessage(phone, code)
+        }
+
+      },
+
       register() {
 
         this.$refs.profile.validate().then(success => {
@@ -172,7 +185,13 @@
             return
           }
           // 处理请求
-          this.requestRegister()
+          if (window.localStorage['checkCode'] == this.checkcode) {
+            this.requestRegister()
+          } else {
+            this.$toast('验证码错误')
+            return;
+          }
+
           this.$nextTick(() => {
             // 清除验证状态，需注意值不会清除要自己手动清除
             this.$refs.profile.reset()
@@ -186,17 +205,25 @@
         else
           this.profile.status = 'teacher'
 
-        this.profile.passWord = setSha256(this.profile.passWord)
-        this.profile.repassWord = setSha256(this.profile.repassWord)
-        console.log(this.profile);
+        if (this.profile.passWord != this.profile.repassWord) {
+          this.$toast('密码不一致')
+          return;
+        }
+        let profiledata = JSON.parse(JSON.stringify(this.profile))
+        profiledata.passWord = setSha256(this.profile.passWord)
+        profiledata.repassWord = setSha256(this.profile.repassWord)
+
+        console.log(profiledata);
         // 注册
-        register(this.profile).then(res=> {
+        register(profiledata).then(res=> {
           console.log(res);
-          if (res.data) {
-            this.$toast('注册成功')
-            this.$router.replace('\login')
-          }else {
-            this.$toast('注册失败')
+          if (res.data == 1) {
+              this.$toast('注册成功')
+              this.$router.replace('\login')
+            }else if(res.data == -1){
+              this.$toast('注册失败')
+            } else {
+              this.$toast('手机号、昵称或学号重复')
           }
         }).catch(err=>{
           console.log(err);
