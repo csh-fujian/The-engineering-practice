@@ -18,7 +18,7 @@ public class CrosConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry){
         registry.addInterceptor(tokenInterceptor()).addPathPatterns("/**") //指定拦截的url地址
-        .excludePathPatterns("/webinitialization/login") ;//指定不拦截的url地址
+        .excludePathPatterns("/webinitialization/login","/webinitialization/loginbyphone") ;//指定不拦截的url地址
     }
 
     @Override
