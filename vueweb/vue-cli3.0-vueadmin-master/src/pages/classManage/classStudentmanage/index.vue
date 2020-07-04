@@ -4,6 +4,7 @@
             <el-tag>当前班课id:{{classid}}</el-tag>
             <el-input
                 v-model="search"
+				@input = "change($event)"
                 icon="el-icon-plus"
                 style="width:130px;height:10px"
                 placeholder="输入学生姓名"
@@ -63,6 +64,16 @@ export default {
 		console.log("2")
         this.classid = this.$route.query.classid
 		console.log(this.classid)
+		if(this.classid == null){
+		this.$message({
+                        type: 'warning',
+                        message: '未获取班课id,请从班课管理页面点击“查看详情”获取班课成员信息。'
+                    })
+		this.$router.replace({
+                path: '/Classtmanage/Workmanage',
+            })
+		
+		}
         this.$axios
             .get('http://47.112.239.108:8080/webcourse/find/'+this.classid, {
                 headers: {
@@ -85,6 +96,9 @@ export default {
 			}) 
     },
     methods: {
+	change(e){
+            this.$forceUpdate()
+        },
         deletedata(index, rows) {
             //console.log(this.tableData1)
 

@@ -308,7 +308,7 @@ teacherid1:null,
             let delid = row.classid
 			console.log(delid)
 			this.$router.replace({
-                path: '/Classtmanage/ClassStudentmanage',
+                path: '/Classtmanage/checkmanage',
                 query: {
                     classid: delid
                 }

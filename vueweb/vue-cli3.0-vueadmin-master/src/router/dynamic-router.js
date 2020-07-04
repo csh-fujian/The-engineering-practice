@@ -1,7 +1,7 @@
 /* 班课管理*/
 const Classtmanage = () => import('@/pages/classManage')
 const ClassStudentmanage = () => import('@/pages/classManage/classStudentmanage')
-//const Checkmanage = () => import('@/pages/classManage/checkManage')
+const Checkmanage = () => import('@/pages/classManage/checkManage')
 const Viewclasslist = () => import('@/pages/classManage/viewClasslist')
 const Workmanage = () => import('@/pages/classManage/workManage')
 /* 角色管理 */
@@ -99,15 +99,7 @@ const dynamicRoutes = [
             icon: 'user'
         },
         children: [
-            {
-               path: 'ClassStudentmanage',
-               name: 'classStudentmanage',
-               component: ClassStudentmanage,
-               meta: {
-                   name: '班课成员查询',
-                   icon: 'table'
-               }
-           },
+            
            // {
            //     path: 'Checkmanage',
              //   name: 'Checkmanage',
@@ -126,6 +118,7 @@ const dynamicRoutes = [
                     icon:'table'
                 }
             },
+			
             {
                 path:'Workmanage',
                 name:'Workmanage',
@@ -133,6 +126,24 @@ const dynamicRoutes = [
                 meta:{
                     name:'教师班课管理',
                     icon:'table'
+                }
+            },
+			{
+               path: 'ClassStudentmanage',
+               name: 'classStudentmanage',
+               component: ClassStudentmanage,
+               meta: {
+                   name: '班课成员查询',
+                   icon: 'table'
+               }
+           },
+		    {
+                path: 'Checkmanage',
+                name: 'Checkmanage',
+                component: Checkmanage,
+                meta: {
+                    name: '班课成员查询',
+                    icon: 'table'
                 }
             }
 
