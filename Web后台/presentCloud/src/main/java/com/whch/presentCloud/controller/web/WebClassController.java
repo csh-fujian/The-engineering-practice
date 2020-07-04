@@ -91,7 +91,6 @@ public class WebClassController {
 
     @GetMapping("findAll")
     public List<classlesson1> findAll(){
-        System.out.println("管理员查询班课");
         DateFormat df = DateFormat.getDateTimeInstance();
         List<classLesson> classes = classManageService.findAll();
         List<classlesson1> classes1 = new ArrayList<>();
@@ -122,7 +121,6 @@ public class WebClassController {
 
     @GetMapping("findbyteacher")
     public List<classlesson1> findbyteacher(HttpServletRequest request) throws Exception {
-        System.out.println("教师查询班课");
         String Token = request.getHeader("Authorization");
         Claims claims = tokenS.parseJWT(Token);
         String subject = claims.getSubject();
@@ -178,7 +176,6 @@ public class WebClassController {
             jsonObject.put("message", "该教师id不存在");
             return jsonObject;
         }
-        System.out.println(Class.getClassname());
         try{
             classManageService.updateCourse(Class, oldclassid);
             jsonObject.put("message", "编辑成功");

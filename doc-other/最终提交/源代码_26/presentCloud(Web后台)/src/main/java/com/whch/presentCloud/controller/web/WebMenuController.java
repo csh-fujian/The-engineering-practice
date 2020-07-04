@@ -40,7 +40,6 @@ public class WebMenuController {
     @PostMapping("addmenu1/{menuname}")
     public String addmenu1(@PathVariable String menuname)
     {
-        System.out.println(menuname);
         if(menuname.equals("")){
             return "添加失败，菜单名称不能为空";
         }

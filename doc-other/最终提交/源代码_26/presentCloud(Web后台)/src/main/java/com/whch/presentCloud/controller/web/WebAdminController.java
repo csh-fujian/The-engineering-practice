@@ -70,9 +70,6 @@ public class WebAdminController {
         String subject = claims.getSubject();
         JSONObject jsonObject = JSON.parseObject(subject);
         userInfo user = JSON.toJavaObject(jsonObject, userInfo.class);
-        if (Token.equals("")){
-            System.out.println("token为空");
-        }
         admin Admin = userloginservice.adminlogin(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
         userInfo user1 = userloginservice.login(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
         if (Admin == null && user1 == null){

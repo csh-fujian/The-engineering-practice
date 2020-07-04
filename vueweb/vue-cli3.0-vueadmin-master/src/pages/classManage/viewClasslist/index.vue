@@ -206,8 +206,8 @@ teacherid1:null,
                         /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
                         window.location.reload()
                         })
-	
-			}) 
+
+			})
 
     },
     methods: {
@@ -297,8 +297,8 @@ teacherid1:null,
                         /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
                         window.location.reload()
                         })
-	
-			}) 
+
+			})
 
 
     },
@@ -364,8 +364,8 @@ teacherid1:null,
                         /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
                         window.location.reload()
                         })
-	
-			}) 
+
+			})
 
 
             //console.log('success')
@@ -404,8 +404,8 @@ teacherid1:null,
                         /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
                         window.location.reload()
                         })
-	
-			}) 
+
+			})
             rows.splice(index, 1)
         }
     }

@@ -119,9 +119,6 @@ public class WebUserLoginController {
     @GetMapping("parsejwt")
     public Object parsejwt(HttpServletRequest request) throws Exception{
         String Token = request.getHeader("Authorization");
-        if (Token.equals("")){
-            System.out.println("token为空");
-        }
         Claims claims = tokenS.parseJWT(Token);
         String subject = claims.getSubject();
         JSONObject jsonObject = JSON.parseObject(subject);
@@ -136,9 +133,6 @@ public class WebUserLoginController {
         String subject = claims.getSubject();
         JSONObject jsonObject = JSON.parseObject(subject);
         userInfo user = JSON.toJavaObject(jsonObject, userInfo.class);
-        if (Token.equals("")){
-            System.out.println("token为空");
-        }
         if(user.getPhone()==null){
             admin Admin = userloginservice.adminlogin(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
             userInfo user1 = userloginservice.login(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
@@ -185,7 +179,6 @@ public class WebUserLoginController {
     @RequestMapping("login1")
     @ResponseBody
     public result userLogin(@RequestParam("username")String nickname, @RequestParam("password")String password, HttpSession session){
-//       System.out.println(tel+password);
         result r = new result();
         if(nickname == "" || password == ""){
             r.setInfo("用户名或密码不能为空");

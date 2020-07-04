@@ -95,7 +95,6 @@ public class userLoginServiceImpl implements IUserLoginService {
                 Registresult.setInfo("用户名或学/工号已存在");
             }else{
                 userInfoRepo.add(user);
-                //System.out.println(user.getNumber());
                 Registresult.setInfo("注册成功");
                 Registresult.setRole(user.getRole());
             }
