@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\pages",
+    "\\src\\pages\\classManage",
+    "\\src\\pages\\classManage\\viewClasslist",
+    "\\src\\pages\\classManage\\workManage",
+    "\\src\\pages\\dataDictionary",
+    "\\src\\pages\\dataDictionary\\typeManage",
+    "\\src\\store",
+    "\\src\\store\\modules"
+  ],
+  "SelectedNode": "\\src\\pages\\classManage\\viewClasslist\\index.vue",
+  "PreviewInSolutionExplorer": false
+}
