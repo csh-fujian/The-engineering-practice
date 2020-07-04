@@ -212,7 +212,8 @@
             addbutton3(){
                 this.dialogVisible3 = true
                 this.supermenu = '',
-                this.button=''
+                this.button='',
+                this.temp1=''
             },
             handleClose3(){
                 this.dialogVisible3 = false
@@ -230,43 +231,40 @@
                 this.dialogVisible1 = false
                 this.Menu.menuname = this.menuname
                 this.Menu.submenus = this.submenus
-                console.log(this.Menu)
+                console.log(this.menuname)
                 const _this = this
-                this.$axios.post('http://47.112.239.108:8080/webmenu/addmenu1/' + this.menuname,{},{
+                if(this.menuname!='')
+                {
+                    this.$axios.post('http://47.112.239.108:8080/webmenu/addmenu1/' + this.menuname,{},{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(res => {
+                             _this.$message({
+                            type: 'success',
+                            message: res.data
+                     })
                     this.$axios.post('http://47.112.239.108:8080/webmenu/addmenu', _this.Menu,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(res => {
+
                         _this.$axios.get('http://47.112.239.108:8080/webmenu/findAll',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(res => {
                                 _this.datatable = res.data
-                            _this.$alert('新增菜单成功', '新增菜单', {
-                                confirmButtonText: '确定',
-                                callback: action => {
-                                }
-                            })
                             }
                         )
                     })
-                }).catch(err => {
-                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
-                        confirmButtonText: '确定',
-                        type: 'warning'
-                        }).then(() => {
-                        this.$store.commit('LOGIN_OUT')
-                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
-                        window.location.reload()
-                        })
-	
-			}) 
+                })}else{
+                    	_this.$message({
+                            type: 'success',
+                            message: '添加失败，菜单名称不能为空'
+                     })
+                }
 
             },
             addpage() {
@@ -285,6 +283,10 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(res => {
+                            _this.$message({
+                            type: 'success',
+                            message: res.data
+                     })
                     this.$axios.post('http://47.112.239.108:8080/webmenu/addpage', _this.Page1,{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
@@ -296,25 +298,10 @@
                                 }
                             }).then(res => {
                                 _this.datatable = res.data
-                            _this.$alert('新增页面成功', '新增页面', {
-                                confirmButtonText: '确定',
-                                callback: action => {
-                                }
-                            })
                             }
                         )
                     })
-                }).catch(err => {
-                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
-                        confirmButtonText: '确定',
-                        type: 'warning'
-                        }).then(() => {
-                        this.$store.commit('LOGIN_OUT')
-                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
-                        window.location.reload()
-                        })
-	
-			}) 
+                })
 
             },
             addbutton() {
@@ -328,30 +315,19 @@
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(res => {
+                            _this.$message({
+                            type: 'success',
+                            message: res.data
+                     })
                     _this.$axios.get('http://47.112.239.108:8080/webmenu/findAll',{
                                 headers: {
                                     Authorization: localStorage.getItem('token')
                                 }
                             }).then(res => {
                             _this.datatable = res.data
-                        _this.$alert('新增按钮成功', '新增按钮', {
-                            confirmButtonText: '确定',
-                            callback: action => {
-                            }
-                        })
                         }
                     )
-                }).catch(err => {
-                        this.$confirm('token已经过期了，请点击确定重新登录', '提示', {
-                        confirmButtonText: '确定',
-                        type: 'warning'
-                        }).then(() => {
-                        this.$store.commit('LOGIN_OUT')
-                        /* 防止切换角色时addRoutes重复添加路由导致出现警告 */
-                        window.location.reload()
-                        })
-	
-			}) 
+                })
 
             },
             handleClose2(tag) {
