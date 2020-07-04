@@ -56,12 +56,7 @@
                     登 录
                 </el-button>
             </el-form-item>
-            <el-button type="text" class="pageButton" @click="registerPage"
-                >立即注册</el-button
-            >
-            <el-button type="text" class="pageButton" @click="forgetPassword"
-                >忘记密码</el-button
-            >
+
         </el-form>
 
         <el-form
@@ -78,9 +73,9 @@
                     <svg-icon icon-class="user" />
                 </span>
                 <el-input
-                    name="username"
+                    name="phone"
                     type="text"
-                    v-model="loginForm.username"
+                    v-model="loginForm.phone"
                     autoComplete="on"
                     placeholder="请输入手机号"
                 />
@@ -93,21 +88,14 @@
                 <el-input
                     name="password"
                     :type="pwdType"
-                    @keyup.enter.native="login"
+                    @keyup.enter.native="login2"
                     v-model="loginForm.password"
                     autoComplete="on"
-                    placeholder="请输入验证码"
-                    style="width:60%;"
+                    placeholder="请输入密码"
                 ></el-input>
-
-                <el-button
-                    type="primary"
-                    style="width:30%;"
-                    :loading="loading"
-                    @click.native.prevent="login"
-                >
-                    获取验证码
-                </el-button>
+                <span class="show-pwd" @click="showPwd"
+                    ><svg-icon icon-class="eye"
+                /></span>
             </el-form-item>
 
             <el-form-item>
@@ -115,18 +103,12 @@
                     type="primary"
                     style="width:100%;"
                     :loading="loading"
-                    @click.native.prevent="login"
+                    @click.native.prevent="login2"
                 >
                     登 录
                 </el-button>
             </el-form-item>
 
-            <el-button type="text" class="pageButton" @click="registerPage"
-                >立即注册</el-button
-            >
-            <el-button type="text" class="pageButton" @click="forgetPassword"
-                >忘记密码</el-button
-            >
         </el-form>
 
         <!-- </template> -->
@@ -138,16 +120,16 @@ import { login } from '@/api/permission'
 import { fetchPermission } from '@/api/permission'
 export default {
     data() {
-        const validateUsername = (rule, value, callback) => {
-            if (value.length < 1) {
-                callback(new Error('请输入正确的用户名'))
+        const validatePass = (rule, value, callback) => {
+            if (value.length < 5) {
+                callback(new Error('密码不能小于5位'))
             } else {
                 callback()
             }
         }
-        const validatePass = (rule, value, callback) => {
-            if (value.length < 5) {
-                callback(new Error('密码不能小于5位'))
+		const validatePhone = (rule, value, callback) => {
+            if (value.length != 11) {
+                callback(new Error('手机号格式不正确'))
             } else {
                 callback()
             }
@@ -159,22 +141,31 @@ export default {
             loginType: true,
             loginForm: {
                 username: '',
-                password: ''
+                password: '',
+				phone:''
             },
             user: {
                 nickname: '',
+                password: ''
+            },
+			user1: {
+                phone: '',
                 password: ''
             },
             loginRules: {
                 username: [
                     {
                         required: true,
-                        trigger: 'blur',
-                        validator: validateUsername
+						message:'请输入用户名',
+                        trigger: 'blur'
+                        
                     }
                 ],
                 password: [
                     { required: true, trigger: 'blur', validator: validatePass }
+                ],
+				phone: [
+                    { required: true, trigger: 'blur', validator: validatePhone }
                 ]
             },
             loading: false,
@@ -188,7 +179,12 @@ export default {
           message: '默认密码为:88888888',
           duration: 0
         });
-
+	let token = localStorage.getItem('token');
+//	if(token != null){
+	
+//	localStorage.removeItem('token');
+	
+//	}
     //    let token = localStorage.getItem('token');
     //    if(token == null){
     //        this.$message({
@@ -266,6 +262,41 @@ export default {
                     .post(
                         'http://47.112.239.108:8080/webinitialization/login',
                         this.user
+                    )
+                    .then(res => {
+                        
+                        console.log(res.data)
+                        if (res.data.token == null) {
+                            this.$message({
+                                title: '消息',
+                                message: res.data.message
+                            })
+                        } else {
+                            let token = res.data.token
+                            console.log(typeof token)
+                            this.$store.commit('LOGIN_IN', token)
+							console.log('1')
+                            this.$router.replace('/')
+                        }
+                    })
+                //let token = resp.data.token
+                // let data = await login(this.loginForm)
+                // let token = data.token
+                // console.log(typeof token)
+                // this.$store.commit('LOGIN_IN', token)
+                // this.$router.replace('/')
+            } catch (e) {
+                // console.log(e)
+            }
+        },
+		async login2() {
+            try {
+                this.user1.phone = this.loginForm.phone
+                this.user1.password = this.loginForm.password
+                this.$axios
+                    .post(
+                        'http://47.112.239.108:8080/webinitialization/loginbyphone',
+                        this.user1
                     )
                     .then(res => {
                         
