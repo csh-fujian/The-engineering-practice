@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.whch.presentCloud.mapper.checkInHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.whch.presentCloud.entity.checkInHistory" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="Start" property="start" jdbcType="TIMESTAMP" />
+    <result column="Over" property="over" jdbcType="TIMESTAMP" />
+    <result column="CheckInType" property="checkintype" jdbcType="VARCHAR" />
+    <result column="Number" property="number" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Id, Start, Over, CheckInType, Number, State, Name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from checkinhistory
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from checkinhistory
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.whch.presentCloud.entity.checkInHistory" >
+    insert into checkinhistory (Id, Start, Over, 
+      CheckInType, Number, State, 
+      Name)
+    values (#{id,jdbcType=INTEGER}, #{start,jdbcType=TIMESTAMP}, #{over,jdbcType=TIMESTAMP}, 
+      #{checkintype,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.whch.presentCloud.entity.checkInHistory" >
+    insert into checkinhistory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="start != null" >
+        Start,
+      </if>
+      <if test="over != null" >
+        Over,
+      </if>
+      <if test="checkintype != null" >
+        CheckInType,
+      </if>
+      <if test="number != null" >
+        Number,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+      <if test="name != null" >
+        Name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="start != null" >
+        #{start,jdbcType=TIMESTAMP},
+      </if>
+      <if test="over != null" >
+        #{over,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkintype != null" >
+        #{checkintype,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.whch.presentCloud.entity.checkInHistory" >
+    update checkinhistory
+    <set >
+      <if test="start != null" >
+        Start = #{start,jdbcType=TIMESTAMP},
+      </if>
+      <if test="over != null" >
+        Over = #{over,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkintype != null" >
+        CheckInType = #{checkintype,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        Number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.whch.presentCloud.entity.checkInHistory" >
+    update checkinhistory
+    set Start = #{start,jdbcType=TIMESTAMP},
+      Over = #{over,jdbcType=TIMESTAMP},
+      CheckInType = #{checkintype,jdbcType=VARCHAR},
+      Number = #{number,jdbcType=VARCHAR},
+      State = #{state,jdbcType=INTEGER},
+      Name = #{name,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

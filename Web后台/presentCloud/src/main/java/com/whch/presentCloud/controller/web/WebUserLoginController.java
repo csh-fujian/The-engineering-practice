@@ -139,22 +139,43 @@ public class WebUserLoginController {
         if (Token.equals("")){
             System.out.println("token为空");
         }
-        admin Admin = userloginservice.adminlogin(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
-        userInfo user1 = userloginservice.login(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
-        if (Admin == null && user1 == null){
-            jsonObject.put("message", "未知错误");
-            return jsonObject;
+        if(user.getPhone()==null){
+            admin Admin = userloginservice.adminlogin(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
+            userInfo user1 = userloginservice.login(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
+            if (Admin == null && user1 == null){
+                jsonObject.put("message", "未知错误");
+                return jsonObject;
+            }
+            else if(Admin != null){
+                jsonObject.put("role", "admin");
+                jsonObject.put("nickname", Admin.getName());
+                jsonObject.put("layer", Admin.getAccount());
+                return jsonObject;
+            }
+            else{
+                jsonObject.put("role", "teacher");
+                jsonObject.put("nickname", user1.getNickname());
+                return jsonObject;
+            }
         }
-        else if(Admin != null){
-            jsonObject.put("role", "admin");
-            jsonObject.put("nickname", Admin.getName());
-            jsonObject.put("layer", Admin.getAccount());
-            return jsonObject;
-        }
-        else{
-            jsonObject.put("role", "teacher");
-            jsonObject.put("nickname", user1.getNickname());
-            return jsonObject;
+        else {
+            admin Admin = adminM.findOnebyPhone(user.getPhone(), sha256S.getSHA256Str(user.getPassword()));
+            userInfo user1 = userM.findOnebyPhone(user.getPhone(), sha256S.getSHA256Str(user.getPassword()));
+            if (Admin == null && user1 == null){
+                jsonObject.put("message", "未知错误");
+                return jsonObject;
+            }
+            else if(Admin != null){
+                jsonObject.put("role", "admin");
+                jsonObject.put("nickname", Admin.getName());
+                jsonObject.put("layer", Admin.getAccount());
+                return jsonObject;
+            }
+            else{
+                jsonObject.put("role", "teacher");
+                jsonObject.put("nickname", user1.getNickname());
+                return jsonObject;
+            }
         }
     }
 
