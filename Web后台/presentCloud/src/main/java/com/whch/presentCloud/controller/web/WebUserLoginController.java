@@ -94,6 +94,7 @@ public class WebUserLoginController {
             jsonObject.put("message", "用户登录成功");
             jsonObject.put("token", tokenString);
             jsonObject.put("role", "admin");
+            System.out.println("======1=======");
             jsonObject.put("layer", Admin.getAccount());
             return jsonObject;
         }
@@ -107,6 +108,7 @@ public class WebUserLoginController {
                 jsonObject.put("message", "用户登录成功");
                 jsonObject.put("token", tokenString);
                 jsonObject.put("role", "teacher");
+                System.out.println("======2=======");
                 return jsonObject;
             }
             jsonObject.put("message", "登录失败,该用户不是教师或管理员");
@@ -139,22 +141,43 @@ public class WebUserLoginController {
         if (Token.equals("")){
             System.out.println("token为空");
         }
-        admin Admin = userloginservice.adminlogin(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
-        userInfo user1 = userloginservice.login(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
-        if (Admin == null && user1 == null){
-            jsonObject.put("message", "未知错误");
-            return jsonObject;
+        if(user.getPhone()==null){
+            admin Admin = userloginservice.adminlogin(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
+            userInfo user1 = userloginservice.login(user.getNickname(), sha256S.getSHA256Str(user.getPassword()));
+            if (Admin == null && user1 == null){
+                jsonObject.put("message", "未知错误");
+                return jsonObject;
+            }
+            else if(Admin != null){
+                jsonObject.put("role", "admin");
+                jsonObject.put("phone", Admin.getPhone());
+                jsonObject.put("layer", Admin.getAccount());
+                return jsonObject;
+            }
+            else{
+                jsonObject.put("role", "teacher");
+                jsonObject.put("phone", user1.getPhone());
+                return jsonObject;
+            }
         }
-        else if(Admin != null){
-            jsonObject.put("role", "admin");
-            jsonObject.put("nickname", Admin.getName());
-            jsonObject.put("layer", Admin.getAccount());
-            return jsonObject;
-        }
-        else{
-            jsonObject.put("role", "teacher");
-            jsonObject.put("nickname", user1.getNickname());
-            return jsonObject;
+        else {
+            admin Admin = adminM.findOnebyPhone(user.getPhone(), sha256S.getSHA256Str(user.getPassword()));
+            userInfo user1 = userM.findOnebyPhone(user.getPhone(), sha256S.getSHA256Str(user.getPassword()));
+            if (Admin == null && user1 == null){
+                jsonObject.put("message", "未知错误");
+                return jsonObject;
+            }
+            else if(Admin != null){
+                jsonObject.put("role", "admin");
+                jsonObject.put("phone", Admin.getPhone());
+                jsonObject.put("layer", Admin.getAccount());
+                return jsonObject;
+            }
+            else{
+                jsonObject.put("role", "teacher");
+                jsonObject.put("phone", user1.getPhone());
+                return jsonObject;
+            }
         }
     }
 

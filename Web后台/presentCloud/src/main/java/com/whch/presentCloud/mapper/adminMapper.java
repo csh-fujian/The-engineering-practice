@@ -47,6 +47,8 @@ public interface adminMapper {
     @Update("update admin a set a.Password = #{password} where a.Name = #{name}")
     int updateadmin(@Param("password") String password, @Param("name") String name);
 
-    @Select("select * from admin a where a.phone = #{phone} and a.password = #{password}")
+    @Select("select * from admin a where a.Phone = #{phone} and a.Password = #{password}")
     admin findOnebyPhone(@Param("phone")String phone, @Param("password")String password);
+
+
 }
