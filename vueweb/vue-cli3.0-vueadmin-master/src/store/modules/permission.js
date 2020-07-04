@@ -55,11 +55,17 @@ export default {
                     Authorization: localStorage.getItem('token')
                }
             }).then(res => {
-				console.log(res.data.role)
+				console.log(res.data)
+				console.log(res)
 				getavatar = res.data.nickname
 				getname = res.data.role
 				if(res.data.role == "admin"){
-				rolelist = ['Design-role-manage1','Design-role-manage','user-manage-test','user-manage','administratorManagement','administrator','role-manage','menu','menumanage','dataDictionary','dataManage','typeManage','classManage','Viewclasslist','Checkmanage','Buttonmanagement','Buttonmanage','Perminssioninformanage','Perminssionlist']	
+					if(res.data.layer == '1'){
+									rolelist = ['Design-role-manage1','Design-role-manage','user-manage-test','user-manage','administratorManagement','administrator','role-manage','menu','menumanage','dataDictionary','dataManage','typeManage','classManage','Viewclasslist','Checkmanage','Buttonmanagement','Buttonmanage','Perminssioninformanage','Perminssionlist']	
+					}else{
+							rolelist = ['Design-role-manage1','Design-role-manage','user-manage-test','user-manage','role-manage','menu','menumanage','dataDictionary','dataManage','typeManage','classManage','Viewclasslist','Checkmanage','Buttonmanagement','Buttonmanage','Perminssioninformanage','Perminssionlist']
+					}
+
 			
 				}else{
 				rolelist = ['classManage','Workmanage','classStudentmanage','Buttonmanagement','Buttonmanage']	
