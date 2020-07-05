@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 47.112.239.108_3306
+ Source Server         : mysql_Alibaba
  Source Server Type    : MySQL
  Source Server Version : 50562
  Source Host           : 47.112.239.108:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50562
  File Encoding         : 65001
 
- Date: 03/07/2020 18:08:39
+ Date: 05/07/2020 17:05:10
 */
 
 SET NAMES utf8mb4;
@@ -24,9 +24,9 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `Account` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `Account` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`, `Name`) USING BTREE,
   UNIQUE INDEX `Name`(`Name`) USING BTREE,
   UNIQUE INDEX `Phone`(`Phone`) USING BTREE
@@ -40,6 +40,8 @@ INSERT INTO `admin` VALUES (2, 'lhd', '1', '643df07dec7401467aa28979cad56b2accd8
 INSERT INTO `admin` VALUES (3, 'csh', '1', 'e419730f7f23272873ebc12a062b7e16147721a806c93f84e46760976475c452', '18965151841');
 INSERT INTO `admin` VALUES (4, 'zal', '1', '60f625a863f0107e35f487259618ca05f4555428f4d1414b190c32ddfc19dd51', '18965151842');
 INSERT INTO `admin` VALUES (5, 'whc', '1', '48d653e5aab1feca4c22d93721fafbcb37091b913ef841240ea8a9ae805edb87', '18965151843');
+INSERT INTO `admin` VALUES (6, 'admin', '2', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '15900000001');
+INSERT INTO `admin` VALUES (7, 'czb', '1', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '15900000005');
 INSERT INTO `admin` VALUES (8, '王五', '2', '615ed7fb1504b0c724a296d7a69e6c7b2f9ea2c57c1d8206c5afdf392ebdfd25', '18965151844');
 INSERT INTO `admin` VALUES (12, '张三', '2', '615ed7fb1504b0c724a296d7a69e6c7b2f9ea2c57c1d8206c5afdf392ebdfd25', '18965151845');
 INSERT INTO `admin` VALUES (29, '小王', '2', '615ed7fb1504b0c724a296d7a69e6c7b2f9ea2c57c1d8206c5afdf392ebdfd25', '12121211111');
@@ -50,12 +52,12 @@ INSERT INTO `admin` VALUES (29, '小王', '2', '615ed7fb1504b0c724a296d7a69e6c7b
 DROP TABLE IF EXISTS `checkinhistory`;
 CREATE TABLE `checkinhistory`  (
   `Id` int(11) NOT NULL,
-  `Start` datetime DEFAULT NULL,
-  `Over` datetime DEFAULT NULL,
-  `CheckInType` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Number` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `State` int(11) DEFAULT NULL,
-  `Name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
+  `Start` datetime NULL DEFAULT NULL,
+  `Over` datetime NULL DEFAULT NULL,
+  `CheckInType` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Number` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `State` int(11) NULL DEFAULT NULL,
+  `Name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
@@ -83,6 +85,10 @@ INSERT INTO `checkinhistory` VALUES (40, '2020-07-02 22:24:29', '2020-07-02 22:2
 INSERT INTO `checkinhistory` VALUES (41, '2020-07-02 22:43:08', '2020-07-02 22:43:37', '2', '190327064', 1, '3');
 INSERT INTO `checkinhistory` VALUES (41, '2020-07-02 22:43:08', '2020-07-02 22:43:58', '2', '190327014', 1, '3');
 INSERT INTO `checkinhistory` VALUES (41, '2020-07-02 22:43:08', '2020-07-02 22:47:42', '2', '190327072', 1, '3');
+INSERT INTO `checkinhistory` VALUES (42, '2020-07-03 23:00:31', '2020-07-03 23:00:58', '1', '190327072', 1, '231250');
+INSERT INTO `checkinhistory` VALUES (43, '2020-07-03 23:13:03', '2020-07-03 23:13:15', '2', '190327072', 1, '231250');
+INSERT INTO `checkinhistory` VALUES (44, '2020-07-05 16:18:07', '2020-07-05 16:18:14', '1', '190327301', 1, '231251');
+INSERT INTO `checkinhistory` VALUES (45, '2020-07-05 16:18:33', '2020-07-05 16:18:43', '2', '190327301', 1, '231251');
 
 -- ----------------------------
 -- Table structure for classcoursemember
@@ -90,12 +96,12 @@ INSERT INTO `checkinhistory` VALUES (41, '2020-07-02 22:43:08', '2020-07-02 22:4
 DROP TABLE IF EXISTS `classcoursemember`;
 CREATE TABLE `classcoursemember`  (
   `ClassId` int(11) NOT NULL,
-  `StudentName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `StudentId` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ClassName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `TeacherName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `TeacherId` int(11) DEFAULT NULL,
-  `Experience` int(11) DEFAULT NULL
+  `StudentName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `StudentId` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ClassName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `TeacherName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `TeacherId` int(11) NULL DEFAULT NULL,
+  `Experience` int(11) NULL DEFAULT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
@@ -111,6 +117,8 @@ INSERT INTO `classcoursemember` VALUES (3, '柳煌达', '190327064', '密码学'
 INSERT INTO `classcoursemember` VALUES (233, '庄', '190327107', '测试班课1', '池芝标', 190327113, 2);
 INSERT INTO `classcoursemember` VALUES (233, '柳', '190327108', '测试班课1', '池芝标', 190327113, 0);
 INSERT INTO `classcoursemember` VALUES (233, '王', '190327109', '测试班课1', '池芝标', 190327113, 1);
+INSERT INTO `classcoursemember` VALUES (231250, '王海朝', '190327072', '工程实训2.0', '池升恒', 190327022, 14);
+INSERT INTO `classcoursemember` VALUES (231251, 'student1', '190327301', '2019级工程实训', 'teacher', 190327200, 14);
 
 -- ----------------------------
 -- Table structure for classlesson
@@ -118,34 +126,33 @@ INSERT INTO `classcoursemember` VALUES (233, '王', '190327109', '测试班课1'
 DROP TABLE IF EXISTS `classlesson`;
 CREATE TABLE `classlesson`  (
   `ClassId` int(11) NOT NULL AUTO_INCREMENT,
-  `ClassName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `TeacherName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `TeacherId` int(11) DEFAULT NULL,
-  `type` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Master` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `People_Count` int(11) DEFAULT NULL,
-  `Location` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ClassTime` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `College` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `School` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `CreatTime` datetime DEFAULT NULL,
+  `ClassName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `TeacherName` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `TeacherId` int(11) NULL DEFAULT NULL,
+  `type` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Master` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `People_Count` int(11) NULL DEFAULT NULL,
+  `Location` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ClassTime` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `College` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `School` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `CreatTime` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`ClassId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 231250 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 231252 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of classlesson
 -- ----------------------------
-INSERT INTO `classlesson` VALUES (1, '2', '池指标', 190327113, NULL, NULL, NULL, NULL, '2020-2021-2', '音乐学院', '福建师范大学', '2020-07-02 12:13:17');
-INSERT INTO `classlesson` VALUES (2, '高等数学', '张三', 190327201, 'over', NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-06-26 09:30:11');
-INSERT INTO `classlesson` VALUES (3, '密码学', '张三', 190327201, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', NULL);
-INSERT INTO `classlesson` VALUES (4, '三国', '张三', 2, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-06-26 21:50:06');
-INSERT INTO `classlesson` VALUES (10, '中特', '张三', 2, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-06-26 21:57:49');
-INSERT INTO `classlesson` VALUES (11, '工程英语', '张三', 2, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-06-26 22:03:17');
-INSERT INTO `classlesson` VALUES (111, 'test', '池芝标', 190327113, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-07-02 12:17:20');
+INSERT INTO `classlesson` VALUES (3, '密码学', '张三', 190327201, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-06-26 21:48:07');
+INSERT INTO `classlesson` VALUES (4, '三国', '张三', 190327201, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-06-26 21:50:06');
+INSERT INTO `classlesson` VALUES (10, '中特', '张三', 190327201, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-06-26 21:57:49');
+INSERT INTO `classlesson` VALUES (11, '工程英语', '张三', 190327201, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-06-26 22:03:17');
 INSERT INTO `classlesson` VALUES (233, '测试班课1', '池芝标', 190327113, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-07-02 01:55:20');
 INSERT INTO `classlesson` VALUES (2323, '测试班课2', '池芝标', 190327113, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-07-02 01:57:22');
 INSERT INTO `classlesson` VALUES (121212, '测试班课3', '池芝标', 190327113, NULL, NULL, NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-07-02 01:59:35');
-INSERT INTO `classlesson` VALUES (231249, '设计', '张三', 190327201, NULL, '工程实训', NULL, NULL, '2020-2021-2', '数计学院', '福州大学', '2020-07-02 20:16:31');
+INSERT INTO `classlesson` VALUES (231249, '设计', '张三', 190327201, NULL, '工程实训', NULL, NULL, '2020-2021-2', '数学与计算机科学学院', '福州大学', '2020-07-02 20:16:31');
+INSERT INTO `classlesson` VALUES (231250, '工程实训2.0', '池升恒', 190327022, NULL, '2019级计算机', NULL, NULL, '2019-2020-2', '数学与计算机科学学院', '福州大学', '2020-07-03 22:35:19');
+INSERT INTO `classlesson` VALUES (231251, '2019级工程实训', 'teacher', 190327200, NULL, '2019级测试班课', NULL, NULL, '2019-2020-1', '数学与计算机科学学院', '福州大学', '2020-07-05 16:14:38');
 
 -- ----------------------------
 -- Table structure for dictionarytype
@@ -153,13 +160,13 @@ INSERT INTO `classlesson` VALUES (231249, '设计', '张三', 190327201, NULL, '
 DROP TABLE IF EXISTS `dictionarytype`;
 CREATE TABLE `dictionarytype`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `TypeD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Description` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Creator` int(20) DEFAULT NULL,
-  `CreatorDate` datetime DEFAULT NULL,
-  `ModificationDate` datetime DEFAULT NULL,
-  `Modifier` int(20) DEFAULT NULL,
+  `Type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `TypeD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Description` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Creator` int(20) NULL DEFAULT NULL,
+  `CreatorDate` datetime NULL DEFAULT NULL,
+  `ModificationDate` datetime NULL DEFAULT NULL,
+  `Modifier` int(20) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -175,10 +182,10 @@ INSERT INTO `dictionarytype` VALUES (20, '性别', 'sexy', NULL, NULL, NULL, NUL
 DROP TABLE IF EXISTS `directorydata`;
 CREATE TABLE `directorydata`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `TypeD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `KeyD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ValueD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `DefaultValueD` int(1) DEFAULT NULL,
+  `TypeD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `KeyD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ValueD` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `DefaultValueD` int(1) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -197,9 +204,9 @@ INSERT INTO `directorydata` VALUES (5, 'role', 'assistant', '助教', 0);
 DROP TABLE IF EXISTS `experience`;
 CREATE TABLE `experience`  (
   `StudentId` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `Name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ExperienceValue` int(10) DEFAULT NULL,
-  `ClassId` int(11) DEFAULT NULL,
+  `Name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ExperienceValue` int(10) NULL DEFAULT NULL,
+  `ClassId` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`StudentId`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -209,15 +216,15 @@ CREATE TABLE `experience`  (
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu`  (
   `Id` int(100) NOT NULL AUTO_INCREMENT,
-  `SuperiorMenuNumber` int(100) DEFAULT NULL,
-  `MenuName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ButtonEnglichlogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ButtonChineselogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `IsMenu` int(3) DEFAULT NULL,
-  `Creator` int(10) DEFAULT NULL,
-  `CreationDate` datetime DEFAULT NULL,
-  `ModificationDate` datetime DEFAULT NULL,
-  `Modifier` int(10) DEFAULT NULL,
+  `SuperiorMenuNumber` int(100) NULL DEFAULT NULL,
+  `MenuName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ButtonEnglichlogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ButtonChineselogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `IsMenu` int(3) NULL DEFAULT NULL,
+  `Creator` int(10) NULL DEFAULT NULL,
+  `CreationDate` datetime NULL DEFAULT NULL,
+  `ModificationDate` datetime NULL DEFAULT NULL,
+  `Modifier` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 112 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -283,15 +290,15 @@ INSERT INTO `menu` VALUES (59, 49, '隐私设计', NULL, NULL, 3, NULL, NULL, NU
 DROP TABLE IF EXISTS `permission`;
 CREATE TABLE `permission`  (
   `Id` int(100) NOT NULL AUTO_INCREMENT,
-  `SuperiorMenuNumber` int(100) DEFAULT NULL,
-  `MenuName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ButtonEnglishlogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ButtonChineselogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `IsMenu` int(3) DEFAULT NULL,
-  `Creator` int(10) DEFAULT NULL,
-  `CreationDate` datetime DEFAULT NULL,
-  `ModificationDate` datetime DEFAULT NULL,
-  `Modifier` int(10) DEFAULT NULL,
+  `SuperiorMenuNumber` int(100) NULL DEFAULT NULL,
+  `MenuName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ButtonEnglishlogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ButtonChineselogo` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `IsMenu` int(3) NULL DEFAULT NULL,
+  `Creator` int(10) NULL DEFAULT NULL,
+  `CreationDate` datetime NULL DEFAULT NULL,
+  `ModificationDate` datetime NULL DEFAULT NULL,
+  `Modifier` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 116 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -367,8 +374,8 @@ INSERT INTO `permission` VALUES (63, 44, '查看点赞数', NULL, NULL, 4, NULL,
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `MenuId` int(11) DEFAULT NULL,
+  `Name` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MenuId` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -385,58 +392,14 @@ INSERT INTO `role` VALUES (20, '学生', NULL);
 DROP TABLE IF EXISTS `rolemenu`;
 CREATE TABLE `rolemenu`  (
   `id` int(200) NOT NULL AUTO_INCREMENT,
-  `role` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `menu` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `role` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `menu` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 486 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 529 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of rolemenu
 -- ----------------------------
-INSERT INTO `rolemenu` VALUES (1, '学生', '班课频道');
-INSERT INTO `rolemenu` VALUES (2, '学生', '加入班级');
-INSERT INTO `rolemenu` VALUES (3, '学生', '班课号加入班级');
-INSERT INTO `rolemenu` VALUES (4, '学生', '二维码加入班级');
-INSERT INTO `rolemenu` VALUES (5, '学生', '班课信息');
-INSERT INTO `rolemenu` VALUES (6, '学生', '搜索班课');
-INSERT INTO `rolemenu` VALUES (7, '学生', '排序');
-INSERT INTO `rolemenu` VALUES (8, '学生', '班课详情-成员');
-INSERT INTO `rolemenu` VALUES (9, '学生', '签到');
-INSERT INTO `rolemenu` VALUES (10, '学生', '心意卡片');
-INSERT INTO `rolemenu` VALUES (11, '学生', '小组方案');
-INSERT INTO `rolemenu` VALUES (12, '学生', '切换排序');
-INSERT INTO `rolemenu` VALUES (13, '学生', '成员列表');
-INSERT INTO `rolemenu` VALUES (14, '学生', '班课详情-活动');
-INSERT INTO `rolemenu` VALUES (15, '学生', '活动列表');
-INSERT INTO `rolemenu` VALUES (16, '学生', '班课详情-消息');
-INSERT INTO `rolemenu` VALUES (17, '学生', '班课详情-详情');
-INSERT INTO `rolemenu` VALUES (18, '学生', '信息列表');
-INSERT INTO `rolemenu` VALUES (19, '学生', '修改信息列表');
-INSERT INTO `rolemenu` VALUES (20, '学生', '退出班课');
-INSERT INTO `rolemenu` VALUES (21, '学生', '班课详情-资源');
-INSERT INTO `rolemenu` VALUES (22, '学生', '发现');
-INSERT INTO `rolemenu` VALUES (23, '学生', '发现-首页');
-INSERT INTO `rolemenu` VALUES (24, '学生', '扫码加入班课');
-INSERT INTO `rolemenu` VALUES (25, '学生', '发现-课程圈');
-INSERT INTO `rolemenu` VALUES (26, '学生', '发现-社区');
-INSERT INTO `rolemenu` VALUES (27, '学生', '我的频道');
-INSERT INTO `rolemenu` VALUES (28, '学生', '我的频道-首页');
-INSERT INTO `rolemenu` VALUES (29, '学生', '个人信息');
-INSERT INTO `rolemenu` VALUES (30, '学生', '查看经验值');
-INSERT INTO `rolemenu` VALUES (31, '学生', '签到数');
-INSERT INTO `rolemenu` VALUES (32, '学生', '解答数');
-INSERT INTO `rolemenu` VALUES (33, '学生', '查看点赞数');
-INSERT INTO `rolemenu` VALUES (34, '学生', '我的频道-设置');
-INSERT INTO `rolemenu` VALUES (35, '学生', '关联手机');
-INSERT INTO `rolemenu` VALUES (36, '学生', '关联邮箱');
-INSERT INTO `rolemenu` VALUES (37, '学生', '修改密码');
-INSERT INTO `rolemenu` VALUES (38, '学生', '查看用户协议');
-INSERT INTO `rolemenu` VALUES (39, '学生', '查看隐私政策');
-INSERT INTO `rolemenu` VALUES (40, '学生', '查看关于我们');
-INSERT INTO `rolemenu` VALUES (41, '学生', '缓存管理');
-INSERT INTO `rolemenu` VALUES (42, '学生', '检查更新');
-INSERT INTO `rolemenu` VALUES (43, '学生', '反馈、投诉与建议');
-INSERT INTO `rolemenu` VALUES (44, '学生', '隐私设计');
 INSERT INTO `rolemenu` VALUES (382, '助教', '班课频道');
 INSERT INTO `rolemenu` VALUES (383, '助教', '班课管理');
 INSERT INTO `rolemenu` VALUES (384, '助教', '班课搜索');
@@ -541,6 +504,49 @@ INSERT INTO `rolemenu` VALUES (482, '教师', '反馈、投诉与建议');
 INSERT INTO `rolemenu` VALUES (483, '教师', '隐私设计');
 INSERT INTO `rolemenu` VALUES (484, '教师', '签到');
 INSERT INTO `rolemenu` VALUES (485, '教师', '班课信息');
+INSERT INTO `rolemenu` VALUES (486, '学生', '班课频道');
+INSERT INTO `rolemenu` VALUES (487, '学生', '加入班级');
+INSERT INTO `rolemenu` VALUES (488, '学生', '班课详情-成员');
+INSERT INTO `rolemenu` VALUES (489, '学生', '心意卡片');
+INSERT INTO `rolemenu` VALUES (490, '学生', '小组方案');
+INSERT INTO `rolemenu` VALUES (491, '学生', '切换排序');
+INSERT INTO `rolemenu` VALUES (492, '学生', '成员列表');
+INSERT INTO `rolemenu` VALUES (493, '学生', '签到');
+INSERT INTO `rolemenu` VALUES (494, '学生', '班课详情-活动');
+INSERT INTO `rolemenu` VALUES (495, '学生', '活动列表');
+INSERT INTO `rolemenu` VALUES (496, '学生', '班课详情-消息');
+INSERT INTO `rolemenu` VALUES (497, '学生', '班课详情-详情');
+INSERT INTO `rolemenu` VALUES (498, '学生', '信息列表');
+INSERT INTO `rolemenu` VALUES (499, '学生', '修改信息列表');
+INSERT INTO `rolemenu` VALUES (500, '学生', '退出班课');
+INSERT INTO `rolemenu` VALUES (501, '学生', '班课详情-资源');
+INSERT INTO `rolemenu` VALUES (502, '学生', '班课信息');
+INSERT INTO `rolemenu` VALUES (503, '学生', '搜索班课');
+INSERT INTO `rolemenu` VALUES (504, '学生', '发现');
+INSERT INTO `rolemenu` VALUES (505, '学生', '发现-首页');
+INSERT INTO `rolemenu` VALUES (506, '学生', '扫码加入班课');
+INSERT INTO `rolemenu` VALUES (507, '学生', '发现-课程圈');
+INSERT INTO `rolemenu` VALUES (508, '学生', '发现-社区');
+INSERT INTO `rolemenu` VALUES (509, '学生', '我的频道');
+INSERT INTO `rolemenu` VALUES (510, '学生', '我的频道-首页');
+INSERT INTO `rolemenu` VALUES (511, '学生', '个人信息');
+INSERT INTO `rolemenu` VALUES (512, '学生', '查看经验值');
+INSERT INTO `rolemenu` VALUES (513, '学生', '签到数');
+INSERT INTO `rolemenu` VALUES (514, '学生', '解答数');
+INSERT INTO `rolemenu` VALUES (515, '学生', '查看点赞数');
+INSERT INTO `rolemenu` VALUES (516, '学生', '我的频道-设置');
+INSERT INTO `rolemenu` VALUES (517, '学生', '关联手机');
+INSERT INTO `rolemenu` VALUES (518, '学生', '关联邮箱');
+INSERT INTO `rolemenu` VALUES (519, '学生', '修改密码');
+INSERT INTO `rolemenu` VALUES (520, '学生', '查看用户协议');
+INSERT INTO `rolemenu` VALUES (521, '学生', '查看隐私政策');
+INSERT INTO `rolemenu` VALUES (522, '学生', '查看关于我们');
+INSERT INTO `rolemenu` VALUES (523, '学生', '缓存管理');
+INSERT INTO `rolemenu` VALUES (524, '学生', '检查更新');
+INSERT INTO `rolemenu` VALUES (525, '学生', '反馈、投诉与建议');
+INSERT INTO `rolemenu` VALUES (526, '学生', '隐私设计');
+INSERT INTO `rolemenu` VALUES (527, '学生', '班课号加入班课');
+INSERT INTO `rolemenu` VALUES (528, '学生', '二维码加入班课');
 
 -- ----------------------------
 -- Table structure for signin
@@ -549,14 +555,14 @@ DROP TABLE IF EXISTS `signin`;
 CREATE TABLE `signin`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `UserId` int(11) NOT NULL,
-  `SignInType` int(11) DEFAULT NULL,
-  `EndTime` datetime DEFAULT NULL,
+  `SignInType` int(11) NULL DEFAULT NULL,
+  `EndTime` datetime NULL DEFAULT NULL,
   `Publisher` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `ClassId` int(11) DEFAULT NULL,
-  `StartTime` datetime DEFAULT NULL,
+  `ClassId` int(11) NULL DEFAULT NULL,
+  `StartTime` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `FK_Reference_4`(`UserId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of signin
@@ -602,6 +608,10 @@ INSERT INTO `signin` VALUES (38, 190327201, 2, '2020-07-02 21:46:45', '119.65583
 INSERT INTO `signin` VALUES (39, 190327201, 2, '2020-07-02 21:55:32', '118.905985,24.960703,1-2-3', 231249, '2020-07-02 21:50:26');
 INSERT INTO `signin` VALUES (40, 190327201, 1, '2020-07-02 22:26:50', '119.65568,26.957101', 3, '2020-07-02 22:24:29');
 INSERT INTO `signin` VALUES (41, 190327201, 2, '2020-07-02 22:44:55', '119.655721,26.956894,1-2-3', 3, '2020-07-02 22:43:08');
+INSERT INTO `signin` VALUES (42, 190327022, 1, '2020-07-03 23:01:13', '119.655714,26.956876', 231250, '2020-07-03 23:00:31');
+INSERT INTO `signin` VALUES (43, 190327022, 2, '2020-07-03 23:13:31', '119.655727,26.956864,1-2-3-6-9', 231250, '2020-07-03 23:13:03');
+INSERT INTO `signin` VALUES (44, 190327200, 1, '2020-07-05 16:18:26', '119.651047,26.960547', 231251, '2020-07-05 16:18:07');
+INSERT INTO `signin` VALUES (45, 190327200, 2, '2020-07-05 16:18:50', '119.651008,26.960552,1-2-3', 231251, '2020-07-05 16:18:33');
 
 -- ----------------------------
 -- Table structure for systemparameter
@@ -609,8 +619,8 @@ INSERT INTO `signin` VALUES (41, 190327201, 2, '2020-07-02 22:44:55', '119.65572
 DROP TABLE IF EXISTS `systemparameter`;
 CREATE TABLE `systemparameter`  (
   `Id` int(10) NOT NULL AUTO_INCREMENT,
-  `Name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `Name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Value` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
@@ -631,17 +641,17 @@ DROP TABLE IF EXISTS `task`;
 CREATE TABLE `task`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `UserId` int(11) NOT NULL,
-  `Grade` int(11) DEFAULT NULL,
-  `Answer` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `GradePoint` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Task` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ClassId` int(11) DEFAULT NULL,
-  `Team` int(11) DEFAULT NULL,
-  `ScoringMethod` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `LastSubmitTime` datetime DEFAULT NULL,
+  `Grade` int(11) NULL DEFAULT NULL,
+  `Answer` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `GradePoint` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Task` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ClassId` int(11) NULL DEFAULT NULL,
+  `Team` int(11) NULL DEFAULT NULL,
+  `ScoringMethod` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `LastSubmitTime` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `FK_Reference_5`(`UserId`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of task
@@ -656,6 +666,9 @@ INSERT INTO `task` VALUES (7, 190327201, 10, NULL, '测试使用', '测试任务
 INSERT INTO `task` VALUES (8, 190327201, 10, NULL, '任务详情', '添加任务', 3, NULL, NULL, '2020-07-02 05:00:00');
 INSERT INTO `task` VALUES (9, 190327201, 10, NULL, '详情……', '发布任务1', 3, NULL, NULL, '2020-07-02 08:00:00');
 INSERT INTO `task` VALUES (10, 190327201, 10, NULL, '详情……', '发布任务2', 3, NULL, NULL, '2020-07-03 22:00:00');
+INSERT INTO `task` VALUES (11, 190327022, 10, NULL, '设计app登录', '第一周作业', 1, NULL, NULL, '2020-07-04 04:00:00');
+INSERT INTO `task` VALUES (12, 190327022, 10, NULL, 'app登录页面', '第一周作业', 231250, NULL, NULL, '2020-07-06 05:00:00');
+INSERT INTO `task` VALUES (13, 190327200, 10, NULL, '提交工程代码', '第一周代码提交', 231251, NULL, NULL, '2020-07-06 04:00:00');
 
 -- ----------------------------
 -- Table structure for taskmemory
@@ -664,19 +677,19 @@ DROP TABLE IF EXISTS `taskmemory`;
 CREATE TABLE `taskmemory`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `StudentId` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `IsParticipate` int(11) DEFAULT NULL,
-  `Grade` int(11) DEFAULT NULL,
-  `Anser` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `GradePoint` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Task` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `ClassId` int(11) DEFAULT NULL,
-  `Team` int(11) DEFAULT NULL,
-  `ScoringMethod` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `LastSubmitTime` datetime DEFAULT NULL,
+  `IsParticipate` int(11) NULL DEFAULT NULL,
+  `Grade` int(11) NULL DEFAULT NULL,
+  `Anser` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `GradePoint` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Task` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ClassId` int(11) NULL DEFAULT NULL,
+  `Team` int(11) NULL DEFAULT NULL,
+  `ScoringMethod` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `LastSubmitTime` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `FK_Reference_6`(`StudentId`) USING BTREE,
   CONSTRAINT `taskmemory_ibfk_1` FOREIGN KEY (`StudentId`) REFERENCES `userinfo` (`Number`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of taskmemory
@@ -688,6 +701,8 @@ INSERT INTO `taskmemory` VALUES (8, '190327014', 1, 10, 'vsf个大V是', NULL, '
 INSERT INTO `taskmemory` VALUES (9, '190327014', 1, 10, '任务提交', NULL, '7', 231249, NULL, NULL, '2020-07-08 04:00:00');
 INSERT INTO `taskmemory` VALUES (10, '190327072', 1, 10, '是好事还是', NULL, '10', 3, NULL, NULL, '2020-07-03 22:00:00');
 INSERT INTO `taskmemory` VALUES (11, '190327014', 1, 10, '。。。', NULL, '10', 3, NULL, NULL, '2020-07-03 22:00:00');
+INSERT INTO `taskmemory` VALUES (12, '190327072', 1, 10, '代码……\n……\n……', NULL, '12', 231250, NULL, NULL, '2020-07-06 05:00:00');
+INSERT INTO `taskmemory` VALUES (13, '190327301', 1, 10, 'System.out.println(\"hello word\")', NULL, '13', 231251, NULL, NULL, '2020-07-06 04:00:00');
 
 -- ----------------------------
 -- Table structure for usercheck
@@ -695,15 +710,15 @@ INSERT INTO `taskmemory` VALUES (11, '190327014', 1, 10, '。。。', NULL, '10'
 DROP TABLE IF EXISTS `usercheck`;
 CREATE TABLE `usercheck`  (
   `Id` int(11) NOT NULL,
-  `Fk_UserInfo_UserCheck_Id` int(11) DEFAULT NULL,
-  `Type` int(11) DEFAULT NULL,
-  `ThirdParty` int(11) DEFAULT NULL,
-  `Identifier` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `PasswordToken` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `CreationDate` datetime DEFAULT NULL,
-  `Creater` int(11) DEFAULT NULL,
-  `ModificationDate` datetime DEFAULT NULL,
-  `Modifier` char(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `Fk_UserInfo_UserCheck_Id` int(11) NULL DEFAULT NULL,
+  `Type` int(11) NULL DEFAULT NULL,
+  `ThirdParty` int(11) NULL DEFAULT NULL,
+  `Identifier` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `PasswordToken` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `CreationDate` datetime NULL DEFAULT NULL,
+  `Creater` int(11) NULL DEFAULT NULL,
+  `ModificationDate` datetime NULL DEFAULT NULL,
+  `Modifier` char(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `FK_Reference_1`(`Fk_UserInfo_UserCheck_Id`) USING BTREE,
   CONSTRAINT `FK_Reference_1` FOREIGN KEY (`Fk_UserInfo_UserCheck_Id`) REFERENCES `userinfo` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -716,41 +731,44 @@ DROP TABLE IF EXISTS `userinfo`;
 CREATE TABLE `userinfo`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Number` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Image` mediumblob,
-  `NickName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Birthday` date DEFAULT NULL,
-  `Sex` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `School` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Department` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Role` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `Master` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `CreationDate` datetime DEFAULT NULL,
-  `ModificationDate` datetime DEFAULT NULL,
-  `Creator` int(11) DEFAULT NULL,
-  `Modifier` int(11) DEFAULT NULL,
+  `password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Image` mediumblob NULL,
+  `NickName` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Birthday` date NULL DEFAULT NULL,
+  `Sex` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `School` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Department` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Role` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Master` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `CreationDate` datetime NULL DEFAULT NULL,
+  `ModificationDate` datetime NULL DEFAULT NULL,
+  `Creator` int(11) NULL DEFAULT NULL,
+  `Modifier` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`Id`, `Number`) USING BTREE,
   UNIQUE INDEX `Number`(`Number`) USING BTREE,
   UNIQUE INDEX `Id`(`Id`) USING BTREE,
   UNIQUE INDEX `NickName`(`NickName`) USING BTREE,
   UNIQUE INDEX `Phone`(`Phone`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 114 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 115 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of userinfo
 -- ----------------------------
+INSERT INTO `userinfo` VALUES (1, '190327200', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'teacher', NULL, 'teacher', '1970-08-10', '男', '福州大学', '数学与计算机科学学院', '教师', '15900000002', '计算机技术', '2020-07-04 17:13:34', NULL, NULL, NULL);
 INSERT INTO `userinfo` VALUES (2, '190327201', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '张三', NULL, '李四', '2020-10-10', '男', '福州大学', '数学与计算机科学学院', '教师', '18965151839', '计算机技术', '2020-07-03 00:23:40', NULL, NULL, NULL);
-INSERT INTO `userinfo` VALUES (3, '190327014', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '黎明', NULL, '旺财', '2020-10-10', '男', '厦门大学', '国际关系学院', '学生', '18111111111', '计算机技术', NULL, NULL, NULL, NULL);
-INSERT INTO `userinfo` VALUES (5, '190327111', '615ed7fb1504b0c724a296d7a69e6c7b2f9ea2c57c1d8206c5afdf392ebdfd25', '李四', NULL, '喵喵', NULL, '男', '厦门大学', '管理学院', '学生', '13276555555', '计算机技术', NULL, NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (3, '190327014', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '黎明', NULL, '旺财', '2020-10-10', '男', '厦门大学', '国际关系学院', '学生', '18111111111', '会计学', NULL, NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (4, '190327301', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'student1', NULL, 'student1', '1996-07-12', '男', '福州大学', '数学与计算机科学学院', '学生', '15900000003', '计算机技术', '2020-07-04 17:14:31', NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (5, '190327111', '615ed7fb1504b0c724a296d7a69e6c7b2f9ea2c57c1d8206c5afdf392ebdfd25', '李四', NULL, '喵喵', NULL, '男', '厦门大学', '管理学院', '学生', '13276555555', '经济管理学', NULL, NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (6, '190327302', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'student2', NULL, 'student2', '1988-09-10', '女', '福州大学', '数学与计算机科学学院', '学生', '15900000004', '计算机技术', '2020-07-04 17:15:20', NULL, NULL, NULL);
 INSERT INTO `userinfo` VALUES (69, '190327112', '615ed7fb1504b0c724a296d7a69e6c7b2f9ea2c57c1d8206c5afdf392ebdfd25', '池升恒', NULL, '嘤嘤怪', NULL, '男', '福州大学', '数学与计算机科学学院', '学生', '15963248122', '计算机技术', NULL, NULL, NULL, NULL);
 INSERT INTO `userinfo` VALUES (70, '190327113', 'bcbac47c6b7c244acea485e5791fb23daf096220e42d1bf68aedbae3794b4a63', '池芝标', NULL, '测试教师', NULL, '男', '福州大学', '数学与计算机科学学院', '教师', '15963248123', '计算机技术', NULL, NULL, NULL, NULL);
-INSERT INTO `userinfo` VALUES (84, '190327012', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '池升恒', NULL, 'nickname', '2020-11-10', 'male', '福州大学', '数计学院', '教师', '15078383033', '计算机技术', '2020-07-02 15:39:52', NULL, NULL, NULL);
-INSERT INTO `userinfo` VALUES (87, '190327072', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '王海朝', NULL, NULL, NULL, '男', '福州大学', '数学与计算机科学学院', '学生', '18238797860', '计算机技术', '2020-07-02 22:00:39', NULL, NULL, NULL);
-INSERT INTO `userinfo` VALUES (88, '190327021', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '柳煌达', NULL, NULL, NULL, '男', '福州大学', '数学与计算机科学学院', '学生', '15078383011', '', '2020-07-02 22:12:02', NULL, NULL, NULL);
-INSERT INTO `userinfo` VALUES (90, '190327064', '1968e64810e7f8bf475d3f78420d39f01074515f24568cf798d79cde54e92ad5', '柳煌达', NULL, NULL, NULL, '男', '福州大学', '数学与计算机科学学院', '学生', '13358551999', '计算机技术', '2020-07-02 22:21:22', NULL, NULL, NULL);
-INSERT INTO `userinfo` VALUES (91, '190327065', '615ed7fb1504b0c724a296d7a69e6c7b2f9ea2c57c1d8206c5afdf392ebdfd25', '庄红兵', NULL, 'xiaozhuang', NULL, '男', '福州大学', '经济与管理学院', '学生', '13311111111', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `userinfo` VALUES (113, '123456', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '池升恒', NULL, NULL, NULL, '男', 'd', 'd', '学生', '15078380000', 'd', '2020-07-03 17:06:07', NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (87, '190327072', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '王海朝', NULL, '朝', '2020-09-10', '男', '福州大学', '数学与计算机科学学院', '学生', '18238797860', '计算机技术', '2020-07-02 22:00:39', NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (88, '190327021', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '柳煌达', NULL, '柳1', NULL, '男', '福州大学', '数学与计算机科学学院', '学生', '15078383011', '计算机技术', '2020-07-02 22:12:02', NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (90, '190327064', '1968e64810e7f8bf475d3f78420d39f01074515f24568cf798d79cde54e92ad5', '柳煌达', NULL, '柳2', NULL, '男', '福州大学', '数学与计算机科学学院', '学生', '13358551999', '计算机技术', '2020-07-02 22:21:22', NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (91, '190327065', '615ed7fb1504b0c724a296d7a69e6c7b2f9ea2c57c1d8206c5afdf392ebdfd25', '庄红兵', NULL, 'xiaozhuang', NULL, '男', '福州大学', '经济与管理学院', '学生', '13311111111', '会计学', NULL, NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (113, '123456', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '池升恒', NULL, 'about1', NULL, '男', '福建师范大学', '音乐学院', '学生', '15078380000', '计算机技术', '2020-07-03 17:06:07', NULL, NULL, NULL);
+INSERT INTO `userinfo` VALUES (114, '190327022', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '池升恒', NULL, 'about2', '2020-08-10', '男', '福州大学', '计算机与信息安全学院', '教师', '15078383033', '计算机技术', '2020-07-03 18:13:34', NULL, NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
